@@ -1,0 +1,232 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+
+    <Button name="PremadeGroupsFilterInfoButtonTemplate" virtual="true">
+        <Size x="64" y="64"/>
+        <HitRectInsets>
+            <AbsInset left="20" right="20" top="20" bottom="20"/>
+        </HitRectInsets>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="I" file="Interface\common\help-i">
+                    <Size x="46" y="46"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Button>
+
+    <!-- basic template for a filter row: a checkbox and a title -->
+    <Frame name="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Size x="280" y="23"/>
+        <Frames>
+            <CheckButton parentKey="Act" inherits="UICheckButtonTemplate" checked="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+        <Layers>
+            <Layer>
+                <FontString parentKey="Title" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
+                    <Size x="130" y="17"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="35" y="-6"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <!-- filter row with a dropdown box after the checkbox and the title -->
+    <Frame name="PremadeGroupsFilterDropdownTemplate" inherits="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Frames>
+            <!-- the name attribute is required on dropdowns -->
+            <Frame name="$parentDropDown" parentKey="DropDown" inherits="UIDropDownMenuTemplate">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="11"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+
+    <!-- filter row with minimum and maximum input box after the checkbox and the title -->
+    <Frame name="PremadeGroupsFilterMinMaxTemplate" inherits="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Frames>
+            <EditBox parentKey="Min" inherits="InputBoxTemplate" autoFocus="false" letters="2" numeric="true">
+                <Size x="30" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="175" y="-4"/>
+                </Anchors>
+            </EditBox>
+            <EditBox parentKey="Max" inherits="InputBoxTemplate" autoFocus="false" letters="2" numeric="true">
+                <Size x="30" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="245" y="-4"/>
+                </Anchors>
+            </EditBox>
+        </Frames>
+        <Layers>
+            <Layer>
+                <FontString parentKey="To" inherits="GameFontHighlight" wordwrap="false">
+                    <Size x="30" y="20"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="207" y="-6"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="PremadeGroupsFilterDialog" frameStrata="MEDIUM" parent="UIParent" clampedToScreen="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
+        <Size x="300" y="430"/>
+        <Anchors>
+            <Anchor point="TOPLEFT"/>
+        </Anchors>
+        <Layers>
+            <Layer level="OVERLAY">
+                <!-- the text in the title bar -->
+                <FontString parentKey="Title" inherits="GameFontNormal" wordwrap="false">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10"/>
+                        <Anchor point="RIGHT" x="-10"/>
+                        <Anchor point="TOP" y="-5"/>
+                    </Anchors>
+                </FontString>
+                <!-- text explaining the simple checkbox filters -->
+                <FontString parentKey="SimpleExplanation" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size y="70"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="10"/>
+                        <Anchor point="RIGHT" x="-10"/>
+                        <Anchor point="TOP" y="-8"/>
+                    </Anchors>
+                </FontString>
+                <!-- text explaining that members etc are the current state of the group -->
+                <FontString parentKey="StateExplanation" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="180" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="14" y="-161"/>
+                    </Anchors>
+                </FontString>
+                <!-- min -->
+                <FontString parentKey="MinExplanation" inherits="GameFontNormal" justifyH="CENTER">
+                    <Size x="60" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="167" y="-161"/>
+                    </Anchors>
+                </FontString>
+                <!-- max -->
+                <FontString parentKey="MaxExplanation" inherits="GameFontNormal" justifyH="CENTER">
+                    <Size x="60" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="236" y="-161"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="9" y="-67"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Ilvl" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Noilvl" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Ilvl" relativePoint="BOTTOMLEFT" x="30" y="3"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Defeated" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Noilvl" relativePoint="BOTTOMLEFT" x="-30"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Defeated" relativePoint="BOTTOMLEFT" y="-27"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Members" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Heals" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Tanks" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Dps" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Heals" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Advanced" inherits="HorizontalBarTemplate">
+                <Size x="0" y="35"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="1"/>
+                    <Anchor point="RIGHT" x="-3"/>
+                    <Anchor point="BOTTOM" y="108"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <!-- text explaining the advanced expression filter -->
+                        <FontString parentKey="Explanation" inherits="GameFontNormal"  justifyH="LEFT">
+                            <Size y="50"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="8"/>
+                                <Anchor point="RIGHT" x="-35"/>
+                                <Anchor point="TOP" y="8"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button parentKey="InfoButton" inherits="PremadeGroupsFilterInfoButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="15" y="14"/>
+                        </Anchors>
+                    </Button>
+                </Frames>
+            </Frame>
+            <ScrollFrame parentKey="Expression" inherits="InputScrollFrameTemplate">
+                <Size y="70"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="11"/>
+                    <Anchor point="RIGHT" x="-13"/>
+                    <Anchor point="BOTTOM" y="32"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="maxLetters" value="2000" type="number"/>
+                    <!--<KeyValue key="instructions" value="" type="global"/>-->
+                    <KeyValue key="hideCharCount" value="true" type="boolean"/>
+                </KeyValues>
+                <Scripts>
+                    <OnLoad>InputScrollFrame_OnLoad(self)</OnLoad>
+                </Scripts>
+            </ScrollFrame>
+            <Button parentKey="ResetButton" inherits="MagicButtonTemplate">
+                <Size x="135" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="3" y="4"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="RefreshButton" inherits="MagicButtonTemplate">
+                <Size x="135" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-3" y="4"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>PremadeGroupsFilter.Dialog_OnLoad(self)</OnLoad>
+            <OnShow>PremadeGroupsFilter.Dialog_OnShow(self)</OnShow>
+        </Scripts>
+    </Frame>
+</Ui>
