@@ -294,29 +294,4 @@ function PGF.SortSearchResults(results)
     end
 end
 
--- this function is an excact copy of Blizzard's implementation except the marked part in the middle
-function PGF.DoSearch(panel)
-    local searchText = panel.SearchBox:GetText();
-
-    -- modification begin
-    PGF.filterExpression = nil
-    local searchExpression, filterExpression = searchText:match("^([^=]-)=(.+)$")
-    if filterExpression then
-        PGF.filterExpression = filterExpression:lower()
-        searchText = searchExpression
-    end
-    -- modification end
-
-    local languages = C_LFGList.GetLanguageSearchFilter();
-    C_LFGList.Search(panel.categoryID, searchText, panel.filters, panel.preferredFilters, languages);
-    panel.searching = true;
-    panel.searchFailed = false;
-    panel.selectedResult = nil;
-    LFGListSearchPanel_UpdateResultList(panel);
-    LFGListSearchPanel_UpdateResults(panel);
-end
-
 hooksecurefunc("LFGListUtil_SortSearchResults", PGF.SortSearchResults)
---hooksecurefunc("LFGListSearchPanel_DoSearch", PGF.DoSearch)
-
-LFGListFrame.SearchPanel.SearchBox:SetMaxLetters(2048)

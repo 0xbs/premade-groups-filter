@@ -1,14 +1,15 @@
 ## Interface: 70000
 ## Title: Premade Groups Filter
-## Version: 1.0
+## Version: 1.1
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
-## X-Curse-Packaged-Version: 1.0
+## X-Curse-Packaged-Version: 1.1
 ## X-Curse-Project-Name: Premade Groups Filter
 ## X-Curse-Project-ID: premade-groups-filter
 
 Localization\enUS.lua
+Localization\deDE.lua
 Main.lua
 Dialog.lua
 Dialog.xml
