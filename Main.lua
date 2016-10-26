@@ -29,6 +29,7 @@ PGF.CONST = {
     NORMAL = 1,
     HEROIC = 2,
     MYTHIC = 3,
+    MYTHICPLUS = 4,
     DEFAULT = {
         DIFFICULTY = 3, -- MYTHIC, may not yet use constant here
         ILVL       = { MIN = 800, MAX = 850 },
@@ -45,6 +46,7 @@ PGF.CONST.DIFFICULTY_STRING = {
     [1] = "normal",
     [2] = "heroic",
     [3] = "mythic",
+    [4] = "mythicplus",
 }
 
 -- /run for i=455,480,1 do local n=C_LFGList.GetActivityInfo(i);print(i,n)end
@@ -103,6 +105,23 @@ PGF.CONST.ACTIVITY_DIFFICULTY = {
     [452] = PGF.CONST.MYTHIC, -- Maw of Souls
     [453] = PGF.CONST.MYTHIC, -- Court of Stars
     [454] = PGF.CONST.MYTHIC, -- The Arcway
+
+    [455] = PGF.CONST.MYTHIC, -- Karazhan
+
+    [456] = PGF.CONST.NORMAL, -- Trial of Valor
+    [457] = PGF.CONST.HEROIC, -- Trial of Valor
+
+    [458] = PGF.CONST.NORMAL, -- World Bosses Legion
+
+    [459] = PGF.CONST.MYTHICPLUS, -- Eye of Azshara
+    [460] = PGF.CONST.MYTHICPLUS, -- Darkheart Thicket
+    [461] = PGF.CONST.MYTHICPLUS, -- Halls of Valor
+    [462] = PGF.CONST.MYTHICPLUS, -- Neltharion's Lair
+    [463] = PGF.CONST.MYTHICPLUS, -- Black Rook Hold
+    [464] = PGF.CONST.MYTHICPLUS, -- Vault of the Wardens
+    [465] = PGF.CONST.MYTHICPLUS, -- Maw of Souls
+    [466] = PGF.CONST.MYTHICPLUS, -- Court of Stars
+    [467] = PGF.CONST.MYTHICPLUS, -- The Arcway
 }
 
 PGF.model = {
@@ -279,9 +298,10 @@ function PGF.SortSearchResults(results)
         env.heals = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
         env.defeated = completedEncounters and #completedEncounters or 0
-        env.normal = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.NORMAL
-        env.heroic = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.HEROIC
-        env.mythic = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.MYTHIC
+        env.normal     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.NORMAL
+        env.heroic     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.HEROIC
+        env.mythic     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.MYTHIC
+        env.mythicplus = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.MYTHICPLUS
         env.myrealm = leaderName and not leaderName:find('-')
 
         env.hm  = activityID ==  37 or activityID ==  38 or activityID == 399
@@ -289,6 +309,7 @@ function PGF.SortSearchResults(results)
         env.hfc = activityID == 409 or activityID == 410 or activityID == 412
         env.en  = activityID == 413 or activityID == 414
         env.nh  = activityID == 415 or activityID == 416
+        env.tov = activityID == 456 or activityID == 457
 
         if not PGF.DoesPassThroughFilter(env, exp) then table.remove(results, idx) end
     end
