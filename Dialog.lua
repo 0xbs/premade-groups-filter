@@ -72,6 +72,23 @@ function PGF.Dialog_InfoButton_OnLeave(self, motion)
     GameTooltip:Hide()
 end
 
+function PGF.Dialog_ClearFocus()
+    local dialog = PremadeGroupsFilterDialog
+    dialog.Ilvl.Min:ClearFocus()
+    dialog.Ilvl.Max:ClearFocus()
+    dialog.Defeated.Min:ClearFocus()
+    dialog.Defeated.Max:ClearFocus()
+    dialog.Members.Min:ClearFocus()
+    dialog.Members.Max:ClearFocus()
+    dialog.Tanks.Min:ClearFocus()
+    dialog.Tanks.Max:ClearFocus()
+    dialog.Heals.Min:ClearFocus()
+    dialog.Heals.Max:ClearFocus()
+    dialog.Dps.Min:ClearFocus()
+    dialog.Dps.Max:ClearFocus()
+    dialog.Expression.EditBox:ClearFocus()
+end
+
 function PGF.Dialog_OnModelUpdate()
     local exp = PGF.GetExpressionFromModel()
     if PGF.Empty(exp) or exp == "true" then exp = "" end
@@ -139,6 +156,7 @@ end
 
 function PGF:Dialog_RefreshButton_OnClick(self, button, down)
     PGF.DebugPrint("refresh clicked")
+    PGF.Dialog_ClearFocus()
     LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
 end
 
@@ -157,6 +175,7 @@ function PGF:Dialog_ResetButton_OnClick(self, button, down)
     dialog.Expression.EditBox:SetText("")
     PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
     PGF:Dialog_RefreshButton_OnClick(dialog.RefreshButton)
+    PGF.Dialog_ClearFocus()
 end
 
 function PGF.Dialog_DifficultyDropdown_OnClick(item, dropdown, text)
