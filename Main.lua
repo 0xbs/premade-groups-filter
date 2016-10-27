@@ -330,14 +330,14 @@ function PGF.OnLFGListSortSearchResults(results)
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
         local resultID = results[idx]
-        local _, activityID, name, comment, voiceChat, iLvl, honorLevel, age,
+        local _, activity, name, comment, voiceChat, iLvl, honorLevel, age,
               numBNetFriends, numCharFriends, numGuildMates, _, leaderName,
               numMembers = C_LFGList.GetSearchResultInfo(resultID)
         local completedEncounters = C_LFGList.GetSearchResultEncounterInfo(resultID)
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
 
         local env = {}
-        env.activity = activityID
+        env.activity = activity
         env.name = name:lower()
         env.comment = comment:lower()
         env.leader = leaderName and leaderName:lower() or ""
@@ -351,18 +351,32 @@ function PGF.OnLFGListSortSearchResults(results)
         env.heals = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
         env.defeated = completedEncounters and #completedEncounters or 0
-        env.normal     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.NORMAL
-        env.heroic     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.HEROIC
-        env.mythic     = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.MYTHIC
-        env.mythicplus = PGF.CONST.ACTIVITY_DIFFICULTY[activityID] == PGF.CONST.MYTHICPLUS
+        env.normal     = PGF.CONST.ACTIVITY_DIFFICULTY[activity] == PGF.CONST.NORMAL
+        env.heroic     = PGF.CONST.ACTIVITY_DIFFICULTY[activity] == PGF.CONST.HEROIC
+        env.mythic     = PGF.CONST.ACTIVITY_DIFFICULTY[activity] == PGF.CONST.MYTHIC
+        env.mythicplus = PGF.CONST.ACTIVITY_DIFFICULTY[activity] == PGF.CONST.MYTHICPLUS
         env.myrealm = leaderName and not leaderName:find('-')
 
-        env.hm  = activityID ==  37 or activityID ==  38 or activityID == 399
-        env.brf = activityID ==  39 or activityID ==  40 or activityID == 400
-        env.hfc = activityID == 409 or activityID == 410 or activityID == 412
-        env.en  = activityID == 413 or activityID == 414
-        env.nh  = activityID == 415 or activityID == 416
-        env.tov = activityID == 456 or activityID == 457
+        -- raids            normal             heroic             mythic
+        env.hm   = activity ==  37 or activity ==  38 or activity == 399  -- Highmaul
+        env.brf  = activity ==  39 or activity ==  40 or activity == 400  -- Blackrock Foundry
+        env.hfc  = activity == 409 or activity == 410 or activity == 412  -- Hellfire Citadel
+        env.en   = activity == 413 or activity == 414                     -- The Emerald Nightmare
+        env.nh   = activity == 415 or activity == 416                     -- The Nighthold
+        env.tov  = activity == 456 or activity == 457                     -- Trial of Valor
+
+        -- dungeons         normal             heroic             mythic            mythic+
+        env.eoa  = activity == 425 or activity == 435 or activity == 445 or activity == 459  -- Eye of Azshara
+        env.dht  = activity == 426 or activity == 436 or activity == 446 or activity == 460  -- Darkheart Thicket
+        env.hov  = activity == 427 or activity == 437 or activity == 447 or activity == 461  -- Halls of Valor
+        env.nl   = activity == 428 or activity == 438 or activity == 448 or activity == 462  -- Neltharion's Lair
+        env.vh   = activity == 429 or activity == 439 or activity == 449                     -- Violet Hold
+        env.brh  = activity == 430 or activity == 440 or activity == 450 or activity == 463  -- Black Rook Hold
+        env.votw = activity == 431 or activity == 441 or activity == 451 or activity == 464  -- Vault of the Wardens
+        env.mos  = activity == 432 or activity == 442 or activity == 452 or activity == 465  -- Maw of Souls
+        env.cos  = activity == 433 or activity == 443 or activity == 453 or activity == 466  -- Court of Stars
+        env.aw   = activity == 434 or activity == 444 or activity == 454 or activity == 467  -- The Arcway
+        env.kara =                                       activity == 455                     -- Karazhan
 
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
