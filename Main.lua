@@ -40,6 +40,10 @@ PGF.CONST = {
         DEFEATED   = { MIN =   0, MAX =  15 },
     },
     FONTSIZE_TEXTBOX = 12,
+    COLOR = {
+        ENTRY_NEW = { R = 0.3, G = 1.0, B = 0.3 },
+    },
+    SEARCH_ENTRY_RESET_WAIT = 2, -- wait at least 2 seconds between two resets of known premade groups
 }
 
 PGF.CONST.DIFFICULTY_STRING = {
@@ -165,6 +169,12 @@ PGF.model = {
     },
 }
 
+PGF.lastSearchEntryReset = time()
+PGF.previousSearchExpression = ""
+PGF.currentSearchExpression = ""
+PGF.previousSearchLeaders = {}
+PGF.currentSearchLeaders = {}
+
 StaticPopupDialogs["PEF_ERRORPOPUP"] = {
     text = "%s",
     button1 = L["button.ok"],
@@ -176,6 +186,28 @@ StaticPopupDialogs["PEF_ERRORPOPUP"] = {
 
 function PGF.DebugPrint(value)
     if PGF.CONST.DEBUG then print("[PGF][Debug] " .. value) end
+end
+
+function PGF.Table_Copy_Shallow(table)
+    local copiedTable = {}
+    for k, v in pairs(table) do
+        copiedTable[k] = v
+    end
+    return copiedTable
+end
+
+function PGF.Table_Subtract(minuend, subtrahend)
+    local difference = {}
+    local lookupTable = {}
+    for i = 1, #subtrahend do
+        lookupTable[subtrahend[i]] = true;
+    end
+    for i = #minuend, 1, -1 do
+        if not lookupTable[minuend[i]] then
+            table.insert(difference, minuend[i])
+        end
+    end
+    return difference
 end
 
 function PGF.NotEmpty(value) return value and value ~= "" end
@@ -252,6 +284,16 @@ function PGF.GetExpressionFromModel()
     return exp
 end
 
+function PGF.ResetSearchEntries()
+    -- make sure to wait at least some time between two resets
+    if time() - PGF.lastSearchEntryReset > PGF.CONST.SEARCH_ENTRY_RESET_WAIT then
+        PGF.previousSearchLeaders = PGF.Table_Copy_Shallow(PGF.currentSearchLeaders)
+        PGF.currentSearchLeaders = {}
+        PGF.previousSearchExpression = PGF.currentSearchExpression
+        PGF.lastSearchEntryReset = time()
+    end
+end
+
 function PGF.DoesPassThroughFilter(env, exp)
     --local exp = "mythic and tansk < 0 and members==4"  -- raises semantic error
     --local exp = "and and tanks==0 and members==4"      -- raises syntax error
@@ -270,8 +312,19 @@ function PGF.DoesPassThroughFilter(env, exp)
     return true
 end
 
-function PGF.SortSearchResults(results)
+function PGF.SortByFriendsAndAge(id1, id2)
+    local _, _, _, _, _, _, _, age1, bnetFriends1, charFriends1, guildMates1 = C_LFGList.GetSearchResultInfo(id1);
+    local _, _, _, _, _, _, _, age2, bnetFriends2, charFriends2, guildMates2 = C_LFGList.GetSearchResultInfo(id2);
+    if bnetFriends1 ~= bnetFriends2 then return bnetFriends1 > bnetFriends2 end
+    if charFriends1 ~= charFriends2 then return charFriends1 > charFriends2 end
+    if guildMates1 ~= guildMates2 then return guildMates1 > guildMates2 end
+    return age1 < age2
+end
+
+function PGF.OnLFGListSortSearchResults(results)
+    PGF.ResetSearchEntries()
     local exp = PGF.GetExpressionFromModel()
+    PGF.currentSearchExpression = exp
     if exp == "true" then return end -- skip trivial expression
 
     -- loop backwards through the results list so we can remove elements from the table
@@ -287,7 +340,7 @@ function PGF.SortSearchResults(results)
         env.activity = activityID
         env.name = name:lower()
         env.comment = comment:lower()
-        env.leader = leaderName and leaderName:lower()
+        env.leader = leaderName and leaderName:lower() or ""
         env.age = math.floor(age / 60) -- age in minutes
         env.voice = voiceChat and voiceChat ~= ""
         env.ilvl = iLvl or 0
@@ -311,8 +364,25 @@ function PGF.SortSearchResults(results)
         env.nh  = activityID == 415 or activityID == 416
         env.tov = activityID == 456 or activityID == 457
 
-        if not PGF.DoesPassThroughFilter(env, exp) then table.remove(results, idx) end
+        if PGF.DoesPassThroughFilter(env, exp) then
+            -- leaderName is usually still nil at this point if the group is new, but we can live with that
+            if leaderName then PGF.currentSearchLeaders[leaderName] = true end
+        else
+            table.remove(results, idx)
+        end
+    end
+    -- sort by age
+    table.sort(results, PGF.SortByFriendsAndAge)
+end
+
+function PGF.OnLFGListUpdateSearchEntry(self)
+    local leaderName = select(13, C_LFGList.GetSearchResultInfo(self.resultID))
+    if PGF.currentSearchExpression ~= "true"                        -- not trivial search
+    and PGF.currentSearchExpression == PGF.previousSearchExpression -- and the same search
+    and not PGF.previousSearchLeaders[leaderName] then              -- and leader is new
+        self.Name:SetTextColor(PGF.CONST.COLOR.ENTRY_NEW.R, PGF.CONST.COLOR.ENTRY_NEW.G, PGF.CONST.COLOR.ENTRY_NEW.B)
     end
 end
 
-hooksecurefunc("LFGListUtil_SortSearchResults", PGF.SortSearchResults)
+hooksecurefunc("LFGListUtil_SortSearchResults", PGF.OnLFGListSortSearchResults)
+hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListUpdateSearchEntry)
