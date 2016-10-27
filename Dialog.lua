@@ -155,16 +155,9 @@ function PGF.Dialog_ResetMinMaxField(self, key)
     PGF.Dialog_MinMax_OnTextChanged(self[key].Max)
 end
 
-function PGF:Dialog_RefreshButton_OnClick(self, button, down)
-    PGF.DebugPrint("refresh clicked")
-    PGF.Dialog_ClearFocus()
-    LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
-end
-
-function PGF:Dialog_ResetButton_OnClick(self, button, down)
-    PGF.DebugPrint("reset clicked")
+function PGF.Dialog_Reset()
     local dialog = PremadeGroupsFilterDialog
-    -- TODO: reset the difficulty dropdown
+    -- TODO reset the difficulty dropdown
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")
     PGF.Dialog_ResetMinMaxField(dialog, "Ilvl")
     PGF.Dialog_ResetGenericField(dialog, "Noilvl")
@@ -175,8 +168,19 @@ function PGF:Dialog_ResetButton_OnClick(self, button, down)
     PGF.Dialog_ResetMinMaxField(dialog, "Defeated")
     dialog.Expression.EditBox:SetText("")
     PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-    PGF:Dialog_RefreshButton_OnClick(dialog.RefreshButton)
     PGF.Dialog_ClearFocus()
+end
+
+function PGF.Dialog_RefreshButton_OnClick(self, button, down)
+    PGF.DebugPrint("refresh clicked")
+    PGF.Dialog_ClearFocus()
+    LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
+end
+
+function PGF.Dialog_ResetButton_OnClick(self, button, down)
+    PGF.DebugPrint("reset clicked")
+    PGF.Dialog_Reset()
+    PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
 end
 
 function PGF.Dialog_DifficultyDropdown_OnClick(item, dropdown, text)
@@ -300,6 +304,16 @@ end
 
 function PGF.Dialog_OnShow(dialog)
     PGF.Dialog_UpdatePosition(dialog)
+end
+
+function PGFMacro(exp)
+    local dialog = PremadeGroupsFilterDialog
+    if dialog and dialog:IsVisible() then
+        PGF.Dialog_Reset()
+        dialog.Expression.EditBox:SetText(exp)
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+        dialog.RefreshButton:Click()
+    end
 end
 
 hooksecurefunc("LFGListFrame_SetActivePanel", PGF.Dialog_Toggle)
