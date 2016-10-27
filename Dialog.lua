@@ -182,6 +182,7 @@ end
 function PGF.Dialog_DifficultyDropdown_OnClick(item, dropdown, text)
     --local dropdown = D.Difficulty.DropDown
     if item.value then
+        PGF.Dialog_SetCheckbox(PremadeGroupsFilterDialog, "Difficulty", true)
         PGF.model.difficulty.val = item.value
         UIDropDownMenu_SetSelectedValue(dropdown, item.value)
         UIDropDownMenu_SetText(dropdown, text)
