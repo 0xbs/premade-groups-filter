@@ -4,6 +4,7 @@
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
+## SavedVariablesPerCharacter: PremadeGroupsFilterState
 
 Init.lua
 Localization\enUS.lua
@@ -13,6 +14,7 @@ Modules\Lockout.lua
 Modules\Expression.lua
 Modules\Macro.lua
 Main.lua
-Dialog.xml
-Dialog.lua
-Exports.lua
+Dialog\Help.lua
+Dialog\Setup.lua
+Dialog\Dialog.lua
+Dialog\Dialog.xml

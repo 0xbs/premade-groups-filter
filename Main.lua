@@ -18,52 +18,11 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
-PremadeGroupsFilterDB = PremadeGroupsFilterDB or {}
-
 local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-PGF.model = {
-    expression = "",
-    difficulty = {
-        act = false,
-        val = 3,
-    },
-    ilvl = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    noilvl = {
-        act = false
-    },
-    members = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    tanks = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    heals = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    dps = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    defeated = {
-        act = false,
-        min = "",
-        max = "",
-    },
-}
+PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.MODEL_DEFAULT)
 
 PGF.lastSearchEntryReset = time()
 PGF.previousSearchExpression = ""
@@ -71,48 +30,49 @@ PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
 
-function PGF.GetExpressionFromMinMaxModel(key)
+function PGF.GetExpressionFromMinMaxModel(model, key)
     local exp = ""
-    if PGF.model[key].act then
-        if PGF.NotEmpty(PGF.model[key].min) then exp = exp .. " and " .. key .. ">=" .. PGF.model[key].min end
-        if PGF.NotEmpty(PGF.model[key].max) then exp = exp .. " and " .. key .. "<=" .. PGF.model[key].max end
+    if model[key].act then
+        if PGF.NotEmpty(model[key].min) then exp = exp .. " and " .. key .. ">=" .. model[key].min end
+        if PGF.NotEmpty(model[key].max) then exp = exp .. " and " .. key .. "<=" .. model[key].max end
     end
     return exp
 end
 
-function PGF.GetExpressionFromIlvlModel()
-    local exp = PGF.GetExpressionFromMinMaxModel("ilvl")
-    if PGF.model.noilvl.act and PGF.NotEmpty(exp) then
+function PGF.GetExpressionFromIlvlModel(model)
+    local exp = PGF.GetExpressionFromMinMaxModel(model, "ilvl")
+    if model.noilvl.act and PGF.NotEmpty(exp) then
         exp = exp:gsub("^ and ", "")
         exp = " and (" .. exp .. " or ilvl==0)"
     end
     return exp
 end
 
-function PGF.GetExpressionFromDifficultyModel()
-    if PGF.model.difficulty.act then
-        return " and " .. C.DIFFICULTY_STRING[PGF.model.difficulty.val]
+function PGF.GetExpressionFromDifficultyModel(model)
+    if model.difficulty.act then
+        return " and " .. C.DIFFICULTY_STRING[model.difficulty.val]
     end
     return ""
 end
 
-function PGF.GetExpressionFromAdvancedExpression()
-    if PGF.model.expression and PGF.model.expression ~= "" then
-        return " and " .. PGF.model.expression
+function PGF.GetExpressionFromAdvancedExpression(model)
+    if model.expression and model.expression ~= "" then
+        return " and " .. model.expression
     end
     return ""
 end
 
 function PGF.GetExpressionFromModel()
+    local model = PremadeGroupsFilterState
     local exp = "true" -- start with neutral element
-    exp = exp .. PGF.GetExpressionFromDifficultyModel()
-    exp = exp .. PGF.GetExpressionFromIlvlModel()
-    exp = exp .. PGF.GetExpressionFromMinMaxModel("members")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel("tanks")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel("heals")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel("dps")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel("defeated")
-    exp = exp .. PGF.GetExpressionFromAdvancedExpression()
+    exp = exp .. PGF.GetExpressionFromDifficultyModel(model)
+    exp = exp .. PGF.GetExpressionFromIlvlModel(model)
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "members")
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "tanks")
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "heals")
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "dps")
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "defeated")
+    exp = exp .. PGF.GetExpressionFromAdvancedExpression(model)
     exp = exp:gsub("^true and ", "")
     return exp
 end
@@ -210,11 +170,13 @@ end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
     local _, activity, _, _, _, _, _, _, _, _, _, isDelisted, leaderName = C_LFGList.GetSearchResultInfo(self.resultID)
+    -- try once again to update the leaderName (this information is not immediately available)
+    if leaderName then PGF.currentSearchLeaders[leaderName] = true end
     if not isDelisted then
         -- color name if new
         if PGF.currentSearchExpression ~= "true"                        -- not trivial search
         and PGF.currentSearchExpression == PGF.previousSearchExpression -- and the same search
-        and not PGF.previousSearchLeaders[leaderName] then              -- and leader is new
+        and (leaderName and not PGF.previousSearchLeaders[leaderName]) then              -- and leader is new
             local color = C.COLOR_ENTRY_NEW
             self.Name:SetTextColor(color.R, color.G, color.B);
         end

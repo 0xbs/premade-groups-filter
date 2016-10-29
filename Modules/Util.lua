@@ -26,6 +26,17 @@ function PGF.StartsWith(needle, haystack)
     return string.sub(haystack, 1, string.len(needle)) == needle
 end
 
+function PGF.Table_UpdateWithDefaults(table, defaults)
+    for k, v in pairs(defaults) do
+        if type(v) == "table" then
+            if table[k] == nil then table[k] = {} end
+            PGF.Table_UpdateWithDefaults(table[k], v)
+        else
+            if table[k] == nil then table[k] = v end
+        end
+    end
+end
+
 function PGF.Table_Copy_Shallow(table)
     local copiedTable = {}
     for k, v in pairs(table) do

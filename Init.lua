@@ -19,14 +19,20 @@
 -------------------------------------------------------------------------------
 
 PremadeGroupsFilter = {}
-PremadeGroupsFilterDB = PremadeGroupsFilterDB or {}
+PremadeGroupsFilterState = PremadeGroupsFilterState or {}
 
 local PGF = select(2, ...)
+
+PremadeGroupsFilter.Macro = PGF.Macro
+PremadeGroupsFilter.Debug = PGF
+
 PGF.L = {}
 PGF.C = {}
 
 local L = PGF.L
 local C = PGF.C
+
+C.SAVED_STATE_VERSION = 14
 
 C.NORMAL     = 1
 C.HEROIC     = 2
@@ -124,11 +130,43 @@ C.ACTIVITY = {
     [467] = { difficulty = C.MYTHICPLUS, type = C.DUNGEON }, -- The Arcway
 }
 
-local frame = CreateFrame("Frame")
-local frameOnEvent = function(self, event, ...)
-    if event == "ADDON_LOADED" then
-        PGF.Dialog_OnLoad(PremadeGroupsFilterDialog)
-    end
-end
-frame:RegisterEvent("ADDON_LOADED")
-frame:SetScript("OnEvent", frameOnEvent)
+C.MODEL_DEFAULT = {
+    expression = "",
+    difficulty = {
+        act = false,
+        val = 3,
+    },
+    ilvl = {
+        act = false,
+        min = "",
+        max = "",
+    },
+    noilvl = {
+        act = false
+    },
+    members = {
+        act = false,
+        min = "",
+        max = "",
+    },
+    tanks = {
+        act = false,
+        min = "",
+        max = "",
+    },
+    heals = {
+        act = false,
+        min = "",
+        max = "",
+    },
+    dps = {
+        act = false,
+        min = "",
+        max = "",
+    },
+    defeated = {
+        act = false,
+        min = "",
+        max = "",
+    },
+}

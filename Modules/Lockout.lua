@@ -51,6 +51,7 @@ function PGF.HasDungeonOrRaidLockout(activity)
         local instanceName, instanceID, instanceReset, instanceDifficulty,
             locked, extended, instanceIDMostSig, isRaid, maxPlayers,
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
+        if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
         if (extended or locked) and matching(instanceName, name, instanceDifficulty, difficulty) then
             return true, maxBosses == defeatedBosses
         end
