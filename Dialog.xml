@@ -224,9 +224,5 @@
                 </Anchors>
             </Button>
         </Frames>
-        <Scripts>
-            <OnLoad>PremadeGroupsFilter.Dialog_OnLoad(self)</OnLoad>
-            <OnShow>PremadeGroupsFilter.Dialog_OnShow(self)</OnShow>
-        </Scripts>
     </Frame>
 </Ui>

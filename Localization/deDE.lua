@@ -1,4 +1,25 @@
-local L = select(2, ...)
+-------------------------------------------------------------------------------
+-- Premade Groups Filter
+-------------------------------------------------------------------------------
+-- Copyright (C) 2015 Elotheon-Arthas-EU
+--
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-------------------------------------------------------------------------------
+
+local PGF = select(2, ...)
+local L = PGF.L
 
 if GetLocale() ~= "deDE" then return end
 
@@ -45,6 +66,9 @@ L["dialog.tooltip.dps"] = "Anzahl an DDs"
 L["dialog.tooltip.age"] = "Alter der Gruppe in Minuten"
 L["dialog.tooltip.voice"] = "hat Sprachchat"
 L["dialog.tooltip.myrealm"] = "Gruppenanführer ist von meinem Realm"
+L["dialog.tooltip.noid"] = "Instanzen auf die ich keine ID habe"
+L["dialog.tooltip.partialid"] = "Instanzen mir partieller ID"
+L["dialog.tooltip.fullid"] = "Instanzen wo ich alle Bosse gelegt habe"
 L["dialog.tooltip.difficulty"] = "Schwierigkeitsgrad"
 L["dialog.tooltip.raids"] = "bestimmten Raid auswählen"
 L["dialog.tooltip.ex.parentheses"] = "(voice or not voice)"

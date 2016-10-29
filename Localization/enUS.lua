@@ -1,4 +1,25 @@
-local L = select(2, ...)
+-------------------------------------------------------------------------------
+-- Premade Groups Filter
+-------------------------------------------------------------------------------
+-- Copyright (C) 2015 Elotheon-Arthas-EU
+--
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-------------------------------------------------------------------------------
+
+local PGF = select(2, ...)
+local L = PGF.L
 
 L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Syntax error in filter expression|r\n\nThis means your filter expression is not built in the right way, e.g. there is a paranthesis missing or you wrote 'tanks=1' instead of 'tanks==1'.\n\nDetailed error message:\n|cffaaaaaa%s|r"
@@ -43,6 +64,9 @@ L["dialog.tooltip.dps"] = "number of damage dealers"
 L["dialog.tooltip.age"] = "age of group in minutes"
 L["dialog.tooltip.voice"] = "has voice chat"
 L["dialog.tooltip.myrealm"] = "leader is from my realm"
+L["dialog.tooltip.noid"] = "instances where I don't have ID"
+L["dialog.tooltip.partialid"] = "instances where I have partial ID"
+L["dialog.tooltip.fullid"] = "instances where I killed all bosses"
 L["dialog.tooltip.difficulty"] = "difficulty"
 L["dialog.tooltip.raids"] = "select only specific raid"
 L["dialog.tooltip.ex.parentheses"] = "(voice or not voice)"

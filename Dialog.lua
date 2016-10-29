@@ -18,8 +18,9 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
-local PGF = PremadeGroupsFilter
-local L = select(2, ...)
+local PGF = select(2, ...)
+local L = PGF.L
+local C = PGF.C
 
 function PGF.GameTooltip_AddWhite(left)
     GameTooltip:AddLine(left, 255, 255, 255)
@@ -49,6 +50,9 @@ function PGF.Dialog_InfoButton_OnEnter(self, motion)
     AddDoubleWhiteUsingKey("age")
     AddDoubleWhiteUsingKey("voice")
     AddDoubleWhiteUsingKey("myrealm")
+    AddDoubleWhiteUsingKey("noid")
+    AddDoubleWhiteUsingKey("partialid")
+    AddDoubleWhiteUsingKey("fullid")
     PGF.GameTooltip_AddDoubleWhite("normal/heroic/mythic/mythicplus", L["dialog.tooltip.difficulty"])
     PGF.GameTooltip_AddDoubleWhite("hm/brf/hfc/en/nh/tov", L["dialog.tooltip.raids"])
     GameTooltip:AddLine(" ")
@@ -110,7 +114,6 @@ function PGF.Dialog_Act_OnClick(self, button, down)
         end
     end
     PGF.Dialog_OnModelUpdate()
-    PGF.DebugPrint("state of " .. key .. " changed to " .. tostring(checked))
 end
 
 function PGF.Dialog_SetCheckbox(self, key, state)
@@ -135,7 +138,6 @@ function PGF.Dialog_MinMax_OnTextChanged(self, userInput)
     PGF.model[parentKey:lower()][selfKey:lower()] = val
     PGF.Dialog_ToggleCheckboxAccordingToMinMaxFields(parentKey)
     --PGF.Dialog_OnModelUpdate() -- line above does that
-    PGF.DebugPrint(selfKey .. " of " .. parentKey .. " changed to " .. tostring(val))
 end
 
 function PGF.Dialog_Expression_OnTextChanged(self, userInput)
@@ -172,14 +174,14 @@ function PGF.Dialog_Reset()
 end
 
 function PGF.Dialog_RefreshButton_OnClick(self, button, down)
-    PGF.DebugPrint("refresh clicked")
     PGF.Dialog_ClearFocus()
+    PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
     LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
 end
 
 function PGF.Dialog_ResetButton_OnClick(self, button, down)
-    PGF.DebugPrint("reset clicked")
     PGF.Dialog_Reset()
+    PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
     PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
 end
 
@@ -206,10 +208,10 @@ function PGF.Dialog_DifficultyDropdown_AddItem(dropdown, difficulty, text)
 end
 
 function PGF.Dialog_DifficultyDropdown_Init(self, level)
-    PGF.Dialog_DifficultyDropdown_AddItem(self, PGF.CONST.NORMAL, L["dialog.normal"])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, PGF.CONST.HEROIC, L["dialog.heroic"])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, PGF.CONST.MYTHIC, L["dialog.mythic"])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, PGF.CONST.MYTHICPLUS, L["dialog.mythicplus"])
+    PGF.Dialog_DifficultyDropdown_AddItem(self, C.NORMAL, L["dialog.normal"])
+    PGF.Dialog_DifficultyDropdown_AddItem(self, C.HEROIC, L["dialog.heroic"])
+    PGF.Dialog_DifficultyDropdown_AddItem(self, C.MYTHIC, L["dialog.mythic"])
+    PGF.Dialog_DifficultyDropdown_AddItem(self, C.MYTHICPLUS, L["dialog.mythicplus"])
 end
 
 function PGF.Dialog_Min_OnTabPressed(self)
@@ -242,6 +244,7 @@ end
 
 function PGF.Dialog_OnLoad()
     local dialog = PremadeGroupsFilterDialog
+    dialog:SetScript("OnShow", PGF.Dialog_OnShow)
 
     dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
     dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
@@ -275,13 +278,13 @@ function PGF.Dialog_OnLoad()
     PGF.Dialog_SetUpMinMaxField(dialog, "Defeated")
 
     local font = dialog.SimpleExplanation:GetFont()
-    dialog.Expression.EditBox:SetFont(font, PGF.CONST.FONTSIZE_TEXTBOX)
-    dialog.Expression.EditBox.Instructions:SetFont(font, PGF.CONST.FONTSIZE_TEXTBOX)
+    dialog.Expression.EditBox:SetFont(font, C.FONTSIZE_TEXTBOX)
+    dialog.Expression.EditBox.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
+    --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged)
 
     UIDropDownMenu_Initialize(dialog.Difficulty.DropDown, PGF.Dialog_DifficultyDropdown_Init)
     UIDropDownMenu_SetText(dialog.Difficulty.DropDown, L["dialog.mythic"])
     UIDropDownMenu_SetWidth(dialog.Difficulty.DropDown, 90)
-    PGF.DebugPrint("dialog onload completed")
 end
 
 function PGF.Dialog_Toggle()
@@ -303,20 +306,23 @@ function PGF.Dialog_UpdatePosition()
 end
 
 function PGF.Dialog_OnShow(dialog)
+    RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
     PGF.Dialog_UpdatePosition(dialog)
 end
 
-function PGFMacro(exp)
-    local dialog = PremadeGroupsFilterDialog
-    if dialog and dialog:IsVisible() then
-        PGF.Dialog_Reset()
-        dialog.Expression.EditBox:SetText(exp)
-        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-        dialog.RefreshButton:Click()
+local buttonHooksInitialized = false
+function PGF.OnLFGListFrameSetActivePanel(self, panel)
+    PGF.Dialog_Toggle()
+    if not buttonHooksInitialized and panel == self.SearchPanel then
+        buttonHooksInitialized = true
+        local buttons = self.SearchPanel.ScrollFrame.buttons
+        for i = 1, #buttons do
+            buttons[i]:HookScript("OnEnter", PGF.OnLFGListSearchEntryOnEnter)
+        end
     end
 end
 
-hooksecurefunc("LFGListFrame_SetActivePanel", PGF.Dialog_Toggle)
+hooksecurefunc("LFGListFrame_SetActivePanel", PGF.OnLFGListFrameSetActivePanel)
 hooksecurefunc("GroupFinderFrame_ShowGroupFrame", PGF.Dialog_Toggle)
 hooksecurefunc("InputScrollFrame_OnTextChanged", PGF.Dialog_Expression_OnTextChanged)
 PVEFrame:SetScript("OnShow", PGF.Dialog_Toggle)
