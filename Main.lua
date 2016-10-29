@@ -166,6 +166,7 @@ function PGF.OnLFGListSortSearchResults(results)
     end
     -- sort by age
     table.sort(results, PGF.SortByFriendsAndAge)
+    LFGListFrame.SearchPanel.totalResults = #results
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
