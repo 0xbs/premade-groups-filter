@@ -136,6 +136,24 @@ function PGF.OnLFGListSortSearchResults(results)
         env.fullid = fullLockout
         env.noid = not fullLockout and not partialLockout
 
+        env.hunters      = 0
+        env.warlocks     = 0
+        env.priests      = 0
+        env.paladins     = 0
+        env.mages        = 0
+        env.rogues       = 0
+        env.druids       = 0
+        env.shamans      = 0
+        env.warriors     = 0
+        env.deathknights = 0
+        env.monks        = 0
+        env.demonhunters = 0
+        for i = 1, numMembers do
+            local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i);
+            local classPlural = class:lower() .. "s" -- plural form of the class in english
+            env[classPlural] = env[classPlural] + 1
+        end
+
         -- raids            normal             heroic             mythic
         env.hm   = activity ==  37 or activity ==  38 or activity == 399  -- Highmaul
         env.brf  = activity ==  39 or activity ==  40 or activity == 400  -- Blackrock Foundry
