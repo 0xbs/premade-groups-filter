@@ -154,6 +154,9 @@ function PGF.OnLFGListSortSearchResults(results)
             env[classPlural] = env[classPlural] + 1
         end
 
+        env.arena2v2 = activity == 6
+        env.arena3v3 = activity == 7
+
         -- raids            normal             heroic             mythic
         env.hm   = activity ==  37 or activity ==  38 or activity == 399  -- Highmaul
         env.brf  = activity ==  39 or activity ==  40 or activity == 400  -- Blackrock Foundry
