@@ -135,8 +135,8 @@ end
 function PGF.Dialog_Toggle()
     local dialog = PremadeGroupsFilterDialog
     if PVEFrame:IsVisible()
-            and GroupFinderFrame.selection == LFGListPVEStub
-            and LFGListFrame.activePanel == LFGListFrame.SearchPanel then
+            and LFGListFrame.activePanel == LFGListFrame.SearchPanel
+            and LFGListFrame.SearchPanel:IsVisible() then
         dialog:Show()
     else
         dialog:Hide()
@@ -170,6 +170,7 @@ end
 
 hooksecurefunc("LFGListFrame_SetActivePanel", PGF.OnLFGListFrameSetActivePanel)
 hooksecurefunc("GroupFinderFrame_ShowGroupFrame", PGF.Dialog_Toggle)
+hooksecurefunc("PVEFrame_ShowFrame", PGF.Dialog_Toggle)
 hooksecurefunc("InputScrollFrame_OnTextChanged", PGF.Dialog_Expression_OnTextChanged)
 PVEFrame:SetScript("OnShow", PGF.Dialog_Toggle)
 PVEFrame:SetScript("OnHide", PGF.Dialog_Toggle)
