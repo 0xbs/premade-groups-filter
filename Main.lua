@@ -136,22 +136,16 @@ function PGF.OnLFGListSortSearchResults(results)
         env.fullid = fullLockout
         env.noid = not fullLockout and not partialLockout
 
-        env.hunters      = 0
-        env.warlocks     = 0
-        env.priests      = 0
-        env.paladins     = 0
-        env.mages        = 0
-        env.rogues       = 0
-        env.druids       = 0
-        env.shamans      = 0
-        env.warriors     = 0
-        env.deathknights = 0
-        env.monks        = 0
-        env.demonhunters = 0
         for i = 1, numMembers do
             local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i);
             local classPlural = class:lower() .. "s" -- plural form of the class in english
-            env[classPlural] = env[classPlural] + 1
+            env[classPlural] = (env[classPlural] or 0) + 1
+            if role then
+                local classRolePlural = C.ROLE_PREFIX[role] .. "_" .. class:lower() .. "s"
+                local roleClassPlural = class:lower() .. "_" .. C.ROLE_SUFFIX[role]
+                env[classRolePlural] = (env[classRolePlural] or 0) + 1
+                env[roleClassPlural] = (env[roleClassPlural] or 0) + 1
+            end
         end
 
         env.arena2v2 = activity == 6
@@ -178,6 +172,7 @@ function PGF.OnLFGListSortSearchResults(results)
         env.aw   = activity == 434 or activity == 444 or activity == 454 or activity == 467  -- The Arcway
         env.kara =                                       activity == 455                     -- Karazhan
 
+        setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
             if leaderName then PGF.currentSearchLeaders[leaderName] = true end

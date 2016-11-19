@@ -130,6 +130,18 @@ C.ACTIVITY = {
     [467] = { difficulty = C.MYTHICPLUS, type = C.DUNGEON }, -- The Arcway
 }
 
+C.ROLE_PREFIX = {
+    ["DAMAGER"] = "dps",
+    ["HEALER"] = "heal",
+    ["TANK"] = "tank",
+}
+
+C.ROLE_SUFFIX = {
+    ["DAMAGER"] = "dps",
+    ["HEALER"] = "heals",
+    ["TANK"] = "tanks",
+}
+
 C.MODEL_DEFAULT = {
     expression = "",
     difficulty = {
