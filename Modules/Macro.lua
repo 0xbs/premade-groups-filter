@@ -32,3 +32,4 @@ function PGF.Macro(exp)
     end
 end
 
+PremadeGroupsFilter.Macro = PGF.Macro

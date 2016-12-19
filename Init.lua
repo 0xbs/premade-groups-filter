@@ -23,7 +23,6 @@ PremadeGroupsFilterState = PremadeGroupsFilterState or {}
 
 local PGF = select(2, ...)
 
-PremadeGroupsFilter.Macro = PGF.Macro
 PremadeGroupsFilter.Debug = PGF
 
 PGF.L = {}
