@@ -10,6 +10,7 @@ Init.lua
 Localization\enUS.lua
 Localization\deDE.lua
 Modules\Util.lua
+Modules\Difficulty.lua
 Modules\Lockout.lua
 Modules\Expression.lua
 Modules\Macro.lua

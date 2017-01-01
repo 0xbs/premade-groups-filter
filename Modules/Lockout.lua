@@ -36,13 +36,11 @@ local function matching(instanceName, name, instanceDifficulty, difficulty)
 end
 
 function PGF.HasDungeonOrRaidLockout(activity)
-    if not C.ACTIVITY[activity] then return false, false end -- skip activities we do not know
-    local name = C_LFGList.GetActivityInfo(activity)
-    local difficulty = C.ACTIVITY[activity].difficulty
-    local type = C.ACTIVITY[activity].type
+    local avName, avShortName, avCategoryID = C_LFGList.GetActivityInfo(activity)
+    local difficulty = PGF.GetDifficulty(activity, avName, avShortName)
 
     -- there are no IDs for normal and mythic+ dungeons
-    if type == C.DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
+    if avCategoryID == C.TYPE_DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
         return false, false
     end
 
@@ -52,7 +50,7 @@ function PGF.HasDungeonOrRaidLockout(activity)
             locked, extended, instanceIDMostSig, isRaid, maxPlayers,
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
         if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
-        if (extended or locked) and matching(instanceName, name, instanceDifficulty, difficulty) then
+        if (extended or locked) and matching(instanceName, avName, instanceDifficulty, difficulty) then
             return true, maxBosses == defeatedBosses
         end
     end

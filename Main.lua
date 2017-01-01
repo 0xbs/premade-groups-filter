@@ -110,14 +110,20 @@ function PGF.OnLFGListSortSearchResults(results)
         local completedEncounters = C_LFGList.GetSearchResultEncounterInfo(resultID)
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local partialLockout, fullLockout = PGF.HasDungeonOrRaidLockout(activity)
+        local avName, avShortName, avCategoryID, avGroupID, avILevel, avFilters,
+              avMinLevel, avMaxPlayers, avDisplayType, avOrderIndex,
+              avUseHonorLevel, avShowQuickJoin = C_LFGList.GetActivityInfo(activity)
+        local difficulty = PGF.GetDifficulty(activity, avName, avShortName)
 
         local env = {}
         env.activity = activity
         env.name = name:lower()
+        env.activityname = avName:lower()
         env.comment = comment:lower()
         env.leader = leaderName and leaderName:lower() or ""
         env.age = math.floor(age / 60) -- age in minutes
         env.voice = voiceChat and voiceChat ~= ""
+        env.voicechat = voiceChat
         env.ilvl = iLvl or 0
         env.hlvl = honorLevel or 0
         env.friends = numBNetFriends + numCharFriends + numGuildMates
@@ -126,14 +132,19 @@ function PGF.OnLFGListSortSearchResults(results)
         env.heals = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
         env.defeated = completedEncounters and #completedEncounters or 0
-        env.normal     = C.ACTIVITY[activity] and C.ACTIVITY[activity].difficulty == C.NORMAL
-        env.heroic     = C.ACTIVITY[activity] and C.ACTIVITY[activity].difficulty == C.HEROIC
-        env.mythic     = C.ACTIVITY[activity] and C.ACTIVITY[activity].difficulty == C.MYTHIC
-        env.mythicplus = C.ACTIVITY[activity] and C.ACTIVITY[activity].difficulty == C.MYTHICPLUS
+        env.normal     = difficulty == C.NORMAL
+        env.heroic     = difficulty == C.HEROIC
+        env.mythic     = difficulty == C.MYTHIC
+        env.mythicplus = difficulty == C.MYTHICPLUS
         env.myrealm = leaderName and not leaderName:find('-')
         env.partialid = partialLockout
         env.fullid = fullLockout
         env.noid = not fullLockout and not partialLockout
+        env.maxplayers = avMaxPlayers
+        env.suggestedilvl = avILevel
+        env.minlvl = avMinLevel
+        env.categoryid = avCategoryID
+        env.groupid = avGroupID
 
         for i = 1, numMembers do
             local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i);
@@ -188,6 +199,7 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     local _, activity, _, _, _, _, _, _, _, _, _, isDelisted, leaderName = C_LFGList.GetSearchResultInfo(self.resultID)
     -- try once again to update the leaderName (this information is not immediately available)
     if leaderName then PGF.currentSearchLeaders[leaderName] = true end
+    --self.ActivityName:SetText("[" .. activity .. "] " .. self.ActivityName:GetText())
     if not isDelisted then
         -- color name if new
         if PGF.currentSearchExpression ~= "true"                        -- not trivial search
