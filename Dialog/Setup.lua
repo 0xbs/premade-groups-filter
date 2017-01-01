@@ -29,22 +29,9 @@ local DIFFICULTY_TEXT = {
     [C.MYTHICPLUS] = L["dialog.mythicplus"],
 }
 
-function PGF.Dialog_ClearFocus()
-    local dialog = PremadeGroupsFilterDialog
-    dialog.Ilvl.Min:ClearFocus()
-    dialog.Ilvl.Max:ClearFocus()
-    dialog.Defeated.Min:ClearFocus()
-    dialog.Defeated.Max:ClearFocus()
-    dialog.Members.Min:ClearFocus()
-    dialog.Members.Max:ClearFocus()
-    dialog.Tanks.Min:ClearFocus()
-    dialog.Tanks.Max:ClearFocus()
-    dialog.Heals.Min:ClearFocus()
-    dialog.Heals.Max:ClearFocus()
-    dialog.Dps.Min:ClearFocus()
-    dialog.Dps.Max:ClearFocus()
-    dialog.Expression.EditBox:ClearFocus()
-end
+-------------------------------------------------------------------------------
+-- OnShow functions
+-------------------------------------------------------------------------------
 
 function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)
     dialog[key].Act:SetChecked(model[key:lower()].act)
@@ -54,6 +41,7 @@ end
 
 function PGF.Dialog_LoadFromModel(dialog)
     local model = PremadeGroupsFilterState
+    PGF.UsePFGButton:SetChecked(model.enabled)
     PGF.previousSearchExpression = model.expression
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Ilvl")
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Defeated")
@@ -68,10 +56,27 @@ function PGF.Dialog_LoadFromModel(dialog)
     UIDropDownMenu_SetText(dialog.Difficulty.DropDown, DIFFICULTY_TEXT[model.difficulty.val])
 end
 
+function PGF.Dialog_UpdatePosition()
+    local dialog = PremadeGroupsFilterDialog
+    dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
+    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT")
+    dialog:SetWidth(300)
+end
+
+function PGF.Dialog_OnShow(dialog)
+    RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
+    PGF.Dialog_LoadFromModel(dialog)
+    PGF.Dialog_UpdatePosition(dialog)
+end
+
+-------------------------------------------------------------------------------
+-- OnLoad functions
+-------------------------------------------------------------------------------
+
 function PGF.Dialog_DifficultyDropdown_AddItem(dropdown, difficulty, text)
     local info = UIDropDownMenu_CreateInfo()
     info.value = difficulty
-    info.checked = difficulty == (PremadeGroupsFilterState.difficulty.val or PGF.C.MYTHIC)
+    info.checked = false -- we do not have settings at this point and will set checked value later anyway
     info.func = PGF.Dialog_DifficultyDropdown_OnClick
     info.arg1 = dropdown
     info.arg2 = text
@@ -101,6 +106,19 @@ function PGF.Dialog_SetUpMinMaxField(self, key)
     self[key].Max:SetScript("OnTextChanged", PGF.Dialog_MinMax_OnTextChanged)
     self[key].Min:SetScript("OnTabPressed", PGF.Dialog_Min_OnTabPressed)
     self[key].Max:SetScript("OnTabPressed", PGF.Dialog_Max_OnTabPressed)
+end
+
+function PGF.Dialog_UsePGFCheckbox()
+    local button = CreateFrame("CheckButton", "UsePFGButton", LFGListFrame.SearchPanel, "UICheckButtonTemplate")
+    button:SetSize(26, 26)
+    button:SetHitRectInsets(-2, -30, -2, -2)
+    button.text:SetText("PGF")
+    button.text:SetFontObject("GameFontHighlight")
+    button.text:SetWidth(30)
+    button:SetPoint("LEFT", LFGListFrame.SearchPanel.FilterButton, "LEFT", 0, 0)
+    button:SetPoint("TOP", LFGListFrame.SearchPanel.RefreshButton, "TOP", 0, -3)
+    button:SetScript("OnClick", PGF.Dialog_UsePGF_OnClick)
+    PGF.UsePFGButton = button
 end
 
 function PGF.Dialog_OnLoad()
@@ -137,6 +155,7 @@ function PGF.Dialog_OnLoad()
     PGF.Dialog_SetUpMinMaxField(dialog, "Heals")
     PGF.Dialog_SetUpMinMaxField(dialog, "Dps")
     PGF.Dialog_SetUpMinMaxField(dialog, "Defeated")
+    PGF.Dialog_UsePGFCheckbox()
 
     local font = dialog.SimpleExplanation:GetFont()
     dialog.Expression.EditBox:SetFont(font, C.FONTSIZE_TEXTBOX)

@@ -22,8 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.MODEL_DEFAULT)
-
 PGF.lastSearchEntryReset = time()
 PGF.previousSearchExpression = ""
 PGF.currentSearchExpression = ""
@@ -100,6 +98,7 @@ function PGF.OnLFGListSortSearchResults(results)
     PGF.ResetSearchEntries()
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
+    if not PremadeGroupsFilterState.enabled then return end
     if exp == "true" then return end -- skip trivial expression
 
     -- loop backwards through the results list so we can remove elements from the table

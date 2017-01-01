@@ -21,6 +21,7 @@
 PremadeGroupsFilter = {}
 PremadeGroupsFilterState = PremadeGroupsFilterState or {}
 
+local PGFAddonName = select(1, ...)
 local PGF = select(2, ...)
 
 PremadeGroupsFilter.Debug = PGF
@@ -142,6 +143,7 @@ C.ROLE_SUFFIX = {
 }
 
 C.MODEL_DEFAULT = {
+    enabled = true,
     expression = "",
     difficulty = {
         act = false,
@@ -181,3 +183,17 @@ C.MODEL_DEFAULT = {
         max = "",
     },
 }
+
+function PGF.OnAddonLoaded(name)
+    if name == PGFAddonName then
+        PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.MODEL_DEFAULT)
+    end
+end
+
+function PGF.OnEvent(self, event, ...)
+    if event == "ADDON_LOADED" then PGF.OnAddonLoaded(...) end
+end
+
+local frame = CreateFrame("Frame", "PremadeGroupsFilterEventFrame")
+frame:RegisterEvent("ADDON_LOADED")
+frame:SetScript("OnEvent", PGF.OnEvent)

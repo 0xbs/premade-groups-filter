@@ -22,11 +22,40 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+function PGF.Dialog_ClearFocus()
+    local dialog = PremadeGroupsFilterDialog
+    dialog.Ilvl.Min:ClearFocus()
+    dialog.Ilvl.Max:ClearFocus()
+    dialog.Defeated.Min:ClearFocus()
+    dialog.Defeated.Max:ClearFocus()
+    dialog.Members.Min:ClearFocus()
+    dialog.Members.Max:ClearFocus()
+    dialog.Tanks.Min:ClearFocus()
+    dialog.Tanks.Max:ClearFocus()
+    dialog.Heals.Min:ClearFocus()
+    dialog.Heals.Max:ClearFocus()
+    dialog.Dps.Min:ClearFocus()
+    dialog.Dps.Max:ClearFocus()
+    dialog.Expression.EditBox:ClearFocus()
+end
+
 function PGF.Dialog_OnModelUpdate()
     local exp = PGF.GetExpressionFromModel()
     if PGF.Empty(exp) or exp == "true" then exp = "" end
     exp = exp:gsub("^true and ", "")
     PremadeGroupsFilterDialog.Expression.EditBox.Instructions:SetText(exp)
+end
+
+function PGF.Dialog_UsePGF_OnClick(self, button, down)
+    local checked = self:GetChecked()
+    PremadeGroupsFilterState.enabled = checked
+    if checked then
+        PremadeGroupsFilterDialog:Show()
+    else
+        PGF.Dialog_ClearFocus()
+        PremadeGroupsFilterDialog:Hide()
+    end
+    LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
 end
 
 function PGF.Dialog_Act_OnClick(self, button, down)
@@ -134,26 +163,14 @@ end
 
 function PGF.Dialog_Toggle()
     local dialog = PremadeGroupsFilterDialog
-    if PVEFrame:IsVisible()
+    if PremadeGroupsFilterState.enabled
+            and PVEFrame:IsVisible()
             and LFGListFrame.activePanel == LFGListFrame.SearchPanel
             and LFGListFrame.SearchPanel:IsVisible() then
         dialog:Show()
     else
         dialog:Hide()
     end
-end
-
-function PGF.Dialog_UpdatePosition()
-    local dialog = PremadeGroupsFilterDialog
-    dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
-    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT")
-    dialog:SetWidth(300)
-end
-
-function PGF.Dialog_OnShow(dialog)
-    RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
-    PGF.Dialog_LoadFromModel(dialog)
-    PGF.Dialog_UpdatePosition(dialog)
 end
 
 local buttonHooksInitialized = false
