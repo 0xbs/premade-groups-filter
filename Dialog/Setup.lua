@@ -108,7 +108,7 @@ function PGF.Dialog_SetUpMinMaxField(self, key)
     self[key].Max:SetScript("OnTabPressed", PGF.Dialog_Max_OnTabPressed)
 end
 
-function PGF.Dialog_UsePGFCheckbox()
+function PGF.Dialog_SetUpUsePGFCheckbox()
     local button = CreateFrame("CheckButton", "UsePFGButton", LFGListFrame.SearchPanel, "UICheckButtonTemplate")
     button:SetSize(26, 26)
     button:SetHitRectInsets(-2, -30, -2, -2)
@@ -118,6 +118,11 @@ function PGF.Dialog_UsePGFCheckbox()
     button:SetPoint("LEFT", LFGListFrame.SearchPanel.FilterButton, "LEFT", 0, 0)
     button:SetPoint("TOP", LFGListFrame.SearchPanel.RefreshButton, "TOP", 0, -3)
     button:SetScript("OnClick", PGF.Dialog_UsePGF_OnClick)
+    button:SetScript("OnEnter", function (self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(L["dialog.usepgf.tooltip"])
+    end)
+    button:SetScript("OnLeave", function () GameTooltip:Hide() end)
     PGF.UsePFGButton = button
 end
 
@@ -155,7 +160,7 @@ function PGF.Dialog_OnLoad()
     PGF.Dialog_SetUpMinMaxField(dialog, "Heals")
     PGF.Dialog_SetUpMinMaxField(dialog, "Dps")
     PGF.Dialog_SetUpMinMaxField(dialog, "Defeated")
-    PGF.Dialog_UsePGFCheckbox()
+    PGF.Dialog_SetUpUsePGFCheckbox()
 
     local font = dialog.SimpleExplanation:GetFont()
     dialog.Expression.EditBox:SetFont(font, C.FONTSIZE_TEXTBOX)
