@@ -53,7 +53,7 @@ function PGF.PopupMenu_Initialize(name)
         popupFrame:EnableKeyboard(true)
         popupFrame:SetScript("OnKeyDown", function (self, key)
             if key == GetBindingKey("TOGGLEGAMEMENU") then
-                self:Hide()
+                PGF.PopupMenu_Hide()
                 self:SetPropagateKeyboardInput(false)
             else
                 self:SetPropagateKeyboardInput(true)
