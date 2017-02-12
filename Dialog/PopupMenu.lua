@@ -120,7 +120,7 @@ end
 
 function PGF.PopupMenu_Hide()
     popupMenuActive = nil
-    popupFrame:Hide()
+    if popupFrame then popupFrame:Hide() end
 end
 
 function PGF.PopupMenu_Toggle(name)
