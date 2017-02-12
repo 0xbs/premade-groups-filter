@@ -222,7 +222,11 @@ end
 
 function PGF.OnLFGListSearchEntryOnEnter(self)
     local resultID = self.resultID
-    local _, _, _, _, _, _, _, _, _, _, _, isDelisted, _, numMembers = C_LFGList.GetSearchResultInfo(resultID)
+    local _, activity, _, _, _, _, _, _, _, _, _, isDelisted, _, numMembers = C_LFGList.GetSearchResultInfo(resultID)
+    local _, _, _, _, _, _, _, _, displayType = C_LFGList.GetActivityInfo(activity);
+
+    -- do not show members where Blizzard already does that
+    if displayType == LE_LFG_LIST_DISPLAY_TYPE_CLASS_ENUMERATE then return end
     if isDelisted or not GameTooltip:IsShown() then return end
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(CLASS_ROLES);
