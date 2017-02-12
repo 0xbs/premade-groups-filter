@@ -52,8 +52,7 @@ function PGF.Dialog_LoadFromModel(dialog)
     dialog.Noilvl.Act:SetChecked(model.noilvl.act)
     dialog.Expression.EditBox:SetText(model.expression)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
-    UIDropDownMenu_SetSelectedValue(dialog.Difficulty.DropDown, model.difficulty.val)
-    UIDropDownMenu_SetText(dialog.Difficulty.DropDown, DIFFICULTY_TEXT[model.difficulty.val])
+    dialog.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[model.difficulty.val])
 end
 
 function PGF.Dialog_UpdatePosition()
@@ -73,22 +72,24 @@ end
 -- OnLoad functions
 -------------------------------------------------------------------------------
 
-function PGF.Dialog_DifficultyDropdown_AddItem(dropdown, difficulty, text)
-    local info = UIDropDownMenu_CreateInfo()
-    info.value = difficulty
-    info.checked = false -- we do not have settings at this point and will set checked value later anyway
-    info.func = PGF.Dialog_DifficultyDropdown_OnClick
-    info.arg1 = dropdown
-    info.arg2 = text
-    info.text = text
-    UIDropDownMenu_AddButton(info)
-end
+function PGF.Dialog_DifficultyDropdown_Init(dropdown)
+    local entries = {}
+    local addEntry = function (entries, value)
+        table.insert(entries, {
+            title = DIFFICULTY_TEXT[value],
+            value = value,
+            func = PGF.Dialog_DifficultyDropdown_OnClick
+        })
+    end
 
-function PGF.Dialog_DifficultyDropdown_Init(self, level)
-    PGF.Dialog_DifficultyDropdown_AddItem(self, C.NORMAL, DIFFICULTY_TEXT[C.NORMAL])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, C.HEROIC, DIFFICULTY_TEXT[C.HEROIC])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, C.MYTHIC, DIFFICULTY_TEXT[C.MYTHIC])
-    PGF.Dialog_DifficultyDropdown_AddItem(self, C.MYTHICPLUS, DIFFICULTY_TEXT[C.MYTHICPLUS])
+    addEntry(entries, C.NORMAL)
+    addEntry(entries, C.HEROIC)
+    addEntry(entries, C.MYTHIC)
+    addEntry(entries, C.MYTHICPLUS)
+
+    PGF.PopupMenu_Register("DifficultyMenu", entries, PremadeGroupsFilterDialog, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
+    dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DifficultyMenu") end)
+    dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
 end
 
 function PGF.Dialog_SetUpGenericField(self, key)
@@ -167,8 +168,7 @@ function PGF.Dialog_OnLoad()
     dialog.Expression.EditBox.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
     --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged) -- overrides Blizz
 
-    UIDropDownMenu_Initialize(dialog.Difficulty.DropDown, PGF.Dialog_DifficultyDropdown_Init)
-    UIDropDownMenu_SetWidth(dialog.Difficulty.DropDown, 90)
+    PGF.Dialog_DifficultyDropdown_Init(dialog.Difficulty.DropDown)
 end
 
 PremadeGroupsFilter.Dialog_OnLoad = PGF.Dialog_OnLoad

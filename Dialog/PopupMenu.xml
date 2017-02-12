@@ -1,0 +1,127 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Frame name="PremadeGroupsFilterPopupMenuFrameTemplate" enableMouse="true" clampedToScreen="true" virtual="true">
+        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize val="16"/>
+            <BorderColor r="0.5" g="0.5" b="0.5"/>
+        </Backdrop>
+        <Layers>
+            <Layer level="BACKGROUND" textureSubLevel="-1">
+                <Texture>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-3"/>
+                        <Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+                    </Anchors>
+                    <Color r=".15" g=".15" b=".15"/>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Shadow" file="Interface\Common\ShadowOverlay-Corner" setAllPoints="true" alpha="1">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-3"/>
+                        <Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+                    </Anchors>
+                    <TexCoords left="0" right="1" top="0" bottom="1"/>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Button name="PremadeGroupsFilterPopupMenuButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
+        <Size x="200" y="20"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Text" inherits="GameFontHighlight" justifyH="LEFT">
+                    <Size x="0" y="18"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="2"/>
+                        <Anchor point="RIGHT" x="-2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <NormalTexture parentKey="NormalTexture">
+            <Anchors>
+                <Anchor point="TOPLEFT" x="0" y="-1"/>
+                <Anchor point="BOTTOMRIGHT" x="0" y="1"/>
+            </Anchors>
+        </NormalTexture>
+        <HighlightTexture parentKey="HighlightTexture">
+            <Anchors>
+                <Anchor point="TOPLEFT" x="-2" y="0"/>
+                <Anchor point="BOTTOMRIGHT" x="2" y="0"/>
+            </Anchors>
+            <Color r=".25" g=".5" b="1" a=".25"/>
+        </HighlightTexture>
+    </Button>
+
+    <Frame name="PremadeGroupsFilterDropDownPopupMenuTemplate" virtual="true">
+        <Size x="140" y="32"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Left" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                    <Size x="25" y="64"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="17"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.1953125" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="Middle" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                    <Size x="90" y="64"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Left" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.1953125" right="0.8046875" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="Right" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                    <Size x="25" y="64"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Middle" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.8046875" right="1" top="0" bottom="1"/>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
+                    <Size x="68" y="10"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.Right" x="-46" y="2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="Button" motionScriptsWhileDisabled="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Right">
+                        <Offset x="-16" y="-18"/>
+                    </Anchor>
+                </Anchors>
+                <NormalTexture parentKey="NormalTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="RIGHT"/>
+                    </Anchors>
+                </NormalTexture>
+                <PushedTexture parentKey="PushedTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="RIGHT"/>
+                    </Anchors>
+                </PushedTexture>
+                <DisabledTexture parentKey="DisabledTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="RIGHT"/>
+                    </Anchors>
+                </DisabledTexture>
+                <HighlightTexture parentKey="HighlightTexture" file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="RIGHT"/>
+                    </Anchors>
+                </HighlightTexture>
+            </Button>
+        </Frames>
+    </Frame>
+</Ui>

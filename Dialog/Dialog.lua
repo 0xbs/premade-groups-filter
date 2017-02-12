@@ -142,12 +142,12 @@ function PGF.Dialog_ResetButton_OnClick(self, button, down)
     PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
 end
 
-function PGF.Dialog_DifficultyDropdown_OnClick(item, dropdown, text)
+function PGF.Dialog_DifficultyDropdown_OnClick(item)
+    local dialog = PremadeGroupsFilterDialog
     if item.value then
         PGF.Dialog_SetCheckbox(PremadeGroupsFilterDialog, "Difficulty", true)
         PremadeGroupsFilterState.difficulty.val = item.value
-        UIDropDownMenu_SetSelectedValue(dropdown, item.value)
-        UIDropDownMenu_SetText(dropdown, text)
+        dialog.Difficulty.DropDown.Text:SetText(item.title)
         PGF.Dialog_OnModelUpdate()
     end
 end

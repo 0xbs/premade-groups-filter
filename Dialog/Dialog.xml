@@ -1,4 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
 
     <Button name="PremadeGroupsFilterInfoButtonTemplate" virtual="true">
         <Size x="64" y="64"/>
@@ -42,8 +43,7 @@
     <!-- filter row with a dropdown box after the checkbox and the title -->
     <Frame name="PremadeGroupsFilterDropdownTemplate" inherits="PremadeGroupsFilterBasicTemplate" virtual="true">
         <Frames>
-            <!-- the name attribute is required on dropdowns -->
-            <Frame name="$parentDropDown" parentKey="DropDown" inherits="UIDropDownMenuTemplate">
+            <Frame parentKey="DropDown" inherits="PremadeGroupsFilterDropDownPopupMenuTemplate">
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="11"/>
                 </Anchors>
