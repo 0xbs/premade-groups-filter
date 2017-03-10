@@ -182,6 +182,16 @@ function PGF.OnLFGListSortSearchResults(results)
         env.aw   = activity == 434 or activity == 444 or activity == 454 or activity == 467  -- The Arcway
         env.kara =                                       activity == 455                     -- Karazhan
 
+        local numbers = PGF.String_ExtractNumbers(name .. " " .. comment)
+        env.numberinrange = function (min, max)
+            for _, v in ipairs(numbers) do
+                if (not min or v >= min) and (not max or v <= max) then
+                    return true
+                end
+            end
+            return false
+        end
+
         setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that

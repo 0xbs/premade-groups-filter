@@ -59,5 +59,13 @@ function PGF.Table_Subtract(minuend, subtrahend)
     return difference
 end
 
+function PGF.String_ExtractNumbers(str)
+    local numbers = {}
+    for number in string.gmatch(str, "%d+") do
+        table.insert(numbers, tonumber(number))
+    end
+    return numbers
+end
+
 function PGF.NotEmpty(value) return value and value ~= "" end
 function PGF.Empty(value) return not PGF.NotEmpty(value) end
