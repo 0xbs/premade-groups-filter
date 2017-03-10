@@ -29,3 +29,5 @@ Dialog\Help.lua
 Dialog\Setup.lua
 Dialog\Dialog.lua
 Dialog\Dialog.xml
+Dialog\Tabs.lua
+Dialog\Tabs.xml

@@ -1,0 +1,260 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<CheckButton name="PremadeGroupsFilterTabTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="32" y="32"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\SpellBook\SpellBook-SkillLineTab">
+					<Size>
+						<AbsDimension x="64" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-3" y="11"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="1">
+				<Texture name="$parentTabardEmblem" parentKey="TabardEmblem" hidden="true" file="Interface\GuildFrame\GuildEmblemsLG_01">
+					<Size x="28" y="28"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-3" y="3"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" textureSubLevel="2">
+				<Texture name="$parentTabardIconFrame" file="Interface\Spellbook\GuildSpellbooktabIconFrame" parentKey="TabardIconFrame" hidden="true">
+					<Size x="24" y="24"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<NormalTexture/>
+		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD"/>
+	</CheckButton>
+	<Frame name="PremadeGroupsFilterTabsFrame" parent="UIParent">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="PVEFrame" relativePoint="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="PVEFrame" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+		<Frames>
+			<CheckButton name="PremadeGroupsFilterTab1" inherits="PremadeGroupsFilterTabTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="-16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab2" inherits="PremadeGroupsFilterTabTemplate" id="2">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab3" inherits="PremadeGroupsFilterTabTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab2" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab4" inherits="PremadeGroupsFilterTabTemplate" id="4">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab3" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab5" inherits="PremadeGroupsFilterTabTemplate" id="5">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab4" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab6" inherits="PremadeGroupsFilterTabTemplate" id="6">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab5" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab7" inherits="PremadeGroupsFilterTabTemplate" id="7">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab6" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab8" inherits="PremadeGroupsFilterTabTemplate" id="8">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab7" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="PremadeGroupsFilterTab9" inherits="PremadeGroupsFilterTabTemplate" id="9">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterTab8" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-14"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+		</Frames>
+	</Frame>
+	<CheckButton name="PremadeGroupsFilterTabEditButtonTemplate" inherits="SimplePopupButtonTemplate" virtual="true">
+		<Scripts>
+			<OnClick>
+					PremadeGroupsFilterTabEditButton_OnClick(self, button, down);
+			</OnClick>
+		</Scripts>
+		<NormalTexture name="$parentIcon" nonBlocking="true">
+			<Size x="36" y="36"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="-1"/>
+			</Anchors>
+		</NormalTexture>
+		<HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+		<CheckedTexture alphaMode="ADD" file="Interface\Buttons\CheckButtonHilight"/>
+	</CheckButton>
+	<Frame name="PremadeGroupsFilterTabEditFrame" parent="UIParent" toplevel="true" enableMouse="true" hidden="true">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="PremadeGroupsFilterDialog" relativePoint="TOPLEFT"/>
+			<Anchor point="BOTTOMRIGHT" relativeTo="PremadeGroupsFilterDialog" relativePoint="BOTTOMRIGHT"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture parentKey="BG">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" y="-3"/>
+						<Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+					</Anchors>
+					<Color r="0" g="0" b="0" a=".80"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="BorderBox" frameLevel="50" hidden="false">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BORDER">
+						<FontString inherits="GameFontHighlightSmall" text="NAME">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="24" y="-21"/>
+							</Anchors>
+						</FontString>
+						<FontString inherits="GameFontHighlightSmall" text="MACRO_POPUP_CHOOSE_ICON">
+							<Anchors>
+								<Anchor point="TOPLEFT" x="24" y="-69"/>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<EditBox name="PremadeGroupsFilterTabEditEditBox" letters="16" historyLines="0">
+						<Size x="182" y="20"/>
+						<Anchors>
+							<Anchor point="TOPLEFT" x="29" y="-35"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="PremadeGroupsFilterTabEditNameLeft" file="Interface\ClassTrainerFrame\UI-ClassTrainer-FilterBorder">
+									<Size x="12" y="29"/>
+									<Anchors>
+										<Anchor point="TOPLEFT" x="-11" y="0"/>
+									</Anchors>
+									<TexCoords left="0" right="0.09375" top="0" bottom="1.0"/>
+								</Texture>
+								<Texture name="PremadeGroupsFilterTabEditNameMiddle" file="Interface\ClassTrainerFrame\UI-ClassTrainer-FilterBorder">
+									<Size x="175" y="29"/>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="PremadeGroupsFilterTabEditNameLeft" relativePoint="RIGHT"/>
+									</Anchors>
+									<TexCoords left="0.09375" right="0.90625" top="0" bottom="1.0"/>
+								</Texture>
+								<Texture name="PremadeGroupsFilterTabEditNameRight" file="Interface\ClassTrainerFrame\UI-ClassTrainer-FilterBorder">
+									<Size x="12" y="29"/>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="PremadeGroupsFilterTabEditNameMiddle" relativePoint="RIGHT"/>
+									</Anchors>
+									<TexCoords left="0.90625" right="1.0" top="0" bottom="1.0"/>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Scripts>
+							<OnTextChanged>
+								local text = self:GetText();
+								text = string.gsub(text, "\"", "");
+								PremadeGroupsFilterTabEditSetName(text);
+							</OnTextChanged>
+							<OnEscapePressed function="PremadeGroupsFilterTabEditFrame_CloseEdit"/>
+							<OnEnterPressed>
+								if ( PremadeGroupsFilterTabEditOkayButton:IsEnabled() ) then
+								PremadeGroupsFilterTabEditOkayButton_OnClick(PremadeGroupsFilterTabEditOkayButton);
+								end
+							</OnEnterPressed>
+						</Scripts>
+						<FontString inherits="ChatFontNormal"/>
+					</EditBox>
+					<Button name="PremadeGroupsFilterTabEditOkayButton" inherits="UIPanelButtonTemplate" text="OKAY">
+						<Size x="78" y="22"/>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="PremadeGroupsFilterTabEditFrame" x="-11" y="13"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+									PremadeGroupsFilterTabEditFrame_CloseEdit();
+									PlaySound("gsTitleOptionOK");
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
+			</Frame>
+			<ScrollFrame name="PremadeGroupsFilterTabEditScrollFrame" inherits="ListScrollFrameTemplate">
+				<Size x="220" y="320"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="PremadeGroupsFilterTabEditFrame" relativePoint="TOPRIGHT" x="-36" y="-70"/>
+				</Anchors>
+				<Scripts>
+					<OnVerticalScroll>
+						FauxScrollFrame_OnVerticalScroll(self, offset, MACRO_ICON_ROW_HEIGHT, PremadeGroupsFilterTabEditFrame_Update);
+					</OnVerticalScroll>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
+		<Scripts>
+			<OnLoad function="PremadeGroupsFilterTabEditFrame_OnLoad"/>
+			<OnShow function="PremadeGroupsFilterTabEditFrame_OnShow"/>
+		</Scripts>
+	</Frame>
+</Ui>
