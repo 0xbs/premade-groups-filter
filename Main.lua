@@ -183,7 +183,7 @@ function PGF.OnLFGListSortSearchResults(results)
         env.kara =                                       activity == 455                     -- Karazhan
 
         local numbers = PGF.String_ExtractNumbers(name .. " " .. comment)
-        env.numberinrange = function (min, max)
+        env.findnumber = function (min, max)
             for _, v in ipairs(numbers) do
                 if (not min or v >= min) and (not max or v <= max) then
                     return true
