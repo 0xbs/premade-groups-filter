@@ -95,6 +95,20 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [465] = C.MYTHICPLUS, -- Maw of Souls
     [466] = C.MYTHICPLUS, -- Court of Stars
     [467] = C.MYTHICPLUS, -- The Arcway
+
+    [468] = C.MYTHIC,     -- The Emerald Nightmare
+
+    [470] = C.HEROIC,     -- Lower Karazhan
+    [471] = C.MYTHICPLUS, -- Lower Karazhan
+    [472] = C.HEROIC,     -- Upper Karazhan
+    [473] = C.MYTHICPLUS, -- Upper Karazhan
+
+    [474] = C.HEROIC,     -- Cathedral of Eternal Night
+    [475] = C.MYTHIC,     -- Cathedral of Eternal Night
+    [476] = C.MYTHICPLUS, -- Cathedral of Eternal Night
+
+    [478] = C.HEROIC,     -- Tomb of Sargeras
+    [479] = C.NORMAL,     -- Tomb of Sargeras
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
@@ -121,6 +135,7 @@ PGF.NAMESUFFIX_TO_DIFFICULTY = {
     [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(435))] = C.HEROIC,     -- XXX (Heroic)
     [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(445))] = C.MYTHIC,     -- XXX (Mythic)
     [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS, -- XXX (Mythic Keystone)
+    --[PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(476))] = C.MYTHICPLUS, -- XXX (Mythic+)
 }
 
 function PGF.GetDifficulty(activity, name, shortName)

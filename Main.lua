@@ -165,9 +165,10 @@ function PGF.OnLFGListSortSearchResults(results)
         env.hm   = activity ==  37 or activity ==  38 or activity == 399  -- Highmaul
         env.brf  = activity ==  39 or activity ==  40 or activity == 400  -- Blackrock Foundry
         env.hfc  = activity == 409 or activity == 410 or activity == 412  -- Hellfire Citadel
-        env.en   = activity == 413 or activity == 414                     -- The Emerald Nightmare
+        env.en   = activity == 413 or activity == 414 or activity == 468  -- The Emerald Nightmare
         env.nh   = activity == 415 or activity == 416                     -- The Nighthold
         env.tov  = activity == 456 or activity == 457                     -- Trial of Valor
+        env.tos  = activity == 479 or activity == 478                     -- Tomb of Sargeras
 
         -- dungeons         normal             heroic             mythic            mythic+
         env.eoa  = activity == 425 or activity == 435 or activity == 445 or activity == 459  -- Eye of Azshara
@@ -181,6 +182,11 @@ function PGF.OnLFGListSortSearchResults(results)
         env.cos  = activity == 433 or activity == 443 or activity == 453 or activity == 466  -- Court of Stars
         env.aw   = activity == 434 or activity == 444 or activity == 454 or activity == 467  -- The Arcway
         env.kara =                                       activity == 455                     -- Karazhan
+                                   or activity == 470                    or activity == 471  -- Lower Karazahn
+                                   or activity == 472                    or activity == 473  -- Upper Karazhan
+        env.lkara =                   activity == 470                    or activity == 471  -- Lower Karazahn
+        env.ukara =                   activity == 472                    or activity == 473  -- Upper Karazhan
+        env.coen =                    activity == 474 or activity == 475 or activity == 476  -- Cathedral of Eternal Night
 
         local numbers = PGF.String_ExtractNumbers(name .. " " .. comment)
         env.findnumber = function (min, max)
