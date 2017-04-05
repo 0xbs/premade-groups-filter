@@ -130,6 +130,7 @@ function PGF.OnLFGListSortSearchResults(results)
         env.members = numMembers
         env.tanks = memberCounts.TANK
         env.heals = memberCounts.HEALER
+        env.healers = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
         env.defeated = completedEncounters and #completedEncounters or 0
         env.normal     = difficulty == C.NORMAL
