@@ -22,10 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-function PGF.StartsWith(needle, haystack)
-    return string.sub(haystack, 1, string.len(needle)) == needle
-end
-
 function PGF.Table_UpdateWithDefaults(table, defaults)
     for k, v in pairs(defaults) do
         if type(v) == "table" then

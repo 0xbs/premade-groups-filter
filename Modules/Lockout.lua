@@ -31,8 +31,22 @@ local LOCKOUT_D = {
     [16] = C.MYTHIC, -- mythic raid
 }
 
-local function matching(instanceName, name, instanceDifficulty, difficulty)
-    return PGF.StartsWith(instanceName:lower(), name:lower()) and LOCKOUT_D[instanceDifficulty] == difficulty
+local function matching(lockoutName, activityName, lockoutDifficulty, activityDifficulty)
+    -- no match if difficulty does not match
+    if not (LOCKOUT_D[lockoutDifficulty] == activityDifficulty) then return false end
+
+    -- lockoutName is just the dungeon's name, e.g. 'The Emerald Nightmare'
+    local lockoutNameLower = lockoutName:lower()
+    -- activityName has the difficulty in parens at the end, e.g. 'Emerald Nightmare (Heroic)'
+    local activityNameWithoutDifficulty = string.gsub(activityName, "(%w+) %(%w+%)", "%1"):lower()
+
+    -- if one of the names is contained in the other, we have a match
+    -- this could break in the future if Blizz adds two instances with the *same difficulty*, where the activity
+    -- is eligible for lockouts on this difficulty and the dungeons must be named e.g. 'Karazhan' and 'Upper Karazhan'
+    if string.find(activityNameWithoutDifficulty, lockoutNameLower) then return true end
+    if string.find(lockoutNameLower, activityNameWithoutDifficulty) then return true end
+
+    return false
 end
 
 function PGF.HasDungeonOrRaidLockout(activity)
