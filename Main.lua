@@ -94,7 +94,10 @@ function PGF.SortByFriendsAndAge(id1, id2)
     return age1 < age2
 end
 
-function PGF.OnLFGListSortSearchResults(results)
+function PGF.DoFilterSearchResults(results)
+    --print(debugstack())
+    --print("filtering, size is "..#results)
+
     PGF.ResetSearchEntries()
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
@@ -212,6 +215,11 @@ function PGF.OnLFGListSortSearchResults(results)
     LFGListFrame.SearchPanel.totalResults = #results
 end
 
+function PGF.LFGListOnSearchResultsReceived()
+    PGF.DoFilterSearchResults(LFGListFrame.SearchPanel.results)
+    LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel)
+end
+
 function PGF.OnLFGListSearchEntryUpdate(self)
     local _, activity, _, _, _, _, _, _, _, _, _, isDelisted, leaderName = C_LFGList.GetSearchResultInfo(self.resultID)
     -- try once again to update the leaderName (this information is not immediately available)
@@ -273,6 +281,5 @@ function PGF.OnLFGListSearchEntryOnEnter(self)
     GameTooltip:Show()
 end
 
-hooksecurefunc("LFGListUtil_SortSearchResults", PGF.OnLFGListSortSearchResults)
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)
 hooksecurefunc("LFGListSearchEntry_OnEnter", PGF.OnLFGListSearchEntryOnEnter)

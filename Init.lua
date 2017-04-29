@@ -127,8 +127,12 @@ end
 
 function PGF.OnEvent(self, event, ...)
     if event == "ADDON_LOADED" then PGF.OnAddonLoaded(...) end
+    if event == "LFG_LIST_SEARCH_RESULTS_RECEIVED" then PGF.LFGListOnSearchResultsReceived(...) end
+    if event == "LFG_LIST_SEARCH_FAILED" then PGF.LFGListOnSearchResultsReceived(...) end
 end
 
 local frame = CreateFrame("Frame", "PremadeGroupsFilterEventFrame")
 frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("LFG_LIST_SEARCH_RESULTS_RECEIVED")
+frame:RegisterEvent("LFG_LIST_SEARCH_FAILED")
 frame:SetScript("OnEvent", PGF.OnEvent)
