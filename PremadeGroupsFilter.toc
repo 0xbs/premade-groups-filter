@@ -10,6 +10,7 @@ Init.lua
 Localization\enUS.lua
 Localization\frFR.lua
 Localization\deDE.lua
+Localization\koKR.lua
 Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
