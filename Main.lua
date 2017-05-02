@@ -102,6 +102,7 @@ function PGF.DoFilterSearchResults(results)
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
     if not PremadeGroupsFilterState.enabled then return end
+    if not results or #results == 0 then return end
     if exp == "true" then return end -- skip trivial expression
 
     -- loop backwards through the results list so we can remove elements from the table
