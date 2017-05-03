@@ -101,9 +101,9 @@ function PGF.DoFilterSearchResults(results)
     PGF.ResetSearchEntries()
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
-    if not PremadeGroupsFilterState.enabled then return end
-    if not results or #results == 0 then return end
-    if exp == "true" then return end -- skip trivial expression
+    if not PremadeGroupsFilterState.enabled then return false end
+    if not results or #results == 0 then return false end
+    if exp == "true" then return false end -- skip trivial expression
 
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
@@ -213,12 +213,17 @@ function PGF.DoFilterSearchResults(results)
     end
     -- sort by age
     table.sort(results, PGF.SortByFriendsAndAge)
-    LFGListFrame.SearchPanel.totalResults = #results
+    return true
 end
 
 function PGF.LFGListOnSearchResultsReceived()
-    PGF.DoFilterSearchResults(LFGListFrame.SearchPanel.results)
-    LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel)
+    local totalResults, results = C_LFGList.GetSearchResults()
+    if PGF.DoFilterSearchResults(results) then
+        LFGListFrame.SearchPanel.results = results
+        LFGListFrame.SearchPanel.totalResults = #results
+        LFGListFrame.SearchPanel.applications = C_LFGList.GetApplications()
+        LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel)
+    end
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
@@ -282,5 +287,6 @@ function PGF.OnLFGListSearchEntryOnEnter(self)
     GameTooltip:Show()
 end
 
+LFGListFrame.SearchPanel:HookScript("OnShow", function () PGF.LFGListOnSearchResultsReceived() end)
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)
 hooksecurefunc("LFGListSearchEntry_OnEnter", PGF.OnLFGListSearchEntryOnEnter)
