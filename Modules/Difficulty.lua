@@ -109,6 +109,9 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
 
     [478] = C.HEROIC,     -- Tomb of Sargeras
     [479] = C.NORMAL,     -- Tomb of Sargeras
+
+    [480] = C.MYTHIC,     -- Trial of Valor
+    [481] = C.MYTHIC,     -- The Nighthold
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
