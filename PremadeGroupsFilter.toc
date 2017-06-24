@@ -11,6 +11,7 @@ Localization\enUS.lua
 Localization\frFR.lua
 Localization\deDE.lua
 Localization\koKR.lua
+Localization\zhTW.lua
 Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
