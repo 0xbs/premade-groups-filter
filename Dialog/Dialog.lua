@@ -48,7 +48,8 @@ end
 
 function PGF.Dialog_UsePGF_OnClick(self, button, down)
     local checked = self:GetChecked()
-    PremadeGroupsFilterState.enabled = checked
+    local model = PGF.GetModel()
+    model.enabled = checked
     if checked then
         PremadeGroupsFilterDialog:Show()
     else
@@ -62,7 +63,8 @@ function PGF.Dialog_Act_OnClick(self, button, down)
     local dialog = PremadeGroupsFilterDialog
     local key = self:GetParent():GetAttribute("parentKey")
     local checked = self:GetChecked()
-    PremadeGroupsFilterState[key:lower()].act = checked
+    local model = PGF.GetModel()
+    model[key:lower()].act = checked
     if key == "Ilvl" then
         dialog.Noilvl.Act:SetEnabled(checked)
         if not checked then
@@ -92,7 +94,8 @@ function PGF.Dialog_MinMax_OnTextChanged(self, userInput)
     local selfKey = self:GetAttribute("parentKey")
     local parentKey = self:GetParent():GetAttribute("parentKey")
     local val = self:GetText()
-    PremadeGroupsFilterState[parentKey:lower()][selfKey:lower()] = val
+    local model = PGF.GetModel()
+    model[parentKey:lower()][selfKey:lower()] = val
     PGF.Dialog_ToggleCheckboxAccordingToMinMaxFields(parentKey)
     --PGF.Dialog_OnModelUpdate() -- line above does that
 end
@@ -101,7 +104,8 @@ function PGF.Dialog_Expression_OnTextChanged(self, userInput)
     -- we cannot set the OnTextChange directly, since the InputScrollFrameTemplate
     -- needs that for hiding/showing the gray instructions text
     if self == PremadeGroupsFilterDialog.Expression.EditBox then
-        PremadeGroupsFilterState.expression = self:GetText() or ""
+        local model = PGF.GetModel()
+        model.expression = self:GetText() or ""
         PGF.Dialog_OnModelUpdate()
     end
 end
@@ -146,7 +150,8 @@ function PGF.Dialog_DifficultyDropdown_OnClick(item)
     local dialog = PremadeGroupsFilterDialog
     if item.value then
         PGF.Dialog_SetCheckbox(PremadeGroupsFilterDialog, "Difficulty", true)
-        PremadeGroupsFilterState.difficulty.val = item.value
+        local model = PGF.GetModel()
+        model.difficulty.val = item.value
         dialog.Difficulty.DropDown.Text:SetText(item.title)
         PGF.Dialog_OnModelUpdate()
     end
@@ -163,11 +168,13 @@ end
 
 function PGF.Dialog_Toggle()
     local dialog = PremadeGroupsFilterDialog
-    if PremadeGroupsFilterState.enabled
-            and PVEFrame:IsVisible()
-            and LFGListFrame.activePanel == LFGListFrame.SearchPanel
+    local model = PGF.GetModel()
+    if PVEFrame:IsVisible() and LFGListFrame.activePanel == LFGListFrame.SearchPanel
             and LFGListFrame.SearchPanel:IsVisible() then
-        dialog:Show()
+        PGF.UsePFGButton:SetChecked(model.enabled)
+        if model.enabled then
+            dialog:Show()
+        end
     else
         dialog:Hide()
     end

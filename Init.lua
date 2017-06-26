@@ -32,8 +32,6 @@ PGF.C = {}
 local L = PGF.L
 local C = PGF.C
 
-C.SAVED_STATE_VERSION = 14
-
 C.NORMAL     = 1
 C.HEROIC     = 2
 C.MYTHIC     = 3
@@ -121,7 +119,16 @@ C.MODEL_DEFAULT = {
 
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
-        PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.MODEL_DEFAULT)
+        -- check if migration from 1.10 to 1.11 is necessary
+        if PremadeGroupsFilterState.enabled ~= nil then
+            local stateV110 = PremadeGroupsFilterState
+            PremadeGroupsFilterState = {}
+            PremadeGroupsFilterState.v110 = stateV110
+        end
+        -- update all state tables with the current set of defaults
+        for _, v in pairs(PremadeGroupsFilterState) do
+            PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
+        end
     end
 end
 

@@ -41,6 +41,19 @@ function PGF.Table_Copy_Shallow(table)
     return copiedTable
 end
 
+function PGF.Table_Copy_Rec(original)
+    local copy
+    if type(original) == "table" then
+        copy = {}
+        for k, v in pairs(original) do
+            copy[k] = PGF.Table_Copy_Rec(v)
+        end
+    else
+        copy = original
+    end
+    return copy
+end
+
 function PGF.Table_Subtract(minuend, subtrahend)
     local difference = {}
     local lookupTable = {}

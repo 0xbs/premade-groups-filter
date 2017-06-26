@@ -60,8 +60,29 @@ function PGF.GetExpressionFromAdvancedExpression(model)
     return ""
 end
 
+function PGF.GetModel()
+    local tab = PVEFrame.activeTabIndex
+    local category = LFGListFrame.CategorySelection.selectedCategory
+    local filters = LFGListFrame.CategorySelection.selectedFilters
+    if not tab then return nil end
+    if not category then return nil end
+    if filters < 0 then filters = "n" .. filters end
+    local modelKey = "t" .. tab .. "c" .. category .. "f" .. filters
+    if PremadeGroupsFilterState[modelKey] == nil then
+        local defaultState = {}
+        -- if we have an old v1.10 state, take it instead of the default one
+        local oldGlobalState = PremadeGroupsFilterState["v110"]
+        if oldGlobalState ~= nil then
+            defaultState = PGF.Table_Copy_Rec(oldGlobalState)
+        end
+        PGF.Table_UpdateWithDefaults(defaultState, C.MODEL_DEFAULT)
+        PremadeGroupsFilterState[modelKey] = defaultState
+    end
+    return PremadeGroupsFilterState[modelKey]
+end
+
 function PGF.GetExpressionFromModel()
-    local model = PremadeGroupsFilterState
+    local model = PGF.GetModel()
     local exp = "true" -- start with neutral element
     exp = exp .. PGF.GetExpressionFromDifficultyModel(model)
     exp = exp .. PGF.GetExpressionFromIlvlModel(model)
@@ -101,7 +122,8 @@ function PGF.DoFilterSearchResults(results)
     PGF.ResetSearchEntries()
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
-    if not PremadeGroupsFilterState.enabled then return false end
+    local model = PGF.GetModel()
+    if not model.enabled then return false end
     if not results or #results == 0 then return false end
     if exp == "true" then return false end -- skip trivial expression
 

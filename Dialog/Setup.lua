@@ -40,7 +40,7 @@ function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)
 end
 
 function PGF.Dialog_LoadFromModel(dialog)
-    local model = PremadeGroupsFilterState
+    local model = PGF.GetModel()
     PGF.UsePFGButton:SetChecked(model.enabled)
     PGF.previousSearchExpression = model.expression
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Ilvl")
