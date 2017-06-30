@@ -126,7 +126,7 @@ PGF.SHORTNAME_TO_DIFFICULTY = {
     [select(2, C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS, -- Mythic+
 }
 
-function PGF.ExtractNameSuffix(name) return name:lower():match("%(([^)]+)%)") end
+function PGF.ExtractNameSuffix(name) return name:lower():match("[(（]([^)）]+)[)）]") end
 
 -- maps localized name suffixes (the value in parens) from C_LFGList.GetActivityInfo() to difficulties
 PGF.NAMESUFFIX_TO_DIFFICULTY = {
