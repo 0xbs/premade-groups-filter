@@ -126,7 +126,17 @@ PGF.SHORTNAME_TO_DIFFICULTY = {
     [select(2, C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS, -- Mythic+
 }
 
-function PGF.ExtractNameSuffix(name) return name:lower():match("[(（]([^)）]+)[)）]") end
+function PGF.ExtractNameSuffix(name)
+    if GetLocale() == "zhCN" or GetLocale() == "zhTW" then
+        -- Chinese clients use different parenthesis
+        return name:lower():match("[(（]([^)）]+)[)）]")
+    else
+        -- however we cannot use the regex above for every language
+        -- because the Chinese parenthesis somehow breaks the recognition
+        -- of other Western special characters such as Umlauts
+        return name:lower():match("%(([^)]+)%)")
+    end
+end
 
 -- maps localized name suffixes (the value in parens) from C_LFGList.GetActivityInfo() to difficulties
 PGF.NAMESUFFIX_TO_DIFFICULTY = {
