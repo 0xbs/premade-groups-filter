@@ -68,6 +68,24 @@ function PGF.Table_Subtract(minuend, subtrahend)
     return difference
 end
 
+function PGF.Table_ValuesAsKeys(table)
+    local result = {}
+    if not table then return result end
+    for _, val in pairs(table) do
+        result[val] = true
+    end
+    return result
+end
+
+function PGF.Table_Count(table)
+    local count = 0
+    if not table then return count end
+    for _ in pairs(table) do
+        count = count + 1
+    end
+    return count
+end
+
 function PGF.String_ExtractNumbers(str)
     local numbers = {}
     for number in string.gmatch(str, "%d+") do

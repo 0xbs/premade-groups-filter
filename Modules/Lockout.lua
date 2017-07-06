@@ -49,13 +49,16 @@ local function matching(lockoutName, activityName, lockoutDifficulty, activityDi
     return false
 end
 
-function PGF.HasDungeonOrRaidLockout(activity)
+function PGF.GetLockoutInfo(activity, resultID)
     local avName, avShortName, avCategoryID = C_LFGList.GetActivityInfo(activity)
     local difficulty = PGF.GetDifficulty(activity, avName, avShortName)
+    local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID)
+    local groupDefeatedBossNames = PGF.Table_ValuesAsKeys(encounterInfo)
+    local numGroupDefeated = PGF.Table_Count(encounterInfo)
 
     -- there are no IDs for normal and mythic+ dungeons
     if avCategoryID == C.TYPE_DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
-        return false, false
+        return numGroupDefeated, 0, 0, 0, 0, 0
     end
 
     local numSavedInstances = GetNumSavedInstances()
@@ -65,8 +68,48 @@ function PGF.HasDungeonOrRaidLockout(activity)
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
         if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
         if (extended or locked) and matching(instanceName, avName, instanceDifficulty, difficulty) then
-            return true, maxBosses == defeatedBosses
+            local playerDefeatedBossNames = PGF.GetPlayerDefeatedBossNames(index, maxBosses)
+            local numPlayerDefeated = PGF.Table_Count(playerDefeatedBossNames)
+            local matching, groupAhead, groupBehind = PGF.GetMatchingBossInfo(groupDefeatedBossNames, playerDefeatedBossNames)
+            return numGroupDefeated, numPlayerDefeated, maxBosses, matching, groupAhead, groupBehind
         end
     end
-    return false, false
+    return numGroupDefeated, 0, 0, 0, 0, 0
+end
+
+function PGF.GetMatchingBossInfo(groupDefeatedBossNames, playerDefeatedBossesNames)
+    local matching = 0
+    local groupAhead = 0
+    local groupBehind = 0
+    local matchingBossNames = {}
+
+    for name, _ in pairs(groupDefeatedBossNames) do
+        if playerDefeatedBossesNames[name] == true then
+            matchingBossNames[name] = true
+            matching = matching + 1
+        end
+    end
+
+    for name, _ in pairs(groupDefeatedBossNames) do
+        if not matchingBossNames[name] then
+            groupAhead = groupAhead + 1
+        end
+    end
+
+    for name, _ in pairs(playerDefeatedBossesNames) do
+        if not matchingBossNames[name] then
+            groupBehind = groupBehind + 1
+        end
+    end
+
+    return matching, groupAhead, groupBehind
+end
+
+function PGF.GetPlayerDefeatedBossNames(savedInstanceIndex, maxBosses)
+    local result = {}
+    for bossIndex = 1, maxBosses do
+        local bossName, _, isKilled = GetSavedInstanceEncounterInfo(savedInstanceIndex, bossIndex)
+        if isKilled then result[bossName] = true end
+    end
+    return result
 end
