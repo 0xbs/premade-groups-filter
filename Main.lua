@@ -163,7 +163,7 @@ function PGF.DoFilterSearchResults(results)
         env.heroic     = difficulty == C.HEROIC
         env.mythic     = difficulty == C.MYTHIC
         env.mythicplus = difficulty == C.MYTHICPLUS
-        env.myrealm = leaderName and not leaderName:find('-')
+        env.myrealm = leaderName and leaderName ~= "" and not leaderName:find('-')
         env.partialid = partialLockout
         env.fullid = fullLockout
         env.noid = not fullLockout and not partialLockout
