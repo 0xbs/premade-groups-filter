@@ -170,7 +170,7 @@ function PGF.Dialog_Toggle()
     local dialog = PremadeGroupsFilterDialog
     local model = PGF.GetModel()
     if PVEFrame:IsVisible() and LFGListFrame.activePanel == LFGListFrame.SearchPanel
-            and LFGListFrame.SearchPanel:IsVisible() then
+            and LFGListFrame.SearchPanel:IsVisible() and model then
         PGF.UsePFGButton:SetChecked(model.enabled)
         if model.enabled then
             dialog:Show()

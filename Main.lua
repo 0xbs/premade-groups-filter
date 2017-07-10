@@ -63,10 +63,9 @@ end
 function PGF.GetModel()
     local tab = PVEFrame.activeTabIndex
     local category = LFGListFrame.SearchPanel.categoryID or LFGListFrame.CategorySelection.selectedCategory
-    local filters = LFGListFrame.SearchPanel.filters or LFGListFrame.CategorySelection.selectedFilters
+    local filters = LFGListFrame.SearchPanel.filters or LFGListFrame.CategorySelection.selectedFilters or 0
     if not tab then return nil end
     if not category then return nil end
-    if not filters then filters = 0 end
     if filters < 0 then filters = "n" .. filters end
     local modelKey = "t" .. tab .. "c" .. category .. "f" .. filters
     if PremadeGroupsFilterState[modelKey] == nil then
