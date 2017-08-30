@@ -190,8 +190,8 @@ function PGF.DoFilterSearchResults(results)
             end
         end
 
-        env.arena2v2 = activity == 6
-        env.arena3v3 = activity == 7
+        env.arena2v2 = activity == 6 or activity == 491
+        env.arena3v3 = activity == 7 or activity == 490
 
         -- raids            normal             heroic             mythic
         env.hm   = activity ==  37 or activity ==  38 or activity == 399  -- Highmaul
