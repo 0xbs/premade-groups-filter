@@ -198,9 +198,10 @@ function PGF.DoFilterSearchResults(results)
         env.brf  = activity ==  39 or activity ==  40 or activity == 400  -- Blackrock Foundry
         env.hfc  = activity == 409 or activity == 410 or activity == 412  -- Hellfire Citadel
         env.en   = activity == 413 or activity == 414 or activity == 468  -- The Emerald Nightmare
-        env.nh   = activity == 415 or activity == 416                     -- The Nighthold
+        env.nh   = activity == 415 or activity == 416 or activity == 481  -- The Nighthold
         env.tov  = activity == 456 or activity == 457                     -- Trial of Valor
         env.tos  = activity == 479 or activity == 478                     -- Tomb of Sargeras
+        env.atbt = activity == 482 or activity == 483                     -- Antorus, the Burning Throne
 
         -- dungeons         normal             heroic             mythic            mythic+
         env.eoa  = activity == 425 or activity == 435 or activity == 445 or activity == 459  -- Eye of Azshara
@@ -219,6 +220,7 @@ function PGF.DoFilterSearchResults(results)
         env.lkara =                   activity == 470                    or activity == 471  -- Lower Karazahn
         env.ukara =                   activity == 472                    or activity == 473  -- Upper Karazhan
         env.coen =                    activity == 474 or activity == 475 or activity == 476  -- Cathedral of Eternal Night
+        env.sott =                    activity == 484 or activity == 485 or activity == 486  -- Seat of the Triumvirate
 
         local numbers = PGF.String_ExtractNumbers(name .. " " .. comment)
         env.findnumber = function (min, max)
