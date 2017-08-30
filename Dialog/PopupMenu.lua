@@ -125,7 +125,6 @@ end
 
 function PGF.PopupMenu_Toggle(name)
     if popupMenuActive == name then PGF.PopupMenu_Hide(name) else PGF.PopupMenu_Show(name) end
-    PlaySound("igMainMenuOptionCheckBoxOn")
 end
 
 function PGF.Popup_GetSelectedEntry()
