@@ -83,6 +83,7 @@ end
 
 function PGF.GetExpressionFromModel()
     local model = PGF.GetModel()
+    if not model then return "true" end
     local exp = "true" -- start with neutral element
     exp = exp .. PGF.GetExpressionFromDifficultyModel(model)
     exp = exp .. PGF.GetExpressionFromIlvlModel(model)
@@ -123,7 +124,7 @@ function PGF.DoFilterSearchResults(results)
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
     local model = PGF.GetModel()
-    if not model.enabled then return false end
+    if not model or not model.enabled then return false end
     if not results or #results == 0 then return false end
     if exp == "true" then return false end -- skip trivial expression
 
