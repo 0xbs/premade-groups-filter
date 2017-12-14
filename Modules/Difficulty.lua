@@ -119,6 +119,9 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [484] = C.HEROIC,     -- Seat of the Triumvirate
     [485] = C.MYTHIC,     -- Seat of the Triumvirate
     [486] = C.MYTHICPLUS, -- Seat of the Triumvirate
+
+    [492] = C.MYTHICPLUS, -- Tomb of Sargeras
+    [493] = C.MYTHICPLUS, -- Antorus, the Burning Throne
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
