@@ -1,5 +1,27 @@
+-------------------------------------------------------------------------------
+-- Premade Groups Filter
+-------------------------------------------------------------------------------
+-- Copyright (C) 2015 Elotheon-Arthas-EU
+--
+-- This program is free software; you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation; either version 2 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+--
+-- You should have received a copy of the GNU General Public License along
+-- with this program; if not, write to the Free Software Foundation, Inc.,
+-- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+-------------------------------------------------------------------------------
+
 local PGF = select(2, ...)
 local L = PGF.L
+
+if GetLocale() ~= "esEs" && GetLocale() ~= "esMX" then return end
 
 L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Error en la sintaxis de la expresión avanzada|r\n\nEsto significa que no se ha construido de la manera correcta, por ejemplo, se te olvido poner un paréntesis o escribiste 'tanks=1' en vez de 'tanks==1'.\n\nError detallado:\n|cffaaaaaa%s|r"
