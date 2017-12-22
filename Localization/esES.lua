@@ -21,7 +21,7 @@
 local PGF = select(2, ...)
 local L = PGF.L
 
-if GetLocale() ~= "esEs" then return end
+if GetLocale() ~= "esES" then return end
 
 L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Error en la sintaxis de la expresión avanzada|r\n\nEsto significa que no se ha construido de la manera correcta, por ejemplo, se te olvido poner un paréntesis o escribiste 'tanks=1' en vez de 'tanks==1'.\n\nError detallado:\n|cffaaaaaa%s|r"
@@ -55,7 +55,7 @@ L["dialog.tooltip.op.logic"] = "Operaciones lógicas"
 L["dialog.tooltip.op.number"] = "Operadores numéricos"
 L["dialog.tooltip.op.string"] = "Operadores de texto"
 L["dialog.tooltip.op.func"] = "Funciones"
-L["dialog.tooltip.findnumber"] = "filtrar números en las descripciones"
+L["dialog.tooltip.findnumber"] = "filtrar números en las descripciones/titulos"
 L["dialog.tooltip.example"] = "Ejemplo"
 L["dialog.tooltip.name"] = "nombre (texto blanco grande)"
 L["dialog.tooltip.comment"] = "comentario (texto gris)"
