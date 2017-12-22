@@ -21,7 +21,7 @@
 local PGF = select(2, ...)
 local L = PGF.L
 
-if GetLocale() ~= "esEs" && GetLocale() ~= "esMX" then return end
+if GetLocale() ~= "esEs" then return end
 
 L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Error en la sintaxis de la expresión avanzada|r\n\nEsto significa que no se ha construido de la manera correcta, por ejemplo, se te olvido poner un paréntesis o escribiste 'tanks=1' en vez de 'tanks==1'.\n\nError detallado:\n|cffaaaaaa%s|r"
