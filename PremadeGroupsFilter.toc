@@ -13,6 +13,7 @@ Localization\deDE.lua
 Localization\koKR.lua
 Localization\zhTW.lua
 Localization\ruRU.lua
+Localization\esES.lua
 Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
