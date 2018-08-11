@@ -22,7 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- /run for i=400,500 do local name = C_LFGList.GetActivityInfo(i); print(i, name) end
+-- /run for i=450,550 do local name = C_LFGList.GetActivityInfo(i); print(i, name) end
 PGF.ACTIVITY_TO_DIFFICULTY = {
     -- Warlords of Draenor (raids only)
     [37]  = C.NORMAL, -- Highmaul
@@ -121,7 +121,70 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [486] = C.MYTHICPLUS, -- Seat of the Triumvirate
 
     [492] = C.MYTHICPLUS, -- Tomb of Sargeras
-    [493] = C.MYTHICPLUS, -- Antorus, the Burning Throne
+    [493] = C.MYTHIC,     -- Antorus, the Burning Throne
+
+    [494] = C.NORMAL,     -- Uldir
+    [495] = C.HEROIC,     -- Uldir
+    [496] = C.MYTHIC,     -- Uldir
+
+    [497] = C.NORMAL,     -- Random Normal Dungeon BfA
+    [498] = C.HEROIC,     -- Random Heroic Dungeon BfA
+
+    [499] = C.MYTHIC,     -- Atal'Dazar
+    [500] = C.HEROIC,     -- Atal'Dazar
+    [501] = C.NORMAL,     -- Atal'Dazar
+    [502] = C.MYTHICPLUS, -- Atal'Dazar
+
+    [503] = C.NORMAL,     -- Temple of Sethraliss
+    [504] = C.MYTHICPLUS, -- Temple of Sethraliss
+    [505] = C.HEROIC,     -- Temple of Sethraliss
+
+    [506] = C.NORMAL,     -- The Underrot
+    [507] = C.MYTHICPLUS, -- The Underrot
+    [508] = C.HEROIC,     -- The Underrot
+
+    [509] = C.NORMAL,     -- The MOTHERLODE
+    [510] = C.MYTHICPLUS, -- The MOTHERLODE
+    [511] = C.HEROIC,     -- The MOTHERLODE
+
+    [512] = C.NORMAL,     -- Kings' Rest
+    [513] = C.MYTHIC,     -- Kings' Rest
+    [514] = C.MYTHICPLUS, -- Kings' Rest
+    [515] = C.HEROIC,     -- Kings' Rest
+
+    [516] = C.NORMAL,     -- Freehold
+    [517] = C.MYTHIC,     -- Freehold
+    [518] = C.MYTHICPLUS, -- Freehold
+    [519] = C.HEROIC,     -- Freehold
+
+    [520] = C.NORMAL,     -- Shrine of the Storm
+    [521] = C.MYTHIC,     -- Shrine of the Storm
+    [522] = C.MYTHICPLUS, -- Shrine of the Storm
+    [523] = C.HEROIC,     -- Shrine of the Storm
+
+    [524] = C.NORMAL,     -- Tol Dagor
+    [525] = C.MYTHIC,     -- Tol Dagor
+    [526] = C.MYTHICPLUS, -- Tol Dagor
+    [527] = C.HEROIC,     -- Tol Dagor
+
+    [528] = C.NORMAL,     -- Waycrest Manor
+    [529] = C.MYTHIC,     -- Waycrest Manor
+    [530] = C.MYTHICPLUS, -- Waycrest Manor
+    [531] = C.HEROIC,     -- Waycrest Manor
+
+    [532] = C.NORMAL,     -- Siege of Boralus
+    [533] = C.MYTHIC,     -- Siege of Boralus
+    [534] = C.MYTHICPLUS, -- Siege of Boralus
+    [535] = C.HEROIC,     -- Siege of Boralus
+
+    [536] = C.NORMAL,     -- Waycrest Manor
+    [537] = C.NORMAL,     -- Tol Dagor
+    [538] = C.NORMAL,     -- Shrine of the Storm
+    [539] = C.NORMAL,     -- Freehold
+    [540] = C.NORMAL,     -- The MOTHERLODE
+    [541] = C.NORMAL,     -- The Underrot
+    [542] = C.NORMAL,     -- Temple of Sethraliss
+    [543] = C.NORMAL,     -- Atal'Dazar
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
