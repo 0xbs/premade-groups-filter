@@ -131,9 +131,10 @@ function PGF.DoFilterSearchResults(results)
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
         local resultID = results[idx]
-        local _, activity, name, comment, voiceChat, iLvl, honorLevel, age,
-              numBNetFriends, numCharFriends, numGuildMates, _, leaderName,
-              numMembers = C_LFGList.GetSearchResultInfo(resultID)
+        local id, activity, name, comment, voiceChat, iLvl, honorLevel, age,
+              numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName,
+              numMembers, isAutoAccept, questID = C_LFGList.GetSearchResultInfo(resultID)
+        -- /dump select(3, C_LFGList.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1]))
         -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
         local defeatedBossNames = C_LFGList.GetSearchResultEncounterInfo(resultID)
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
@@ -177,6 +178,8 @@ function PGF.DoFilterSearchResults(results)
         env.minlvl = avMinLevel
         env.categoryid = avCategoryID
         env.groupid = avGroupID
+        env.autoinv = isAutoAccept
+        env.questid = questID
 
         for i = 1, numMembers do
             local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i);
