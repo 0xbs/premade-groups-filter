@@ -1,4 +1,4 @@
-## Interface: 70300
+## Interface: 80000
 ## Title: Premade Groups Filter
 ## Version: 1.18
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
