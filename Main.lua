@@ -134,6 +134,7 @@ function PGF.DoFilterSearchResults(results)
         local _, activity, name, comment, voiceChat, iLvl, honorLevel, age,
               numBNetFriends, numCharFriends, numGuildMates, _, leaderName,
               numMembers = C_LFGList.GetSearchResultInfo(resultID)
+        -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
         local defeatedBossNames = C_LFGList.GetSearchResultEncounterInfo(resultID)
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local numGroupDefeated, numPlayerDefeated, maxBosses,
@@ -145,9 +146,7 @@ function PGF.DoFilterSearchResults(results)
 
         local env = {}
         env.activity = activity
-        env.name = name:lower()
         env.activityname = avName:lower()
-        env.comment = comment:lower()
         env.leader = leaderName and leaderName:lower() or ""
         env.age = math.floor(age / 60) -- age in minutes
         env.voice = voiceChat and voiceChat ~= ""
@@ -222,16 +221,6 @@ function PGF.DoFilterSearchResults(results)
         env.ukara =                   activity == 472                    or activity == 473  -- Upper Karazhan
         env.coen =                    activity == 474 or activity == 475 or activity == 476  -- Cathedral of Eternal Night
         env.sott =                    activity == 484 or activity == 485 or activity == 486  -- Seat of the Triumvirate
-
-        local numbers = PGF.String_ExtractNumbers(name .. " " .. comment)
-        env.findnumber = function (min, max)
-            for _, v in ipairs(numbers) do
-                if (not min or v >= min) and (not max or v <= max) then
-                    return true
-                end
-            end
-            return false
-        end
 
         setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
