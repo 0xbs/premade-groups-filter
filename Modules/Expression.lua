@@ -22,7 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-StaticPopupDialogs["PEF_ERRORPOPUP"] = {
+StaticPopupDialogs["PGF_ERRORPOPUP"] = {
     text = "%s",
     button1 = L["button.ok"],
     timeout = 0,
@@ -32,11 +32,15 @@ StaticPopupDialogs["PEF_ERRORPOPUP"] = {
 }
 
 function PGF.HandleSyntaxError(error)
-    StaticPopup_Show("PEF_ERRORPOPUP", string.format(L["error.syntax"], error))
+    StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.syntax"], error))
 end
 
 function PGF.HandleSemanticError(error)
-    StaticPopup_Show("PEF_ERRORPOPUP", string.format(L["error.semantic"], error))
+    if error and (error:find("name") or error:find("comment") or error:find("findnumber")) then
+        StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.semantic.protected"], error))
+    else
+        StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.semantic"], error))
+    end
 end
 
 PGF.filterMetaTable = {

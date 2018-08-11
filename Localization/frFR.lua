@@ -26,6 +26,7 @@ if GetLocale() ~= "frFR" then return end
 L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Erreur de syntaxe dans le filtre d'expression|r\n\nCela indique que vous avez fait une erreur dans l'expression avancée, ex: il manque une paranthèse ou vous avez écrit 'tanks=1' au lieu de 'tanks==1'.\n\nMessage d'erreur détaillé:\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000Erreur sémantique dans le filtre d'expression|r\n\nCela indique que votre syntaxe est bonne mais que vous avez mal écrit le nom d'une variable, ex: tansk au lieu de tanks.\n\nMessage d'erreur détaillé:\n|cffaaaaaa%s|r"
+L["error.semantic.protected"] = "|cffff0000Erreur sémantique dans le filtre d'expression|r\n\nLes mots-clés 'name', 'comment' et 'findnumber' ne sont plus supportés. Veux-tu les supprimer de ton expression de filtre étendu ou appuies sur le bouton de réinitialisation.\n\nA partir du Battle for Azeroth Prepatch, ces valeurs sont maintenant protégées par Blizzard et ne peuvent plus être lues par aucun addon.\n\nUtilise la barre de recherche par défaut au-dessus de la liste des groupes pour filtrer les noms de groupes.\n\nMessage d'erreur détaillé:\n|cffaaaaaa%s|r"
 
 L["dialog.reset"] = "Réinitialiser"
 L["dialog.refresh"] = "Rechercher"
