@@ -185,6 +185,19 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [541] = C.NORMAL,     -- The Underrot
     [542] = C.NORMAL,     -- Temple of Sethraliss
     [543] = C.NORMAL,     -- Atal'Dazar
+
+    [644] = C.MYTHIC,     -- The Underrot
+    [645] = C.MYTHIC,     -- Temple of Sethraliss
+    [646] = C.MYTHIC,     -- The MOTHERLODE
+
+    [653] = C.NORMAL,     -- Random Island
+    [654] = C.HEROIC,     -- Random Island
+    [655] = C.MYTHIC,     -- Random Island
+
+    [658] = C.MYTHIC,     -- Siege of Boralus
+    [659] = C.MYTHICPLUS, -- Siege of Boralus
+    [660] = C.MYTHIC,     -- Kings Rest
+    [661] = C.MYTHICPLUS, -- Kings Rest
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties

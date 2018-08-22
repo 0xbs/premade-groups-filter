@@ -228,13 +228,14 @@ function PGF.DoFilterSearchResults(results)
 
         env.ad   = activity == 501 or activity == 500 or activity == 499 or activity == 502  -- Atal'Dazar
                 or activity == 543
-        env.tosl = activity == 503 or activity == 505                    or activity == 504  -- Temple of Sethraliss
+        env.tosl = activity == 503 or activity == 505 or activity == 645 or activity == 504  -- Temple of Sethraliss
                 or activity == 542
-        env.tur  = activity == 506 or activity == 508                    or activity == 507  -- The Underrot
+        env.tur  = activity == 506 or activity == 508 or activity == 644 or activity == 507  -- The Underrot
                 or activity == 541
-        env.tml  = activity == 509 or activity == 511                    or activity == 510  -- The MOTHERLODE
+        env.tml  = activity == 509 or activity == 511 or activity == 646 or activity == 510  -- The MOTHERLODE
                 or activity == 540
         env.kr   = activity == 512 or activity == 515 or activity == 513 or activity == 514  -- Kings' Rest
+                                                      or activity == 660 or activity == 661
         env.fh   = activity == 516 or activity == 519 or activity == 517 or activity == 518  -- Freehold
                 or activity == 539
         env.sots = activity == 520 or activity == 523 or activity == 521 or activity == 522  -- Shrine of the Storm
@@ -244,6 +245,7 @@ function PGF.DoFilterSearchResults(results)
         env.wm   = activity == 528 or activity == 531 or activity == 529 or activity == 530  -- Waycrest Manor
                 or activity == 536
         env.sob  = activity == 532 or activity == 535 or activity == 533 or activity == 534  -- Siege of Boralus
+                                                      or activity == 658 or activity == 659
 
         setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
