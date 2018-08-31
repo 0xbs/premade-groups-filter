@@ -131,7 +131,6 @@ function PGF.Dialog_ResetMinMaxField(self, key)
 end
 
 function PGF.Dialog_Reset()
-print("reset")
     local dialog = PremadeGroupsFilterDialog
     -- TODO reset the difficulty dropdown
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")

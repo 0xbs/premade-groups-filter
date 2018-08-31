@@ -53,9 +53,7 @@ function PGF.Dialog_LoadFromModel(dialog)
     dialog.Expression.EditBox:SetText(model.expression)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
     dialog.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[model.difficulty.val])
-	
-	print(model.dps.act)
-	
+		
 	-- Urgânot EU-Eredar
 	dialog.Ad.Act:SetChecked(model.ad.act)
 	dialog.Fh.Act:SetChecked(model.fh.act)
