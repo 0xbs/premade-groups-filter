@@ -72,6 +72,18 @@ function PGF.Dialog_Act_OnClick(self, button, down)
             PGF.Dialog_Act_OnClick(dialog.Noilvl.Act)
         end
     end
+
+	if (key == "Ilvl"
+		or key == "Defeated"
+		or key == "Members"
+		or key == "Tanks"
+		or key == "Heals"
+		or key == "Dps"	) 
+		and checked == false then
+		dialog[key].Min:SetText("")
+		dialog[key].Max:SetText("")
+	end
+	
     PGF.Dialog_OnModelUpdate()
 end
 
@@ -119,6 +131,7 @@ function PGF.Dialog_ResetMinMaxField(self, key)
 end
 
 function PGF.Dialog_Reset()
+print("reset")
     local dialog = PremadeGroupsFilterDialog
     -- TODO reset the difficulty dropdown
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")
