@@ -80,7 +80,7 @@
     </Frame>
 
     <Frame name="PremadeGroupsFilterDialog" frameStrata="MEDIUM" parent="UIParent" clampedToScreen="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
-        <Size x="300" y="800"/>
+        <Size x="300" y="430"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
         </Anchors>
