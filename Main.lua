@@ -46,6 +46,38 @@ function PGF.GetExpressionFromIlvlModel(model)
     return exp
 end
 
+function PGF.GetExpressionFromDungeonModel(model)
+	local default = " and ("
+	local exp = default
+	
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"ad")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"fh")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"kr")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"sob")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"sots")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"td")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"tml")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"tosl")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"tur")
+	exp = PGF.GetExpressionFromDungeon(model,exp,default,"wm")
+
+	if exp == default then
+		return ""
+	else
+		return exp .. " )"
+	end
+end
+
+function PGF.GetExpressionFromDungeon(model, exp, default, key)
+	if model[key].act then
+		if exp ~= default then
+			exp = exp .. " or"
+		end
+		exp = exp .. " " .. key
+	end
+	return exp
+end
+
 function PGF.GetExpressionFromDifficultyModel(model)
     if model.difficulty.act then
         return " and " .. C.DIFFICULTY_STRING[model.difficulty.val]
@@ -93,6 +125,7 @@ function PGF.GetExpressionFromModel()
     exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "dps")
     exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "defeated")
     exp = exp .. PGF.GetExpressionFromAdvancedExpression(model)
+    exp = exp .. PGF.GetExpressionFromDungeonModel(model)
     exp = exp:gsub("^true and ", "")
     return exp
 end

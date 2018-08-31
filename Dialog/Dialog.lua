@@ -124,6 +124,20 @@ function PGF.Dialog_Reset()
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")
     PGF.Dialog_ResetMinMaxField(dialog, "Ilvl")
     PGF.Dialog_ResetGenericField(dialog, "Noilvl")
+	
+	-- Urgânot EU-Eredar
+	PGF.Dialog_ResetGenericField(dialog, "Ad")
+    PGF.Dialog_ResetGenericField(dialog, "Fh")
+    PGF.Dialog_ResetGenericField(dialog, "Kr")
+    PGF.Dialog_ResetGenericField(dialog, "Sob")
+    PGF.Dialog_ResetGenericField(dialog, "Sots")
+    PGF.Dialog_ResetGenericField(dialog, "Td")
+    PGF.Dialog_ResetGenericField(dialog, "Tml")
+    PGF.Dialog_ResetGenericField(dialog, "Tosl")
+    PGF.Dialog_ResetGenericField(dialog, "Tur")
+    PGF.Dialog_ResetGenericField(dialog, "Wm")
+	-- Urgânot EU-Eredar
+	
     PGF.Dialog_ResetMinMaxField(dialog, "Members")
     PGF.Dialog_ResetMinMaxField(dialog, "Tanks")
     PGF.Dialog_ResetMinMaxField(dialog, "Heals")

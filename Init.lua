@@ -116,6 +116,36 @@ C.MODEL_DEFAULT = {
         min = "",
         max = "",
     },
+    ad = {
+        act = false,
+    },
+	fh = {
+        act = false,
+    },
+	kr = {
+        act = false,
+    },
+	sob = {
+        act = false,
+    },
+	sots = {
+        act = false,
+    },
+	td = {
+        act = false,
+    },
+	tml = {
+        act = false,
+    },
+	tosl = {
+        act = false,
+    },
+	tur = {
+        act = false,
+    },
+	wm = {
+        act = false,
+    },
 }
 
 function PGF.OnAddonLoaded(name)

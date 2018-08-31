@@ -82,3 +82,17 @@ L["dialog.tooltip.ex.neq"] = "members ~= 0"
 L["dialog.tooltip.ex.lt"] = "hlvl >= 5"
 L["dialog.tooltip.ex.find"] = "not name:find(\"wts\")"
 L["dialog.tooltip.ex.match"] = "name:match(\"+(%d)\")==\"5\""
+
+-- Urgânot EU-Eredar
+L["dialog.dungeons.title"] = "BfA Dungeons"
+L["dialog.ad"] = "Atal'Dazar"
+L["dialog.fh"] = "Freehold"
+L["dialog.kr"] = "Kings' Rest"
+L["dialog.sob"] = "Siege of Boralus"
+L["dialog.sots"] = "Shrine of the Storm"
+L["dialog.td"] = "Tol Dagor"
+L["dialog.tml"] = "The MOTHERLODE!!"
+L["dialog.tosl"] = "Temple of Sethraliss"
+L["dialog.tur"] = "The Underrot"
+L["dialog.wm"] = "Waycrest Manor"
+-- Urgânot EU-Eredar

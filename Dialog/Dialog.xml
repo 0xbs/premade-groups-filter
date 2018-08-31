@@ -80,7 +80,7 @@
     </Frame>
 
     <Frame name="PremadeGroupsFilterDialog" frameStrata="MEDIUM" parent="UIParent" clampedToScreen="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
-        <Size x="300" y="430"/>
+        <Size x="300" y="800"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
         </Anchors>
@@ -103,6 +103,16 @@
                         <Anchor point="TOP" y="-8"/>
                     </Anchors>
                 </FontString>
+				
+				<!-- Urgânot EU-Eredar -->
+				<FontString parentKey="DungeonTitle" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size x="180" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="14" y="-278"/>
+                    </Anchors>
+                </FontString>
+				<!-- Urgânot EU-Eredar -->
+
                 <!-- text explaining that members etc are the current state of the group -->
                 <FontString parentKey="StateExplanation" inherits="GameFontNormal" justifyH="LEFT">
                     <Size x="180" y="30"/>
@@ -167,6 +177,61 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.Heals" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
             </Frame>
+			
+			<!-- Urganot EU-Eredar-->
+			<Frame parentKey="Ad" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Dps" relativePoint="BOTTOMLEFT" x="10" y="-27"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Fh" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Ad" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Kr" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Fh" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+						<Frame parentKey="Sob" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Kr" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Sots" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Sob" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Td" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Sots" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Tml" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Td" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Tosl" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Tml" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Tur" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Tosl" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<Frame parentKey="Wm" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Tur" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+            </Frame>
+			<!-- Urgânot EU-Eredar-->
+
+			
             <Frame parentKey="Advanced" inherits="HorizontalBarTemplate">
                 <Size x="0" y="35"/>
                 <Anchors>

@@ -53,12 +53,28 @@ function PGF.Dialog_LoadFromModel(dialog)
     dialog.Expression.EditBox:SetText(model.expression)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
     dialog.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[model.difficulty.val])
+	
+	print(model.dps.act)
+	
+	-- Urgânot EU-Eredar
+	dialog.Ad.Act:SetChecked(model.ad.act)
+	dialog.Fh.Act:SetChecked(model.fh.act)
+	dialog.Kr.Act:SetChecked(model.kr.act)
+	dialog.Sob.Act:SetChecked(model.sob.act)
+	dialog.Sots.Act:SetChecked(model.sots.act)
+	dialog.Td.Act:SetChecked(model.td.act)
+	dialog.Tml.Act:SetChecked(model.tml.act)
+	dialog.Tosl.Act:SetChecked(model.tosl.act)
+	dialog.Tur.Act:SetChecked(model.tur.act)
+	dialog.Wm.Act:SetChecked(model.wm.act)
+	-- Urgânot EU-Eredar
+
 end
 
 function PGF.Dialog_UpdatePosition()
     local dialog = PremadeGroupsFilterDialog
     dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
-    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT")
+    dialog:SetHeight(700)--SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT")
     dialog:SetWidth(300)
 end
 
@@ -149,13 +165,19 @@ function PGF.Dialog_OnLoad()
     dialog.Ilvl.Min:SetMaxLetters(3)
     dialog.Ilvl.Max:SetMaxLetters(3)
     dialog.Noilvl.Title:SetWidth(210)
-    dialog.Noilvl.Act:SetEnabled(false)
+    dialog.Noilvl.Act:SetEnabled(false)	
     dialog.Defeated.Title:SetWordWrap(true)
     dialog.Defeated.Title:SetHeight(28)
 
     PGF.Dialog_SetUpGenericField(dialog, "Difficulty")
     PGF.Dialog_SetUpMinMaxField(dialog, "Ilvl")
     PGF.Dialog_SetUpGenericField(dialog, "Noilvl")
+	
+	-- Urgânot EU-Eredar
+	dialog.DungeonTitle:SetText(L["dialog.dungeons.title"])
+	PGF.Dialog_SetUpDungeonFields(dialog)
+	-- Urgânot EU-Eredar
+
     PGF.Dialog_SetUpMinMaxField(dialog, "Members")
     PGF.Dialog_SetUpMinMaxField(dialog, "Tanks")
     PGF.Dialog_SetUpMinMaxField(dialog, "Heals")
@@ -169,6 +191,22 @@ function PGF.Dialog_OnLoad()
     --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged) -- overrides Blizz
 
     PGF.Dialog_DifficultyDropdown_Init(dialog.Difficulty.DropDown)
+end
+
+-- Urgânot EU-Eredar
+function PGF.Dialog_SetUpDungeonFields(dialog)
+
+    PGF.Dialog_SetUpGenericField(dialog, "Ad")
+    PGF.Dialog_SetUpGenericField(dialog, "Fh")
+    PGF.Dialog_SetUpGenericField(dialog, "Kr")
+    PGF.Dialog_SetUpGenericField(dialog, "Sob")
+    PGF.Dialog_SetUpGenericField(dialog, "Sots")
+    PGF.Dialog_SetUpGenericField(dialog, "Td")
+    PGF.Dialog_SetUpGenericField(dialog, "Tml")
+    PGF.Dialog_SetUpGenericField(dialog, "Tosl")
+    PGF.Dialog_SetUpGenericField(dialog, "Tur")
+    PGF.Dialog_SetUpGenericField(dialog, "Wm")
+
 end
 
 PremadeGroupsFilter.Dialog_OnLoad = PGF.Dialog_OnLoad
