@@ -79,7 +79,7 @@
         </Layers>
     </Frame>
 
-    <Frame name="PremadeGroupsFilterDialog" frameStrata="MEDIUM" parent="UIParent" clampedToScreen="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
+    <Frame name="PremadeGroupsFilterDialog" frameStrata="MEDIUM" parent="PVEFrame" clampedToScreen="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
         <Size x="300" y="430"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
