@@ -159,6 +159,10 @@ function PGF.DoFilterSearchResults(results)
         env.tanks = memberCounts.TANK
         env.heals = memberCounts.HEALER
         env.healers = memberCounts.HEALER
+        env.ranged = 0        -- incremented below
+        env.ranged_strict = 0 -- incremented below
+        env.melees = 0        -- incremented below
+        env.melees_strict = 0 -- incremented below
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
         env.defeated = numGroupDefeated
         env.normal     = difficulty == C.NORMAL
@@ -190,6 +194,18 @@ function PGF.DoFilterSearchResults(results)
                 local roleClassPlural = class:lower() .. "_" .. C.ROLE_SUFFIX[role]
                 env[classRolePlural] = (env[classRolePlural] or 0) + 1
                 env[roleClassPlural] = (env[roleClassPlural] or 0) + 1
+                if role == "DAMAGER" then
+                    if C.DPS_CLASS_TYPE[class].range and C.DPS_CLASS_TYPE[class].melee then
+                        env.ranged = env.ranged + 1
+                        env.melees = env.melees + 1
+                    elseif C.DPS_CLASS_TYPE[class].range then
+                        env.ranged = env.ranged + 1
+                        env.ranged_strict = env.ranged_strict + 1
+                    elseif C.DPS_CLASS_TYPE[class].melee then
+                        env.melees = env.melees + 1
+                        env.melees_strict = env.melees_strict + 1
+                    end
+                end
             end
         end
 

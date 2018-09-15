@@ -76,6 +76,21 @@ C.ROLE_SUFFIX = {
     ["TANK"] = "tanks",
 }
 
+C.DPS_CLASS_TYPE = {
+    ["DEATHKNIGHT"] = { range = false, melee = true },
+    ["DEMONHUNTER"] = { range = false, melee = true },
+    ["DRUID"]       = { range = true,  melee = true },
+    ["HUNTER"]      = { range = true,  melee = true },
+    ["PALADIN"]     = { range = false, melee = true },
+    ["PRIEST"]      = { range = true,  melee = false },
+    ["MAGE"]        = { range = true,  melee = false },
+    ["MONK"]        = { range = false, melee = true },
+    ["ROGUE"]       = { range = false, melee = true },
+    ["SHAMAN"]      = { range = true,  melee = true },
+    ["WARLOCK"]     = { range = true,  melee = false },
+    ["WARRIOR"]     = { range = false, melee = true },
+}
+
 C.MODEL_DEFAULT = {
     enabled = true,
     expression = "",
