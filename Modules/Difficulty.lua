@@ -120,6 +120,8 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [485] = C.MYTHIC,     -- Seat of the Triumvirate
     [486] = C.MYTHICPLUS, -- Seat of the Triumvirate
 
+    [491] = C.ARENA2V2,
+    [490] = C.ARENA3V3,
     [492] = C.MYTHICPLUS, -- Tomb of Sargeras
     [493] = C.MYTHIC,     -- Antorus, the Burning Throne
 

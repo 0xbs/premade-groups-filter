@@ -27,6 +27,8 @@ local DIFFICULTY_TEXT = {
     [C.HEROIC] = L["dialog.heroic"],
     [C.MYTHIC] = L["dialog.mythic"],
     [C.MYTHICPLUS] = L["dialog.mythicplus"],
+    [C.ARENA2V2] = L["dialog.arena2v2"],
+    [C.ARENA3V3] = L["dialog.arena3v3"],
 }
 
 -------------------------------------------------------------------------------
@@ -86,6 +88,8 @@ function PGF.Dialog_DifficultyDropdown_Init(dropdown)
     addEntry(entries, C.HEROIC)
     addEntry(entries, C.MYTHIC)
     addEntry(entries, C.MYTHICPLUS)
+    addEntry(entries, C.ARENA2V2)
+    addEntry(entries, C.ARENA3V3)
 
     PGF.PopupMenu_Register("DifficultyMenu", entries, PremadeGroupsFilterDialog, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
     dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DifficultyMenu") end)
