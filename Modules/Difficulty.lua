@@ -23,7 +23,10 @@ local L = PGF.L
 local C = PGF.C
 
 -- /run for i=450,550 do local name = C_LFGList.GetActivityInfo(i); print(i, name) end
-PGF.ACTIVITY_TO_DIFFICULTY = {
+PGF.ACTIVITY_TO_DIFFICULTY = {    
+    [6] = C.ARENA2V2, -- Arena 2v2
+    [7] = C.ARENA3V3, -- Arena 3v3
+    
     -- Warlords of Draenor (raids only)
     [37]  = C.NORMAL, -- Highmaul
     [38]  = C.HEROIC, -- Highmaul
@@ -202,14 +205,16 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
 PGF.SHORTNAME_TO_DIFFICULTY = {
-    [select(2, C_LFGList.GetActivityInfo(46))] = C.NORMAL,      -- 10 Normal
-    [select(2, C_LFGList.GetActivityInfo(47))] = C.HEROIC,      -- 10 Heroic
-    [select(2, C_LFGList.GetActivityInfo(48))] = C.NORMAL,      -- 25 Normal
-    [select(2, C_LFGList.GetActivityInfo(49))] = C.HEROIC,      -- 25 Heroic
-    [select(2, C_LFGList.GetActivityInfo(425))] = C.NORMAL,     -- Normal
-    [select(2, C_LFGList.GetActivityInfo(435))] = C.HEROIC,     -- Heroic
-    [select(2, C_LFGList.GetActivityInfo(445))] = C.MYTHIC,     -- Mythic
-    [select(2, C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS, -- Mythic+
+    [select(2, C_LFGList.GetActivityInfo(46))]  = C.NORMAL,      -- 10 Normal
+    [select(2, C_LFGList.GetActivityInfo(47))]  = C.HEROIC,      -- 10 Heroic
+    [select(2, C_LFGList.GetActivityInfo(48))]  = C.NORMAL,      -- 25 Normal
+    [select(2, C_LFGList.GetActivityInfo(49))]  = C.HEROIC,      -- 25 Heroic
+    [select(2, C_LFGList.GetActivityInfo(425))] = C.NORMAL,      -- Normal
+    [select(2, C_LFGList.GetActivityInfo(435))] = C.HEROIC,      -- Heroic
+    [select(2, C_LFGList.GetActivityInfo(445))] = C.MYTHIC,      -- Mythic
+    [select(2, C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS,  -- Mythic+
+    [select(2, C_LFGList.GetActivityInfo(6))]   = C.ARENA2V2,    -- Arena 2v2
+    [select(2, C_LFGList.GetActivityInfo(7))]   = C.ARENA3V3,    -- Arena 3v3
 }
 
 function PGF.ExtractNameSuffix(name)
@@ -226,14 +231,16 @@ end
 
 -- maps localized name suffixes (the value in parens) from C_LFGList.GetActivityInfo() to difficulties
 PGF.NAMESUFFIX_TO_DIFFICULTY = {
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(46))] = C.NORMAL,      -- XXX (10 Normal)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(47))] = C.HEROIC,      -- XXX (10 Heroic)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(48))] = C.NORMAL,      -- XXX (25 Normal)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(49))] = C.HEROIC,      -- XXX (25 Heroic)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(425))] = C.NORMAL,     -- XXX (Normal)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(435))] = C.HEROIC,     -- XXX (Heroic)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(445))] = C.MYTHIC,     -- XXX (Mythic)
-    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS, -- XXX (Mythic Keystone)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(46))]  = C.NORMAL,      -- XXX (10 Normal)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(47))]  = C.HEROIC,      -- XXX (10 Heroic)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(48))]  = C.NORMAL,      -- XXX (25 Normal)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(49))]  = C.HEROIC,      -- XXX (25 Heroic)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(425))] = C.NORMAL,      -- XXX (Normal)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(435))] = C.HEROIC,      -- XXX (Heroic)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(445))] = C.MYTHIC,      -- XXX (Mythic)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(459))] = C.MYTHICPLUS,  -- XXX (Mythic Keystone)
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(6))]   = C.ARENA2V2,    -- Arena 2v2
+    [PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(7))]   = C.ARENA3V3,    -- Arena 3v3
     --[PGF.ExtractNameSuffix(C_LFGList.GetActivityInfo(476))] = C.MYTHICPLUS, -- XXX (Mythic+)
 }
 
