@@ -36,8 +36,8 @@ C.NORMAL     = 1
 C.HEROIC     = 2
 C.MYTHIC     = 3
 C.MYTHICPLUS = 4
-C.ARENA2V2 = 5
-C.ARENA3V3 = 6
+C.ARENA2V2   = 5
+C.ARENA3V3   = 6
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfo()
 C.TYPE_QUESTING = 1
