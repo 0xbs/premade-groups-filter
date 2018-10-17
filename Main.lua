@@ -262,6 +262,11 @@ function PGF.DoFilterSearchResults(results)
                 or activity == 536
         env.sob  = activity == 532 or activity == 535 or activity == 533 or activity == 534  -- Siege of Boralus
                                                       or activity == 658 or activity == 659
+        -- raider.io aliases
+        env.ml = env.tml
+        env.undr = env.tur
+        env.siege = env.sob
+        --env.tos = env.tosl -- collision with Tomb of Sargeras
 
         setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
