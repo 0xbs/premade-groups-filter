@@ -55,7 +55,7 @@ end
 
 function PGF.GetExpressionFromAdvancedExpression(model)
     if model.expression and model.expression ~= "" then
-        return " and " .. model.expression
+        return " and ( " .. model.expression .. " ) "
     end
     return ""
 end
