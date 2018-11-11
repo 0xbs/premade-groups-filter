@@ -116,6 +116,34 @@ function PGF.SortByFriendsAndAge(id1, id2)
     return age1 < age2
 end
 
+function PGF.PutRaiderIOMetrics(env, leaderName)
+    env.hasrio       = false
+    env.norio        = true
+    env.rio          = 0
+    env.riodps       = 0
+    env.rioheal      = 0
+    env.riotank      = 0
+    env.riokey5plus  = 0
+    env.riokey10plus = 0
+    env.riokey15plus = 0
+    env.riokeymax    = 0
+    if leaderName and RaiderIO and RaiderIO.HasPlayerProfile(leaderName) then
+        local result = RaiderIO.GetPlayerProfile(RaiderIO.ProfileOutput.MYTHICPLUS, leaderName)
+        if result and result.profile then
+            env.hasrio = true
+            env.norio = false
+            env.rio =          result.profile.allScore
+            env.rioheal =      result.profile.healScore
+            env.riotank =      result.profile.tankScore
+            env.riodps =       result.profile.dpsScore
+            env.riokey5plus =  result.profile.keystoneFivePlus
+            env.riokey10plus = result.profile.keystoneTenPlus
+            env.riokey15plus = result.profile.keystoneFifteenPlus
+            env.riokeymax =    result.profile.maxDungeonLevel
+        end
+    end
+end
+
 function PGF.DoFilterSearchResults(results)
     --print(debugstack())
     --print("filtering, size is "..#results)
@@ -267,6 +295,7 @@ function PGF.DoFilterSearchResults(results)
         env.undr = env.tur
         env.siege = env.sob
         --env.tos = env.tosl -- collision with Tomb of Sargeras
+        PGF.PutRaiderIOMetrics(env, leaderName)
 
         setmetatable(env, { __index = function(table, key) return 0 end }) -- set non-initialized values to 0
         if PGF.DoesPassThroughFilter(env, exp) then
