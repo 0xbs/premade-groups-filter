@@ -130,16 +130,16 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     if leaderName and RaiderIO and RaiderIO.HasPlayerProfile(leaderName) then
         local result = RaiderIO.GetPlayerProfile(RaiderIO.ProfileOutput.MYTHICPLUS, leaderName)
         if result and result.profile then
-            env.hasrio = true
-            env.norio = false
-            env.rio =          result.profile.allScore
-            env.rioheal =      result.profile.healScore
-            env.riotank =      result.profile.tankScore
-            env.riodps =       result.profile.dpsScore
-            env.riokey5plus =  result.profile.keystoneFivePlus
+            env.hasrio       = true
+            env.norio        = false
+            env.rio          = result.profile.allScore
+            env.rioheal      = result.profile.healScore
+            env.riotank      = result.profile.tankScore
+            env.riodps       = result.profile.dpsScore
+            env.riokey5plus  = result.profile.keystoneFivePlus
             env.riokey10plus = result.profile.keystoneTenPlus
             env.riokey15plus = result.profile.keystoneFifteenPlus
-            env.riokeymax =    result.profile.maxDungeonLevel
+            env.riokeymax    = result.profile.maxDungeonLevel
         end
     end
 end
