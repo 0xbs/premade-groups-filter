@@ -12,8 +12,8 @@ Examples of what can easily be found with Premade Groups Filter:
 ### Resources
 
 * [Project on Curse.com](https://mods.curse.com/addons/wow/premade-groups-filter)
-* [Full List of Keywords](https://wow.curseforge.com/projects/premade-groups-filter/pages/list-of-keywords "Full List of Keywords")
-* [FAQ and Examples](https://wow.curseforge.com/projects/premade-groups-filter/pages/faq "FAQ and Examples")
+* [Full List of Keywords](https://github.com/0xbs/premade-groups-filter/wiki/Keywords "Full List of Keywords")
+* [FAQ and Examples](https://github.com/0xbs/premade-groups-filter/wiki/FAQ "FAQ and Examples")
 
 
 ### License
