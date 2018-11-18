@@ -123,6 +123,7 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     env.riodps       = 0
     env.rioheal      = 0
     env.riotank      = 0
+    env.riomain      = 0
     env.riokey5plus  = 0
     env.riokey10plus = 0
     env.riokey15plus = 0
@@ -133,9 +134,10 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
             env.hasrio       = true
             env.norio        = false
             env.rio          = result.profile.allScore
+            env.riodps       = result.profile.dpsScore
             env.rioheal      = result.profile.healScore
             env.riotank      = result.profile.tankScore
-            env.riodps       = result.profile.dpsScore
+            env.riomain      = result.profile.mainScore
             env.riokey5plus  = result.profile.keystoneFivePlus
             env.riokey10plus = result.profile.keystoneTenPlus
             env.riokey15plus = result.profile.keystoneFifteenPlus
