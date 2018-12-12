@@ -239,7 +239,7 @@ function PGF.DoFilterSearchResults(results)
         env.questid = searchResultInfo.questID
 
         for i = 1, searchResultInfo.numMembers do
-            local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i) -- TODO check
+            local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i)
             local classPlural = class:lower() .. "s" -- plural form of the class in english
             env[classPlural] = (env[classPlural] or 0) + 1
             if role then
