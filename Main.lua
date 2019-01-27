@@ -266,7 +266,7 @@ function PGF.DoFilterSearchResults(results)
         env.arena2v2 = aID == 6 or aID == 491
         env.arena3v3 = aID == 7 or aID == 490
 
-        -- raids            normal             heroic             mythic
+        -- raids       normal        heroic        mythic
         env.hm   = aID ==  37 or aID ==  38 or aID == 399  -- Highmaul
         env.brf  = aID ==  39 or aID ==  40 or aID == 400  -- Blackrock Foundry
         env.hfc  = aID == 409 or aID == 410 or aID == 412  -- Hellfire Citadel
@@ -276,8 +276,12 @@ function PGF.DoFilterSearchResults(results)
         env.tos  = aID == 479 or aID == 478 or aID == 492  -- Tomb of Sargeras
         env.atbt = aID == 482 or aID == 483 or aID == 493  -- Antorus, the Burning Throne
         env.uldir= aID == 494 or aID == 495 or aID == 496  -- Uldir
+        env.bod  = aID == 663 or aID == 664 or aID == 665  -- Battle of Dazar'alor
+        env.daz  = env.bod
+        env.cs   = aID == 666 or aID == 667 or aID == 668  -- Crucible of Storms
+        env.cru  = env.cs
 
-        -- dungeons         normal             heroic             mythic            mythic+
+        -- dungeons    normal        heroic        mythic       mythic+
         env.eoa  = aID == 425 or aID == 435 or aID == 445 or aID == 459  -- Eye of Azshara
         env.dht  = aID == 426 or aID == 436 or aID == 446 or aID == 460  -- Darkheart Thicket
         env.hov  = aID == 427 or aID == 437 or aID == 447 or aID == 461  -- Halls of Valor

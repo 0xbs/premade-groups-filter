@@ -22,7 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- /run for i=450,550 do local name = C_LFGList.GetActivityInfo(i); print(i, name) end
+-- /run for i=650,750 do local name = C_LFGList.GetActivityInfo(i); print(i, name) end
 PGF.ACTIVITY_TO_DIFFICULTY = {    
     [6] = C.ARENA2V2, -- Arena 2v2
     [7] = C.ARENA3V3, -- Arena 3v3
@@ -201,6 +201,14 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [659] = C.MYTHICPLUS, -- Siege of Boralus
     [660] = C.MYTHIC,     -- Kings Rest
     [661] = C.MYTHICPLUS, -- Kings Rest
+
+    [663] = C.NORMAL,     -- Battle of Dazar'alor
+    [664] = C.HEROIC,     -- Battle of Dazar'alor
+    [665] = C.MYTHIC,     -- Battle of Dazar'alor
+
+    [666] = C.MYTHIC,     -- Crucible of Storms
+    [667] = C.HEROIC,     -- Crucible of Storms
+    [668] = C.NORMAL,     -- Crucible of Storms
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
