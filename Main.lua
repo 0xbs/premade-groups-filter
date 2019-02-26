@@ -158,14 +158,14 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
         if result and result.profile then
             env.hasrio       = true
             env.norio        = false
-            env.rio          = result.profile.allScore
-            env.riodps       = result.profile.dpsScore
-            env.rioheal      = result.profile.healScore
-            env.riotank      = result.profile.tankScore
-            env.riomain      = result.profile.mainScore
+            env.rio          = result.profile.mplusCurrent.score
+            env.rioprev      = result.profile.mplusPrevious.score
+            env.riomain      = result.profile.mplusMainCurrent.score
+            env.riomainprev  = result.profile.mplusMainPrevious.score
             env.riokey5plus  = result.profile.keystoneFivePlus
             env.riokey10plus = result.profile.keystoneTenPlus
             env.riokey15plus = result.profile.keystoneFifteenPlus
+            env.riokey20plus = result.profile.keystoneTwentyPlus
             env.riokeymax    = result.profile.maxDungeonLevel
         end
     end
