@@ -61,6 +61,7 @@ C.DIFFICULTY_STRING = {
 }
 
 C.COLOR_ENTRY_NEW       = { R = 0.3, G = 1.0, B = 0.3 } -- green
+C.COLOR_ENTRY_DECLINED  = { R = 0.5, G = 0.1, B = 0.1 } -- dark red
 C.COLOR_LOCKOUT_PARTIAL = { R = 1.0, G = 0.5, B = 0.1 } -- orange
 C.COLOR_LOCKOUT_FULL    = { R = 0.5, G = 0.1, B = 0.1 } -- red
 C.COLOR_LOCKOUT_MATCH   = { R = 1.0, G = 1.0, B = 1.0 } -- white
