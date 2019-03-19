@@ -238,6 +238,7 @@ function PGF.DoFilterSearchResults(results)
         env.groupid = avGroupID
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
+        env.declined = PGF.IsDeclinedGroup(searchResultInfo)
 
         for i = 1, searchResultInfo.numMembers do
             local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i)
@@ -346,6 +347,16 @@ function PGF.GetDeclinedGroupsKey(searchResultInfo)
     return searchResultInfo.activityID .. searchResultInfo.leaderName
 end
 
+function PGF.IsDeclinedGroup(searchResultInfo)
+    if searchResultInfo.leaderName then -- leaderName is not available for brand new groups
+        local lastDeclined = PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] or 0
+        if lastDeclined > time() - C.DECLINED_GROUPS_RESET then
+            return true
+        end
+    end
+    return false
+end
+
 function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(id)
     if newStatus == "declined" and searchResultInfo.leaderName then -- leaderName is not available for brand new groups
@@ -367,11 +378,9 @@ function PGF.OnLFGListSearchEntryUpdate(self)
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color name if declined
-        if searchResultInfo.leaderName then -- leaderName is not available for brand new groups
-            local lastDeclined = PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] or 0
-            if lastDeclined > time() - C.DECLINED_GROUPS_RESET then
-                self.Name:SetTextColor(0.5, 0.1, 0.1)
-            end
+        if PGF.IsDeclinedGroup(searchResultInfo) then
+            local color = C.COLOR_ENTRY_DECLINED
+            self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color activity if lockout
         local numGroupDefeated, numPlayerDefeated, maxBosses,
