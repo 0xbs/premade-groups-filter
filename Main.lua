@@ -27,6 +27,7 @@ PGF.previousSearchExpression = ""
 PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
+PGF.declinedGroups = {}
 
 function PGF.GetExpressionFromMinMaxModel(model, key)
     local exp = ""
@@ -341,11 +342,22 @@ function PGF.DoFilterSearchResults(results)
     return true
 end
 
+function PGF.GetDeclinedGroupsKey(searchResultInfo)
+    return searchResultInfo.activityID .. searchResultInfo.leaderName
+end
+
+function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
+    local searchResultInfo = C_LFGList.GetSearchResultInfo(id)
+    if newStatus == "declined" and searchResultInfo.leaderName then -- leaderName is not available for brand new groups
+        PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] = time()
+    end
+end
+
 function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
     -- try once again to update the leaderName (this information is not immediately available)
     if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
-    --self.ActivityName:SetText("[" .. activity .. "/" .. resultID .. "] " .. self.ActivityName:GetText()) -- DEBUG
+    -- self.ActivityName:SetText("[" .. searchResultInfo.activityID .. "/" .. self.resultID .. "] " .. self.ActivityName:GetText()) -- DEBUG
     if not searchResultInfo.isDelisted then
         -- color name if new
         if PGF.currentSearchExpression ~= "true"                        -- not trivial search
@@ -353,6 +365,13 @@ function PGF.OnLFGListSearchEntryUpdate(self)
         and (searchResultInfo.leaderName and not PGF.previousSearchLeaders[searchResultInfo.leaderName]) then -- and leader is new
             local color = C.COLOR_ENTRY_NEW
             self.Name:SetTextColor(color.R, color.G, color.B)
+        end
+        -- color name if declined
+        if searchResultInfo.leaderName then -- leaderName is not available for brand new groups
+            local lastDeclined = PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] or 0
+            if lastDeclined > time() - C.DECLINED_GROUPS_RESET then
+                self.Name:SetTextColor(0.5, 0.1, 0.1)
+            end
         end
         -- color activity if lockout
         local numGroupDefeated, numPlayerDefeated, maxBosses,
