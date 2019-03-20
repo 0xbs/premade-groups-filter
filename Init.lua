@@ -68,7 +68,7 @@ C.COLOR_LOCKOUT_MATCH   = { R = 1.0, G = 1.0, B = 1.0 } -- white
 
 C.FONTSIZE_TEXTBOX = 12
 C.SEARCH_ENTRY_RESET_WAIT = 2 -- wait at least 2 seconds between two resets of known premade groups
-C.DECLINED_GROUPS_RESET = 600 -- reset declined groups after 10 minutes
+C.DECLINED_GROUPS_RESET = 60 * 30 -- reset declined groups after 30 minutes
 
 C.ROLE_PREFIX = {
     ["DAMAGER"] = "dps",
