@@ -282,7 +282,9 @@ function PGF.DoFilterSearchResults(results)
         env.daz  = env.bod
         env.cs   = aID == 666 or aID == 667 or aID == 668  -- Crucible of Storms
         env.cru  = env.cs
-
+        env.ete  = aID == 670 or aID == 671 or aID == 672  -- The Eternal Palace
+        env.tep  = env.ete
+        
         -- dungeons    normal        heroic        mythic       mythic+
         env.eoa  = aID == 425 or aID == 435 or aID == 445 or aID == 459  -- Eye of Azshara
         env.dht  = aID == 426 or aID == 436 or aID == 446 or aID == 460  -- Darkheart Thicket
@@ -322,6 +324,8 @@ function PGF.DoFilterSearchResults(results)
                 or aID == 536
         env.sob  = aID == 532 or aID == 535 or aID == 533 or aID == 534  -- Siege of Boralus
                                             or aID == 658 or aID == 659
+        env.opm  =                             aID == 669                -- Operation: Mechagon
+        
         -- raider.io aliases
         env.ml = env.tml
         env.undr = env.tur

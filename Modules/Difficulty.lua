@@ -209,6 +209,12 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [666] = C.MYTHIC,     -- Crucible of Storms
     [667] = C.HEROIC,     -- Crucible of Storms
     [668] = C.NORMAL,     -- Crucible of Storms
+    
+    [669] = C.MYTHIC,     -- Operation: Mechagon
+    
+    [670] = C.MYTHIC,     -- The Eternal Palace
+    [671] = C.HEROIC,     -- The Eternal Palace
+    [672] = C.NORMAL,     -- The Eternal Palace
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
