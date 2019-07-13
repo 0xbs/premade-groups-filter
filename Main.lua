@@ -157,6 +157,7 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     env.riokey5plus  = 0
     env.riokey10plus = 0
     env.riokey15plus = 0
+    env.riokey20plus = 0
     env.riokeymax    = 0
     if leaderName and RaiderIO and RaiderIO.HasPlayerProfile(leaderName) then
         local result = RaiderIO.GetPlayerProfile(RaiderIO.ProfileOutput.MYTHICPLUS, leaderName)
