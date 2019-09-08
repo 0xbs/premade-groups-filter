@@ -177,6 +177,24 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     end
 end
 
+function PGF.PutPremadeRegionInfo(env, leaderName)
+    env.region = nil
+    env.oce = false
+    env.usp = false
+    env.usm = false
+    env.usc = false
+    env.use = false
+    env.mex = false
+    env.bzl = false
+    if leaderName and PremadeRegions then
+        local region = PremadeRegions.GetRegion(leaderName)
+        if region then
+            env.region = region
+            env[region] = true
+        end
+    end
+end
+
 --- Ensures that all class-role/role-class and ranged/melees keywords are initialized to zero in the filter environment,
 --- because the values would cause a semantic error otherwise (because they do not exist)
 --- @generic V
@@ -363,6 +381,7 @@ function PGF.DoFilterSearchResults(results)
         env.siege = env.sob
         --env.tos = env.tosl -- collision with Tomb of Sargeras
         PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
+        PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
 
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
