@@ -1,6 +1,6 @@
 ## Interface: 80200
 ## Title: Premade Groups Filter
-## Version: 1.30
+## Version: 1.31
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
