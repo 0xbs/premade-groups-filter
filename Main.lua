@@ -114,18 +114,57 @@ local roleRemainingKeyLookup = {
     ["DAMAGER"] = "DAMAGER_REMAINING",
 };
 
-local function HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
-    local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID);
-    local playerRole = GetSpecializationRole(GetSpecialization());
-    return roles[roleRemainingKeyLookup[playerRole]] > 0;
+function PGF.HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
+    local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
+    local playerRole = GetSpecializationRole(GetSpecialization())
+    return roles[roleRemainingKeyLookup[playerRole]] > 0
+end
+
+function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
+    local numGroupMembers = GetNumGroupMembers()
+
+    if numGroupMembers == 0 then
+        -- not in a group
+        return PGF.HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
+    end
+
+    local partyRoles = {["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0}
+
+    for i = 1, numGroupMembers do
+        local unit
+
+        if i == 1 then
+            unit = "player"
+        else
+            unit = "party" .. (i - 1)
+        end
+
+        local groupMemberRole = UnitGroupRolesAssigned(unit)
+
+        if groupMemberRole == "NONE" then
+            groupMemberRole = "DAMAGER"
+        end
+
+        partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
+    end
+
+    local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
+
+    for role, remainingKey in pairs(roleRemainingKeyLookup) do
+        if roles[remainingKey] < partyRoles[role] then
+            return false
+        end
+    end
+
+    return true
 end
 
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1);
     local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2);
 
-    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(searchResultID1);
-    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(searchResultID2);
+    local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(searchResultID1);
+    local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(searchResultID2);
 
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 
@@ -282,6 +321,7 @@ function PGF.DoFilterSearchResults(results)
         env.voice = searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= ""
         env.voicechat = searchResultInfo.voiceChat
         env.ilvl = searchResultInfo.requiredItemLevel or 0
+        env.myilvl = select(2, GetAverageItemLevel())
         env.hlvl = searchResultInfo.requiredHonorLevel or 0
         env.friends = searchResultInfo.numBNetFriends + searchResultInfo.numCharFriends + searchResultInfo.numGuildMates
         env.members = searchResultInfo.numMembers
@@ -289,6 +329,8 @@ function PGF.DoFilterSearchResults(results)
         env.heals = memberCounts.HEALER
         env.healers = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
+        env.rolefit = PGF.HasRemainingSlotsForLocalPlayerRole(resultID)
+        env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(resultID)
         env.defeated = numGroupDefeated
         env.normal     = difficulty == C.NORMAL
         env.heroic     = difficulty == C.HEROIC
