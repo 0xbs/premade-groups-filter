@@ -114,7 +114,7 @@ local roleRemainingKeyLookup = {
     ["DAMAGER"] = "DAMAGER_REMAINING",
 };
 
-function PGF.HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
+local function HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
     local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
     local playerRole = GetSpecializationRole(GetSpecialization())
     return roles[roleRemainingKeyLookup[playerRole]] > 0
@@ -125,7 +125,7 @@ function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
 
     if numGroupMembers == 0 then
         -- not in a group
-        return PGF.HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
+        return HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
     end
 
     local partyRoles = {["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0}
@@ -163,8 +163,8 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1);
     local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2);
 
-    local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(searchResultID1);
-    local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(searchResultID2);
+    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(searchResultID1);
+    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(searchResultID2);
 
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 
@@ -329,7 +329,6 @@ function PGF.DoFilterSearchResults(results)
         env.heals = memberCounts.HEALER
         env.healers = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
-        env.rolefit = PGF.HasRemainingSlotsForLocalPlayerRole(resultID)
         env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(resultID)
         env.defeated = numGroupDefeated
         env.normal     = difficulty == C.NORMAL
