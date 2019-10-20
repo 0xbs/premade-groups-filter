@@ -1,4 +1,4 @@
-## Interface: 80200
+## Interface: 80205
 ## Title: Premade Groups Filter
 ## Version: 1.32
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
