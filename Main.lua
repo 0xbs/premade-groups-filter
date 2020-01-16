@@ -453,12 +453,18 @@ function PGF.DoFilterSearchResults(results)
         env.sob  = aID == 532 or aID == 535 or aID == 533 or aID == 534  -- Siege of Boralus
                                             or aID == 658 or aID == 659
         env.opm  =                             aID == 669                -- Operation: Mechagon
-        
+                              or aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
+                              or aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
+        env.opmj =               aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
+        env.opmw =               aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
+        env.nya  = aID == 687 or aID == 686 or aID == 685                -- Ny’alotha, the Waking City
+
         -- raider.io aliases
         env.ml = env.tml
         env.undr = env.tur
         env.siege = env.sob
         --env.tos = env.tosl -- collision with Tomb of Sargeras
+        env.ny = env.nya
         PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
 
