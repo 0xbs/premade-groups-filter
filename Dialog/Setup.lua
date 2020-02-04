@@ -60,7 +60,7 @@ end
 function PGF.Dialog_UpdatePosition()
     local dialog = PremadeGroupsFilterDialog
     dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
-    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT")
+    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT", 0, 2)
     dialog:SetWidth(300)
 end
 
