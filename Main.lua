@@ -202,6 +202,28 @@ function PGF.InitClassRoleTypeKeywords(env)
     end
 end
 
+--- Puts a table that maps localized boss names to a boolean that indicates if the boss was defeated
+--- @generic V
+--- @param resultID number search result identifier
+--- @param env table<string, V> environment to be prepared
+function PGF.PutEncounterNames(resultID, env)
+    local encounterToBool = {}
+    -- return false for all values not explicitly set to true
+    local encounterToBoolMeta = {}
+    encounterToBoolMeta.__index = function (table, key) return false end
+    setmetatable(encounterToBool, encounterToBoolMeta)
+
+    local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID); -- list of localized boss names
+    if encounterInfo then
+        for _, val in pairs(encounterInfo) do
+            encounterToBool[val] = true
+            encounterToBool[val:lower()] = true
+        end
+    end
+
+    env.boss = encounterToBool
+end
+
 --- Initializes all class-role/role-class and ranged/melees keywords and increments them to their correct value
 --- @generic V
 --- @param resultID number search result identifier
@@ -300,6 +322,7 @@ function PGF.DoFilterSearchResults(results)
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
+        PGF.PutEncounterNames(resultID, env)
 
         local aID = searchResultInfo.activityID
         env.arena2v2 = aID == 6 or aID == 491
