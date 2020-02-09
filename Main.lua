@@ -321,13 +321,15 @@ function PGF.DoFilterSearchResults(results)
         env.cru  = env.cs
         env.ete  = aID == 670 or aID == 671 or aID == 672  -- The Eternal Palace
         env.tep  = env.ete
-        
+        env.nya  = aID == 687 or aID == 686 or aID == 685  -- Ny’alotha, the Waking City
+        env.ny   = env.nya
+
         -- dungeons    normal        heroic        mythic       mythic+
         env.eoa  = aID == 425 or aID == 435 or aID == 445 or aID == 459  -- Eye of Azshara
         env.dht  = aID == 426 or aID == 436 or aID == 446 or aID == 460  -- Darkheart Thicket
         env.hov  = aID == 427 or aID == 437 or aID == 447 or aID == 461  -- Halls of Valor
         env.nl   = aID == 428 or aID == 438 or aID == 448 or aID == 462  -- Neltharion's Lair
-        env.vh   = aID == 429 or aID == 439 or aID == 449                     -- Violet Hold
+        env.vh   = aID == 429 or aID == 439 or aID == 449                -- Violet Hold
         env.brh  = aID == 430 or aID == 440 or aID == 450 or aID == 463  -- Black Rook Hold
         env.votw = aID == 431 or aID == 441 or aID == 451 or aID == 464  -- Vault of the Wardens
         env.mos  = aID == 432 or aID == 442 or aID == 452 or aID == 465  -- Maw of Souls
@@ -366,14 +368,12 @@ function PGF.DoFilterSearchResults(results)
                               or aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
         env.opmj =               aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
         env.opmw =               aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
-        env.nya  = aID == 687 or aID == 686 or aID == 685                -- Ny’alotha, the Waking City
 
         -- raider.io aliases
         env.ml = env.tml
         env.undr = env.tur
         env.siege = env.sob
         --env.tos = env.tosl -- collision with Tomb of Sargeras
-        env.ny = env.nya
         PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
 
