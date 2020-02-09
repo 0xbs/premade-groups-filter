@@ -21,6 +21,8 @@ Modules\Lockout.lua
 Modules\Expression.lua
 Modules\Macro.lua
 Main.lua
+Plugins\PremadeRegions.lua
+Plugins\RaiderIO.lua
 Dialog\PopupMenu.xml
 Dialog\PopupMenu.lua
 Dialog\Help.lua
