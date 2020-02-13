@@ -43,36 +43,26 @@ function PGF.HandleSemanticError(error)
     end
 end
 
-PGF.filterMetaTable = {
-    __mode = "k",
-    __index = function(table, key)
-        local func, error = loadstring("return " .. key)
-        if error then
-            PGF.HandleSyntaxError(error)
-            return nil
-        end
-        table[key] = func
-        return func
-    end,
-    tonumber = tonumber
-}
-
-PGF.filter = setmetatable({}, PGF.filterMetaTable)
-
 function PGF.DoesPassThroughFilter(env, exp)
     --local exp = "mythic and tansk < 0 and members==4"  -- raises semantic error
     --local exp = "and and tanks==0 and members==4"      -- raises syntax error
     --local exp = "mythic and tanks==0 and members==4"   -- correct statement
-    local filter = PGF.filter[exp]
-    if filter then
-        setfenv(filter, env)
-        local hasFilterError, filterResult = pcall(filter)
-        if hasFilterError then
-            return filterResult
-        else
-            PGF.HandleSemanticError(filterResult)
-            return true
-        end
+    local func, err = loadstring("return " .. exp)
+    if err then
+        PGF.HandleSyntaxError(err)
+        return true -- do not filter in case of error
     end
-    return true
+    setfenv(func, env)
+    local status, result = pcall(func)
+    if status then
+        if type(result) == "boolean" then
+            return result -- successful execution
+        else
+            PGF.HandleSemanticError("expression did not evaluate to boolean, but to '" .. tostring(result) .. "' of type " .. type(result))
+            return true -- do not filter in case of error
+        end
+    else
+        PGF.HandleSemanticError(result)
+        return true -- do not filter in case of error
+    end
 end
