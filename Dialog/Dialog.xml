@@ -139,6 +139,30 @@
                 <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
                 <CheckedTexture file="Interface\Buttons\LockButton-Unlocked-Up"/>
             </CheckButton>
+            <Button parentKey="MaximizeButton" setAllPoints="true" hidden="true">
+                <Anchors>
+                    <Anchor point="TOP" x="0" y="5"/>
+                    <Anchor point="RIGHT" x="-18" y="0"/>
+                </Anchors>
+                <Size x="32" y="32"/>
+                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
+                <NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down"/>
+                <DisabledTexture file="Interface\Buttons\UI-Panel-BiggerButton-Disabled"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
+            <Button parentKey="MinimizeButton" setAllPoints="true">
+                <Anchors>
+                    <Anchor point="TOP" x="0" y="5"/>
+                    <Anchor point="RIGHT" x="-18" y="0"/>
+                </Anchors>
+                <Size x="32" y="32"/>
+                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
+                <NormalTexture file="Interface\Buttons\UI-Panel-SmallerButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-SmallerButton-Down"/>
+                <DisabledTexture file="Interface\Buttons\UI-Panel-SmallerButton-Disabled"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
             <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate" hidden="false">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="9" y="-67"/>
