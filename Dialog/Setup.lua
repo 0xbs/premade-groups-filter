@@ -81,7 +81,6 @@ end
 
 function PGF.Dialog_ToggleMoveable(checkButton)
     local checked = checkButton:GetChecked()
-    print("checked = " .. tostring(checked))
     PremadeGroupsFilterState.moveable = checked
     if not checked then
         PGF.Dialog_ResetPosition()
