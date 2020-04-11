@@ -127,6 +127,18 @@
             </Layer>
         </Layers>
         <Frames>
+            <CheckButton parentKey="MoveableToggle" setAllPoints="true">
+                <Anchors>
+                    <Anchor point="TOP" x="0" y="5"/>
+                    <Anchor point="LEFT" x="-5" y="0"/>
+                </Anchors>
+                <Size x="32" y="32"/>
+                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
+                <NormalTexture file="Interface\Buttons\LockButton-Locked-Up"/>
+                <!--<PushedTexture file="Interface\Buttons\LockButton-Unlocked-Down"/>-->
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+                <CheckedTexture file="Interface\Buttons\LockButton-Unlocked-Up"/>
+            </CheckButton>
             <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate" hidden="false">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="9" y="-67"/>

@@ -31,10 +31,6 @@ local DIFFICULTY_TEXT = {
     [C.ARENA3V3] = select(2, C_LFGList.GetActivityInfo(7)), -- Arena 3v3
 }
 
--------------------------------------------------------------------------------
--- OnShow functions
--------------------------------------------------------------------------------
-
 function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)
     dialog[key].Act:SetChecked(model[key:lower()].act)
     dialog[key].Min:SetText(model[key:lower()].min)
@@ -60,14 +56,15 @@ end
 function PGF.Dialog_OnShow(dialog)
     RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
     PGF.Dialog_LoadFromModel(dialog)
+    if (not PremadeGroupsFilterState.moveable) then
+        PGF.Dialog_ResetPosition()
+    end
 end
 
--------------------------------------------------------------------------------
--- OnLoad functions
--------------------------------------------------------------------------------
-
 function PGF.Dialog_OnMouseDown()
-    PremadeGroupsFilterDialog:StartMoving()
+    if PremadeGroupsFilterState.moveable then
+        PremadeGroupsFilterDialog:StartMoving()
+    end
 end
 
 function PGF.Dialog_OnMouseUp()
@@ -80,6 +77,15 @@ function PGF.Dialog_ResetPosition()
     dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
     dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT", 0, 2)
     dialog:SetWidth(300)
+end
+
+function PGF.Dialog_ToggleMoveable(checkButton)
+    local checked = checkButton:GetChecked()
+    print("checked = " .. tostring(checked))
+    PremadeGroupsFilterState.moveable = checked
+    if not checked then
+        PGF.Dialog_ResetPosition()
+    end
 end
 
 function PGF.Dialog_DifficultyDropdown_Init(dropdown)
@@ -171,6 +177,8 @@ function PGF.Dialog_OnLoad()
     dialog.Noilvl.Act:SetEnabled(false)
     dialog.Defeated.Title:SetWordWrap(true)
     dialog.Defeated.Title:SetHeight(28)
+    dialog.MoveableToggle:SetChecked(PremadeGroupsFilterState.moveable)
+    dialog.MoveableToggle:SetScript("OnClick", PGF.Dialog_ToggleMoveable)
 
     PGF.Dialog_SetUpGenericField(dialog, "Difficulty")
     PGF.Dialog_SetUpMinMaxField(dialog, "Ilvl")

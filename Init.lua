@@ -100,6 +100,7 @@ C.DPS_CLASS_TYPE = {
 C.MODEL_DEFAULT = {
     enabled = true,
     expression = "",
+    moveable = false,
     difficulty = {
         act = false,
         val = 3,
