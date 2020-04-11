@@ -55,10 +55,23 @@ function PGF.GetExpressionFromDifficultyModel(model)
 end
 
 function PGF.GetExpressionFromAdvancedExpression(model)
-    if model.expression and model.expression ~= "" then
-        return " and ( " .. model.expression .. " ) "
+    if model.expression then
+        local exp = PGF.String_TrimWhitespace(PGF.RemoveCommentLines(model.expression))
+        if exp ~= "" then
+            return " and ( " .. PGF.RemoveCommentLines(model.expression) .. " ) "
+        end
     end
     return ""
+end
+
+function PGF.RemoveCommentLines(exp)
+    local result = ""
+    for line in exp:gmatch("([^\n]+)") do -- split by newline and skip empty lines
+        if not line:match("^%s*%-%-") then -- if not comment line
+            result = result .. " " .. line
+        end
+    end
+    return result
 end
 
 function PGF.GetModel()

@@ -86,6 +86,10 @@ function PGF.Table_Count(table)
     return count
 end
 
+function PGF.String_TrimWhitespace(str)
+    return str:match("^%s*(.-)%s*$")
+end
+
 function PGF.String_ExtractNumbers(str)
     local numbers = {}
     for number in string.gmatch(str, "%d+") do
