@@ -118,7 +118,7 @@ function PGF.Dialog_ResetMinMaxField(self, key)
     PGF.Dialog_MinMax_OnTextChanged(self[key].Max)
 end
 
-function PGF.Dialog_Reset()
+function PGF.Dialog_Reset(excludeExpression)
     local dialog = PremadeGroupsFilterDialog
     -- TODO reset the difficulty dropdown
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")
@@ -129,8 +129,10 @@ function PGF.Dialog_Reset()
     PGF.Dialog_ResetMinMaxField(dialog, "Heals")
     PGF.Dialog_ResetMinMaxField(dialog, "Dps")
     PGF.Dialog_ResetMinMaxField(dialog, "Defeated")
-    dialog.Expression.EditBox:SetText("")
-    PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+    if not excludeExpression then
+        dialog.Expression.EditBox:SetText("")
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+    end
     PGF.Dialog_ClearFocus()
 end
 

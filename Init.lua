@@ -97,10 +97,14 @@ C.DPS_CLASS_TYPE = {
     ["WARRIOR"]     = { range = false, melee = true },
 }
 
+C.SETTINGS_DEFAULT = {
+    moveable = false,
+    expert = false,
+}
+
 C.MODEL_DEFAULT = {
     enabled = true,
     expression = "",
-    moveable = false,
     difficulty = {
         act = false,
         val = 3,
@@ -148,9 +152,12 @@ function PGF.OnAddonLoaded(name)
             PremadeGroupsFilterState = {}
             PremadeGroupsFilterState.v110 = stateV110
         end
+        PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.SETTINGS_DEFAULT)
         -- update all state tables with the current set of defaults
-        for _, v in pairs(PremadeGroupsFilterState) do
-            PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
+        for k, v in pairs(PremadeGroupsFilterState) do
+            if k ~= "moveable" and k ~= "expert" then
+                PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
+            end
         end
     end
 end

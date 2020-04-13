@@ -80,7 +80,7 @@
     </Frame>
 
     <Frame name="PremadeGroupsFilterDialog" frameStrata="FULLSCREEN" parent="PVEFrame" movable="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
-        <Size x="300" y="430"/>
+        <Size x="300" y="427"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
         </Anchors>
@@ -127,7 +127,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="MoveableToggle" setAllPoints="true">
+            <CheckButton parentKey="MoveableToggle" setAllPoints="true" checked="false">
                 <Anchors>
                     <Anchor point="TOP" x="0" y="5"/>
                     <Anchor point="LEFT" x="-5" y="0"/>

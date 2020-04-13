@@ -56,6 +56,8 @@ end
 function PGF.Dialog_OnShow(dialog)
     RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
     PGF.Dialog_LoadFromModel(dialog)
+    PGF.Dialog_AdjustToMode()
+    PremadeGroupsFilterDialog.MoveableToggle:SetChecked(PremadeGroupsFilterState.moveable)
     if (not PremadeGroupsFilterState.moveable) then
         PGF.Dialog_ResetPosition()
     end
@@ -71,11 +73,66 @@ function PGF.Dialog_OnMouseUp()
     PremadeGroupsFilterDialog:StopMovingOrSizing()
 end
 
+function PGF.Dialog_MinimizeButton_OnClick(self, button, down)
+    PremadeGroupsFilterState.expert = true
+    PGF.Dialog_Reset(true)
+    PGF.Dialog_AdjustToMode()
+end
+
+function PGF.Dialog_MaximizeButton_OnClick(self, button, down)
+    PremadeGroupsFilterState.expert = false
+    PGF.Dialog_AdjustToMode()
+end
+
+function PGF.Dialog_AdjustToMode()
+    local dialog = PremadeGroupsFilterDialog
+    if PremadeGroupsFilterState.expert then
+        dialog.Difficulty:Hide()
+        dialog.Ilvl:Hide()
+        dialog.Noilvl:Hide()
+        dialog.Defeated:Hide()
+        dialog.Members:Hide()
+        dialog.Tanks:Hide()
+        dialog.Heals:Hide()
+        dialog.Dps:Hide()
+        dialog.SimpleExplanation:Hide()
+        dialog.StateExplanation:Hide()
+        dialog.MinExplanation:Hide()
+        dialog.MaxExplanation:Hide()
+        dialog.Advanced:Hide()
+        dialog.Expression:SetHeight(130)
+        dialog:SetSize(300, 192)
+        dialog.InsetBg:SetPoint("TOPLEFT", 4, -23)
+        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
+        dialog.MinimizeButton:Hide()
+        dialog.MaximizeButton:Show()
+    else
+        dialog.Difficulty:Show()
+        dialog.Ilvl:Show()
+        dialog.Noilvl:Show()
+        dialog.Defeated:Show()
+        dialog.Members:Show()
+        dialog.Tanks:Show()
+        dialog.Heals:Show()
+        dialog.Dps:Show()
+        dialog.SimpleExplanation:Show()
+        dialog.StateExplanation:Show()
+        dialog.MinExplanation:Show()
+        dialog.MaxExplanation:Show()
+        dialog.Advanced:Show()
+        dialog.Expression:SetHeight(70)
+        dialog:SetSize(300, 427)
+        dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
+        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
+        dialog.MaximizeButton:Hide()
+        dialog.MinimizeButton:Show()
+    end
+end
+
 function PGF.Dialog_ResetPosition()
     local dialog = PremadeGroupsFilterDialog
     dialog:ClearAllPoints()
     dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
-    dialog:SetPoint("BOTTOMLEFT", GroupFinderFrame, "BOTTOMRIGHT", 0, 2)
     dialog:SetWidth(300)
 end
 
@@ -176,8 +233,9 @@ function PGF.Dialog_OnLoad()
     dialog.Noilvl.Act:SetEnabled(false)
     dialog.Defeated.Title:SetWordWrap(true)
     dialog.Defeated.Title:SetHeight(28)
-    dialog.MoveableToggle:SetChecked(PremadeGroupsFilterState.moveable)
     dialog.MoveableToggle:SetScript("OnClick", PGF.Dialog_ToggleMoveable)
+    dialog.MinimizeButton:SetScript("OnClick", PGF.Dialog_MinimizeButton_OnClick)
+    dialog.MaximizeButton:SetScript("OnClick", PGF.Dialog_MaximizeButton_OnClick)
 
     PGF.Dialog_SetUpGenericField(dialog, "Difficulty")
     PGF.Dialog_SetUpMinMaxField(dialog, "Ilvl")
@@ -195,7 +253,6 @@ function PGF.Dialog_OnLoad()
     --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged) -- overrides Blizz
 
     PGF.Dialog_DifficultyDropdown_Init(dialog.Difficulty.DropDown)
-    PGF.Dialog_ResetPosition()
 end
 
 PremadeGroupsFilter.Dialog_OnLoad = PGF.Dialog_OnLoad
