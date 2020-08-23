@@ -348,7 +348,7 @@ function PGF.DoFilterSearchResults(results)
         env.en   = aID == 413 or aID == 414 or aID == 468  -- The Emerald Nightmare
         env.nh   = aID == 415 or aID == 416 or aID == 481  -- The Nighthold
         env.tov  = aID == 456 or aID == 457 or aID == 480  -- Trial of Valor
-        env.tos  = aID == 479 or aID == 478 or aID == 492  -- Tomb of Sargeras
+        env.tosg = aID == 479 or aID == 478 or aID == 492  -- Tomb of Sargeras
         env.atbt = aID == 482 or aID == 483 or aID == 493  -- Antorus, the Burning Throne
         env.uldir= aID == 494 or aID == 495 or aID == 496  -- Uldir
         env.bod  = aID == 663 or aID == 664 or aID == 665  -- Battle of Dazar'alor
@@ -409,6 +409,9 @@ function PGF.DoFilterSearchResults(results)
         env.ml = env.tml
         env.undr = env.tur
         env.siege = env.sob
+        env.tos = env.tosl
+        env.yard = env.opmj
+        env.work = env.opmw
         --env.tos = env.tosl -- collision with Tomb of Sargeras
         PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
