@@ -413,8 +413,12 @@ function PGF.DoFilterSearchResults(results)
         env.yard = env.opmj
         env.work = env.opmw
         --env.tos = env.tosl -- collision with Tomb of Sargeras
-        PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
-        PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
+        if PGF.PutRaiderIOMetrics then
+            PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
+        end
+        if PGF.PutPremadeRegionInfo then
+            PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
+        end
 
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
