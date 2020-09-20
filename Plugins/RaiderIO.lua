@@ -50,7 +50,7 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     setmetatable(env.rioheroickills, { __index = function() return 0 end })
     setmetatable(env.riomythickills, { __index = function() return 0 end })
     if leaderName and RaiderIO and RaiderIO.HasPlayerProfile(leaderName) then
-        local result = RaiderIO.GetPlayerProfile(RaiderIO.ProfileOutput.DATA, leaderName)
+        local result = RaiderIO.GetProfile(RaiderIO.ProfileOutput.DATA, leaderName)
         if result and type(result) == "table" then
             for _, data in pairs(result) do
                 if data and data.dataType == RaiderIO.DataProvider.MYTHICPLUS and data.profile then
