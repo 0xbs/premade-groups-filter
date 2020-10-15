@@ -224,6 +224,50 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [685] = C.MYTHIC,     -- Ny’alotha, the Waking City
     [686] = C.HEROIC,     -- Ny’alotha, the Waking City
     [687] = C.NORMAL,     -- Ny’alotha, the Waking City
+
+    [688] = C.NORMAL,     -- Plaguefall
+    [689] = C.HEROIC,     -- Plaguefall
+    [690] = C.MYTHIC,     -- Plaguefall
+    [691] = C.MYTHICPLUS, -- Plaguefall
+
+    [692] = C.NORMAL,     -- De Other Side
+    [693] = C.HEROIC,     -- De Other Side
+    [694] = C.MYTHIC,     -- De Other Side
+    [695] = C.MYTHICPLUS, -- De Other Side
+
+    [696] = C.NORMAL,     -- Halls of Atonement
+    [697] = C.HEROIC,     -- Halls of Atonement
+    [698] = C.MYTHIC,     -- Halls of Atonement
+    [699] = C.MYTHICPLUS, -- Halls of Atonement
+
+    [700] = C.NORMAL,     -- Mists of Tirna Scithe
+    [701] = C.HEROIC,     -- Mists of Tirna Scithe
+    [702] = C.MYTHIC,     -- Mists of Tirna Scithe
+    [703] = C.MYTHICPLUS, -- Mists of Tirna Scithe
+
+    [704] = C.NORMAL,     -- Sanguine Depths
+    [707] = C.HEROIC,     -- Sanguine Depths
+    [706] = C.MYTHIC,     -- Sanguine Depths
+    [705] = C.MYTHICPLUS, -- Sanguine Depths
+
+    [708] = C.NORMAL,     -- Spires of Ascension
+    [711] = C.HEROIC,     -- Spires of Ascension
+    [710] = C.MYTHIC,     -- Spires of Ascension
+    [709] = C.MYTHICPLUS, -- Spires of Ascension
+
+    [712] = C.NORMAL,     -- The Necrotic Wake
+    [715] = C.HEROIC,     -- The Necrotic Wake
+    [714] = C.MYTHIC,     -- The Necrotic Wake
+    [713] = C.MYTHICPLUS, -- The Necrotic Wake
+
+    [716] = C.NORMAL,     -- Theater of Pain
+    [719] = C.HEROIC,     -- Theater of Pain
+    [718] = C.MYTHIC,     -- Theater of Pain
+    [717] = C.MYTHICPLUS, -- Theater of Pain
+
+    [720] = C.NORMAL,     -- Castle Nathria
+    [722] = C.HEROIC,     -- Castle Nathria
+    [721] = C.MYTHIC,     -- Castle Nathria
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties

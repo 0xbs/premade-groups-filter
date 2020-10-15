@@ -338,8 +338,8 @@ function PGF.DoFilterSearchResults(results)
         PGF.PutEncounterNames(resultID, env)
 
         local aID = searchResultInfo.activityID
-        env.arena2v2 = aID == 6 or aID == 491
-        env.arena3v3 = aID == 7 or aID == 490
+        env.arena2v2 = aID == 6 or aID == 491 or aID == 731 or aID == 732
+        env.arena3v3 = aID == 7 or aID == 490 or aID == 733 or aID == 734
 
         -- raids       normal        heroic        mythic
         env.hm   = aID ==  37 or aID ==  38 or aID == 399  -- Highmaul
@@ -359,60 +359,41 @@ function PGF.DoFilterSearchResults(results)
         env.tep  = env.ete
         env.nya  = aID == 687 or aID == 686 or aID == 685  -- Ny’alotha, the Waking City
         env.ny   = env.nya
+        env.cn   = aID == 720 or aID == 722 or aID == 721  -- Castle Nathria
 
-        -- dungeons    normal        heroic        mythic       mythic+
-        env.eoa  = aID == 425 or aID == 435 or aID == 445 or aID == 459  -- Eye of Azshara
-        env.dht  = aID == 426 or aID == 436 or aID == 446 or aID == 460  -- Darkheart Thicket
-        env.hov  = aID == 427 or aID == 437 or aID == 447 or aID == 461  -- Halls of Valor
-        env.nl   = aID == 428 or aID == 438 or aID == 448 or aID == 462  -- Neltharion's Lair
-        env.vh   = aID == 429 or aID == 439 or aID == 449                -- Violet Hold
-        env.brh  = aID == 430 or aID == 440 or aID == 450 or aID == 463  -- Black Rook Hold
-        env.votw = aID == 431 or aID == 441 or aID == 451 or aID == 464  -- Vault of the Wardens
-        env.mos  = aID == 432 or aID == 442 or aID == 452 or aID == 465  -- Maw of Souls
-        env.cos  = aID == 433 or aID == 443 or aID == 453 or aID == 466  -- Court of Stars
-        env.aw   = aID == 434 or aID == 444 or aID == 454 or aID == 467  -- The Arcway
-        env.kara =                             aID == 455                -- Karazhan
-                              or aID == 470               or aID == 471  -- Lower Karazahn
-                              or aID == 472               or aID == 473  -- Upper Karazhan
-        env.lkara =              aID == 470               or aID == 471  -- Lower Karazahn
-        env.ukara =              aID == 472               or aID == 473  -- Upper Karazhan
-        env.coen =               aID == 474 or aID == 475 or aID == 476  -- Cathedral of Eternal Night
-        env.sott =               aID == 484 or aID == 485 or aID == 486  -- Seat of the Triumvirate
-
-        env.ad   = aID == 501 or aID == 500 or aID == 499 or aID == 502  -- Atal'Dazar
-                or aID == 543
-        env.tosl = aID == 503 or aID == 505 or aID == 645 or aID == 504  -- Temple of Sethraliss
-                or aID == 542
-        env.tur  = aID == 506 or aID == 508 or aID == 644 or aID == 507  -- The Underrot
-                or aID == 541
-        env.tml  = aID == 509 or aID == 511 or aID == 646 or aID == 510  -- The MOTHERLODE
-                or aID == 540
-        env.kr   = aID == 512 or aID == 515 or aID == 513 or aID == 514  -- Kings' Rest
+        -- dungeons    normal        heroic        mythic       mythic+    normal2
+        env.ad   = aID == 501 or aID == 500 or aID == 499 or aID == 502 or aID == 543  -- Atal'Dazar
+        env.tosl = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
+        env.tos  = env.tosl
+        env.tur  = aID == 506 or aID == 508 or aID == 644 or aID == 507 or aID == 541  -- The Underrot
+        env.undr = env.tur
+        env.tml  = aID == 509 or aID == 511 or aID == 646 or aID == 510 or aID == 540  -- The MOTHERLODE
+        env.ml   = env.tml
+        env.kr   = aID == 512 or aID == 515 or aID == 513 or aID == 514                -- Kings' Rest
                                             or aID == 660 or aID == 661
-        env.fh   = aID == 516 or aID == 519 or aID == 517 or aID == 518  -- Freehold
-                or aID == 539
-        env.sots = aID == 520 or aID == 523 or aID == 521 or aID == 522  -- Shrine of the Storm
-                or aID == 538
-        env.td   = aID == 524 or aID == 527 or aID == 525 or aID == 526  -- Tol Dagor
-                or aID == 537
-        env.wm   = aID == 528 or aID == 531 or aID == 529 or aID == 530  -- Waycrest Manor
-                or aID == 536
-        env.sob  = aID == 532 or aID == 535 or aID == 533 or aID == 534  -- Siege of Boralus
+        env.fh   = aID == 516 or aID == 519 or aID == 517 or aID == 518 or aID == 539  -- Freehold
+        env.sots = aID == 520 or aID == 523 or aID == 521 or aID == 522 or aID == 538  -- Shrine of the Storm
+        env.td   = aID == 524 or aID == 527 or aID == 525 or aID == 526 or aID == 537  -- Tol Dagor
+        env.wm   = aID == 528 or aID == 531 or aID == 529 or aID == 530 or aID == 536  -- Waycrest Manor
+        env.sob  = aID == 532 or aID == 535 or aID == 533 or aID == 534                -- Siege of Boralus
                                             or aID == 658 or aID == 659
-        env.opm  =                             aID == 669                -- Operation: Mechagon
-                              or aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
-                              or aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
+        env.siege = env.sob
         env.opmj =               aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
         env.opmw =               aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
-
-        -- raider.io aliases
-        env.ml = env.tml
-        env.undr = env.tur
-        env.siege = env.sob
-        env.tos = env.tosl
+        env.opm  = env.opmj or env.opmw     or aID == 669                -- Operation: Mechagon
         env.yard = env.opmj
         env.work = env.opmw
-        --env.tos = env.tosl -- collision with Tomb of Sargeras
+
+        -- Shadowlands
+        env.pf   = aID == 688 or aID == 689 or aID == 690 or aID == 691  -- Plaguefall
+        env.dos  = aID == 692 or aID == 693 or aID == 694 or aID == 695  -- De Other Side
+        env.hoa  = aID == 696 or aID == 697 or aID == 698 or aID == 699  -- Halls of Atonement
+        env.mots = aID == 700 or aID == 701 or aID == 702 or aID == 703  -- Mists of Tirna Scithe
+        env.sd   = aID == 704 or aID == 707 or aID == 706 or aID == 705  -- Sanguine Depths
+        env.soa  = aID == 708 or aID == 711 or aID == 710 or aID == 709  -- Spires of Ascension
+        env.nw   = aID == 712 or aID == 715 or aID == 714 or aID == 713  -- The Necrotic Wake
+        env.top  = aID == 716 or aID == 719 or aID == 718 or aID == 717  -- Theater of Pain
+
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         end
