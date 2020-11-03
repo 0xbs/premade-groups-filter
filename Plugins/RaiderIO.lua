@@ -81,15 +81,16 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
             env.hasrio = true
             env.norio = false
             if result.mythicKeystoneProfile then
-                env.rio          = result.mythicKeystoneProfile.mplusCurrent.score or 0
-                env.rioprev      = result.mythicKeystoneProfile.mplusPrevious.score or 0
-                env.riomain      = result.mythicKeystoneProfile.mplusMainCurrent.score or 0
-                env.riomainprev  = result.mythicKeystoneProfile.mplusMainPrevious.score or 0
-                env.riokey5plus  = result.mythicKeystoneProfile.keystoneFivePlus or 0
-                env.riokey10plus = result.mythicKeystoneProfile.keystoneTenPlus or 0
-                env.riokey15plus = result.mythicKeystoneProfile.keystoneFifteenPlus or 0
-                env.riokey20plus = result.mythicKeystoneProfile.keystoneTwentyPlus or 0
-                env.riokeymax    = result.mythicKeystoneProfile.maxDungeonLevel or 0
+                local p = result.mythicKeystoneProfile
+                env.rio          = p.mplusCurrent and p.mplusCurrent.score or 0
+                env.rioprev      = p.mplusPrevious and p.mplusPrevious.score or 0
+                env.riomain      = p.mplusMainCurrent and p.mplusMainCurrent.score or 0
+                env.riomainprev  = p.mplusMainPrevious and p.mplusMainPrevious.score or 0
+                env.riokey5plus  = p.keystoneFivePlus or 0
+                env.riokey10plus = p.keystoneTenPlus or 0
+                env.riokey15plus = p.keystoneFifteenPlus or 0
+                env.riokey20plus = p.keystoneTwentyPlus or 0
+                env.riokeymax    = p.maxDungeonLevel or 0
             end
             if result.raidProfile then
                 if result.raidProfile.currentRaid then
@@ -123,10 +124,10 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
                     if data and data.dataType == RaiderIO.DataProvider.MYTHICPLUS and data.profile then
                         env.hasrio       = true
                         env.norio        = false
-                        env.rio          = data.profile.mplusCurrent.score or 0
-                        env.rioprev      = data.profile.mplusPrevious.score or 0
-                        env.riomain      = data.profile.mplusMainCurrent.score or 0
-                        env.riomainprev  = data.profile.mplusMainPrevious.score or 0
+                        env.rio          = data.profile.mplusCurrent and data.profile.mplusCurrent.score or 0
+                        env.rioprev      = data.profile.mplusPrevious and data.profile.mplusPrevious.score or 0
+                        env.riomain      = data.profile.mplusMainCurrent and data.profile.mplusMainCurrent.score or 0
+                        env.riomainprev  = data.profile.mplusMainPrevious and data.profile.mplusMainPrevious.score or 0
                         env.riokey5plus  = data.profile.keystoneFivePlus or 0
                         env.riokey10plus = data.profile.keystoneTenPlus or 0
                         env.riokey15plus = data.profile.keystoneFifteenPlus or 0
