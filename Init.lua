@@ -83,18 +83,18 @@ C.ROLE_SUFFIX = {
 }
 
 C.DPS_CLASS_TYPE = {
-    ["DEATHKNIGHT"] = { range = false, melee = true },
-    ["DEMONHUNTER"] = { range = false, melee = true },
-    ["DRUID"]       = { range = true,  melee = true },
-    ["HUNTER"]      = { range = true,  melee = true },
-    ["PALADIN"]     = { range = false, melee = true },
-    ["PRIEST"]      = { range = true,  melee = false },
-    ["MAGE"]        = { range = true,  melee = false },
-    ["MONK"]        = { range = false, melee = true },
-    ["ROGUE"]       = { range = false, melee = true },
-    ["SHAMAN"]      = { range = true,  melee = true },
-    ["WARLOCK"]     = { range = true,  melee = false },
-    ["WARRIOR"]     = { range = false, melee = true },
+    ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate"   },
+    ["DEMONHUNTER"] = { range = false, melee = true,  armor = "leather" },
+    ["DRUID"]       = { range = true,  melee = true,  armor = "leather" },
+    ["HUNTER"]      = { range = true,  melee = true,  armor = "mail"    },
+    ["PALADIN"]     = { range = false, melee = true,  armor = "plate"   },
+    ["PRIEST"]      = { range = true,  melee = false, armor = "cloth"   },
+    ["MAGE"]        = { range = true,  melee = false, armor = "cloth"   },
+    ["MONK"]        = { range = false, melee = true,  armor = "leather" },
+    ["ROGUE"]       = { range = false, melee = true,  armor = "leather" },
+    ["SHAMAN"]      = { range = true,  melee = true,  armor = "mail"    },
+    ["WARLOCK"]     = { range = true,  melee = false, armor = "cloth"   },
+    ["WARRIOR"]     = { range = false, melee = true,  armor = "plate"   },
 }
 
 C.SETTINGS_DEFAULT = {

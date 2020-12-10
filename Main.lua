@@ -199,6 +199,10 @@ end
 --- @generic V
 --- @param env table<string, V> environment to be prepared
 function PGF.InitClassRoleTypeKeywords(env)
+    env.cloth = 0
+    env.leather = 0
+    env.mail = 0
+    env.plate = 0
     env.ranged = 0
     env.ranged_strict = 0
     env.melees = 0
@@ -248,6 +252,10 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i)
         local classPlural = class:lower() .. "s" -- plural form of the class in english
         env[classPlural] = env[classPlural] + 1
+        local armor = C.DPS_CLASS_TYPE[class].armor
+        if armor then
+            env[armor] = env[armor] + 1
+        end
         if role then
             local classRolePlural = C.ROLE_PREFIX[role] .. "_" .. class:lower() .. "s"
             local roleClassPlural = class:lower() .. "_" .. C.ROLE_SUFFIX[role]
