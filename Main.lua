@@ -325,7 +325,7 @@ function PGF.DoFilterSearchResults(results)
         env.heroic     = difficulty == C.HEROIC
         env.mythic     = difficulty == C.MYTHIC
         env.mythicplus = difficulty == C.MYTHICPLUS
-        env.myrealm = searchResultInfo.leaderName and searchResultInfo.leaderName ~= "" and not searchResultInfo.leaderName:find('-')
+        env.myrealm = searchResultInfo.leaderName and searchResultInfo.leaderName ~= "" and searchResultInfo.leaderName:find('-') == nil or false
         env.partialid = numPlayerDefeated > 0
         env.fullid = numPlayerDefeated > 0 and numPlayerDefeated == maxBosses
         env.noid = not env.partialid and not env.fullid
