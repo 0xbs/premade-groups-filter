@@ -401,6 +401,7 @@ function PGF.DoFilterSearchResults(results)
         env.soa  = aID == 708 or aID == 711 or aID == 710 or aID == 709  -- Spires of Ascension
         env.nw   = aID == 712 or aID == 715 or aID == 714 or aID == 713  -- The Necrotic Wake
         env.top  = aID == 716 or aID == 719 or aID == 718 or aID == 717  -- Theater of Pain
+        env.mists = env.mots
 
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
