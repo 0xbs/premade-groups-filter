@@ -1,6 +1,6 @@
-## Interface: 90002
+## Interface: 90005
 ## Title: Premade Groups Filter
-## Version: 2.1.0
+## Version: 2.1.1
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
