@@ -30,6 +30,9 @@ L["error.semantic.protected"] = "|cffff0000필터 표현에 의미 오류|r\n\n'
 
 L["dialog.reset"] = "초기화"
 L["dialog.refresh"] = "검색"
+L["dialog.remove"] = "Remove"
+L["dialog.save"] = "Save"
+L["dialog.load"] = "Load"
 L["dialog.expl.simple"] = "체크박스를 활성화하고 최소 및/또는 최대를 입력 후 검색을 클릭하세요."
 L["dialog.expl.state"] = "파티에 포함되어야 함:"
 L["dialog.expl.min"] = "최소"

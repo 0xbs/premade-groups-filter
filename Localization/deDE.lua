@@ -30,6 +30,9 @@ L["error.semantic.protected"] = "|cffff0000Semantischer Fehler im Filterausdruck
 
 L["dialog.reset"] = "Zurücksetzen"
 L["dialog.refresh"] = "Suchen"
+L["dialog.remove"] = "Remove"
+L["dialog.save"] = "Save"
+L["dialog.load"] = "Load"
 L["dialog.expl.simple"] = "Anhaken, Minimum und/oder Maximum eingeben und auf Suchen klicken."
 L["dialog.expl.state"] = "Gruppe soll enthalten:"
 L["dialog.expl.min"] = "min"

@@ -30,6 +30,9 @@ L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不�
 
 L["dialog.reset"] = "重置"
 L["dialog.refresh"] = "搜尋"
+L["dialog.remove"] = "Remove"
+L["dialog.save"] = "Save"
+L["dialog.load"] = "Load"
 L["dialog.expl.simple"] = "勾選選項，輸入最大值和(或)最小值，然後按下搜尋。"
 L["dialog.expl.state"] = "隊伍必須包含："
 L["dialog.expl.min"] = "最小"

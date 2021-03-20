@@ -30,6 +30,9 @@ L["error.semantic.protected"] = "|cffff0000Erreur sémantique dans le filtre d'e
 
 L["dialog.reset"] = "Réinitialiser"
 L["dialog.refresh"] = "Rechercher"
+L["dialog.remove"] = "Remove"
+L["dialog.save"] = "Save"
+L["dialog.load"] = "Load"
 L["dialog.expl.simple"] = "Cochez les cases, entrez un min / max et recherchez"
 L["dialog.expl.state"] = "Le groupe doit contenir"
 L["dialog.expl.min"] = "min"

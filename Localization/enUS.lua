@@ -28,6 +28,9 @@ L["error.semantic.protected"] = "|cffff0000Semantic error in filter expression|r
 
 L["dialog.reset"] = "Reset"
 L["dialog.refresh"] = "Search"
+L["dialog.remove"] = "Remove"
+L["dialog.save"] = "Save"
+L["dialog.load"] = "Load"
 L["dialog.expl.simple"] = "Activate checkbox, enter min and/or max and click Search."
 L["dialog.expl.state"] = "Group should contain:"
 L["dialog.expl.min"] = "min"

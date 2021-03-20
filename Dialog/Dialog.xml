@@ -208,7 +208,7 @@
                 <Anchors>
                     <Anchor point="LEFT" x="1"/>
                     <Anchor point="RIGHT" x="-3"/>
-                    <Anchor point="BOTTOM" y="108"/>
+                    <Anchor point="BOTTOM" y="148"/>
                 </Anchors>
                 <Layers>
                     <Layer>
@@ -231,6 +231,42 @@
                     </Button>
                 </Frames>
             </Frame>
+            <EditBox parentKey="ExpressionName" inherits="InputBoxTemplate" autoFocus="false" letters="16">
+                <Size y="22"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="11"/>
+                    <Anchor point="RIGHT" x="-98"/>
+                    <Anchor point="BOTTOM" y="125"/>
+                </Anchors>
+            </EditBox>
+            <Button parentKey="SaveButton" inherits="MagicButtonTemplate">
+                <Size x="90" y="22"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-8"/>
+                    <Anchor point="BOTTOM" y="125"/>
+                </Anchors>
+            </Button>
+            <Frame parentKey="ExpressionDropDown" inherits="PremadeGroupsFilterDropDownPopupMenuTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" x="-12"/>
+                    <Anchor point="BOTTOM" y="96"/>
+                </Anchors>
+            </Frame>
+            <Button parentKey="LoadButton" inherits="MagicButtonTemplate">
+                <Size x="90" y="22"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-98"/>
+                    <Anchor point="BOTTOM" y="104"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="RemoveButton" inherits="MagicButtonTemplate">
+                <Size x="90" y="22"/>
+                <Anchors>
+                    <Anchor point="RIGHT" x="-8"/>
+                    <Anchor point="BOTTOM" y="104"/>
+                </Anchors>
+            </Button>
+
             <ScrollFrame parentKey="Expression" inherits="InputScrollFrameTemplate">
                 <Size y="70"/>
                 <Anchors>

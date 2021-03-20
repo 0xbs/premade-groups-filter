@@ -37,6 +37,28 @@ function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)
     dialog[key].Max:SetText(model[key:lower()].max)
 end
 
+function PGF.Dialog_LoadExpressionFromModel(dialog, model)
+    local entries = {}
+    local addEntry = function (entries, name, expression)
+        table.insert(entries, {
+            title = name,
+            value = expression,
+            func = PGF.Dialog_ExpressionDropdown_OnClick
+        })
+    end
+    for name, expression in pairs(model.expressions) do
+        addEntry(entries, name, expression)
+    end
+    
+    dialog.ExpressionDropDown.Text:SetText("")
+    PremadeGroupsFilterDialog.ExpressionName:SetText("")
+
+    PGF.PopupMenu_Register("Menu", entries, PremadeGroupsFilterDialog, "TOPRIGHT", dialog.ExpressionDropDown, "BOTTOMRIGHT", -15, 10, 95, 150)
+    dialog.ExpressionDropDown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("Menu") end)
+    dialog.ExpressionDropDown:SetScript("OnHide", PGF.PopupMenu_Hide)
+
+end
+
 function PGF.Dialog_LoadFromModel(dialog)
     local model = PGF.GetModel()
     PGF.UsePFGButton:SetChecked(model.enabled)
@@ -47,6 +69,7 @@ function PGF.Dialog_LoadFromModel(dialog)
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Tanks")
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Heals")
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Dps")
+    PGF.Dialog_LoadExpressionFromModel(dialog, model)
     dialog.Noilvl.Act:SetChecked(model.noilvl.act)
     dialog.Expression.EditBox:SetText(model.expression)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
@@ -101,7 +124,12 @@ function PGF.Dialog_AdjustToMode()
         dialog.MaxExplanation:Hide()
         dialog.Advanced:Hide()
         dialog.Expression:SetHeight(130)
-        dialog:SetSize(300, 192)
+        dialog.ExpressionName:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 190)
+        dialog.ExpressionDropDown:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 161)
+        dialog.SaveButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 190)
+        dialog.LoadButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 169)
+        dialog.RemoveButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 169)
+        dialog:SetSize(300, 235)
         dialog.InsetBg:SetPoint("TOPLEFT", 4, -23)
         dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
         dialog.MinimizeButton:Hide()
@@ -120,8 +148,13 @@ function PGF.Dialog_AdjustToMode()
         dialog.MinExplanation:Show()
         dialog.MaxExplanation:Show()
         dialog.Advanced:Show()
-        dialog.Expression:SetHeight(70)
-        dialog:SetSize(300, 427)
+        dialog.Expression:SetHeight(67)
+        dialog.ExpressionName:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 125)
+        dialog.ExpressionDropDown:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 96)
+        dialog.SaveButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 125)
+        dialog.LoadButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 104)
+        dialog.RemoveButton:SetPoint("BOTTOM", dialog, "BOTTOM", 0, 104)
+        dialog:SetSize(300,470)
         dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
         dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
         dialog.MaximizeButton:Hide()
@@ -163,6 +196,13 @@ function PGF.Dialog_DifficultyDropdown_Init(dropdown)
 
     PGF.PopupMenu_Register("DifficultyMenu", entries, PremadeGroupsFilterDialog, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
     dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DifficultyMenu") end)
+    dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
+end
+
+function PGF.Dialog_ExpressionDropdown_Init(dropdown)
+    local entries = {}
+    PGF.PopupMenu_Register("Menu", entries, PremadeGroupsFilterDialog, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
+    dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("Menu") end)
     dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
 end
 
@@ -217,6 +257,12 @@ function PGF.Dialog_OnLoad()
     dialog.Title:SetText("Premade Groups Filter")
     dialog.ResetButton:SetText(L["dialog.reset"])
     dialog.ResetButton:SetScript("OnClick", PGF.Dialog_ResetButton_OnClick)
+    dialog.RemoveButton:SetText(L["dialog.remove"])
+    dialog.RemoveButton:SetScript("OnClick", PGF.Dialog_RemoveButton_OnClick)
+    dialog.SaveButton:SetText(L["dialog.save"])
+    dialog.SaveButton:SetScript("OnClick", PGF.Dialog_SaveButton_OnClick)
+    dialog.LoadButton:SetText(L["dialog.load"])
+    dialog.LoadButton:SetScript("OnClick", PGF.Dialog_LoadButton_OnClick)
     dialog.RefreshButton:SetText(L["dialog.refresh"])
     dialog.RefreshButton:SetScript("OnClick", PGF.Dialog_RefreshButton_OnClick)
     dialog.SimpleExplanation:SetText(L["dialog.expl.simple"])
