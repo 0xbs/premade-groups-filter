@@ -30,9 +30,9 @@ L["error.semantic.protected"] = "|cffff0000Error Semántico en la expresión|r\n
 
 L["dialog.reset"] = "Restablecer"
 L["dialog.refresh"] = "Buscar"
-L["dialog.remove"] = "Remove"
-L["dialog.save"] = "Save"
-L["dialog.load"] = "Load"
+L["dialog.remove"] = "Eliminar"
+L["dialog.save"] = "Guardar"
+L["dialog.load"] = "Cargar"
 L["dialog.expl.simple"] = "Marca alguna opción, introduce mínimo y/o máximo y pulsa en Buscar."
 L["dialog.expl.state"] = "El grupo debe tener:"
 L["dialog.expl.min"] = "mín."
