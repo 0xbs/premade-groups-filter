@@ -87,8 +87,6 @@ function Tabs.Tab_OnClick(self, button)
 		return
 	end
 
-	PlaySound("igMainMenuOptionCheckBoxOn")
-
 	if isRight or isEdit or isNew then
 		-- ensure PremadeGroupsFilterDialog is visible
 		if not PremadeGroupsFilterDialog:IsVisible() then
@@ -471,7 +469,6 @@ end
 
 function PremadeGroupsFilterTabEditFrame_OnShow(self)
 	PremadeGroupsFilterTabEditEditBox:SetFocus()
-	PlaySound("igCharacterInfoOpen")
 	RefreshPlayerSpellIconInfo()
 	PremadeGroupsFilterTabEditFrame_Update(self)
 end
