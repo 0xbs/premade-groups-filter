@@ -1,3 +1,2 @@
 ignore:
-  - '*.png'
-  - '*.jpg'
+  - preview.jpg
