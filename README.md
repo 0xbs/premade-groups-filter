@@ -2,6 +2,8 @@
 
 Premade Groups Filter helps you limit the search results of the LFG Premade Groups tool. You can filter by difficulty or for groups with a specific composition of members, e.g. one tank, no heals and 3 dps. Filtering is done using a separate window next to the list of groups. Advanced users are able to enter powerful filter expressions to find exactly what they are looking for.
 
+![Premade Groups Filter next to the LFG Premade Groups window filtering for all mythic dungeons that still need a tank and already have a healer](preview.jpg)
+
 Examples of what can easily be found with Premade Groups Filter:
 
 * mythic dungeon groups that still need a healer
@@ -12,6 +14,7 @@ Examples of what can easily be found with Premade Groups Filter:
 ### Resources
 
 * [Project on Curse.com](https://mods.curse.com/addons/wow/premade-groups-filter)
+* [Project on Wago.io](https://addons.wago.io/addons/premade-groups-filter)
 * [Full List of Keywords](https://github.com/0xbs/premade-groups-filter/wiki/Keywords "Full List of Keywords")
 * [FAQ and Examples](https://github.com/0xbs/premade-groups-filter/wiki/FAQ "FAQ and Examples")
 
