@@ -1,0 +1,30 @@
+name: Package and release to CurseForge and Wago
+
+# Run on new tags
+on:
+  push:
+    tags:
+      - '**'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}  # secret is automatically provided to the workflow
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Clone
+        uses: actions/checkout@v1  # note: checkout@v2 breaks git history, so generating a changelog and
+                                   # file naming for non-tagged builds will not work properly
+
+      - name: BigWigs Packager
+        uses: BigWigsMods/packager@v1.0.1
+        with:
+          args: -p 102896 -a BO67g063
