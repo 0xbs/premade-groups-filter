@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
       WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}  # secret is automatically provided to the workflow
 
@@ -26,4 +27,4 @@ jobs:
       - name: BigWigs Packager
         uses: BigWigsMods/packager@v1.0.1
         with:
-          args: -a BO67g063 -p 0 -w 0
+          args: -a BO67g063 -p 102896 -w 0
