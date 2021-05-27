@@ -1,4 +1,4 @@
-name: Package and release to CurseForge and Wago
+name: Package and Release
 
 # Run on new tags
 on:
