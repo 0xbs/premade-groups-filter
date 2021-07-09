@@ -268,6 +268,12 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [720] = C.NORMAL,     -- Castle Nathria
     [722] = C.HEROIC,     -- Castle Nathria
     [721] = C.MYTHIC,     -- Castle Nathria
+
+    [743] = C.NORMAL,     -- Sanctum of Domination
+    [744] = C.HEROIC,     -- Sanctum of Domination
+    [745] = C.MYTHIC,     -- Sanctum of Domination
+
+    [746] = C.MYTHIC,     -- Tazavesh, the Veiled Market
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
