@@ -30,6 +30,9 @@ L["error.semantic.protected"] = "|cffff0000Семантическая ошибк
 
 L["dialog.reset"] = "Сброс"
 L["dialog.refresh"] = "Поиск"
+L["dialog.remove"] = "Удалить"
+L["dialog.save"] = "Сохранить"
+L["dialog.load"] = "Загрузить"
 L["dialog.expl.simple"] = "Выберите условия, внесите данные мин/макс, нажмите Поиск"
 L["dialog.expl.state"] = "Группы должны содержать:"
 L["dialog.expl.min"] = "Мин"

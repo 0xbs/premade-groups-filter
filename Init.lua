@@ -105,6 +105,8 @@ C.SETTINGS_DEFAULT = {
 C.MODEL_DEFAULT = {
     enabled = true,
     expression = "",
+    expressions = {
+    },
     difficulty = {
         act = false,
         val = 3,

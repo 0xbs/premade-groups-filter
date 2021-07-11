@@ -136,6 +136,49 @@ function PGF.Dialog_Reset(excludeExpression)
     PGF.Dialog_ClearFocus()
 end
 
+function PGF.Dialog_LoadExpression()
+    local dialog = PremadeGroupsFilterDialog
+    local model = PGF.GetModel()
+    local expressionName = dialog.ExpressionDropDown.Text:GetText()
+    local expression = model.expressions[expressionName]
+    if expressionName ~= '' then 
+        PremadeGroupsFilterDialog.Expression.EditBox:SetText(expression)
+        PGF.Dialog_OnModelUpdate()
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+        PGF.Dialog_LoadExpressionFromModel(dialog, model)
+        PremadeGroupsFilterDialog.ExpressionName:SetText(expressionName)
+        dialog.ExpressionDropDown.Text:SetText(expressionName)    
+        LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
+    end
+end
+
+function PGF.Dialog_SaveExpression()
+    local dialog = PremadeGroupsFilterDialog
+    local model = PGF.GetModel()
+    local expressionName = PremadeGroupsFilterDialog.ExpressionName:GetText()
+    local expression = PremadeGroupsFilterDialog.Expression.EditBox:GetText()
+    if expressionName ~= '' then 
+        model.expressions[expressionName] = dialog.Expression.EditBox:GetText()
+        PGF.Dialog_OnModelUpdate()
+        PGF.Dialog_LoadExpressionFromModel(dialog, model)
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+        PremadeGroupsFilterDialog.ExpressionName:SetText(expressionName)
+        dialog.ExpressionDropDown.Text:SetText(expressionName)    
+    end
+end
+
+function PGF.Dialog_RemoveExpression()
+    local dialog = PremadeGroupsFilterDialog
+    local model = PGF.GetModel()
+    local expressionName = dialog.ExpressionDropDown.Text:GetText()
+    if expressionName ~= '' then 
+        model.expressions[expressionName] = nil
+        PGF.Dialog_OnModelUpdate()
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+        PGF.Dialog_LoadExpressionFromModel(dialog, model)
+    end
+end
+
 function PGF.Dialog_RefreshButton_OnClick(self, button, down)
     PGF.Dialog_ClearFocus()
     PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
@@ -147,6 +190,17 @@ function PGF.Dialog_ResetButton_OnClick(self, button, down)
     PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
     PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
 end
+function PGF.Dialog_LoadButton_OnClick(self, button, down)
+    PGF.Dialog_LoadExpression()
+end
+
+function PGF.Dialog_SaveButton_OnClick(self, button, down)
+    PGF.Dialog_SaveExpression()
+end
+
+function PGF.Dialog_RemoveButton_OnClick(self, button, down)
+    PGF.Dialog_RemoveExpression()
+end
 
 function PGF.Dialog_DifficultyDropdown_OnClick(item)
     local dialog = PremadeGroupsFilterDialog
@@ -156,6 +210,20 @@ function PGF.Dialog_DifficultyDropdown_OnClick(item)
         model.difficulty.val = item.value
         dialog.Difficulty.DropDown.Text:SetText(item.title)
         PGF.Dialog_OnModelUpdate()
+    end
+end
+
+function PGF.Dialog_ExpressionDropdown_OnClick(item)
+    local dialog = PremadeGroupsFilterDialog
+    if item.value then
+        local model = PGF.GetModel()
+        dialog.Expression.EditBox:SetText(item.value)
+        dialog.ExpressionName:SetText(item.title)
+        dialog.ExpressionDropDown.Text:SetText(item.title)
+        PGF.Dialog_OnModelUpdate()
+        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
+        LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
+    
     end
 end
 
