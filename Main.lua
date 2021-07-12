@@ -341,6 +341,7 @@ function PGF.DoFilterSearchResults(results)
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
+        env.warmode = searchResultInfo.isWarMode
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
