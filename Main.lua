@@ -345,13 +345,13 @@ function PGF.DoFilterSearchResults(results)
         env.questid = searchResultInfo.questID
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode
-	env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
-	if searchResultInfo.leaderDungeonScoreInfo then
-	    env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
-	    env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
-	    env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
-	    env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
-	end
+        env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
+        if searchResultInfo.leaderDungeonScoreInfo then
+            env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
+            env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
+            env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
+            env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
+        end
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
