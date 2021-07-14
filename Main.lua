@@ -190,6 +190,9 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     if searchResultInfo1.numGuildMates ~= searchResultInfo2.numGuildMates then
         return searchResultInfo1.numGuildMates > searchResultInfo2.numGuildMates
     end
+    if searchResultInfo1.isWarMode ~= searchResultInfo2.isWarMode then
+        return searchResultInfo1.isWarMode == C_PvP.IsWarModeDesired()
+    end
 
     return searchResultInfo1.age < searchResultInfo2.age
 end
