@@ -346,6 +346,10 @@ function PGF.DoFilterSearchResults(results)
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode
         env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
+        env.mpmaprating = 0
+        env.mpmapname   = ""
+        env.mpmapmaxkey = 0
+        env.mpmapintime = false
         if searchResultInfo.leaderDungeonScoreInfo then
             env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
             env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
