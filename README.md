@@ -13,7 +13,7 @@ Examples of what can easily be found with Premade Groups Filter:
 
 ### Resources
 
-* [Project on Curse.com](https://www.curseforge.com/wow/addons/premade-groups-filter)
+* [Project on CurseForge](https://www.curseforge.com/wow/addons/premade-groups-filter)
 * [Project on Wago.io](https://addons.wago.io/addons/premade-groups-filter)
 * [Full List of Keywords](https://github.com/0xbs/premade-groups-filter/wiki/Keywords "Full List of Keywords")
 * [FAQ and Examples](https://github.com/0xbs/premade-groups-filter/wiki/FAQ "FAQ and Examples")
