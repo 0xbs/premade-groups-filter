@@ -422,6 +422,14 @@ function PGF.DoFilterSearchResults(results)
         env.ttvm = env.taz
         env.mists = env.mots
 
+        -- Shadowlands Legion Timewalking
+        env.nl   = aID == 462 -- Neltharion's Lair
+        env.votw = aID == 464 -- Vault of the Wardens
+        env.cos  = aID == 466 -- Court of Stars
+        env.dht  = aID == 460 -- Darkheart Thicket
+        env.eoa  = aID == 459 -- Eye of Azshara
+        env.brh  = aID == 463 -- Blackrook Hold
+        
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         end
