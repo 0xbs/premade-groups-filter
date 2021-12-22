@@ -364,15 +364,19 @@ function PGF.DoFilterSearchResults(results)
         env.arena2v2 = aID == 6 or aID == 491 or aID == 731 or aID == 732
         env.arena3v3 = aID == 7 or aID == 490 or aID == 733 or aID == 734
 
-        -- raids       normal        heroic        mythic
+        -- Warlords of Draenor raids       normal        heroic        mythic
         env.hm   = aID ==  37 or aID ==  38 or aID == 399  -- Highmaul
         env.brf  = aID ==  39 or aID ==  40 or aID == 400  -- Blackrock Foundry
         env.hfc  = aID == 409 or aID == 410 or aID == 412  -- Hellfire Citadel
+
+        -- Legion raids    normal        heroic        mythic
         env.en   = aID == 413 or aID == 414 or aID == 468  -- The Emerald Nightmare
         env.nh   = aID == 415 or aID == 416 or aID == 481  -- The Nighthold
         env.tov  = aID == 456 or aID == 457 or aID == 480  -- Trial of Valor
         env.tosg = aID == 479 or aID == 478 or aID == 492  -- Tomb of Sargeras
         env.atbt = aID == 482 or aID == 483 or aID == 493  -- Antorus, the Burning Throne
+
+        -- Battle for Azeroth raids    normal        heroic        mythic
         env.uldir= aID == 494 or aID == 495 or aID == 496  -- Uldir
         env.bod  = aID == 663 or aID == 664 or aID == 665  -- Battle of Dazar'alor
         env.daz  = env.bod
@@ -382,9 +386,20 @@ function PGF.DoFilterSearchResults(results)
         env.tep  = env.ete
         env.nya  = aID == 687 or aID == 686 or aID == 685  -- Ny’alotha, the Waking City
         env.ny   = env.nya
-        env.cn   = aID == 720 or aID == 722 or aID == 721  -- Castle Nathria
 
-        -- dungeons    normal        heroic        mythic       mythic+    normal2
+        -- Shadowlands raids    normal        heroic        mythic
+        env.cn   = aID == 720 or aID == 722 or aID == 721  -- Castle Nathria
+        env.sod  = aID == 743 or aID == 744 or aID == 745  -- Sanctum of Domination
+
+        -- Legion dungeons    normal        heroic        mythic       mythic+   
+        env.eoa  = aID == 425 or aID == 435 or aID == 445 or aID == 459 -- Eye of Azshara
+        env.dht  = aID == 426 or aID == 436 or aID == 446 or aID == 460 -- Darkheart Thicket
+        env.nl   = aID == 428 or aID == 438 or aID == 448 or aID == 462 -- Neltharion's Lair
+        env.brh  = aID == 430 or aID == 440 or aID == 450 or aID == 463 -- Black Rook Hold
+        env.votw = aID == 431 or aID == 441 or aID == 451 or aID == 464 -- Vault of the Wardens
+        env.cos  = aID == 433 or aID == 443 or aID == 453 or aID == 466 -- Court of Stars
+ 
+        -- Battle for Azeroth dungeons    normal        heroic        mythic       mythic+    normal2
         env.ad   = aID == 501 or aID == 500 or aID == 499 or aID == 502 or aID == 543  -- Atal'Dazar
         env.tosl = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
         env.tos  = env.tosl
@@ -407,7 +422,7 @@ function PGF.DoFilterSearchResults(results)
         env.yard = env.opmj
         env.work = env.opmw
 
-        -- Shadowlands
+        -- Shadowlands dungeons    normal        heroic        mythic       mythic+  
         env.pf   = aID == 688 or aID == 689 or aID == 690 or aID == 691  -- Plaguefall
         env.dos  = aID == 692 or aID == 693 or aID == 694 or aID == 695  -- De Other Side
         env.hoa  = aID == 696 or aID == 697 or aID == 698 or aID == 699  -- Halls of Atonement
@@ -416,20 +431,11 @@ function PGF.DoFilterSearchResults(results)
         env.soa  = aID == 708 or aID == 711 or aID == 710 or aID == 709  -- Spires of Ascension
         env.nw   = aID == 712 or aID == 715 or aID == 714 or aID == 713  -- The Necrotic Wake
         env.top  = aID == 716 or aID == 719 or aID == 718 or aID == 717  -- Theater of Pain
-        env.sod  = aID == 743 or aID == 744 or aID == 745                -- Sanctum of Domination
-        env.taz  =                             aID == 746                -- Tazavesh, the Veiled Market
+        env.taz  = aID == 746                                            -- Tazavesh, the Veiled Market
         env.taza = env.taz
         env.ttvm = env.taz
         env.mists = env.mots
-
-        -- Shadowlands Legion Timewalking
-        env.nl   = aID == 462 -- Neltharion's Lair
-        env.votw = aID == 464 -- Vault of the Wardens
-        env.cos  = aID == 466 -- Court of Stars
-        env.dht  = aID == 460 -- Darkheart Thicket
-        env.eoa  = aID == 459 -- Eye of Azshara
-        env.brh  = aID == 463 -- Blackrook Hold
-        
+                
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
         end
