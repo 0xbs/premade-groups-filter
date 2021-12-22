@@ -1,6 +1,6 @@
 ## Interface: 90100
 ## Title: Premade Groups Filter
-## Version: 2.3.1
+## Version: 2.4.0-beta
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
