@@ -60,6 +60,19 @@ C.DIFFICULTY_STRING = {
     [6] = "arena3v3",
 }
 
+-- Translates tier enum values into normalized values - check via /dump PVPUtil.GetTierName(1)
+C.TIER_MAP = {
+    [0] = 0, -- Unranked
+    [1] = 1, -- Combatant I
+    [2] = 3, -- Challenger I
+    [3] = 5, -- Rival I
+    [4] = 7, -- Duelist
+    [5] = 8, -- Elite
+    [6] = 2, -- Combatant II
+    [7] = 4, -- Challenger II
+    [8] = 6, -- Rival II
+}
+
 C.COLOR_ENTRY_NEW       = { R = 0.3, G = 1.0, B = 0.3 } -- green
 C.COLOR_ENTRY_DECLINED  = { R = 0.5, G = 0.1, B = 0.1 } -- dark red
 C.COLOR_LOCKOUT_PARTIAL = { R = 1.0, G = 0.5, B = 0.1 } -- orange

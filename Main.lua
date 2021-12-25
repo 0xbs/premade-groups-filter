@@ -356,6 +356,14 @@ function PGF.DoFilterSearchResults(results)
             env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
             env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
         end
+        if searchResultInfo.leaderPvpRatingInfo then
+            env.pvpactivityname = searchResultInfo.leaderPvpRatingInfo.activityName
+            env.pvprating       = searchResultInfo.leaderPvpRatingInfo.rating
+            env.pvptierx        = searchResultInfo.leaderPvpRatingInfo.tier
+            env.pvptier         = C.TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier]
+            env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo.tier)
+            --env.pvptiername     = _G["PVP_RANK_"..searchResultInfo.leaderPvpRatingInfo.tier.."_NAME"]
+        end
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
