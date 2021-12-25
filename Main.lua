@@ -345,6 +345,11 @@ function PGF.DoFilterSearchResults(results)
         env.questid = searchResultInfo.questID
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode
+        env.playstyle = searchResultInfo.playstyle
+        env.earnconq  = searchResultInfo.playstyle == 1
+        env.learning  = searchResultInfo.playstyle == 2
+        env.beattimer = searchResultInfo.playstyle == 3
+        env.push      = searchResultInfo.playstyle == 3
         env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
         env.mpmaprating = 0
         env.mpmapname   = ""
