@@ -247,6 +247,32 @@
                     <OnLoad>InputScrollFrame_OnLoad(self)</OnLoad>
                 </Scripts>
             </ScrollFrame>
+            <Frame parentKey="Sorting" hidden="false">
+                <Size y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" x="7"/>
+                    <Anchor point="RIGHT" x="-7"/>
+                    <Anchor point="BOTTOM" y="25"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString parentKey="SortingTitle" inherits="GameFontHighlight" wordwrap="false">
+                            <Size x="70" y="20"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="-2"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox parentKey="SortingExpression" inherits="InputBoxInstructionsTemplate" autoFocus="false" letters="100">
+                        <Size x="200" y="20"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="0" y="-2"/>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
+            </Frame>
             <Button parentKey="ResetButton" inherits="MagicButtonTemplate">
                 <Size x="135" y="22"/>
                 <Anchors>
@@ -256,7 +282,7 @@
             <Button parentKey="RefreshButton" inherits="MagicButtonTemplate">
                 <Size x="135" y="22"/>
                 <Anchors>
-                    <Anchor point="BOTTOMRIGHT" x="-3" y="4"/>
+                    <Anchor point="BOTTOMRIGHT" x="-5" y="4"/>
                 </Anchors>
             </Button>
         </Frames>

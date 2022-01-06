@@ -28,6 +28,18 @@ PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
 PGF.declinedGroups = {}
+PGF.searchIdEnvironments = {}
+
+function PGF.ResetSearchEntries()
+    -- make sure to wait at least some time between two resets
+    if time() - PGF.lastSearchEntryReset > C.SEARCH_ENTRY_RESET_WAIT then
+        PGF.previousSearchLeaders = PGF.Table_Copy_Shallow(PGF.currentSearchLeaders)
+        PGF.currentSearchLeaders = {}
+        PGF.previousSearchExpression = PGF.currentSearchExpression
+        PGF.lastSearchEntryReset = time()
+        PGF.searchIdEnvironments = {}
+    end
+end
 
 function PGF.GetExpressionFromMinMaxModel(model, key)
     local exp = ""
@@ -111,14 +123,38 @@ function PGF.GetExpressionFromModel()
     return exp
 end
 
-function PGF.ResetSearchEntries()
-    -- make sure to wait at least some time between two resets
-    if time() - PGF.lastSearchEntryReset > C.SEARCH_ENTRY_RESET_WAIT then
-        PGF.previousSearchLeaders = PGF.Table_Copy_Shallow(PGF.currentSearchLeaders)
-        PGF.currentSearchLeaders = {}
-        PGF.previousSearchExpression = PGF.currentSearchExpression
-        PGF.lastSearchEntryReset = time()
+function PGF.GetSortTableFromModel()
+    local model = PGF.GetModel()
+    if not model or not model.sorting then return 0, {} end
+    -- example string:  "friends asc, age desc , foo asc, bar   desc , x"
+    -- resulting table: { ["friends"] = "asc", ["age"] = "desc", ["foo"] = "asc", ["bar"] = "desc" }
+    local c = 0
+    local t = {}
+    for k, v in string.gmatch(model.sorting, "(%w+)%s+(%w+),?") do
+        c = c + 1
+        t[k] = v
     end
+    return c, t
+end
+
+function PGF.SortByExpression(searchResultID1, searchResultID2)
+    local sortTableSize, sortTable = PGF.GetSortTableFromModel()
+    local env1 = PGF.searchIdEnvironments[searchResultID1]
+    local env2 = PGF.searchIdEnvironments[searchResultID2]
+    if sortTableSize == 0 or not env1 or not env2 then
+        return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
+    end
+    for k, v in pairs(sortTable) do
+        if env1[k] ~= env2[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
+            if v == "desc" then
+                return env1[k] > env2[k]
+            else -- works with unknown 'v', in this case sort ascending by default
+                return env1[k] < env2[k]
+            end
+        end
+    end
+    -- no sorting defined or all properties are the same, fall back to default sorting
+    return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
 end
 
 local roleRemainingKeyLookup = {
@@ -285,12 +321,14 @@ function PGF.DoFilterSearchResults(results)
     --print("filtering, size is "..#results)
 
     PGF.ResetSearchEntries()
-    local exp = PGF.GetExpressionFromModel()
-    PGF.currentSearchExpression = exp
     local model = PGF.GetModel()
     if not model or not model.enabled then return false end
     if not results or #results == 0 then return false end
-    if exp == "true" then return false end -- skip trivial expression
+
+    local sortTableSize, _ = PGF.GetSortTableFromModel()
+    local exp = PGF.GetExpressionFromModel()
+    PGF.currentSearchExpression = exp
+    if exp == "true" and sortTableSize == 0 then return false end -- skip trivial expression if no sorting
 
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
@@ -482,6 +520,7 @@ function PGF.DoFilterSearchResults(results)
             PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
         end
 
+        PGF.searchIdEnvironments[resultID] = env
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
             if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
@@ -490,7 +529,7 @@ function PGF.DoFilterSearchResults(results)
         end
     end
     -- sort by age
-    table.sort(results, PGF.SortByFriendsAndAge)
+    table.sort(results, PGF.SortByExpression)
     LFGListFrame.SearchPanel.totalResults = #results
     return true
 end

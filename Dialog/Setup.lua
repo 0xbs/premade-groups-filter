@@ -49,6 +49,7 @@ function PGF.Dialog_LoadFromModel(dialog)
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "Dps")
     dialog.Noilvl.Act:SetChecked(model.noilvl.act)
     dialog.Expression.EditBox:SetText(model.expression)
+    dialog.Sorting.SortingExpression:SetText(model.sorting)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
     dialog.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[model.difficulty.val])
 end
@@ -81,6 +82,7 @@ end
 
 function PGF.Dialog_MaximizeButton_OnClick(self, button, down)
     PremadeGroupsFilterState.expert = false
+    PGF.Dialog_Reset(true)
     PGF.Dialog_AdjustToMode()
 end
 
@@ -100,10 +102,12 @@ function PGF.Dialog_AdjustToMode()
         dialog.MinExplanation:Hide()
         dialog.MaxExplanation:Hide()
         dialog.Advanced:Hide()
+        dialog.Sorting:Show()
+        dialog.Expression:SetPoint("BOTTOM", 0, 58)
         dialog.Expression:SetHeight(130)
-        dialog:SetSize(300, 192)
+        dialog:SetSize(300, 218)
         dialog.InsetBg:SetPoint("TOPLEFT", 4, -23)
-        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
+        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 50)
         dialog.MinimizeButton:Hide()
         dialog.MaximizeButton:Show()
     else
@@ -120,6 +124,8 @@ function PGF.Dialog_AdjustToMode()
         dialog.MinExplanation:Show()
         dialog.MaxExplanation:Show()
         dialog.Advanced:Show()
+        dialog.Sorting:Hide()
+        dialog.Expression:SetPoint("BOTTOM", 0, 32)
         dialog.Expression:SetHeight(70)
         dialog:SetSize(300, 427)
         dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
@@ -236,6 +242,8 @@ function PGF.Dialog_OnLoad()
     dialog.MoveableToggle:SetScript("OnClick", PGF.Dialog_ToggleMoveable)
     dialog.MinimizeButton:SetScript("OnClick", PGF.Dialog_MinimizeButton_OnClick)
     dialog.MaximizeButton:SetScript("OnClick", PGF.Dialog_MaximizeButton_OnClick)
+    dialog.Sorting.SortingTitle:SetText(L["dialog.sorting"])
+    dialog.Sorting.SortingExpression.Instructions:SetText("friends desc, age asc")
 
     PGF.Dialog_SetUpGenericField(dialog, "Difficulty")
     PGF.Dialog_SetUpMinMaxField(dialog, "Ilvl")
@@ -251,6 +259,9 @@ function PGF.Dialog_OnLoad()
     dialog.Expression.EditBox:SetFont(font, C.FONTSIZE_TEXTBOX)
     dialog.Expression.EditBox.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
     --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged) -- overrides Blizz
+    dialog.Sorting.SortingExpression:SetFont(font, C.FONTSIZE_TEXTBOX)
+    dialog.Sorting.SortingExpression.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
+    --dialog.Sorting.SortingExpression:SetScript("OnTextChanged", PGF.Dialog_SortingExpression_OnTextChanged) -- overrides Blizz
 
     PGF.Dialog_DifficultyDropdown_Init(dialog.Difficulty.DropDown)
 end

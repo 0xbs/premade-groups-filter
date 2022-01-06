@@ -118,6 +118,7 @@ C.SETTINGS_DEFAULT = {
 C.MODEL_DEFAULT = {
     enabled = true,
     expression = "",
+    sorting = "",
     difficulty = {
         act = false,
         val = 3,

@@ -37,6 +37,7 @@ function PGF.Dialog_ClearFocus()
     dialog.Dps.Min:ClearFocus()
     dialog.Dps.Max:ClearFocus()
     dialog.Expression.EditBox:ClearFocus()
+    dialog.Sorting.SortingExpression:ClearFocus()
 end
 
 function PGF.Dialog_OnModelUpdate()
@@ -110,6 +111,16 @@ function PGF.Dialog_Expression_OnTextChanged(self, userInput)
     end
 end
 
+function PGF.Dialog_SortingExpression_OnTextChanged(self, userInput)
+    -- we cannot set the OnTextChange directly, since the InputBoxInstructions
+    -- needs that for hiding/showing the gray instructions text
+    if self == PremadeGroupsFilterDialog.Sorting.SortingExpression then
+        local model = PGF.GetModel()
+        model.sorting = self:GetText() or ""
+        PGF.Dialog_OnModelUpdate()
+    end
+end
+
 function PGF.Dialog_ResetMinMaxField(self, key)
     PGF.Dialog_ResetGenericField(self, key)
     self[key].Min:SetText("")
@@ -129,6 +140,8 @@ function PGF.Dialog_Reset(excludeExpression)
     PGF.Dialog_ResetMinMaxField(dialog, "Heals")
     PGF.Dialog_ResetMinMaxField(dialog, "Dps")
     PGF.Dialog_ResetMinMaxField(dialog, "Defeated")
+    dialog.Sorting.SortingExpression:SetText("")
+    PGF.Dialog_SortingExpression_OnTextChanged(dialog.Sorting.SortingExpression)
     if not excludeExpression then
         dialog.Expression.EditBox:SetText("")
         PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
@@ -139,6 +152,7 @@ end
 function PGF.Dialog_RefreshButton_OnClick(self, button, down)
     PGF.Dialog_ClearFocus()
     PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
+    PGF.Dialog_SortingExpression_OnTextChanged(PremadeGroupsFilterDialog.Sorting.SortingExpression)
     LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
 end
 
@@ -198,5 +212,6 @@ hooksecurefunc("LFGListFrame_SetActivePanel", PGF.OnLFGListFrameSetActivePanel)
 hooksecurefunc("GroupFinderFrame_ShowGroupFrame", PGF.Dialog_Toggle)
 hooksecurefunc("PVEFrame_ShowFrame", PGF.Dialog_Toggle)
 hooksecurefunc("InputScrollFrame_OnTextChanged", PGF.Dialog_Expression_OnTextChanged)
+hooksecurefunc("InputBoxInstructions_OnTextChanged", PGF.Dialog_SortingExpression_OnTextChanged)
 PVEFrame:SetScript("OnShow", PGF.Dialog_Toggle)
 PVEFrame:SetScript("OnHide", PGF.Dialog_Toggle)
