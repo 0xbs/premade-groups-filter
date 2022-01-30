@@ -2,9 +2,9 @@
 ..\FrameXML\UI.xsd">
 
     <Button name="PremadeGroupsFilterInfoButtonTemplate" virtual="true">
-        <Size x="64" y="64"/>
+        <Size x="46" y="46"/>
         <HitRectInsets>
-            <AbsInset left="20" right="20" top="20" bottom="20"/>
+            <AbsInset left="10" right="10" top="10" bottom="10"/>
         </HitRectInsets>
         <Layers>
             <Layer level="BACKGROUND">
@@ -223,14 +223,12 @@
                         </FontString>
                     </Layer>
                 </Layers>
-                <Frames>
-                    <Button parentKey="InfoButton" inherits="PremadeGroupsFilterInfoButtonTemplate">
-                        <Anchors>
-                            <Anchor point="TOPRIGHT" x="15" y="14"/>
-                        </Anchors>
-                    </Button>
-                </Frames>
             </Frame>
+            <Button parentKey="InfoButton" inherits="PremadeGroupsFilterInfoButtonTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="0" y="102"/>
+                </Anchors>
+            </Button>
             <ScrollFrame parentKey="Expression" inherits="InputScrollFrameTemplate">
                 <Size y="70"/>
                 <Anchors>
@@ -266,9 +264,9 @@
                 </Layers>
                 <Frames>
                     <EditBox parentKey="SortingExpression" inherits="InputBoxInstructionsTemplate" autoFocus="false" letters="100">
-                        <Size x="200" y="20"/>
+                        <Size x="175" y="20"/>
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="0" y="-2"/>
+                            <Anchor point="TOPRIGHT" x="-25" y="-2"/>
                         </Anchors>
                     </EditBox>
                 </Frames>
