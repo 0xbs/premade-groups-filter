@@ -15,6 +15,7 @@ Localization\zhCN.lua
 Localization\zhTW.lua
 Localization\ruRU.lua
 Localization\esES.lua
+FixGetPlaystyleString.lua
 Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
