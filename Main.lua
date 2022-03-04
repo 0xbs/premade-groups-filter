@@ -452,7 +452,8 @@ function PGF.DoFilterSearchResults(results)
         --             normal        heroic        mythic
         env.cn       = aID == 720 or aID == 722 or aID == 721  -- Castle Nathria
         env.sod      = aID == 743 or aID == 744 or aID == 745  -- Sanctum of Domination
-        local slraid = env.cn or env.sod -- all Shadowlands raids
+        env.sotfo = aID == 1020 or aID == 1021 or aID == 1022 -- Sepulcher of the First Ones
+        local slraid = env.cn or env.sod or env.sotfo -- all Shadowlands raids
 
         -- Legion dungeons
         --                    normal        heroic        mythic        mythic+
@@ -463,7 +464,7 @@ function PGF.DoFilterSearchResults(results)
         env.votw            = aID == 431 or aID == 441 or aID == 451 or aID == 464 -- Vault of the Wardens
         env.cos             = aID == 433 or aID == 443 or aID == 453 or aID == 466 -- Court of Stars
         local legiondungeon = env.eoa or env.dht or env.nl or env.brh or env.votw or env.cos -- all Legion dungeons
- 
+
         -- Battle for Azeroth dungeons
         --                 normal        heroic        mythic        mythic+       normal2
         env.ad           = aID == 501 or aID == 500 or aID == 499 or aID == 502 or aID == 543  -- Atal'Dazar
@@ -499,10 +500,15 @@ function PGF.DoFilterSearchResults(results)
         env.soa         = aID == 708 or aID == 711 or aID == 710 or aID == 709  -- Spires of Ascension
         env.nw          = aID == 712 or aID == 715 or aID == 714 or aID == 713  -- The Necrotic Wake
         env.top         = aID == 716 or aID == 719 or aID == 718 or aID == 717  -- Theater of Pain
-        env.taz         = aID == 746                                            -- Tazavesh, the Veiled Market
-        env.taza        = env.taz
-        env.ttvm        = env.taz
-        env.mists       = env.mots
+        env.tazstr = aID == 1016 -- Tazavesh Streets
+        env.tazgam = aID == 1017 -- Tazavesh Gambit
+        env.taz = env.tazstr or env.tazgam or aID == 746 -- Tazavesh, the Veiled Market
+        env.taza = env.taz
+        env.ttvm = env.taz
+        env.mists = env.mots
+        env.streets = env.tazstr
+        env.gambit = env.tazgam
+
         local sldungeon = env.pf or env.dos or env.hoa or env.mots or env.sd or env.soa or env.nw or env.top or env.taz -- all SL dungeons
 
         -- Addon filters
@@ -511,7 +517,7 @@ function PGF.DoFilterSearchResults(results)
         env.legion = legiondungeon or legionraid
         env.bfa    = bfadungeon or bfaraid
         env.sl     = sldungeon or slraid
-        
+
 
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
