@@ -450,9 +450,10 @@ function PGF.DoFilterSearchResults(results)
 
         -- Shadowlands raids
         --             normal        heroic        mythic
-        env.cn       = aID == 720 or aID == 722 or aID == 721  -- Castle Nathria
-        env.sod      = aID == 743 or aID == 744 or aID == 745  -- Sanctum of Domination
-        local slraid = env.cn or env.sod -- all Shadowlands raids
+        env.cn       = aID == 720  or aID == 722  or aID == 721  -- Castle Nathria
+        env.sod      = aID == 743  or aID == 744  or aID == 745  -- Sanctum of Domination
+        env.sfo      = aID == 1020 or aID == 1021 or aID == 1022 -- Sepulcher of the First Ones
+        local slraid = env.cn or env.sod or env.sfo -- all Shadowlands raids
 
         -- Legion dungeons
         --                    normal        heroic        mythic        mythic+
@@ -499,11 +500,15 @@ function PGF.DoFilterSearchResults(results)
         env.soa         = aID == 708 or aID == 711 or aID == 710 or aID == 709  -- Spires of Ascension
         env.nw          = aID == 712 or aID == 715 or aID == 714 or aID == 713  -- The Necrotic Wake
         env.top         = aID == 716 or aID == 719 or aID == 718 or aID == 717  -- Theater of Pain
-        env.taz         = aID == 746                                            -- Tazavesh, the Veiled Market
+        env.tazs        =               aID == 1018              or aID == 1016 -- Tazavesh: Streets of Wonder
+        env.tazg        =               aID == 1019              or aID == 1017 -- Tazavesh: So'leah's Gambit
+        env.taz         = env.tazs or env.tazg     or aID == 746                -- Tazavesh, the Veiled Market
         env.taza        = env.taz
         env.ttvm        = env.taz
         env.mists       = env.mots
         local sldungeon = env.pf or env.dos or env.hoa or env.mots or env.sd or env.soa or env.nw or env.top or env.taz -- all SL dungeons
+
+        -- find more IDs: /run for i=750,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i.." "..info.fullName) end end
 
         -- Addon filters
         --

@@ -274,6 +274,15 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [745] = C.MYTHIC,     -- Sanctum of Domination
 
     [746] = C.MYTHIC,     -- Tazavesh, the Veiled Market
+
+    [1016] = C.MYTHICPLUS, -- Tazavesh: Streets of Wonder
+    [1017] = C.MYTHICPLUS, -- Tazavesh: So'leah's Gambit
+    [1018] = C.HEROIC,     -- Tazavesh: Streets of Wonder
+    [1019] = C.HEROIC,     -- Tazavesh: So'leah's Gambit
+
+    [1020] = C.NORMAL,     -- Sepulcher of the First Ones
+    [1021] = C.HEROIC,     -- Sepulcher of the First Ones
+    [1022] = C.MYTHIC,     -- Sepulcher of the First Ones
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfo() to difficulties
