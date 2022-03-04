@@ -339,14 +339,13 @@ function PGF.DoFilterSearchResults(results)
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local numGroupDefeated, numPlayerDefeated, maxBosses,
               matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
-        local avName, avShortName, avCategoryID, avGroupID, avILevel, avFilters,
-              avMinLevel, avMaxPlayers, avDisplayType, avOrderIndex,
-              avUseHonorLevel, avShowQuickJoin = C_LFGList.GetActivityInfo(searchResultInfo.activityID)
-        local difficulty = PGF.GetDifficulty(searchResultInfo.activityID, avName, avShortName)
+        local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+
+        local difficulty = PGF.GetDifficulty(searchResultInfo.activityID, activityInfo.fullName, activityInfo.shortName)
 
         local env = {}
         env.activity = searchResultInfo.activityID
-        env.activityname = avName:lower()
+        env.activityname = activityInfo.fullName:lower()
         env.leader = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
         env.age = math.floor(searchResultInfo.age / 60) -- age in minutes
         env.voice = searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= ""
@@ -374,11 +373,11 @@ function PGF.DoFilterSearchResults(results)
         env.bossesmatching = matching
         env.bossesahead = groupAhead
         env.bossesbehind = groupBehind
-        env.maxplayers = avMaxPlayers
-        env.suggestedilvl = avILevel
-        env.minlvl = avMinLevel
-        env.categoryid = avCategoryID
-        env.groupid = avGroupID
+        env.maxplayers = activityInfo.maxNumPlayers
+        env.suggestedilvl = activityInfo.ilvlSuggestion
+        env.minlvl = activityInfo.minLevel
+        env.categoryid = activityInfo.categoryID
+        env.groupid = activityInfo.groupFinderActivityGroupID
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
         env.declined = PGF.IsDeclinedGroup(searchResultInfo)
@@ -508,7 +507,7 @@ function PGF.DoFilterSearchResults(results)
         env.mists       = env.mots
         local sldungeon = env.pf or env.dos or env.hoa or env.mots or env.sd or env.soa or env.nw or env.top or env.taz -- all SL dungeons
 
-        -- find more IDs: /run for i=750,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i.." "..info.fullName) end end
+        -- find more IDs: /run for i=750,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
 
         -- Addon filters
         --
@@ -596,10 +595,10 @@ end
 function PGF.OnLFGListSearchEntryOnEnter(self)
     local resultID = self.resultID
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
-    local _, _, _, _, _, _, _, _, displayType = C_LFGList.GetActivityInfo(searchResultInfo.activityID)
+    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 
     -- do not show members where Blizzard already does that
-    if displayType == LE_LFG_LIST_DISPLAY_TYPE_CLASS_ENUMERATE then return end
+    if activityInfo.displayType == LE_LFG_LIST_DISPLAY_TYPE_CLASS_ENUMERATE then return end
     if searchResultInfo.isDelisted or not GameTooltip:IsShown() then return end
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(CLASS_ROLES)

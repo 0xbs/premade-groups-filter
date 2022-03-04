@@ -27,8 +27,8 @@ local DIFFICULTY_TEXT = {
     [C.HEROIC] = L["dialog.heroic"],
     [C.MYTHIC] = L["dialog.mythic"],
     [C.MYTHICPLUS] = L["dialog.mythicplus"],
-    [C.ARENA2V2] = select(2, C_LFGList.GetActivityInfo(6)), -- Arena 2v2
-    [C.ARENA3V3] = select(2, C_LFGList.GetActivityInfo(7)), -- Arena 3v3
+    [C.ARENA2V2] = C_LFGList.GetActivityInfoTable(6).shortName, -- Arena 2v2
+    [C.ARENA3V3] = C_LFGList.GetActivityInfoTable(7).shortName, -- Arena 3v3
 }
 
 function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)

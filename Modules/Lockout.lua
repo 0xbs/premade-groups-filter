@@ -50,14 +50,14 @@ local function matching(lockoutName, activityName, lockoutDifficulty, activityDi
 end
 
 function PGF.GetLockoutInfo(activity, resultID)
-    local avName, avShortName, avCategoryID = C_LFGList.GetActivityInfo(activity)
-    local difficulty = PGF.GetDifficulty(activity, avName, avShortName)
+    local activityInfo = C_LFGList.GetActivityInfoTable(activity)
+    local difficulty = PGF.GetDifficulty(activity, activityInfo.fullName, activityInfo.shortName)
     local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID)
     local groupDefeatedBossNames = PGF.Table_ValuesAsKeys(encounterInfo)
     local numGroupDefeated = PGF.Table_Count(encounterInfo)
 
     -- there are no IDs for normal and mythic+ dungeons
-    if avCategoryID == C.TYPE_DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
+    if activityInfo.categoryID == C.TYPE_DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
         return numGroupDefeated, 0, 0, 0, 0, 0
     end
 
@@ -67,7 +67,7 @@ function PGF.GetLockoutInfo(activity, resultID)
             locked, extended, instanceIDMostSig, isRaid, maxPlayers,
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
         if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
-        if (extended or locked) and matching(instanceName, avName, instanceDifficulty, difficulty) then
+        if (extended or locked) and matching(instanceName, activityInfo.fullName, instanceDifficulty, difficulty) then
             local playerDefeatedBossNames = PGF.GetPlayerDefeatedBossNames(index, maxBosses)
             local numPlayerDefeated = PGF.Table_Count(playerDefeatedBossNames)
             local matching, groupAhead, groupBehind = PGF.GetMatchingBossInfo(groupDefeatedBossNames, playerDefeatedBossNames)
