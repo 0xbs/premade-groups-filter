@@ -348,6 +348,7 @@ function PGF.DoFilterSearchResults(results)
         env.activityname = activityInfo.fullName:lower()
         env.leader = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
         env.age = math.floor(searchResultInfo.age / 60) -- age in minutes
+        env.agesecs = searchResultInfo.age -- age in seconds
         env.voice = searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= ""
         env.voicechat = searchResultInfo.voiceChat
         env.ilvl = searchResultInfo.requiredItemLevel or 0
