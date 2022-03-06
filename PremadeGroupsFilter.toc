@@ -1,4 +1,4 @@
-## Interface: 90105
+## Interface: 90200
 ## Title: Premade Groups Filter
 ## Version: 2.7.0
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
