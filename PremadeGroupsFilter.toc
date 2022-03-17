@@ -1,6 +1,6 @@
 ## Interface: 90200
 ## Title: Premade Groups Filter
-## Version: 2.7.2
+## Version: 2.8.0-alpha
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
@@ -20,6 +20,7 @@ Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
 Modules\Expression.lua
+Modules\PlayerInfo.lua
 Modules\Macro.lua
 Main.lua
 Plugins\PremadeRegions.lua

@@ -330,6 +330,8 @@ function PGF.DoFilterSearchResults(results)
     PGF.currentSearchExpression = exp
     if exp == "true" and sortTableSize == 0 then return false end -- skip trivial expression if no sorting
 
+    local playerInfo = PGF.GetPlayerInfo()
+
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
         local resultID = results[idx]
@@ -352,7 +354,6 @@ function PGF.DoFilterSearchResults(results)
         env.voice = searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= ""
         env.voicechat = searchResultInfo.voiceChat
         env.ilvl = searchResultInfo.requiredItemLevel or 0
-        env.myilvl = select(2, GetAverageItemLevel())
         env.hlvl = searchResultInfo.requiredHonorLevel or 0
         env.friends = searchResultInfo.numBNetFriends + searchResultInfo.numCharFriends + searchResultInfo.numGuildMates
         env.members = searchResultInfo.numMembers
@@ -414,6 +415,15 @@ function PGF.DoFilterSearchResults(results)
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
+
+        env.myilvl = playerInfo.avgItemLevelEquipped
+        env.myilvlpvp = playerInfo.avgItemLevelPvp
+        env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityID] or 0
+        env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityID] or 0
+        env.myavgaffixrating = playerInfo.avgAffixRating
+        env.mymedianaffixrating = playerInfo.medianAffixRating
+        env.myavgdungeonrating = playerInfo.avgDungeonRating
+        env.mymediandungeonrating = playerInfo.medianDungeonRating
 
         local aID = searchResultInfo.activityID
         env.arena2v2 = aID == 6 or aID == 491 or aID == 731 or aID == 732

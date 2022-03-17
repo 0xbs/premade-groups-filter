@@ -31,22 +31,10 @@ local LOCKOUT_D = {
     [16] = C.MYTHIC, -- mythic raid
 }
 
-local function matching(lockoutName, activityName, lockoutDifficulty, activityDifficulty)
+function PGF.IsMatchingInstance(lockoutName, activityName, lockoutDifficulty, activityDifficulty)
     -- no match if difficulty does not match
     if not (LOCKOUT_D[lockoutDifficulty] == activityDifficulty) then return false end
-
-    -- lockoutName is just the dungeon's name, e.g. 'The Emerald Nightmare'
-    local lockoutNameLower = lockoutName:lower()
-    -- activityName has the difficulty in parens at the end, e.g. 'Emerald Nightmare (Heroic)'
-    local activityNameWithoutDifficulty = string.gsub(activityName, "(%w+) %(%w+%)", "%1"):lower()
-
-    -- if one of the names is contained in the other, we have a match
-    -- this could break in the future if Blizz adds two instances with the *same difficulty*, where the activity
-    -- is eligible for lockouts on this difficulty and the dungeons must be named e.g. 'Karazhan' and 'Upper Karazhan'
-    if string.find(activityNameWithoutDifficulty, lockoutNameLower) then return true end
-    if string.find(lockoutNameLower, activityNameWithoutDifficulty) then return true end
-
-    return false
+    return PGF.IsMostLikelySameInstance(lockoutName, activityName)
 end
 
 function PGF.GetLockoutInfo(activity, resultID)
@@ -67,7 +55,7 @@ function PGF.GetLockoutInfo(activity, resultID)
             locked, extended, instanceIDMostSig, isRaid, maxPlayers,
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
         if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
-        if (extended or locked) and matching(instanceName, activityInfo.fullName, instanceDifficulty, difficulty) then
+        if (extended or locked) and PGF.IsMatchingInstance(instanceName, activityInfo.fullName, instanceDifficulty, difficulty) then
             local playerDefeatedBossNames = PGF.GetPlayerDefeatedBossNames(index, maxBosses)
             local numPlayerDefeated = PGF.Table_Count(playerDefeatedBossNames)
             local matching, groupAhead, groupBehind = PGF.GetMatchingBossInfo(groupDefeatedBossNames, playerDefeatedBossNames)

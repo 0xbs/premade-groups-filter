@@ -173,6 +173,11 @@ function PGF.OnAddonLoaded(name)
                 PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
             end
         end
+
+        -- request various player information from the server
+        RequestRaidInfo()
+        C_MythicPlus.RequestCurrentAffixes()
+        C_MythicPlus.RequestMapInfo()
     end
 end
 
