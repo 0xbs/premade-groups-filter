@@ -43,7 +43,9 @@ C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
 
 function PGF.GetThisWeeksAffixNameLocalized()
     local affixIDs = C_MythicPlus.GetCurrentAffixes()
+    if not affixIDs then return nil end -- result might not have been loaded yet
     local tyrannicalOrFortifiedAffix = affixIDs[1]
+    if not tyrannicalOrFortifiedAffix or not tyrannicalOrFortifiedAffix.id then return nil end
     local name, description, filedataid = C_ChallengeMode.GetAffixInfo(tyrannicalOrFortifiedAffix.id)
     return name
 end
@@ -64,6 +66,7 @@ function PGF.GetPlayerInfo()
 
     local thisWeeksAffixNameLocalized = PGF.GetThisWeeksAffixNameLocalized()
     local mapIDs = C_ChallengeMode.GetMapTable() -- Shadowlands: 375-382,391,392
+    if not mapIDs then return result end -- result might not have been loaded yet
 
     for _, mapID in pairs(mapIDs) do
         local activityID = C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID[mapID]
@@ -73,8 +76,8 @@ function PGF.GetPlayerInfo()
         local affixScore = 0
         if affixScores then -- can be nil
             for _, affixInfo in pairs(affixScores) do -- contains 1 or 2 entries
-                if affixInfo.name == thisWeeksAffixNameLocalized then
-                    affixScore = affixInfo.score
+                if affixInfo and affixInfo.name == thisWeeksAffixNameLocalized then
+                    affixScore = affixInfo.score or 0
                 end
             end
         end
