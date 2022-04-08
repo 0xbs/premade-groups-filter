@@ -22,7 +22,7 @@
 -- hardware protected, causing an error when a group tooltip is shown as we modify the search result list.
 -- Original code from https://github.com/ChrisKader/LFMPlus/blob/36bca68720c724bf26cdf739614d99589edb8f77/core.lua#L38
 -- but sligthly modified.
-C_LFGList.GetPlaystyleString = function(playstyle, activityInfo)
+local getPlaystyleStringFixed = function(playstyle, activityInfo)
     if not ( activityInfo and playstyle and playstyle ~= 0
             and C_LFGList.GetLfgCategoryInfo(activityInfo.categoryID).showPlaystyleDropdown ) then
         return nil
@@ -43,4 +43,11 @@ end
 -- By overwriting C_LFGList.GetPlaystyleString, we taint the code writing the tooltip (which does not matter),
 -- and also code related to the dropdows where you can select the playstyle. The only relevant protected function
 -- here is C_LFGList.SetEntryTitle, which is only called from LFGListEntryCreation_SetTitleFromActivityInfo.
-LFGListEntryCreation_SetTitleFromActivityInfo = function(_) end
+-- Players that do not have an authenticator attached to their account cannot set the title or comment when creating
+-- groups. Instead, Blizzard sets the title programmatically. If we taint this function, these players can not create
+-- groups anymore, so we check on an arbitrary mythic plus dungeon if the player is authenticated to create a group.
+local activityIdOfArbitraryMythicPlusDungeon = 703 -- Mists of Tirna Scithe
+if C_LFGList.IsPlayerAuthenticatedForLFG(activityIdOfArbitraryMythicPlusDungeon) then
+    C_LFGList.GetPlaystyleString = getPlaystyleStringFixed
+    LFGListEntryCreation_SetTitleFromActivityInfo = function(_) end
+end

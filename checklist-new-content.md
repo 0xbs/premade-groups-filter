@@ -33,6 +33,13 @@ https://github.com/0xbs/premade-groups-filter/blob/622fd4d726eef720c35603aa7ef5e
 
 https://github.com/0xbs/premade-groups-filter/blob/622fd4d726eef720c35603aa7ef5ed15cf0d7355/Modules/PlayerInfo.lua#L30-L42
 
+#### Update code related to FixGetPlaystyleString
+
+1. Check if the fix is still relevant.
+2. Update activity ID of mythic plus dungeon to test against:
+
+https://github.com/0xbs/premade-groups-filter/blob/622fd4d726eef720c35603aa7ef5ed15cf0d7355/FixGetPlaystyleString.lua#L49
+
 #### Add Raider.IO synonyms
 
 https://github.com/0xbs/premade-groups-filter/blob/622fd4d726eef720c35603aa7ef5ed15cf0d7355/Main.lua#L546-L556
