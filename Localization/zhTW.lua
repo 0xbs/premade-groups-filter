@@ -27,6 +27,7 @@ L["button.ok"] = "確定"
 L["error.syntax"] = "|cffff0000過濾語法錯誤|r\n\n表示過濾語法不正確，例如缺少過濾條件、變數或運算符號，或是寫成 'tanks=1' 而不是 'tanks==1'。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000過濾語法的語意錯誤|r\n\n表示過濾語法正確，但是很可能變數寫錯字，例如寫成 tansk 而不是 tanks。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不再支持關鍵字 'name'，'comment' 和 'findnumber'。 請從高級過濾器表達式中刪除它們或按重置按鈕。\n\n從戰鬥艾澤拉斯準備開始，這些價值現在受到暴雪的保護，任何插件都無法讀取。\n\n使用組列表上方的默認搜索欄過濾組名稱。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
+L["message.noplaystylefix"] = "Premade Groups Filter: Will not apply fix for 'Interface action failed because of an AddOn' errors because you don't seem to have a fully secured account and otherwise can't create premade groups. See addon FAQ for more information and how to fix this issue."
 
 L["dialog.reset"] = "重置"
 L["dialog.refresh"] = "搜尋"

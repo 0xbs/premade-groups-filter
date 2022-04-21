@@ -181,12 +181,18 @@ function PGF.OnAddonLoaded(name)
     end
 end
 
+function PGF.OnPlayerLogin()
+    PGF.FixGetPlaystyleStringIfPlayerAuthenticated()
+end
+
 function PGF.OnEvent(self, event, ...)
     if event == "ADDON_LOADED" then PGF.OnAddonLoaded(...) end
+    if event == "PLAYER_LOGIN" then PGF.OnPlayerLogin() end
     if event == "LFG_LIST_APPLICATION_STATUS_UPDATED" then PGF.OnLFGListApplicationStatusUpdated(...) end
 end
 
 local frame = CreateFrame("Frame", "PremadeGroupsFilterEventFrame")
 frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("LFG_LIST_APPLICATION_STATUS_UPDATED")
 frame:SetScript("OnEvent", PGF.OnEvent)
