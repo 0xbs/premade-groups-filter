@@ -412,6 +412,9 @@ function PGF.DoFilterSearchResults(results)
             env.pvptier         = C.TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier]
             env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo.tier)
         end
+        env.horde = searchResultInfo.leaderFactionGroup == 0
+        env.alliance = searchResultInfo.leaderFactionGroup == 1
+        env.crossfaction = searchResultInfo.crossFactionListing or false
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
