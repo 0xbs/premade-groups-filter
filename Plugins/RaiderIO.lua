@@ -73,8 +73,8 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
     if leaderName and RaiderIO and RaiderIO.GetProfile then
         if RaiderIO.GetProfile then
             -- new API
-            local name, realm, faction = PGF.GetNameRealmFaction(leaderName)
-            local result = RaiderIO.GetProfile(name, realm, faction)
+            local name, realm = PGF.GetNameRealmFaction(leaderName)
+            local result = RaiderIO.GetProfile(name, realm)
             if not result and type(result) ~= "table" then
                 return
             end
