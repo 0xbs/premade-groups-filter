@@ -40,6 +40,9 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [410] = C.HEROIC, -- Hellfire Citadel
     [412] = C.MYTHIC, -- Hellfire Citadel
 
+    [180] = C.MYTHICPLUS, -- Iron Docks
+    [183] = C.MYTHICPLUS, -- Grimrail Depot
+
     -- Legion
     [413] = C.NORMAL, -- The Emerald Nightmare
     [414] = C.HEROIC, -- The Emerald Nightmare

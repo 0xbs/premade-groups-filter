@@ -29,16 +29,22 @@ local C = PGF.C
 -- Only Mythic Plus activityIDs are relevant here.
 -- /run for _,mapID in pairs(C_ChallengeMode.GetMapTable()) do local name = C_ChallengeMode.GetMapUIInfo(mapID); print(mapID..","..name) end
 C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
-    [375] = 703,  -- Mists of Tirna Scithe
-    [376] = 713,  -- The Necrotic Wake
-    [377] = 695,  -- De Other Side
-    [378] = 699,  -- Halls of Atonement
-    [379] = 691,  -- Plaguefall
-    [380] = 705,  -- Sanguine Depths
-    [381] = 709,  -- Spires of Ascension
-    [382] = 717,  -- Theater of Pain
-    [391] = 1016, -- Tazavesh: Streets of Wonder
-    [392] = 1017, -- Tazavesh: So'leah's Gambit
+    [166] = 183,  -- Grimrail Depot                  --    S4
+    [169] = 180,  -- Iron Docks                      --    S4
+    [227] = 471,  -- Return to Karazhan: Lower       --    S4
+    [234] = 473,  -- Return to Karazhan: Lower       --    S4
+    [369] = 679,  -- Operation Mechagon - Junkyard   --    S4
+    [370] = 683,  -- Operation Mechagon - Workshop   --    S4
+    [375] = 703,  -- Mists of Tirna Scithe           -- S3
+    [376] = 713,  -- The Necrotic Wake               -- S3
+    [377] = 695,  -- De Other Side                   -- S3
+    [378] = 699,  -- Halls of Atonement              -- S3
+    [379] = 691,  -- Plaguefall                      -- S3
+    [380] = 705,  -- Sanguine Depths                 -- S3
+    [381] = 709,  -- Spires of Ascension             -- S3
+    [382] = 717,  -- Theater of Pain                 -- S3
+    [391] = 1016, -- Tazavesh: Streets of Wonder     -- S3 S4
+    [392] = 1017, -- Tazavesh: So'leah's Gambit      -- S3 S4
 }
 
 function PGF.GetThisWeeksAffixNameLocalized()
