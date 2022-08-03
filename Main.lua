@@ -515,6 +515,13 @@ function PGF.DoFilterSearchResults(results)
         env.taz         = env.tazs or env.tazg     or aID == 746                -- Tazavesh, the Veiled Market
         local sldungeon = env.pf or env.dos or env.hoa or env.mots or env.sd or env.soa or env.nw or env.top or env.taz -- all SL dungeons
 
+        -- Shadowland Season 4 dungeons
+        env.gd    = aID == 183  -- Grimrail Depot
+        env.id    = aID == 180  -- Iron Docks
+        env.lkara = aID == 471  -- Lower Karazahn
+        env.ukara = aID == 473  -- Upper Karazhan
+        env.sls4  = env.gd or env.id or env.lkara or env.ukara or env.opmj or env.opmw or env.tazs or env.tazg -- all SL Season 4 dungeons
+
         -- find more IDs: /run for i=750,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
 
         -- Addon filters
@@ -547,6 +554,9 @@ function PGF.DoFilterSearchResults(results)
 end
 
 function PGF.PutRaiderIOAliases(env)
+    env.lowr = env.lkara
+    env.uppr = env.ukara
+
     -- Battle for Azeroth
     env.siege = env.sob  -- Siege of Boralus
     env.yard  = env.opmj -- Operation: Mechagon - Junkyard
