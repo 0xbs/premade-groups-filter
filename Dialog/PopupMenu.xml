@@ -1,11 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <Frame name="PremadeGroupsFilterPopupMenuFrameTemplate" enableMouse="true" clampedToScreen="true" virtual="true">
-        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-            <EdgeSize val="16"/>
-            <BorderColor r="0.5" g="0.5" b="0.5"/>
-        </Backdrop>
+    <Frame name="PremadeGroupsFilterPopupMenuFrameTemplate" enableMouse="true" clampedToScreen="true" virtual="true" inherits="TooltipBorderBackdropTemplate">
         <Layers>
             <Layer level="BACKGROUND" textureSubLevel="-1">
                 <Texture>

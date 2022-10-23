@@ -259,12 +259,12 @@ function PGF.Dialog_OnLoad()
     PGF.Dialog_SetUpMinMaxField(dialog, "Defeated")
     PGF.Dialog_SetUpUsePGFCheckbox()
 
-    local font = dialog.SimpleExplanation:GetFont()
-    dialog.Expression.EditBox:SetFont(font, C.FONTSIZE_TEXTBOX)
-    dialog.Expression.EditBox.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
+    local fontFile, _, fontFlags = dialog.SimpleExplanation:GetFont()
+    dialog.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    dialog.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     --dialog.Expression.EditBox:SetScript("OnTextChanged", PGF.Dialog_Expression_OnTextChanged) -- overrides Blizz
-    dialog.Sorting.SortingExpression:SetFont(font, C.FONTSIZE_TEXTBOX)
-    dialog.Sorting.SortingExpression.Instructions:SetFont(font, C.FONTSIZE_TEXTBOX)
+    dialog.Sorting.SortingExpression:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    dialog.Sorting.SortingExpression.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     --dialog.Sorting.SortingExpression:SetScript("OnTextChanged", PGF.Dialog_SortingExpression_OnTextChanged) -- overrides Blizz
 
     PGF.Dialog_DifficultyDropdown_Init(dialog.Difficulty.DropDown)

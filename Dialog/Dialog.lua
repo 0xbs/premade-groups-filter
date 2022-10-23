@@ -201,10 +201,9 @@ function PGF.OnLFGListFrameSetActivePanel(self, panel)
     PGF.Dialog_Toggle()
     if not buttonHooksInitialized and panel == self.SearchPanel then
         buttonHooksInitialized = true
-        local buttons = self.SearchPanel.ScrollFrame.buttons
-        for i = 1, #buttons do
-            buttons[i]:HookScript("OnEnter", PGF.OnLFGListSearchEntryOnEnter)
-        end
+        self.SearchPanel.ScrollBox:ForEachFrame(function(button)
+            button:HookScript("OnEnter", PGF.OnLFGListSearchEntryOnEnter)
+        end);
     end
 end
 

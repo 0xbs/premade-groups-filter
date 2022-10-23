@@ -110,6 +110,7 @@ function PGF.PopupMenu_Initialize(name)
     elseif menu.anchorPoint then
         popupFrame:SetPoint(menu.anchorPoint, menu.relativeTo, menu.relativePoint, menu.offsetX, menu.offsetY)
     end
+    popupFrame:SetBackdropBorderColor(0.5, 0.5, 0.5)
 end
 
 function PGF.PopupMenu_Show(name)
