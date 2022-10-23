@@ -468,6 +468,11 @@ function PGF.DoFilterSearchResults(results)
         env.sfo      = aID == 1020 or aID == 1021 or aID == 1022 -- Sepulcher of the First Ones
         local slraid = env.cn or env.sod or env.sfo -- all Shadowlands raids
 
+        -- Dragonflight raids
+        --             normal         heroic         mythic
+        env.voti     = aID == 1189 or aID == 1190 or aID == 1191 -- Vault of the Incarnates
+        local dfraid = env.voti -- all Dragonflight raids
+
         -- Legion dungeons
         --                    normal        heroic        mythic        mythic+
         env.eoa             = aID == 425 or aID == 435 or aID == 445 or aID == 459 -- Eye of Azshara
@@ -522,7 +527,28 @@ function PGF.DoFilterSearchResults(results)
         env.ukara = aID == 473  -- Upper Karazhan
         env.sls4  = env.gd or env.id or env.lkara or env.ukara or env.opmj or env.opmw or env.tazs or env.tazg -- all SL Season 4 dungeons
 
-        -- find more IDs: /run for i=750,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
+        -- Dragonflight dungeons
+        --                normal         heroic         mythic         mythic+
+        env.aa          = aID == 1157 or aID == 1158 or aID == 1159 or aID == 1160 -- Algeth'ar Academy
+        env.bh          = aID == 1161 or aID == 1162 or aID == 1163 or aID == 1164 -- Brackenhide Hollow
+        env.hoi         = aID == 1165 or aID == 1166 or aID == 1167 or aID == 1168 -- Halls of Infusion
+        env.nt          = aID == 1169 or aID == 1170 or aID == 1171 or aID == 1172 -- Neltharus
+        env.rlp         = aID == 1173 or aID == 1174 or aID == 1175 or aID == 1176 -- Ruby Life Pools
+        env.av          = aID == 1177 or aID == 1178 or aID == 1179 or aID == 1180 -- The Azure Vault
+        env.no          = aID == 1181 or aID == 1182 or aID == 1183 or aID == 1184 -- The Nokhud Offensive
+        env.lot         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 -- Uldaman: Legacy of Tyr
+        local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot -- all Dragonflight dungeons
+
+        -- Dragonflight Season 1 dungeons
+        env.sbg = aID == 9999 -- Shadowmoon Burial Grounds (Warlords) -- TODO 185? also Difficulty.lua and PlayerInfo.lua
+        -- /run for i=1,5000 do local info = C_LFGList.GetActivityInfoTable(i); if info and info.fullName:find("Burial") then print(i, info.fullName) end end
+        env.tjs = aID == 9999 -- Temple of the Jade Serpent (Warlords) -- TODO also Difficulty.lua and PlayerInfo.lua
+        -- /run for i=1,5000 do local info = C_LFGList.GetActivityInfoTable(i); if info and info.fullName:find("Jade") then print(i, info.fullName) end end
+        env.hov = aID == 461 -- Halls of Valor (Legion)
+        env.cos = aID == 466 -- Court of Stars (Legion)
+        env.dfs1 = env.rlp or env.no or env.av or env.aa or env.hov or env.cos or env.sbg or env.tjs
+
+        -- find more IDs: /run for i=1146,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
 
         -- Addon filters
         --
@@ -530,6 +556,7 @@ function PGF.DoFilterSearchResults(results)
         env.legion = legiondungeon or legionraid
         env.bfa    = bfadungeon or bfaraid
         env.sl     = sldungeon or slraid
+        env.df     = dfdungeon or dfraid
 
         PGF.PutRaiderIOAliases(env)
         if PGF.PutRaiderIOMetrics then

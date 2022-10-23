@@ -28,6 +28,7 @@ local C = PGF.C
 --   "Tazavesh: Wundersame Straßen" vs. "Tazavesh: Straßen (Mythischer Schlüsselstein)"
 -- Only Mythic Plus activityIDs are relevant here.
 -- /run for _,mapID in pairs(C_ChallengeMode.GetMapTable()) do local name = C_ChallengeMode.GetMapUIInfo(mapID); print(mapID..","..name) end
+-- see https://wow.tools/dbc/?dbc=mapchallengemode
 C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
     [166] = 183,  -- Grimrail Depot                  --    S4
     [169] = 180,  -- Iron Docks                      --    S4
@@ -45,6 +46,20 @@ C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
     [382] = 717,  -- Theater of Pain                 -- S3
     [391] = 1016, -- Tazavesh: Streets of Wonder     -- S3 S4
     [392] = 1017, -- Tazavesh: So'leah's Gambit      -- S3 S4
+
+    [2]   = 9999, -- Temple of the Jade Serpent      --       S1    -- TODO
+    [165] = 9999, -- Shadowmoon Burial Grounds       --       S1    -- TODO
+    [200] = 461,  -- Halls of Valor                  --       S1
+    [210] = 466,  -- Court of Stars                  --       S1
+    [399] = 1176, -- Ruby Life Pools                 --       S1
+    [400] = 1184, -- The Nokhud Offensive            --       S1
+    [401] = 1180, -- The Azure Vault                 --       S1
+    [402] = 1160, -- Algeth'ar Academy               --       S1
+
+    [403] = 1188, -- Uldaman: Legacy of Tyr          --          S2
+    [404] = 1172, -- Neltharus                       --          S2
+    [405] = 1164, -- Brackenhide Hollow              --          S2
+    [406] = 1168, -- Halls of Infusion               --          S2
 }
 
 function PGF.GetThisWeeksAffixNameLocalized()

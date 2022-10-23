@@ -29,7 +29,7 @@ function PGF.FixGetPlaystyleStringIfPlayerAuthenticated()
     -- Players that do not have an authenticator attached to their account cannot set the title or comment when creating
     -- groups. Instead, Blizzard sets the title programmatically. If we taint this function, these players can not create
     -- groups anymore, so we check on an arbitrary mythic plus dungeon if the player is authenticated to create a group.
-    local activityIdOfArbitraryMythicPlusDungeon = 703 -- Mists of Tirna Scithe
+    local activityIdOfArbitraryMythicPlusDungeon = 1160 -- Algeth'ar Academy
     if not C_LFGList.IsPlayerAuthenticatedForLFG(activityIdOfArbitraryMythicPlusDungeon) then
         print(L["message.noplaystylefix"])
         return

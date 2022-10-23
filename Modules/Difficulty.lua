@@ -286,6 +286,50 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [1020] = C.NORMAL,     -- Sepulcher of the First Ones
     [1021] = C.HEROIC,     -- Sepulcher of the First Ones
     [1022] = C.MYTHIC,     -- Sepulcher of the First Ones
+
+    [1157] = C.NORMAL,     -- Algeth'ar Academy
+    [1158] = C.HEROIC,     -- Algeth'ar Academy
+    [1159] = C.MYTHIC,     -- Algeth'ar Academy
+    [1160] = C.MYTHICPLUS, -- Algeth'ar Academy
+
+    [1161] = C.NORMAL,     -- Brackenhide Hollow
+    [1162] = C.HEROIC,     -- Brackenhide Hollow
+    [1163] = C.MYTHIC,     -- Brackenhide Hollow
+    [1164] = C.MYTHICPLUS, -- Brackenhide Hollow
+
+    [1165] = C.NORMAL,     -- Halls of Infusion
+    [1166] = C.HEROIC,     -- Halls of Infusion
+    [1167] = C.MYTHIC,     -- Halls of Infusion
+    [1168] = C.MYTHICPLUS, -- Halls of Infusion
+
+    [1169] = C.NORMAL,     -- Neltharus
+    [1170] = C.HEROIC,     -- Neltharus
+    [1171] = C.MYTHIC,     -- Neltharus
+    [1172] = C.MYTHICPLUS, -- Neltharus
+
+    [1173] = C.NORMAL,     -- Ruby Life Pools
+    [1174] = C.HEROIC,     -- Ruby Life Pools
+    [1175] = C.MYTHIC,     -- Ruby Life Pools
+    [1176] = C.MYTHICPLUS, -- Ruby Life Pools
+
+    [1177] = C.NORMAL,     -- The Azure Vault
+    [1178] = C.HEROIC,     -- The Azure Vault
+    [1179] = C.MYTHIC,     -- The Azure Vault
+    [1180] = C.MYTHICPLUS, -- The Azure Vault
+
+    [1181] = C.NORMAL,     -- The Nokhud Offensive
+    [1182] = C.HEROIC,     -- The Nokhud Offensive
+    [1183] = C.MYTHIC,     -- The Nokhud Offensive
+    [1184] = C.MYTHICPLUS, -- The Nokhud Offensive
+
+    [1185] = C.NORMAL,     -- Uldaman: Legacy of Tyr
+    [1186] = C.HEROIC,     -- Uldaman: Legacy of Tyr
+    [1187] = C.MYTHIC,     -- Uldaman: Legacy of Tyr
+    [1188] = C.MYTHICPLUS, -- Uldaman: Legacy of Tyr
+
+    [1189] = C.NORMAL,     -- Vault of the Incarnates
+    [1190] = C.HEROIC,     -- Vault of the Incarnates
+    [1191] = C.MYTHIC,     -- Vault of the Incarnates
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfoTable().shortName to difficulties
