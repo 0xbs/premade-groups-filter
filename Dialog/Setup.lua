@@ -220,8 +220,8 @@ end
 function PGF.Dialog_OnLoad()
     local dialog = PremadeGroupsFilterDialog -- keep that
     dialog:SetScript("OnShow", PGF.Dialog_OnShow)
-    dialog:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
-    dialog:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
+    dialog.TitleContainer:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
+    dialog.TitleContainer:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
 
     dialog:SetBorder("ButtonFrameTemplateNoPortraitMinimizable");
 	dialog:SetPortraitShown(false);
