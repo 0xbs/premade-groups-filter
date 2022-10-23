@@ -1,6 +1,6 @@
 # Checklist for new content
 
-### General
+## General
 
 - [ ] Check for Blizzard API changes
   - https://github.com/Stanzilla/WoWUIBugs/wiki/
@@ -13,7 +13,7 @@
 
 - [ ] Update copyright year in all files
 
-### New dungeons and raids
+## New dungeons and raids
 
 - [ ] Add new keywords and remove obsolete keywords: [Main.lua#L515](https://github.com/0xbs/premade-groups-filter/blob/622fd4d726eef720c35603aa7ef5ed15cf0d7355/Main.lua#L515)
   - https://wow.tools/dbc/?dbc=groupfinderactivity

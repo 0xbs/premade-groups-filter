@@ -79,31 +79,32 @@
         </Layers>
     </Frame>
 
-    <Frame name="PremadeGroupsFilterDialog" frameStrata="FULLSCREEN" parent="PVEFrame" movable="true" enableMouse="true" inherits="BasicFrameTemplateWithInset" hidden="true">
+    <Frame name="PremadeGroupsFilterDialog" frameStrata="FULLSCREEN" parent="PVEFrame" movable="true" enableMouse="true" inherits="PortraitFrameTemplateMinimizable" hidden="true">
         <Size x="300" y="427"/>
         <Anchors>
             <Anchor point="TOPLEFT"/>
         </Anchors>
         <Layers>
             <Layer level="OVERLAY">
-                <!-- the text in the title bar -->
-                <FontString parentKey="Title" inherits="GameFontNormal" wordwrap="false">
-                    <Anchors>
-                        <Anchor point="LEFT" x="10"/>
-                        <Anchor point="RIGHT" x="-10"/>
-                        <Anchor point="TOP" y="-5"/>
-                    </Anchors>
-                </FontString>
                 <!-- text explaining the simple checkbox filters -->
                 <FontString parentKey="SimpleExplanation" inherits="GameFontNormal" justifyH="LEFT">
-                    <Size y="70"/>
+                    <Size y="40"/>
                     <Anchors>
                         <Anchor point="LEFT" x="10"/>
                         <Anchor point="RIGHT" x="-10"/>
-                        <Anchor point="TOP" y="-8"/>
+                        <Anchor point="TOP" y="-23"/>
                     </Anchors>
                 </FontString>
-                <!-- text explaining that members etc are the current state of the group -->
+                <!-- text explaining the advanced expression filter -->
+                <FontString parentKey="AdvancedExplanation" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size y="40"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="10"/>
+                        <Anchor point="RIGHT" x="-42"/>
+                        <Anchor point="TOP" y="-282"/>
+                    </Anchors>
+                </FontString>
+                <!-- text explaining that members etc. are the current state of the group -->
                 <FontString parentKey="StateExplanation" inherits="GameFontNormal" justifyH="LEFT">
                     <Size x="180" y="30"/>
                     <Anchors>
@@ -127,102 +128,66 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="MoveableToggle" setAllPoints="true" checked="false">
+            <Frame parentKey="MaximizeMinimizeFrame" inherits="MaximizeMinimizeButtonFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOP" x="0" y="5"/>
-                    <Anchor point="LEFT" x="-5" y="0"/>
+                    <Anchor point="RIGHT" relativeKey="$parent.CloseButton" relativePoint="LEFT" x="-1" y="0"/>
                 </Anchors>
-                <Size x="32" y="32"/>
-                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
-                <NormalTexture file="Interface\Buttons\LockButton-Locked-Up"/>
-                <!--<PushedTexture file="Interface\Buttons\LockButton-Unlocked-Down"/>-->
-                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
-                <CheckedTexture file="Interface\Buttons\LockButton-Unlocked-Up"/>
-            </CheckButton>
-            <Button parentKey="MaximizeButton" setAllPoints="true" hidden="true">
+            </Frame>
+            <Frame parentKey="Inset" useParentLevel="true" inherits="InsetFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOP" x="0" y="5"/>
-                    <Anchor point="RIGHT" x="-18" y="0"/>
+                    <Anchor point="TOPLEFT" x="0" y="-61" />
+                    <Anchor point="BOTTOMRIGHT" x="0" y="144" />
                 </Anchors>
-                <Size x="32" y="32"/>
-                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
-                <NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up"/>
-                <PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down"/>
-                <DisabledTexture file="Interface\Buttons\UI-Panel-BiggerButton-Disabled"/>
-                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
-            </Button>
-            <Button parentKey="MinimizeButton" setAllPoints="true">
-                <Anchors>
-                    <Anchor point="TOP" x="0" y="5"/>
-                    <Anchor point="RIGHT" x="-18" y="0"/>
-                </Anchors>
-                <Size x="32" y="32"/>
-                <HitRectInsets left="5" right="5" top="5" bottom="5"/>
-                <NormalTexture file="Interface\Buttons\UI-Panel-SmallerButton-Up"/>
-                <PushedTexture file="Interface\Buttons\UI-Panel-SmallerButton-Down"/>
-                <DisabledTexture file="Interface\Buttons\UI-Panel-SmallerButton-Disabled"/>
-                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
-            </Button>
-            <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate" hidden="false">
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="CustomBG" atlas="groupfinder-background" useAtlasSize="true">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="3" y="-3" relativePoint="TOPLEFT"/>
+                                <Anchor point="BOTTOMRIGHT" x="-3" y="3" relativePoint="BOTTOMRIGHT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="9" y="-67"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Ilvl" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Ilvl" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Noilvl" inherits="PremadeGroupsFilterBasicTemplate" hidden="false">
+            <Frame parentKey="Noilvl" inherits="PremadeGroupsFilterBasicTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Ilvl" relativePoint="BOTTOMLEFT" x="30" y="3"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Defeated" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Defeated" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Noilvl" relativePoint="BOTTOMLEFT" x="-30"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Defeated" relativePoint="BOTTOMLEFT" y="-27"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Members" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Heals" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Heals" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Tanks" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
             </Frame>
-            <Frame parentKey="Dps" inherits="PremadeGroupsFilterMinMaxTemplate" hidden="false">
+            <Frame parentKey="Dps" inherits="PremadeGroupsFilterMinMaxTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Heals" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
-            </Frame>
-            <Frame parentKey="Advanced" inherits="HorizontalBarTemplate">
-                <Size x="0" y="35"/>
-                <Anchors>
-                    <Anchor point="LEFT" x="1"/>
-                    <Anchor point="RIGHT" x="-3"/>
-                    <Anchor point="BOTTOM" y="108"/>
-                </Anchors>
-                <Layers>
-                    <Layer>
-                        <!-- text explaining the advanced expression filter -->
-                        <FontString parentKey="Explanation" inherits="GameFontNormal"  justifyH="LEFT">
-                            <Size y="50"/>
-                            <Anchors>
-                                <Anchor point="LEFT" x="8"/>
-                                <Anchor point="RIGHT" x="-35"/>
-                                <Anchor point="TOP" y="8"/>
-                            </Anchors>
-                        </FontString>
-                    </Layer>
-                </Layers>
             </Frame>
             <Button parentKey="InfoButton" inherits="PremadeGroupsFilterInfoButtonTemplate">
                 <Anchors>
@@ -245,28 +210,29 @@
                     <OnLoad>InputScrollFrame_OnLoad(self)</OnLoad>
                 </Scripts>
             </ScrollFrame>
-            <Frame parentKey="Sorting" hidden="false">
-                <Size y="24"/>
+            <Frame parentKey="Sorting">
+                <Size y="28"/>
                 <Anchors>
-                    <Anchor point="LEFT" x="7"/>
-                    <Anchor point="RIGHT" x="-7"/>
+                    <Anchor point="LEFT" x="3"/>
+                    <Anchor point="RIGHT" x="-3"/>
                     <Anchor point="BOTTOM" y="25"/>
                 </Anchors>
                 <Layers>
                     <Layer>
-                        <FontString parentKey="SortingTitle" inherits="GameFontHighlight" wordwrap="false">
-                            <Size x="70" y="20"/>
+                        <FontString parentKey="SortingTitle" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
+                            <Size x="80"/>
                             <Anchors>
-                                <Anchor point="TOPLEFT" x="0" y="-2"/>
+                                <Anchor point="TOPLEFT" x="7" y="-3"/>
+                                <Anchor point="BOTTOMLEFT" x="7" y="3"/>
                             </Anchors>
                         </FontString>
                     </Layer>
                 </Layers>
                 <Frames>
                     <EditBox parentKey="SortingExpression" inherits="InputBoxInstructionsTemplate" autoFocus="false" letters="100">
-                        <Size x="175" y="20"/>
+                        <Size x="175" y="25"/>
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-25" y="-2"/>
+                            <Anchor point="TOPRIGHT" x="-25" y="-3"/>
                         </Anchors>
                     </EditBox>
                 </Frames>

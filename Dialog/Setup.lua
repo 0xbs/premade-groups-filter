@@ -31,6 +31,11 @@ local DIFFICULTY_TEXT = {
     [C.ARENA3V3] = C_LFGList.GetActivityInfoTable(7).shortName, -- Arena 3v3
 }
 
+-- Calling Minimize or Maximize (regardless of param isAutomaticAction) will always trigger the callback
+-- causing yet another Minimize or Maximize call. To break the infinite loop, we simply remember in this var
+-- when we do not wish to run the callback code.
+PGF.ignoreNextMaximizeMinimizeCallback = false
+
 function PGF.Dialog_LoadMinMaxFromModel(dialog, model, key)
     dialog[key].Act:SetChecked(model[key:lower()].act)
     dialog[key].Min:SetText(model[key:lower()].min)
@@ -58,29 +63,34 @@ function PGF.Dialog_OnShow(dialog)
     RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
     PGF.Dialog_LoadFromModel(dialog)
     PGF.Dialog_AdjustToMode()
-    PremadeGroupsFilterDialog.MoveableToggle:SetChecked(PremadeGroupsFilterState.moveable)
-    if (not PremadeGroupsFilterState.moveable) then
+end
+
+function PGF.Dialog_OnMouseDown(self, button)
+    PremadeGroupsFilterDialog:StartMoving()
+end
+
+function PGF.Dialog_OnMouseUp(self, button)
+    PremadeGroupsFilterDialog:StopMovingOrSizing()
+    if button == "RightButton" then
         PGF.Dialog_ResetPosition()
     end
 end
 
-function PGF.Dialog_OnMouseDown()
-    if PremadeGroupsFilterState.moveable then
-        PremadeGroupsFilterDialog:StartMoving()
-    end
-end
-
-function PGF.Dialog_OnMouseUp()
-    PremadeGroupsFilterDialog:StopMovingOrSizing()
-end
-
 function PGF.Dialog_MinimizeButton_OnClick(self, button, down)
+    if PGF.ignoreNextMaximizeMinimizeCallback then
+        PGF.ignoreNextMaximizeMinimizeCallback = false
+        return
+    end
     PremadeGroupsFilterState.expert = true
     PGF.Dialog_Reset(true)
     PGF.Dialog_AdjustToMode()
 end
 
 function PGF.Dialog_MaximizeButton_OnClick(self, button, down)
+    if PGF.ignoreNextMaximizeMinimizeCallback then
+        PGF.ignoreNextMaximizeMinimizeCallback = false
+        return
+    end
     PremadeGroupsFilterState.expert = false
     PGF.Dialog_Reset(true)
     PGF.Dialog_AdjustToMode()
@@ -88,7 +98,9 @@ end
 
 function PGF.Dialog_AdjustToMode()
     local dialog = PremadeGroupsFilterDialog
+    PGF.ignoreNextMaximizeMinimizeCallback = true
     if PremadeGroupsFilterState.expert then
+    	dialog.MaximizeMinimizeFrame:Minimize()
         dialog.Difficulty:Hide()
         dialog.Ilvl:Hide()
         dialog.Noilvl:Hide()
@@ -101,18 +113,17 @@ function PGF.Dialog_AdjustToMode()
         dialog.StateExplanation:Hide()
         dialog.MinExplanation:Hide()
         dialog.MaxExplanation:Hide()
-        dialog.Advanced:Hide()
-        dialog.InfoButton:SetPoint("BOTTOMRIGHT", 5, 14)
+        dialog.AdvancedExplanation:Hide()
+        dialog.Inset:Hide()
+        dialog.InfoButton:SetPoint("BOTTOMRIGHT", dialog.Sorting, "BOTTOMRIGHT", 2, -3)
+        dialog.InfoButton:SetSize(32, 32)
         dialog.InfoButton.I:SetSize(32, 32)
         dialog.Sorting:Show()
         dialog.Expression:SetPoint("BOTTOM", 0, 58)
         dialog.Expression:SetHeight(130)
         dialog:SetSize(300, 218)
-        dialog.InsetBg:SetPoint("TOPLEFT", 4, -23)
-        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 50)
-        dialog.MinimizeButton:Hide()
-        dialog.MaximizeButton:Show()
     else
+        dialog.MaximizeMinimizeFrame:Maximize()
         dialog.Difficulty:Show()
         dialog.Ilvl:Show()
         dialog.Noilvl:Show()
@@ -125,17 +136,15 @@ function PGF.Dialog_AdjustToMode()
         dialog.StateExplanation:Show()
         dialog.MinExplanation:Show()
         dialog.MaxExplanation:Show()
-        dialog.Advanced:Show()
+        dialog.AdvancedExplanation:Show()
+        dialog.Inset:Show()
         dialog.InfoButton:SetPoint("BOTTOMRIGHT", 0, 102)
+        dialog.InfoButton:SetSize(46, 46)
         dialog.InfoButton.I:SetSize(46, 46)
         dialog.Sorting:Hide()
         dialog.Expression:SetPoint("BOTTOM", 0, 32)
         dialog.Expression:SetHeight(70)
         dialog:SetSize(300, 427)
-        dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
-        dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
-        dialog.MaximizeButton:Hide()
-        dialog.MinimizeButton:Show()
     end
 end
 
@@ -144,14 +153,6 @@ function PGF.Dialog_ResetPosition()
     dialog:ClearAllPoints()
     dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
     dialog:SetWidth(300)
-end
-
-function PGF.Dialog_ToggleMoveable(checkButton)
-    local checked = checkButton:GetChecked()
-    PremadeGroupsFilterState.moveable = checked
-    if not checked then
-        PGF.Dialog_ResetPosition()
-    end
 end
 
 function PGF.Dialog_DifficultyDropdown_Init(dropdown)
@@ -222,9 +223,13 @@ function PGF.Dialog_OnLoad()
     dialog:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
     dialog:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
 
-    dialog.InsetBg:SetPoint("TOPLEFT", 4, -62)
-    dialog.InsetBg:SetPoint("BOTTOMRIGHT", -6, 26)
-    dialog.Title:SetText("Premade Groups Filter")
+    dialog:SetBorder("ButtonFrameTemplateNoPortraitMinimizable");
+	dialog:SetPortraitShown(false);
+    dialog:SetTitle("Premade Groups Filter")
+    dialog.MaximizeMinimizeFrame:SetOnMaximizedCallback(PGF.Dialog_MaximizeButton_OnClick)
+    dialog.MaximizeMinimizeFrame:SetOnMinimizedCallback(PGF.Dialog_MinimizeButton_OnClick)
+    --dialog.MaximizeMinimizeFrame:SetMinimizedCVar("miniPremadeGroupsFilter")
+
     dialog.ResetButton:SetText(L["dialog.reset"])
     dialog.ResetButton:SetScript("OnClick", PGF.Dialog_ResetButton_OnClick)
     dialog.RefreshButton:SetText(L["dialog.refresh"])
@@ -233,7 +238,7 @@ function PGF.Dialog_OnLoad()
     dialog.StateExplanation:SetText(L["dialog.expl.state"])
     dialog.MinExplanation:SetText(L["dialog.expl.min"])
     dialog.MaxExplanation:SetText(L["dialog.expl.max"])
-    dialog.Advanced.Explanation:SetText(L["dialog.expl.advanced"])
+    dialog.AdvancedExplanation:SetText(L["dialog.expl.advanced"])
     dialog.InfoButton:EnableMouse(true)
     dialog.InfoButton:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
     dialog.InfoButton:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
@@ -243,9 +248,6 @@ function PGF.Dialog_OnLoad()
     dialog.Noilvl.Act:SetEnabled(false)
     dialog.Defeated.Title:SetWordWrap(true)
     dialog.Defeated.Title:SetHeight(28)
-    dialog.MoveableToggle:SetScript("OnClick", PGF.Dialog_ToggleMoveable)
-    dialog.MinimizeButton:SetScript("OnClick", PGF.Dialog_MinimizeButton_OnClick)
-    dialog.MaximizeButton:SetScript("OnClick", PGF.Dialog_MaximizeButton_OnClick)
     dialog.Sorting.SortingTitle:SetText(L["dialog.sorting"])
     dialog.Sorting.SortingExpression.Instructions:SetText("friends desc, age asc")
 
