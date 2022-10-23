@@ -50,15 +50,6 @@ function PGF.GetExpressionFromMinMaxModel(model, key)
     return exp
 end
 
-function PGF.GetExpressionFromIlvlModel(model)
-    local exp = PGF.GetExpressionFromMinMaxModel(model, "ilvl")
-    if model.noilvl.act and PGF.NotEmpty(exp) then
-        exp = exp:gsub("^ and ", "")
-        exp = " and (" .. exp .. " or ilvl==0)"
-    end
-    return exp
-end
-
 function PGF.GetExpressionFromDifficultyModel(model)
     if model.difficulty.act then
         return " and " .. C.DIFFICULTY_STRING[model.difficulty.val]
@@ -112,7 +103,8 @@ function PGF.GetExpressionFromModel()
     if not model then return "true" end
     local exp = "true" -- start with neutral element
     exp = exp .. PGF.GetExpressionFromDifficultyModel(model)
-    exp = exp .. PGF.GetExpressionFromIlvlModel(model)
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "mprating")
+    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "pvprating")
     exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "members")
     exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "tanks")
     exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "heals")

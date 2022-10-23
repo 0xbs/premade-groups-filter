@@ -24,8 +24,10 @@ local C = PGF.C
 
 function PGF.Dialog_ClearFocus()
     local dialog = PremadeGroupsFilterDialog
-    dialog.Ilvl.Min:ClearFocus()
-    dialog.Ilvl.Max:ClearFocus()
+    dialog.MPRating.Min:ClearFocus()
+    dialog.MPRating.Max:ClearFocus()
+    dialog.PVPRating.Min:ClearFocus()
+    dialog.PVPRating.Max:ClearFocus()
     dialog.Defeated.Min:ClearFocus()
     dialog.Defeated.Max:ClearFocus()
     dialog.Members.Min:ClearFocus()
@@ -66,13 +68,6 @@ function PGF.Dialog_Act_OnClick(self, button, down)
     local checked = self:GetChecked()
     local model = PGF.GetModel()
     model[key:lower()].act = checked
-    if key == "Ilvl" then
-        dialog.Noilvl.Act:SetEnabled(checked)
-        if not checked then
-            dialog.Noilvl.Act:SetChecked(false)
-            PGF.Dialog_Act_OnClick(dialog.Noilvl.Act)
-        end
-    end
     PGF.Dialog_OnModelUpdate()
 end
 
@@ -133,8 +128,8 @@ function PGF.Dialog_Reset(excludeExpression)
     local dialog = PremadeGroupsFilterDialog
     -- TODO reset the difficulty dropdown
     PGF.Dialog_ResetGenericField(dialog, "Difficulty")
-    PGF.Dialog_ResetMinMaxField(dialog, "Ilvl")
-    PGF.Dialog_ResetGenericField(dialog, "Noilvl")
+    PGF.Dialog_ResetMinMaxField(dialog, "MPRating")
+    PGF.Dialog_ResetMinMaxField(dialog, "PVPRating")
     PGF.Dialog_ResetMinMaxField(dialog, "Members")
     PGF.Dialog_ResetMinMaxField(dialog, "Tanks")
     PGF.Dialog_ResetMinMaxField(dialog, "Heals")

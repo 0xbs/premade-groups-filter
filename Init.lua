@@ -111,7 +111,7 @@ C.DPS_CLASS_TYPE = {
 }
 
 C.SETTINGS_DEFAULT = {
-    moveable = false,
+    version = 3,
     expert = false,
 }
 
@@ -123,13 +123,15 @@ C.MODEL_DEFAULT = {
         act = false,
         val = 3,
     },
-    ilvl = {
+    mprating = {
         act = false,
         min = "",
         max = "",
     },
-    noilvl = {
-        act = false
+    pvprating = {
+        act = false,
+        min = "",
+        max = "",
     },
     members = {
         act = false,
@@ -158,21 +160,44 @@ C.MODEL_DEFAULT = {
     },
 }
 
-function PGF.OnAddonLoaded(name)
-    if name == PGFAddonName then
-        -- check if migration from 1.10 to 1.11 is necessary
-        if PremadeGroupsFilterState.enabled ~= nil then
-            local stateV110 = PremadeGroupsFilterState
-            PremadeGroupsFilterState = {}
-            PremadeGroupsFilterState.v110 = stateV110
-        end
-        PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.SETTINGS_DEFAULT)
-        -- update all state tables with the current set of defaults
+function PGF.Migrate_State_V2()
+    -- check if migration from 1.10 to 1.11 is necessary
+    if PremadeGroupsFilterState.enabled ~= nil then
+        local stateV110 = PremadeGroupsFilterState
+        PremadeGroupsFilterState = {}
+        PremadeGroupsFilterState.v110 = stateV110
+        print("Premade Groups Filter: migrated state to version 2")
+    end
+end
+
+function PGF.Migrate_State_V3()
+    if PremadeGroupsFilterState.version == nil then
+        PremadeGroupsFilterState["moveable"] = nil
         for k, v in pairs(PremadeGroupsFilterState) do
-            if k ~= "moveable" and k ~= "expert" then
-                PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
+            if type(v) == "table" then
+                v["ilvl"] = nil
+                v["noilvl"] = nil
             end
         end
+        print("Premade Groups Filter: migrated state to version 3")
+    end
+end
+
+function PGF.Update_State_Defaults()
+    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.SETTINGS_DEFAULT)
+    -- update all state tables with the current set of defaults
+    for k, v in pairs(PremadeGroupsFilterState) do
+        if k ~= "version" and k ~= "expert" then
+            PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
+        end
+    end
+end
+
+function PGF.OnAddonLoaded(name)
+    if name == PGFAddonName then
+        PGF.Migrate_State_V2()
+        PGF.Migrate_State_V3()
+        PGF.Update_State_Defaults()
 
         -- request various player information from the server
         RequestRaidInfo()
