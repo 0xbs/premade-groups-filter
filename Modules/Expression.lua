@@ -22,24 +22,24 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-StaticPopupDialogs["PGF_ERRORPOPUP"] = {
+StaticPopupDialogs["PGF_ERROR_EXPRESSION"] = {
     text = "%s",
-    button1 = L["button.ok"],
+    button1 = OKAY,
+    exclusive = 1,
+    hideOnEscape = 1,
     timeout = 0,
-    whileDead = true,
-    hideOnEscape = true,
-    preferredIndex = 3,
+    whileDead = 1,
 }
 
 function PGF.HandleSyntaxError(error)
-    StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.syntax"], error))
+    StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.syntax"], error))
 end
 
 function PGF.HandleSemanticError(error)
     if error and (error:find("name") or error:find("comment") or error:find("findnumber")) then
-        StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.semantic.protected"], error))
+        StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic.protected"], error))
     else
-        StaticPopup_Show("PGF_ERRORPOPUP", string.format(L["error.semantic"], error))
+        StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic"], error))
     end
 end
 

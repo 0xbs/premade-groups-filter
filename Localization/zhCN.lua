@@ -23,13 +23,14 @@ local L = PGF.L
 
 if GetLocale() ~= "zhCN" then return end
 
-L["button.ok"] = "确定"
 L["error.syntax"] = "|cffff0000过滤语法错误|r\n\n表示过滤语法不正确，例如缺少过滤条件、变量或运算符号，或是写成 'tanks=1' 格式而不是 'tanks==1'。\n\n详细错误信息：\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000过滤语法的语义错误|r\n\n表示过滤语法正确，但是很可能变量名错误，例如写成 tansk 而不是 tanks。\n\n详细错误信息：\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000过滤语法的语义错误|r\n\n不再支持关键字 'name'，'comment' 和 'findnumber'。 請從高級過濾器表達式中刪除它們或按重置按鈕。\n\n從戰鬥艾澤拉斯準備開始，這些價值現在受到暴雪的保護，任何插件都無法讀取。\n\n使用組列表上方的默認搜索欄過濾組名稱。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["message.noplaystylefix"] = "Premade Groups Filter: Will not apply fix for 'Interface action failed because of an AddOn' errors because you don't seem to have a fully secured account and otherwise can't create premade groups. See addon FAQ for more information and how to fix this issue."
+L["message.settingsupgraded"] = "Premade Groups Filter: 设置迁移到版本 %s"
 
 L["dialog.reset"] = "重置"
+L["dialog.reset.confirm"] = "真的重置所有字段？"
 L["dialog.refresh"] = "搜索"
 L["dialog.expl.simple"] = "勾选选项，输入最大值和(或)最小值，然后点击搜索按钮。"
 L["dialog.expl.state"] = "队伍必须包含："
@@ -48,8 +49,6 @@ L["dialog.heals"]      = "治疗 .............................."
 L["dialog.dps"]        = "输出 .............................."
 L["dialog.mprating"]   = "Mythic+ rating ..................."
 L["dialog.pvprating"]  = "PVP rating ......................."
-L["dialog.ilvl"]       = "装等 .............................."
-L["dialog.noilvl"]     = "不限裝等"
 L["dialog.defeated"]   = "已击败首领"
 L["dialog.sorting"] = "排序"
 L["dialog.usepgf.tooltip"] = "启用或停用预创建队伍过滤"

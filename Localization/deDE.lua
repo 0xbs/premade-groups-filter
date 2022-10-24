@@ -23,13 +23,14 @@ local L = PGF.L
 
 if GetLocale() ~= "deDE" then return end
 
-L["button.ok"] = "OK"
 L["error.syntax"] = "|cffff0000Syntaxfehler im Filterausdruck|r\n\nDas bedeutet, dass dein Filterausdruck nicht korrekt aufgebaut ist, z.B. fehlt eine schließende Klammer oder du hast 'tanks=1' statt 'tanks==1' geschrieben.\n\nTechnische Fehlermeldung:\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000Semantischer Fehler im Filterausdruck|r\n\nDas bedeutet, dass dein Filterausdruck syntaktisch korrekt ist, aber du dich vermutlich beim Namen einer Variable vertippt hast, z.B. tansk statt tanks.\n\nTechnische Fehlermeldung:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Semantischer Fehler im Filterausdruck|r\n\nDie Filterausdrücke 'name', 'comment' und 'findnumber' werden nicht mehr unterstützt. Bitte entferne sie aus deinem Filterausdruck oder drücke die Zurücksetzen-Schaltfläche.\n\nAb dem Battle for Azeroth Prepatch sind diese Werte durch Blizzard geschützt und können von keinem Addon mehr ausgewertet werden.\n\nBenutze das Standardsuchfeld oberhalb der Gruppenauflistung, um nach Gruppenname zu filtern.\n\nTechnische Fehlermeldung:\n|cffaaaaaa%s|r"
 L["message.noplaystylefix"] = "Premade Groups Filter: Der Fehler 'Interface-Aktion auf Grund eines Addons fehlgeschlagen' wird nicht automatisch behoben, da du anscheinend keinen vollständig gesicherten Account hast und ansonsten keine organisierten Gruppen erstellen kannst. Siehe Addon-FAQ für weitere Informationen und wie man dieses Problem behebt."
+L["message.settingsupgraded"] = "Premade Groups Filter: Einstellungen auf Version %s migriert"
 
 L["dialog.reset"] = "Zurücksetzen"
+L["dialog.reset.confirm"] = "Wirklich alle Felder zurücksetzen?"
 L["dialog.refresh"] = "Suchen"
 L["dialog.expl.simple"] = "Anhaken, Minimum und/oder Maximum eingeben und auf Suchen klicken."
 L["dialog.expl.state"] = "Gruppe soll enthalten:"
@@ -48,8 +49,6 @@ L["dialog.heals"]      = "Heiler .................................."
 L["dialog.dps"]        = "DDs ....................................."
 L["dialog.mprating"]   = "Mythic+ Wertung ........................."
 L["dialog.pvprating"]  = "PVP Wertung ............................."
-L["dialog.ilvl"]       = "Gegenstandsstufe ........................"
-L["dialog.noilvl"]     = "oder GS nicht festgelegt"
 L["dialog.defeated"]   = "Besiegte Raid-Bosse"
 L["dialog.sorting"] = "Sortierung"
 L["dialog.usepgf.tooltip"] = "Premade Groups Filter aktivieren oder deaktivieren"

@@ -166,7 +166,7 @@ function PGF.Migrate_State_V2()
         local stateV110 = PremadeGroupsFilterState
         PremadeGroupsFilterState = {}
         PremadeGroupsFilterState.v110 = stateV110
-        print("Premade Groups Filter: migrated state to version 2")
+        print(string.format(L["message.settingsupgraded"], "2"))
     end
 end
 
@@ -179,7 +179,7 @@ function PGF.Migrate_State_V3()
                 v["noilvl"] = nil
             end
         end
-        print("Premade Groups Filter: migrated state to version 3")
+        print(string.format(L["message.settingsupgraded"], "3"))
     end
 end
 

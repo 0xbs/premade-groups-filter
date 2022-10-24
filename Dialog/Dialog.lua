@@ -22,6 +22,17 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+StaticPopupDialogs["PGF_CONFIRM_RESET"] = {
+	text = L["dialog.reset.confirm"],
+	button1 = OKAY,
+	button2 = CANCEL,
+	OnAccept = function (self, data) PGF.Dialog_ResetButton_OnConfirm(self, data) end,
+	exclusive = 1,
+    hideOnEscape = 1,
+    timeout = 0,
+    whileDead = 1,
+}
+
 function PGF.Dialog_ClearFocus()
     local dialog = PremadeGroupsFilterDialog
     dialog.MPRating.Min:ClearFocus()
@@ -152,9 +163,13 @@ function PGF.Dialog_RefreshButton_OnClick(self, button, down)
 end
 
 function PGF.Dialog_ResetButton_OnClick(self, button, down)
-    PGF.Dialog_Reset()
-    PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
-    PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
+     StaticPopup_Show("PGF_CONFIRM_RESET")
+end
+
+function PGF.Dialog_ResetButton_OnConfirm(self, data)
+     PGF.Dialog_Reset()
+     PGF.Dialog_Expression_OnTextChanged(PremadeGroupsFilterDialog.Expression.EditBox)
+     PGF:Dialog_RefreshButton_OnClick(PremadeGroupsFilterDialog.RefreshButton)
 end
 
 function PGF.Dialog_DifficultyDropdown_OnClick(item)
