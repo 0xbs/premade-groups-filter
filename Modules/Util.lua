@@ -58,7 +58,7 @@ function PGF.Table_Subtract(minuend, subtrahend)
     local difference = {}
     local lookupTable = {}
     for i = 1, #subtrahend do
-        lookupTable[subtrahend[i]] = true;
+        lookupTable[subtrahend[i]] = true
     end
     for i = #minuend, 1, -1 do
         if not lookupTable[minuend[i]] then

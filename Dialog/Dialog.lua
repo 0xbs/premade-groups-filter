@@ -213,7 +213,7 @@ function PGF.OnLFGListFrameSetActivePanel(self, panel)
         buttonHooksInitialized = true
         self.SearchPanel.ScrollBox:ForEachFrame(function(button)
             button:HookScript("OnEnter", PGF.OnLFGListSearchEntryOnEnter)
-        end);
+        end)
     end
 end
 

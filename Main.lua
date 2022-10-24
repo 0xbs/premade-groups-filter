@@ -153,7 +153,7 @@ local roleRemainingKeyLookup = {
     ["TANK"] = "TANK_REMAINING",
     ["HEALER"] = "HEALER_REMAINING",
     ["DAMAGER"] = "DAMAGER_REMAINING",
-};
+}
 
 local function HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
     local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
@@ -201,11 +201,11 @@ function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
 end
 
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
-    local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1);
-    local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2);
+    local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1)
+    local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2)
 
-    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(searchResultID1);
-    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(searchResultID2);
+    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(searchResultID1)
+    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(searchResultID2)
 
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 

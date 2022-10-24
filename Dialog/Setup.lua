@@ -223,8 +223,8 @@ function PGF.Dialog_OnLoad()
     dialog.TitleContainer:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
     dialog.TitleContainer:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
 
-    dialog:SetBorder("ButtonFrameTemplateNoPortraitMinimizable");
-	dialog:SetPortraitShown(false);
+    dialog:SetBorder("ButtonFrameTemplateNoPortraitMinimizable")
+	dialog:SetPortraitShown(false)
     dialog:SetTitle("Premade Groups Filter")
     dialog.MaximizeMinimizeFrame:SetOnMaximizedCallback(PGF.Dialog_MaximizeButton_OnClick)
     dialog.MaximizeMinimizeFrame:SetOnMinimizedCallback(PGF.Dialog_MinimizeButton_OnClick)
