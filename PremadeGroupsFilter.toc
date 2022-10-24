@@ -2,6 +2,7 @@
 ## Title: Premade Groups Filter
 ## Version: 3.0.0
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
+## Notes-ruRU: Позволяет фильтровать заранее собранные группы с помощью пользовательского интерфейса или расширенных выражений фильтра.
 ## Author: Elotheon-Arthas-EU
 ## SavedVariables:
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
