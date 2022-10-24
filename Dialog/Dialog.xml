@@ -79,7 +79,7 @@
         </Layers>
     </Frame>
 
-    <Frame name="PremadeGroupsFilterDialog" frameStrata="FULLSCREEN" parent="PVEFrame" movable="true" enableMouse="true" inherits="PortraitFrameTemplateMinimizable" hidden="true">
+    <Frame name="PremadeGroupsFilterDialog" parent="PVEFrame" inherits="PortraitFrameTemplateMinimizable" frameStrata="FULLSCREEN" movable="true" enableMouse="true" hidden="true">
         <Size x="300" y="427"/>
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT"/>

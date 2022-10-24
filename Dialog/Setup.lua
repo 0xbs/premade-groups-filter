@@ -151,7 +151,7 @@ end
 function PGF.Dialog_ResetPosition()
     local dialog = PremadeGroupsFilterDialog
     dialog:ClearAllPoints()
-    dialog:SetPoint("TOPLEFT", GroupFinderFrame, "TOPRIGHT")
+    dialog:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT")
     dialog:SetWidth(300)
 end
 
@@ -220,8 +220,8 @@ end
 function PGF.Dialog_OnLoad()
     local dialog = PremadeGroupsFilterDialog -- keep that
     dialog:SetScript("OnShow", PGF.Dialog_OnShow)
-    dialog.TitleContainer:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
-    dialog.TitleContainer:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
+    dialog:SetScript("OnMouseDown", PGF.Dialog_OnMouseDown)
+    dialog:SetScript("OnMouseUp", PGF.Dialog_OnMouseUp)
 
     dialog:SetBorder("ButtonFrameTemplateNoPortraitMinimizable")
 	dialog:SetPortraitShown(false)
