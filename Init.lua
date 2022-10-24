@@ -20,6 +20,7 @@
 
 PremadeGroupsFilter = {}
 PremadeGroupsFilterState = PremadeGroupsFilterState or {}
+PremadeGroupsFilterSettings = PremadeGroupsFilterSettings or {}
 
 local PGFAddonName = select(1, ...)
 local PGF = select(2, ...)
@@ -111,6 +112,13 @@ C.DPS_CLASS_TYPE = {
 }
 
 C.SETTINGS_DEFAULT = {
+    version = 1,
+    dialogMovable = true,
+    classNamesInTooltip = true,
+    coloredGroupTexts = true,
+}
+
+C.STATE_DEFAULT = {
     version = 4,
 }
 
@@ -160,7 +168,7 @@ C.MODEL_DEFAULT = {
     },
 }
 
-function PGF.Migrate_State_V2()
+function PGF.MigrateStateV2()
     -- check if migration from 1.10 to 1.11 is necessary
     if PremadeGroupsFilterState.enabled ~= nil then
         local stateV110 = PremadeGroupsFilterState
@@ -170,7 +178,7 @@ function PGF.Migrate_State_V2()
     end
 end
 
-function PGF.Migrate_State_V3()
+function PGF.MigrateStateV3()
     if PremadeGroupsFilterState.version == nil then
         PremadeGroupsFilterState.moveable = nil
         for k, v in pairs(PremadeGroupsFilterState) do
@@ -184,7 +192,7 @@ function PGF.Migrate_State_V3()
     end
 end
 
-function PGF.Migrate_State_V4()
+function PGF.MigrateStateV4()
     if PremadeGroupsFilterState.version < 4 then
         for k, v in pairs(PremadeGroupsFilterState) do
             if type(v) == "table" then
@@ -197,8 +205,8 @@ function PGF.Migrate_State_V4()
     end
 end
 
-function PGF.Update_State_Defaults()
-    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.SETTINGS_DEFAULT)
+function PGF.UpdateStateWithDefaults()
+    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.STATE_DEFAULT)
     -- update all state tables with the current set of defaults
     for k, v in pairs(PremadeGroupsFilterState) do
         if type(v) == "table" then
@@ -207,12 +215,18 @@ function PGF.Update_State_Defaults()
     end
 end
 
+function PGF.UpdateSettingsWithDefaults()
+    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterSettings, PGF.C.SETTINGS_DEFAULT)
+end
+
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
-        PGF.Migrate_State_V2()
-        PGF.Migrate_State_V3()
-        PGF.Migrate_State_V4()
-        PGF.Update_State_Defaults()
+        PGF.UpdateSettingsWithDefaults()
+
+        PGF.MigrateStateV2()
+        PGF.MigrateStateV3()
+        PGF.MigrateStateV4()
+        PGF.UpdateStateWithDefaults()
 
         -- request various player information from the server
         RequestRaidInfo()

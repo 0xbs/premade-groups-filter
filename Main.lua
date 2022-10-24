@@ -609,6 +609,8 @@ function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
+    if not PremadeGroupsFilterSettings.coloredGroupTexts then return end
+
     local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
     -- try once again to update the leaderName (this information is not immediately available)
     if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
@@ -642,6 +644,8 @@ function PGF.OnLFGListSearchEntryUpdate(self)
 end
 
 function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
+    if not PremadeGroupsFilterSettings.classNamesInTooltip then return end
+
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 

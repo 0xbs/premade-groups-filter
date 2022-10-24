@@ -1,0 +1,89 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Frame name="PremadeGroupsFilterSettingsListItemTemplate" virtual="true">
+        <Size y="26"/>
+        <Anchors>
+            <Anchor point="LEFT"/>
+            <Anchor point="RIGHT"/>
+        </Anchors>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordwrap="false">
+                    <Anchors>
+                        <Anchor point="LEFT" x="40"/>
+                        <Anchor point="CENTER" x="-85"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame parentKey="Tooltip" mixin="DefaultTooltipMixin">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-80"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad method="OnLoad"/>
+                </Scripts>
+            </Frame>
+        </Frames>
+    </Frame>
+
+    <Frame name="PremadeGroupsFilterSettingsCheckBoxTemplate" inherits="PremadeGroupsFilterSettingsListItemTemplate" virtual="true">
+        <Frames>
+            <CheckButton parentKey="CheckBox" motionScriptsWhileDisabled="true" virtual="true">
+                <Size x="30" y="29"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER" x="-80"/>
+                </Anchors>
+                <NormalTexture atlas="checkbox-minimal" useAtlasSize="true"/>
+                <PushedTexture atlas="checkbox-minimal" useAtlasSize="true"/>
+                <CheckedTexture atlas="checkmark-minimal" useAtlasSize="true"/>
+                <DisabledCheckedTexture atlas="checkmark-minimal-disabled" useAtlasSize="true"/>
+            </CheckButton>
+        </Frames>
+    </Frame>
+
+    <Frame name="PremadeGroupsFilterSettingsTemplate" virtual="true">
+        <Frames>
+            <Frame parentKey="Header">
+                <Size y="50"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="TOPRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Title" inherits="GameFontHighlightHuge" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="7" y="-22"/>
+                            </Anchors>
+                        </FontString>
+                        <Texture atlas="Options_HorizontalDivider" useAtlasSize="true">
+                            <Anchors>
+                                <Anchor point="TOP" y="-50"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Header" relativePoint="BOTTOMLEFT" x="10" y="-2"/>
+                    <Anchor point="BOTTOMRIGHT" x="-20" y="10"/>
+                </Anchors>
+                <Frames>
+                    <Button parentKey="InputBlocker" clipChildren="true" setAllPoints="true" hidden="true"/>
+                </Frames>
+            </Frame>
+            <EventFrame parentKey="ScrollBar" inherits="MinimalScrollBar">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.ScrollBox" relativePoint="TOPRIGHT" x="0" y="-4"/>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.ScrollBox" relativePoint="BOTTOMRIGHT" x="-1" y="-3"/>
+                </Anchors>
+            </EventFrame>
+        </Frames>
+    </Frame>
+
+</Ui>

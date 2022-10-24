@@ -62,10 +62,12 @@ function PGF.Dialog_OnShow(dialog)
 end
 
 function PGF.Dialog_OnMouseDown(self, button)
+    if not PremadeGroupsFilterSettings.dialogMovable then return end
     PremadeGroupsFilterDialog:StartMoving()
 end
 
 function PGF.Dialog_OnMouseUp(self, button)
+    if not PremadeGroupsFilterSettings.dialogMovable then return end
     PremadeGroupsFilterDialog:StopMovingOrSizing()
     if button == "RightButton" then
         PGF.Dialog_ResetPosition()

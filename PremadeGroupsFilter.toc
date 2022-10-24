@@ -10,7 +10,7 @@
 ## Notes-zhCN: 允许使用用户界面或高级过滤器表达式过滤预制组。
 ## Notes-zhTW: 允許使用用戶界面或高級過濾器表達式過濾預製組。
 ## Author: Elotheon-Arthas-EU
-## SavedVariables:
+## SavedVariables: PremadeGroupsFilterSettings
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
 
 Init.lua
@@ -32,6 +32,8 @@ Modules\Macro.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua
+Settings\Settings.xml
+Settings\Settings.lua
 Dialog\PopupMenu.xml
 Dialog\PopupMenu.lua
 Dialog\Help.lua
