@@ -206,18 +206,7 @@ function PGF.Dialog_Toggle()
     end
 end
 
-local buttonHooksInitialized = false
-function PGF.OnLFGListFrameSetActivePanel(self, panel)
-    PGF.Dialog_Toggle()
-    if not buttonHooksInitialized and panel == self.SearchPanel then
-        buttonHooksInitialized = true
-        self.SearchPanel.ScrollBox:ForEachFrame(function(button)
-            button:HookScript("OnEnter", PGF.OnLFGListSearchEntryOnEnter)
-        end)
-    end
-end
-
-hooksecurefunc("LFGListFrame_SetActivePanel", PGF.OnLFGListFrameSetActivePanel)
+hooksecurefunc("LFGListFrame_SetActivePanel", PGF.Dialog_Toggle)
 hooksecurefunc("GroupFinderFrame_ShowGroupFrame", PGF.Dialog_Toggle)
 hooksecurefunc("PVEFrame_ShowFrame", PGF.Dialog_Toggle)
 hooksecurefunc("InputScrollFrame_OnTextChanged", PGF.Dialog_Expression_OnTextChanged)

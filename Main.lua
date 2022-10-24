@@ -641,16 +641,15 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     end
 end
 
-function PGF.OnLFGListSearchEntryOnEnter(self)
-    local resultID = self.resultID
+function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 
     -- do not show members where Blizzard already does that
     if activityInfo.displayType == LE_LFG_LIST_DISPLAY_TYPE_CLASS_ENUMERATE then return end
-    if searchResultInfo.isDelisted or not GameTooltip:IsShown() then return end
-    GameTooltip:AddLine(" ")
-    GameTooltip:AddLine(CLASS_ROLES)
+    if searchResultInfo.isDelisted or not tooltip:IsShown() then return end
+    tooltip:AddLine(" ")
+    tooltip:AddLine(CLASS_ROLES)
 
     local roles = {}
     local classInfo = {}
@@ -666,17 +665,17 @@ function PGF.OnLFGListSearchEntryOnEnter(self)
     end
 
     for role, classes in pairs(roles) do
-        GameTooltip:AddLine(_G[role]..": ")
+        tooltip:AddLine(_G[role]..": ")
         for class, count in pairs(classes) do
             local text = "   "
             if count > 1 then text = text .. count .. " " else text = text .. "   " end
             text = text .. "|c" .. classInfo[class].color.colorStr ..  classInfo[class].name .. "|r "
-            GameTooltip:AddLine(text)
+            tooltip:AddLine(text)
         end
     end
-    GameTooltip:Show()
+    tooltip:Show()
 end
 
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)
-hooksecurefunc("LFGListSearchEntry_OnEnter", PGF.OnLFGListSearchEntryOnEnter)
+hooksecurefunc("LFGListUtil_SetSearchEntryTooltip", PGF.OnLFGListUtilSetSearchEntryTooltip)
 hooksecurefunc("LFGListUtil_SortSearchResults", PGF.DoFilterSearchResults)
