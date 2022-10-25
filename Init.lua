@@ -111,12 +111,12 @@ C.DPS_CLASS_TYPE = {
 }
 
 C.SETTINGS_DEFAULT = {
-    version = 3,
-    expert = false,
+    version = 4,
 }
 
 C.MODEL_DEFAULT = {
     enabled = true,
+    expert = false,
     expression = "",
     sorting = "",
     difficulty = {
@@ -172,14 +172,28 @@ end
 
 function PGF.Migrate_State_V3()
     if PremadeGroupsFilterState.version == nil then
-        PremadeGroupsFilterState["moveable"] = nil
+        PremadeGroupsFilterState.moveable = nil
         for k, v in pairs(PremadeGroupsFilterState) do
             if type(v) == "table" then
-                v["ilvl"] = nil
-                v["noilvl"] = nil
+                v.ilvl = nil
+                v.noilvl = nil
             end
         end
+        PremadeGroupsFilterState.version = 3
         print(string.format(L["message.settingsupgraded"], "3"))
+    end
+end
+
+function PGF.Migrate_State_V4()
+    if PremadeGroupsFilterState.version < 4 then
+        for k, v in pairs(PremadeGroupsFilterState) do
+            if type(v) == "table" then
+                v.expert = PremadeGroupsFilterState.expert
+            end
+        end
+        PremadeGroupsFilterState.expert = nil
+        PremadeGroupsFilterState.version = 4
+        print(string.format(L["message.settingsupgraded"], "4"))
     end
 end
 
@@ -187,7 +201,7 @@ function PGF.Update_State_Defaults()
     PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.SETTINGS_DEFAULT)
     -- update all state tables with the current set of defaults
     for k, v in pairs(PremadeGroupsFilterState) do
-        if k ~= "version" and k ~= "expert" then
+        if type(v) == "table" then
             PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
         end
     end
@@ -197,6 +211,7 @@ function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
         PGF.Migrate_State_V2()
         PGF.Migrate_State_V3()
+        PGF.Migrate_State_V4()
         PGF.Update_State_Defaults()
 
         -- request various player information from the server
