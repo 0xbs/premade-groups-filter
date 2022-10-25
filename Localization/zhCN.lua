@@ -93,6 +93,7 @@ L["dialog.tooltip.ex.neq"] = "members ~= 0"
 L["dialog.tooltip.ex.lt"] = "hlvl >= 5"
 L["dialog.tooltip.ex.find"] = "not name:find(\"wts\")"
 L["dialog.tooltip.ex.match"] = "name:match(\"+(%d)\")==\"5\""
+L["dialog.copy.url.keywords"] = "按 CTRL+C 将链接复制到关键字列表"
 
 L["PGF"] = "过滤选项"
 L["Premade Groups Filter"] = "预创建队伍过滤"
