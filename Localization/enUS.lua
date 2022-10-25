@@ -21,6 +21,9 @@
 local PGF = select(2, ...)
 local L = PGF.L
 
+L["addon.name.short"] = "PGF"
+L["addon.name.long"] = "Premade Groups Filter"
+
 L["error.syntax"] = "|cffff0000Syntax error in filter expression|r\n\nThis means your filter expression is not built in the right way, e.g. there is a paranthesis missing or you wrote 'tanks=1' instead of 'tanks==1'.\n\nDetailed error message:\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000Semantic error in filter expression|r\n\nThis means your filter expression has correct syntax, but you most likely mispelled the name of a variable, e.g. tansk instead of tanks.\n\nDetailed error message:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Semantic error in filter expression|r\n\nThe keywords 'name', 'comment' and 'findnumber' are no longer supported. Please remove them from your advanced filter expression or press the reset button.\n\nStarting with the Battle for Azeroth Prepatch, those value are protected by Blizzard and can no longer be evaluated by any addon.\n\nUse the default search bar above the group listing to filter for groups names.\n\nDetailed error message:\n|cffaaaaaa%s|r"

@@ -23,6 +23,9 @@ local L = PGF.L
 
 if GetLocale() ~= "esES" then return end
 
+L["addon.name.short"] = "PGF"
+L["addon.name.long"] = "Premade Groups Filter"
+
 L["error.syntax"] = "|cffff0000Error en la sintaxis de la expresión avanzada|r\n\nEsto significa que no se ha construido de la manera correcta, por ejemplo, se te olvido poner un paréntesis o escribiste 'tanks=1' en vez de 'tanks==1'.\n\nError detallado:\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000Error Semántico en la expresión|r\n\nEsto signuifica que la sintaxis es correcta, pero lo mas seguro es que hayas escrito las variables mal, por ejemplo, tansk en vez de tanks.\n\nError detallado:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Error Semántico en la expresión|r\n\nLas palabras clave 'name', 'comment' und 'findnumber' ya no están soportadas. Por favor, elimínalos de tu expresión de filtro avanzada o presiona el botón de reinicio.\n\nComenzando con el Battle for Azeroth Prepatch, esos valores ahora están protegidos por Blizzard y ya no pueden ser leídos por ningún addon.\n\nUtilice la barra de búsqueda predeterminada situada encima de la lista de grupos para filtrar los nombres de los grupos.\n\nError detallado:\n|cffaaaaaa%s|r"
