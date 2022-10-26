@@ -29,6 +29,7 @@ Modules\Lockout.lua
 Modules\Expression.lua
 Modules\PlayerInfo.lua
 Modules\Macro.lua
+Modules\GroupTooltip.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua
