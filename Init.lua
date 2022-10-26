@@ -116,6 +116,9 @@ C.SETTINGS_DEFAULT = {
     dialogMovable = true,
     classNamesInTooltip = true,
     coloredGroupTexts = true,
+    classCircle = true,
+    classBar = false,
+    leaderCrown = false,
 }
 
 C.STATE_DEFAULT = {

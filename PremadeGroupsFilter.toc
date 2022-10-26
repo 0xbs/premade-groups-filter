@@ -30,6 +30,7 @@ Modules\Expression.lua
 Modules\PlayerInfo.lua
 Modules\Macro.lua
 Modules\GroupTooltip.lua
+Modules\RoleIndicators.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua

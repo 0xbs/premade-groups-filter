@@ -608,10 +608,9 @@ function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     end
 end
 
-function PGF.OnLFGListSearchEntryUpdate(self)
+function PGF.ColorGroupTexts(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.coloredGroupTexts then return end
 
-    local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
     -- try once again to update the leaderName (this information is not immediately available)
     if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
     -- self.ActivityName:SetText("[" .. searchResultInfo.activityID .. "/" .. self.resultID .. "] " .. self.ActivityName:GetText()) -- DEBUG
@@ -641,6 +640,12 @@ function PGF.OnLFGListSearchEntryUpdate(self)
             self.ActivityName:SetTextColor(color.R, color.G, color.B)
         end
     end
+end
+
+function PGF.OnLFGListSearchEntryUpdate(self)
+    local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
+    PGF.ColorGroupTexts(self, searchResultInfo)
+    PGF.AddRoleIndicators(self, searchResultInfo)
 end
 
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)

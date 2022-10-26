@@ -41,7 +41,25 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.coloredGroupTexts.title"],
         tooltip = L["settings.coloredGroupTexts.tooltip"],
-    }
+    },
+    {
+        key = "classCircle",
+        type = "checkbox",
+        title = L["settings.classCircle.title"],
+        tooltip = L["settings.classCircle.tooltip"],
+    },
+    {
+        key = "classBar",
+        type = "checkbox",
+        title = L["settings.classBar.title"],
+        tooltip = L["settings.classBar.tooltip"],
+    },
+    {
+        key = "leaderCrown",
+        type = "checkbox",
+        title = L["settings.leaderCrown.title"],
+        tooltip = L["settings.leaderCrown.tooltip"],
+    },
 }
 
 function PGFSettings:OnLoad()
