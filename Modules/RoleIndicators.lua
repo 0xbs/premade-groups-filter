@@ -30,10 +30,6 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         return
     end
 
-    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
-    if activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
-        return -- only show rings on role enumerations like dungeon groups
-    end
     local numIcons = #self.DataDisplay.Enumerate.Icons -- should always be 5 for Enum.LFGListDisplayType.RoleEnumerate
 
     -- creating frames each time will soon flood the UI with frames, so we create them once for each search result frame
@@ -85,6 +81,10 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         frames[iconIndex].RoleIcon:Hide()
     end
 
+    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+    if activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
+        return -- only show rings on role enumerations like dungeon groups
+    end
     if searchResultInfo.isDelisted then
         return -- ignore delisted groups
     end
