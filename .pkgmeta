@@ -1,3 +1,8 @@
 ignore:
-  - preview.jpg
   - ChecklistNewContent.md
+  - Screenshots/Screenshot_01_Dungeons.jpg
+  - Screenshots/Screenshot_02_Raids.jpg
+  - Screenshots/Screenshot_03_Alternative.jpg
+  - Screenshots/Screenshot_04_Expert.jpg
+  - Screenshots/Screenshot_05_Arena.jpg
+  - Screenshots/Screenshot_06_Options.jpg
