@@ -24,9 +24,9 @@ local C = PGF.C
 
 PGF.roleIndicators = {}
 function PGF.AddRoleIndicators(self, searchResultInfo)
-    if not PremadeGroupsFilterSettings.classBar
-    and not PremadeGroupsFilterSettings.classCircle
-    and not PremadeGroupsFilterSettings.leaderCrown then
+    if not PremadeGroupsFilterSettings.classBar and
+            not PremadeGroupsFilterSettings.classCircle and
+            not PremadeGroupsFilterSettings.leaderCrown then
         return
     end
 
@@ -73,26 +73,23 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         PGF.roleIndicators[self] = frames
     end
 
-    for iconIndex = 1, numIcons do
-        frames[iconIndex]:Hide()
-        frames[iconIndex].ClassBar:Hide()
-        frames[iconIndex].LeaderCrown:Hide()
-        frames[iconIndex].ClassCircle:Hide()
-        frames[iconIndex].RoleIcon:Hide()
+    for i = 1, numIcons do
+        frames[i]:Hide()
+        frames[i].ClassBar:Hide()
+        frames[i].LeaderCrown:Hide()
+        frames[i].ClassCircle:Hide()
+        frames[i].RoleIcon:Hide()
     end
 
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
     if activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
         return -- only show rings on role enumerations like dungeon groups
     end
-    if searchResultInfo.isDelisted then
-        return -- ignore delisted groups
-    end
 
     local members = {}
     for i = 1, searchResultInfo.numMembers do
         local role, class, classLocalized = C_LFGList.GetSearchResultMemberInfo(self.resultID, i)
-        local color = RAID_CLASS_COLORS[class]
+        local color = searchResultInfo.isDelisted and { r = 0.2, g = 0.2, b = 0.2 } or RAID_CLASS_COLORS[class]
         table.insert(members, {
             role = role,
             class = class,
@@ -107,7 +104,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         ["HEALER"] = 2,
         ["DAMAGER"] = 3,
     }
-    table.sort(members, function (a, b)
+    table.sort(members, function (a, b) -- sort by role, class
         if ROLE_ORDER[a.role] ~= ROLE_ORDER[b.role] then
             return ROLE_ORDER[a.role] < ROLE_ORDER[b.role]
         end
@@ -130,9 +127,13 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
             frames[i].ClassCircle:SetColorTexture(members[i].color.r, members[i].color.g, members[i].color.b, 1)
             frames[i].RoleIcon:Show()
             frames[i].RoleIcon:SetAtlas(ROLE_ICON[members[i].role])
+            frames[i].RoleIcon:SetDesaturated(searchResultInfo.isDelisted)
+            frames[i].RoleIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
         if PremadeGroupsFilterSettings.leaderCrown and members[i].leader then
             frames[i].LeaderCrown:Show()
+            frames[i].LeaderCrown:SetDesaturated(searchResultInfo.isDelisted)
+            frames[i].LeaderCrown:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
     end
 end
