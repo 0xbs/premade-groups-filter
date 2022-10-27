@@ -65,16 +65,16 @@ C.DIFFICULTY_STRING = {
 }
 
 -- Translates tier enum values into normalized values - check via /dump PVPUtil.GetTierName(1)
-C.TIER_MAP = {
-    [0] = 0, -- Unranked
-    [1] = 1, -- Combatant I
-    [2] = 3, -- Challenger I
-    [3] = 5, -- Rival I
-    [4] = 7, -- Duelist
-    [5] = 8, -- Elite
-    [6] = 2, -- Combatant II
-    [7] = 4, -- Challenger II
-    [8] = 6, -- Rival II
+C.PVP_TIER_MAP = {
+    [0] = { tier = 0, minRating =    0, quality = 0, }, -- Unranked
+    [1] = { tier = 1, minRating = 1000, quality = 1, }, -- Combatant I
+    [2] = { tier = 3, minRating = 1400, quality = 2, }, -- Challenger I
+    [3] = { tier = 5, minRating = 1800, quality = 3, }, -- Rival I
+    [4] = { tier = 7, minRating = 2100, quality = 4, }, -- Duelist
+    [5] = { tier = 8, minRating = 2400, quality = 5, }, -- Elite
+    [6] = { tier = 2, minRating = 1200, quality = 1, }, -- Combatant II
+    [7] = { tier = 4, minRating = 1600, quality = 2, }, -- Challenger II
+    [8] = { tier = 6, minRating = 1950, quality = 3, }, -- Rival II
 }
 
 C.COLOR_ENTRY_NEW       = { R = 0.3, G = 1.0, B = 0.3 } -- green

@@ -401,7 +401,7 @@ function PGF.DoFilterSearchResults(results)
             env.pvpactivityname = searchResultInfo.leaderPvpRatingInfo.activityName
             env.pvprating       = searchResultInfo.leaderPvpRatingInfo.rating
             env.pvptierx        = searchResultInfo.leaderPvpRatingInfo.tier
-            env.pvptier         = C.TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier]
+            env.pvptier         = C.PVP_TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier].tier
             env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo.tier)
         end
         env.horde = searchResultInfo.leaderFactionGroup == 0

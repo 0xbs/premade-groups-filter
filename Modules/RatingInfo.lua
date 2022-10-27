@@ -22,6 +22,11 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+function PGF.GetPvPScoreRarityColorByTier(tier)
+    local r, g, b = GetItemQualityColor(C.PVP_TIER_MAP[tier].quality)
+    return { r = r, g = g, b = b }
+end
+
 PGF.ratingInfoFrames = {}
 function PGF.GetOrCreateRatingInfoFrame(self)
     -- creating frames each time will soon flood the UI with frames, so we create them once for each search result frame
@@ -73,8 +78,10 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     end
     if activityInfo.isRatedPvpActivity then
         rightPos = activityInfo.categoryID == C.CATEGORY_ID.ARENA and -80 or -130
-        rating = searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo.rating or 0
-        ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating)
+        if searchResultInfo.leaderPvpRatingInfo then
+            rating = searchResultInfo.leaderPvpRatingInfo.rating or 0
+            ratingColor = PGF.GetPvPScoreRarityColorByTier(searchResultInfo.leaderPvpRatingInfo.tier or 0)
+        end
     end
 
     local textWidth = 312 - 10 - 35 + rightPos
