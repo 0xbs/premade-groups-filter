@@ -646,6 +646,7 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
+    PGF.AddRatingInfo(self, searchResultInfo)
 end
 
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)

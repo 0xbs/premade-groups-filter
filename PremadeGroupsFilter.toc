@@ -31,6 +31,7 @@ Modules\PlayerInfo.lua
 Modules\Macro.lua
 Modules\GroupTooltip.lua
 Modules\RoleIndicators.lua
+Modules\RatingInfo.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua

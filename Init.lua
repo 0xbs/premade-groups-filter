@@ -41,16 +41,19 @@ C.ARENA2V2   = 5
 C.ARENA3V3   = 6
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
-C.TYPE_QUESTING = 1
-C.TYPE_DUNGEON  = 2
-C.TYPE_RAID     = 3
-C.TYPE_ARENA    = 4
-C.TYPE_SCENARIO = 5
-C.TYPE_CUSTOM   = 6
-C.TYPE_SKIRMISH = 7
-C.TYPE_BG       = 8
-C.TYPE_RBG      = 9
-C.TYPE_ASHRAN   = 10
+C.CATEGORY_ID = {
+    QUESTING           = 1,
+    DUNGEON            = 2,
+    RAID               = 3,
+    ARENA              = 4,
+    SCENARIO           = 5,
+    CUSTOM             = 6, -- both PvE and PvP
+    SKIRMISH           = 7,
+    BATTLEGROUND       = 8,
+    RATED_BATTLEGROUND = 9,
+    ASHRAN             = 10,
+    THORGAST           = 113,
+}
 
 C.DIFFICULTY_STRING = {
     [1] = "normal",
@@ -116,6 +119,7 @@ C.SETTINGS_DEFAULT = {
     dialogMovable = true,
     classNamesInTooltip = true,
     coloredGroupTexts = true,
+    ratingInfo = true,
     classCircle = true,
     classBar = false,
     leaderCrown = false,

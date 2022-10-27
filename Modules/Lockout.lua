@@ -45,7 +45,7 @@ function PGF.GetLockoutInfo(activity, resultID)
     local numGroupDefeated = PGF.Table_Count(encounterInfo)
 
     -- there are no IDs for normal and mythic+ dungeons
-    if activityInfo.categoryID == C.TYPE_DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
+    if activityInfo.categoryID == C.CATEGORY_ID.DUNGEON and (difficulty == C.NORMAL or difficulty == C.MYTHICPLUS) then
         return numGroupDefeated, 0, 0, 0, 0, 0
     end
 
