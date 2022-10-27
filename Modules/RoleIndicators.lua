@@ -23,15 +23,7 @@ local L = PGF.L
 local C = PGF.C
 
 PGF.roleIndicators = {}
-function PGF.AddRoleIndicators(self, searchResultInfo)
-    if not PremadeGroupsFilterSettings.classBar and
-            not PremadeGroupsFilterSettings.classCircle and
-            not PremadeGroupsFilterSettings.leaderCrown then
-        return
-    end
-
-    local numIcons = #self.DataDisplay.Enumerate.Icons -- should always be 5 for Enum.LFGListDisplayType.RoleEnumerate
-
+function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
     -- creating frames each time will soon flood the UI with frames, so we create them once for each search result frame
     -- we store our frame in our own table to avoid any taint of the search result frame
     local frames = PGF.roleIndicators[self]
@@ -72,6 +64,12 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         end
         PGF.roleIndicators[self] = frames
     end
+    return frames
+end
+
+function PGF.AddRoleIndicators(self, searchResultInfo)
+    local numIcons = #self.DataDisplay.Enumerate.Icons -- should always be 5 for Enum.LFGListDisplayType.RoleEnumerate
+    local frames = PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
 
     for i = 1, numIcons do
         frames[i]:Hide()
@@ -79,6 +77,12 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         frames[i].LeaderCrown:Hide()
         frames[i].ClassCircle:Hide()
         frames[i].RoleIcon:Hide()
+    end
+
+    if not PremadeGroupsFilterSettings.classBar and
+       not PremadeGroupsFilterSettings.classCircle and
+       not PremadeGroupsFilterSettings.leaderCrown then
+        return -- stop if all features are disabled
     end
 
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)

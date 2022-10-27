@@ -22,13 +22,14 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-PGF.ratingBadges = {}
-function PGF.AddRatingInfo(self, searchResultInfo)
+PGF.ratingInfoFrames = {}
+function PGF.GetOrCreateRatingInfoFrame(self)
     -- creating frames each time will soon flood the UI with frames, so we create them once for each search result frame
     -- we store our frame in our own table to avoid any taint of the search result frame
-    local frame = PGF.ratingBadges[self]
+    local frame = PGF.ratingInfoFrames[self]
     if frame == nil then
         frame = CreateFrame("Frame", nil, self, nil)
+        frame:Hide()
         frame:SetFrameStrata("HIGH")
         frame:SetSize(35, 30)
         frame:SetPoint("TOP", 0, -4)
@@ -45,9 +46,13 @@ function PGF.AddRatingInfo(self, searchResultInfo)
         frame.ExtraText:SetJustifyH("RIGHT")
         frame.ExtraText:SetTextColor(1, 1, 1)
 
-        PGF.ratingBadges[self] = frame
+        PGF.ratingInfoFrames[self] = frame
     end
+    return frame
+end
 
+function PGF.AddRatingInfo(self, searchResultInfo)
+    local frame = PGF.GetOrCreateRatingInfoFrame(self)
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 
     local rightPos = -130
