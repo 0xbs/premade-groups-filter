@@ -104,3 +104,7 @@ L["settings.classNamesInTooltip.title"] = "Имена классов в подс
 L["settings.classNamesInTooltip.tooltip"] = "Показывает список классов по ролям во всплывающей подсказке готовой группы."
 L["settings.coloredGroupTexts.title"] = "Цветное название группы"
 L["settings.coloredGroupTexts.tooltip"] = "Отображает название группы зеленым цветом, если группа новая, и красным цветом, если вы ранее были отклонены. Отображает название активности красным цветом, если у вас есть блокировка на этом экземпляре."
+L["settings.leaderCrown.title"] = "Показать лидера группы"
+L["settings.leaderCrown.tooltip"] = "Показывает маленькую корону над ролью лидера группы в готовом списке группы подземелий."
+L["settings.ratingInfo.title"] = "Рейтинг лидеров группы"
+L["settings.ratingInfo.tooltip"] = "Показывает Эпохальный+ или PvP-рейтинг лидера группы в готовом списке групп."
