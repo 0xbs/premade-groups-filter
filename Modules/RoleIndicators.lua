@@ -38,9 +38,9 @@ function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
             frame:SetPoint("RIGHT", self, "RIGHT", -12 - (numIcons - iconIndex) * 18, 0)
 
             frame.ClassBar = frame:CreateTexture("$parentClassBar", "OVERLAY")
-            frame.ClassBar:SetSize(11, 3)
+            frame.ClassBar:SetSize(14, 3)
             frame.ClassBar:SetPoint("CENTER")
-            frame.ClassBar:SetPoint("BOTTOM", 0, 2)
+            frame.ClassBar:SetPoint("BOTTOM", 0, 3)
 
             frame.LeaderCrown = frame:CreateTexture("$parentLeaderCrown", "OVERLAY")
             frame.LeaderCrown:SetSize(10, 5)
