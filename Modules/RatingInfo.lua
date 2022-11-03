@@ -68,7 +68,7 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     if activityInfo.isMythicPlusActivity then
         rightPos = -115
         rating = searchResultInfo.leaderOverallDungeonScore or 0
-        ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating)
+        ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating) or ratingColor
         if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo.bestRunLevel > 0 then
             extraText = "+" .. searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
             if not searchResultInfo.leaderDungeonScoreInfo.finishedSuccess then
@@ -80,7 +80,7 @@ function PGF.AddRatingInfo(self, searchResultInfo)
         rightPos = activityInfo.categoryID == C.CATEGORY_ID.ARENA and -80 or -130
         if searchResultInfo.leaderPvpRatingInfo then
             rating = searchResultInfo.leaderPvpRatingInfo.rating or 0
-            ratingColor = PGF.GetPvPScoreRarityColorByTier(searchResultInfo.leaderPvpRatingInfo.tier or 0)
+            ratingColor = PGF.GetPvPScoreRarityColorByTier(searchResultInfo.leaderPvpRatingInfo.tier or 0) or ratingColor
         end
     end
 
