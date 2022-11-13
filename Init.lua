@@ -103,6 +103,7 @@ C.DPS_CLASS_TYPE = {
     ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate"   },
     ["DEMONHUNTER"] = { range = false, melee = true,  armor = "leather" },
     ["DRUID"]       = { range = true,  melee = true,  armor = "leather" },
+    ["EVOKER"]      = { range = true,  melee = false, armor = "mail"    },
     ["HUNTER"]      = { range = true,  melee = true,  armor = "mail"    },
     ["PALADIN"]     = { range = false, melee = true,  armor = "plate"   },
     ["PRIEST"]      = { range = true,  melee = false, armor = "cloth"   },
