@@ -22,27 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-StaticPopupDialogs["PGF_COPY_URL_KEYWORDS"] = {
-    text = L["dialog.copy.url.keywords"],
-    button2 = CLOSE,
-    OnShow = function(self)
-        local editBox = _G[self:GetName().."EditBox"]
-        if editBox then
-            editBox:SetText("https://github.com/0xbs/premade-groups-filter/wiki/Keywords")
-            editBox:SetFocus()
-            editBox:HighlightText(0)
-        end
-    end,
-    EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
-    editBoxWidth = 400,
-    hasEditBox = 1,
-    hideOnEscape = 1,
-    maxLetters = 1024,
-    preferredIndex = 3, -- try to avoid some UI taint
-    timeout = 0,
-    whileDead = 1,
-}
-
 function PGF.GameTooltip_AddWhite(left)
     GameTooltip:AddLine(left, 255, 255, 255)
 end
@@ -103,5 +82,5 @@ function PGF.Dialog_InfoButton_OnLeave(self, motion)
 end
 
 function PGF.Dialog_InfoButton_OnClick(self, button, down)
-    StaticPopup_Show("PGF_COPY_URL_KEYWORDS")
+    PGF.StaticPopup_Show("PGF_COPY_URL_KEYWORDS")
 end

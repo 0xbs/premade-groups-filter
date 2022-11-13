@@ -22,25 +22,15 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-StaticPopupDialogs["PGF_ERROR_EXPRESSION"] = {
-    text = "%s",
-    button1 = OKAY,
-    exclusive = 1,
-    hideOnEscape = 1,
-    preferredIndex = 3, -- try to avoid some UI taint
-    timeout = 0,
-    whileDead = 1,
-}
-
 function PGF.HandleSyntaxError(error)
-    StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.syntax"], error))
+    PGF.StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.syntax"], error))
 end
 
 function PGF.HandleSemanticError(error)
     if error and (error:find("name") or error:find("comment") or error:find("findnumber")) then
-        StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic.protected"], error))
+        PGF.StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic.protected"], error))
     else
-        StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic"], error))
+        PGF.StaticPopup_Show("PGF_ERROR_EXPRESSION", string.format(L["error.semantic"], error))
     end
 end
 

@@ -23,6 +23,8 @@ Localization\zhTW.lua
 Localization\ruRU.lua
 Localization\esES.lua
 FixGetPlaystyleString.lua
+StaticPopup\StaticPopup.xml
+StaticPopup\StaticPopup.lua
 Modules\Util.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
