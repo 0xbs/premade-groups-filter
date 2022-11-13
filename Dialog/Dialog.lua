@@ -29,6 +29,7 @@ StaticPopupDialogs["PGF_CONFIRM_RESET"] = {
 	OnAccept = function (self, data) PGF.Dialog_ResetButton_OnConfirm(self, data) end,
 	exclusive = 1,
     hideOnEscape = 1,
+    preferredIndex = 3, -- try to avoid some UI taint
     timeout = 0,
     whileDead = 1,
 }

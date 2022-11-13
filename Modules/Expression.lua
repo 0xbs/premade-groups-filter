@@ -27,6 +27,7 @@ StaticPopupDialogs["PGF_ERROR_EXPRESSION"] = {
     button1 = OKAY,
     exclusive = 1,
     hideOnEscape = 1,
+    preferredIndex = 3, -- try to avoid some UI taint
     timeout = 0,
     whileDead = 1,
 }

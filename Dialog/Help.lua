@@ -38,6 +38,7 @@ StaticPopupDialogs["PGF_COPY_URL_KEYWORDS"] = {
     hasEditBox = 1,
     hideOnEscape = 1,
     maxLetters = 1024,
+    preferredIndex = 3, -- try to avoid some UI taint
     timeout = 0,
     whileDead = 1,
 }
