@@ -71,6 +71,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
     local numIcons = #self.DataDisplay.Enumerate.Icons -- should always be 5 for Enum.LFGListDisplayType.RoleEnumerate
     local frames = PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
 
+    -- reset
     for i = 1, numIcons do
         frames[i]:Hide()
         frames[i].ClassBar:Hide()
@@ -83,6 +84,11 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
        not PremadeGroupsFilterSettings.classCircle and
        not PremadeGroupsFilterSettings.leaderCrown then
         return -- stop if all features are disabled
+    end
+
+    local _, appStatus, pendingStatus = C_LFGList.GetApplicationInfo(self.resultID)
+    if appStatus ~= "none" or pendingStatus then
+        return -- stop if already applied/invited/timedout/declined/declined_full/declined_delisted
     end
 
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)

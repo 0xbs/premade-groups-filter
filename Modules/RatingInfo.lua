@@ -60,6 +60,20 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     local frame = PGF.GetOrCreateRatingInfoFrame(self)
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 
+    -- reset
+    frame:Hide()
+    self.Name:SetWidth(176)
+    self.ActivityName:SetWidth(176)
+
+    if not PremadeGroupsFilterSettings.ratingInfo then
+        return -- stop if feature disabled
+    end
+
+    local _, appStatus, pendingStatus = C_LFGList.GetApplicationInfo(self.resultID)
+    if appStatus ~= "none" or pendingStatus then
+        return -- stop if already applied/invited/timedout/declined/declined_full/declined_delisted
+    end
+
     local rightPos = -130
     local rating = 0
     local ratingColor = { r = 1.0, g = 1.0, b = 1.0 }
@@ -84,24 +98,24 @@ function PGF.AddRatingInfo(self, searchResultInfo)
         end
     end
 
+    if rating == 0 then
+        return -- stop if no rating
+    end
+
     local textWidth = 312 - 10 - 35 + rightPos
     if searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= "" then
         textWidth = textWidth - 20
     end
+
+    local rColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or ratingColor
+    local eColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or extraTextColor
+
     self.Name:SetWidth(textWidth)
     self.ActivityName:SetWidth(textWidth)
+    frame:Show()
     frame:SetPoint("RIGHT", rightPos, 0)
-    if PremadeGroupsFilterSettings.ratingInfo and rating > 0 then
-        frame:Show()
-        local rColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or ratingColor
-        local eColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or extraTextColor
-        frame.Rating:SetText(rating)
-        frame.Rating:SetTextColor(rColor.r, rColor.g, rColor.b)
-        frame.ExtraText:SetText(extraText)
-        frame.ExtraText:SetTextColor(eColor.r, eColor.g, eColor.b)
-    else
-        frame:Hide()
-        self.Name:SetWidth(176)
-        self.ActivityName:SetWidth(176)
-    end
+    frame.Rating:SetText(rating)
+    frame.Rating:SetTextColor(rColor.r, rColor.g, rColor.b)
+    frame.ExtraText:SetText(extraText)
+    frame.ExtraText:SetTextColor(eColor.r, eColor.g, eColor.b)
 end
