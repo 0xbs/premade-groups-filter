@@ -66,6 +66,12 @@ local PGFSettingsTable = {
         title = L["settings.leaderCrown.title"],
         tooltip = L["settings.leaderCrown.tooltip"],
     },
+    {
+        key = "oneClickSignUp",
+        type = "checkbox",
+        title = L["settings.oneClickSignUp.title"],
+        tooltip = L["settings.oneClickSignUp.tooltip"],
+    },
 }
 
 function PGFSettings:OnLoad()

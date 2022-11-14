@@ -124,6 +124,7 @@ C.SETTINGS_DEFAULT = {
     classCircle = true,
     classBar = false,
     leaderCrown = false,
+    oneClickSignUp = true,
 }
 
 C.STATE_DEFAULT = {
