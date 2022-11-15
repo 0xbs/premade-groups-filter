@@ -18,11 +18,7 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
-local PGF = select(2, ...)
-local L = PGF.L
-local C = PGF.C
-
-function PGF.LFGListSearchEntry_OnClick(self, button)
+hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
     if not PremadeGroupsFilterSettings.oneClickSignUp then return end
 
     local panel = LFGListFrame.SearchPanel
@@ -32,6 +28,4 @@ function PGF.LFGListSearchEntry_OnClick(self, button)
         end
         LFGListSearchPanel_SignUp(panel)
     end
-end
-
-hooksecurefunc("LFGListSearchEntry_OnClick", PGF.LFGListSearchEntry_OnClick)
+end)
