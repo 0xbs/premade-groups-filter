@@ -79,6 +79,12 @@ local PGFSettingsTable = {
         tooltip = L["settings.persistSignUpNote.tooltip"],
         callback = function(value) PGF.PersistSignUpNote() end,
     },
+    {
+        key = "signupOnEnter",
+        type = "checkbox",
+        title = L["settings.signupOnEnter.title"],
+        tooltip = L["settings.signupOnEnter.tooltip"],
+    },
 }
 
 function PGFSettings:OnLoad()
