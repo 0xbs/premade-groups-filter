@@ -36,6 +36,7 @@ Modules\RoleIndicators.lua
 Modules\RatingInfo.lua
 Modules\OneClickSignUp.lua
 Modules\PersistSignUpNote.lua
+Modules\SignUpOnEnter.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua
