@@ -126,6 +126,7 @@ C.SETTINGS_DEFAULT = {
     leaderCrown = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
+    signupOnEnter = false,
 }
 
 C.STATE_DEFAULT = {
