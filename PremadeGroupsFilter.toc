@@ -34,7 +34,7 @@ Modules\Macro.lua
 Modules\GroupTooltip.lua
 Modules\RoleIndicators.lua
 Modules\RatingInfo.lua
-Modules\OnClickSignUp.lua
+Modules\OneClickSignUp.lua
 Modules\PersistSignUpNote.lua
 Main.lua
 Plugins\PremadeRegions.lua
