@@ -113,4 +113,4 @@ L["settings.leaderCrown.tooltip"] = "Zeigt eine kleine Krone über der Rolle des
 L["settings.ratingInfo.title"] = "Wertung des Gruppenanführers"
 L["settings.ratingInfo.tooltip"] = "Zeigt die Mythic+ oder PvP-Wertung des Gruppenanführers bei organisierten Gruppen."
 L["settings.oneClickSignUp.title"] = "Ein-Klick Anmelden"
-L["settings.oneClickSignUp.tooltip"] = "Direkt bei einer Gruppe anmelden wenn man sie anklickt anstatt sie nur zu markieren."
+L["settings.oneClickSignUp.tooltip"] = "Meldet euch direkt für eine Gruppe an, indem Ihr darauf klickt, anstatt sie zuerst auszuwählen und dann auf Anmelden zu klicken."

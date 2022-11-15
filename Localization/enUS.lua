@@ -111,4 +111,4 @@ L["settings.leaderCrown.tooltip"] = "Shows a small crown above the group leader'
 L["settings.ratingInfo.title"] = "Group Leader Rating"
 L["settings.ratingInfo.tooltip"] = "Shows the Mythic+ or PvP rating of the group leader in the premade group list."
 L["settings.oneClickSignUp.title"] = "One Click Sign Up"
-L["settings.oneClickSignUp.tooltip"] = "Sign up to a group directly by clicking on it instead of just selecting it."
+L["settings.oneClickSignUp.tooltip"] = "Sign up for a group directly by clicking on it, instead of selecting it first, then clicking sign up."
