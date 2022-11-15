@@ -115,6 +115,6 @@ L["settings.ratingInfo.tooltip"] = "Zeigt die Mythic+ oder PvP-Wertung des Grupp
 L["settings.oneClickSignUp.title"] = "Ein-Klick Anmelden"
 L["settings.oneClickSignUp.tooltip"] = "Meldet euch direkt für eine Gruppe an, indem Ihr darauf klickt, anstatt sie zuerst auszuwählen und dann auf Anmelden zu klicken."
 L["settings.persistSignUpNote.title"] = "Anmelde-Notiz beibehalten"
-L["settings.persistSignUpNote.tooltip"] = "Behält den „Notiz für den Gruppenanführer“ bei der Anmeldung bei verschiedenen Gruppen bei. Standardmäßig wird die Notiz gelöscht, wenn eine neue Gruppe ausgewählt wird."
+L["settings.persistSignUpNote.tooltip"] = "Behält die „Notiz für den Gruppenanführer“ bei der Anmeldung bei verschiedenen Gruppen bei. Standardmäßig wird die Notiz gelöscht, wenn eine neue Gruppe ausgewählt wird."
 L["settings.signupOnEnter.title"] = "Anmelden mit Eingabetaste"
 L["settings.signupOnEnter.tooltip"] = "Fokussiert automatisch das Textfeld „Notiz für den Gruppenanführer“, wenn Ihr euch für eine neue Gruppe anmeldet, und bestätigt eure Anmeldung, indem Ihr die Eingabetaste drückt."
