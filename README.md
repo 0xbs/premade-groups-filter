@@ -39,7 +39,8 @@ Examples of what can easily be found with Premade Groups Filter:
 * **Group Leader Rating** - Shows the Mythic+ or PvP rating of the group leader in the premade group list.
 * **One Click Sign Up** - Sign up for a group directly by clicking on it, instead of selecting it first, then clicking sign up.
 * **Persist Sign Up Note** - Persists the 'note to the group leader' when signing up to different groups. By default, the note is deleted when a new group is selected.
-* **Sign Up On Enter** - Automatically focus the 'note to the group leader' text box when signing up for a new group and comfirm your application by pressing enter.
+* **Sign Up On Enter** - Automatically focus the 'note to the group leader' text box when signing up for a new group and confirm your application by pressing enter.
+* **Skip Sign Up Dialog** - Skip the role and note prompt if possible and immediately sign up to the group. Hold shift to always show the dialog.
 
 
 ### Resources
