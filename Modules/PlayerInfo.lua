@@ -47,8 +47,8 @@ C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
     [391] = 1016, -- Tazavesh: Streets of Wonder     -- S3 S4
     [392] = 1017, -- Tazavesh: So'leah's Gambit      -- S3 S4
 
-    [2]   = 9999, -- Temple of the Jade Serpent      --       S1    -- TODO
-    [165] = 9999, -- Shadowmoon Burial Grounds       --       S1    -- TODO
+    [2]   = 1192, -- Temple of the Jade Serpent      --       S1
+    [165] = 1193, -- Shadowmoon Burial Grounds       --       S1
     [200] = 461,  -- Halls of Valor                  --       S1
     [210] = 466,  -- Court of Stars                  --       S1
     [399] = 1176, -- Ruby Life Pools                 --       S1

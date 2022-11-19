@@ -532,10 +532,8 @@ function PGF.DoFilterSearchResults(results)
         local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot -- all Dragonflight dungeons
 
         -- Dragonflight Season 1 dungeons
-        env.sbg = aID == 9999 -- Shadowmoon Burial Grounds (Warlords) -- TODO 185? also Difficulty.lua and PlayerInfo.lua
-        -- /run for i=1,5000 do local info = C_LFGList.GetActivityInfoTable(i); if info and info.fullName:find("Burial") then print(i, info.fullName) end end
-        env.tjs = aID == 9999 -- Temple of the Jade Serpent (Warlords) -- TODO also Difficulty.lua and PlayerInfo.lua
-        -- /run for i=1,5000 do local info = C_LFGList.GetActivityInfoTable(i); if info and info.fullName:find("Jade") then print(i, info.fullName) end end
+        env.sbg = aID == 1193 -- Shadowmoon Burial Grounds (Warlords)
+        env.tjs = aID == 1192 -- Temple of the Jade Serpent (Warlords)
         env.hov = aID == 461 -- Halls of Valor (Legion)
         env.cos = aID == 466 -- Court of Stars (Legion)
         env.dfs1 = env.rlp or env.no or env.av or env.aa or env.hov or env.cos or env.sbg or env.tjs
