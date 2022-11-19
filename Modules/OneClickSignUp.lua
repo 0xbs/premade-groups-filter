@@ -29,3 +29,12 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
         LFGListSearchPanel_SignUp(panel)
     end
 end)
+
+-- need to hook the show event directly as we might have overwritten LFGListApplicationDialog_Show
+LFGListApplicationDialog:HookScript("OnShow", function(self)
+    if not PremadeGroupsFilterSettings.skipSignUpDialog then return end
+
+    if self.SignUpButton:IsEnabled() and not IsShiftKeyDown() then
+        self.SignUpButton:Click()
+    end
+end)

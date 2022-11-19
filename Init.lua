@@ -127,6 +127,7 @@ C.SETTINGS_DEFAULT = {
     oneClickSignUp = true,
     persistSignUpNote = true,
     signupOnEnter = false,
+    skipSignUpDialog = false,
 }
 
 C.STATE_DEFAULT = {

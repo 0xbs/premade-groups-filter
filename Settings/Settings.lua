@@ -85,6 +85,12 @@ local PGFSettingsTable = {
         title = L["settings.signupOnEnter.title"],
         tooltip = L["settings.signupOnEnter.tooltip"],
     },
+    {
+        key = "skipSignUpDialog",
+        type = "checkbox",
+        title = L["settings.skipSignUpDialog.title"],
+        tooltip = L["settings.skipSignUpDialog.tooltip"],
+    },
 }
 
 function PGFSettings:OnLoad()
