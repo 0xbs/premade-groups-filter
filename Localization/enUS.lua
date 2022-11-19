@@ -115,6 +115,6 @@ L["settings.oneClickSignUp.tooltip"] = "Sign up for a group directly by clicking
 L["settings.persistSignUpNote.title"] = "Persist Sign Up Note"
 L["settings.persistSignUpNote.tooltip"] = "Persists the 'note to the group leader' when signing up to different groups. By default, the note is deleted when a new group is selected."
 L["settings.signupOnEnter.title"] = "Sign Up On Enter"
-L["settings.signupOnEnter.tooltip"] = "Automatically focus the 'note to the group leader' text box when signing up for a new group and comfirm your application by pressing enter."
+L["settings.signupOnEnter.tooltip"] = "Automatically focus the 'note to the group leader' text box when signing up for a new group and confirm your application by pressing enter."
 L["settings.skipSignUpDialog.title"] = "Skip Sign Up Dialog"
 L["settings.skipSignUpDialog.tooltip"] = "Skip the role and note prompt if possible and immediately sign up to the group. Hold shift to always show the dialog."
