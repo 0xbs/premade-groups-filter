@@ -1,6 +1,6 @@
 ## Interface: 100002
 ## Title: Premade Groups Filter
-## Version: 3.3.4
+## Version: 3.4.0
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Notes-deDE: Ermöglicht das Filtern organisierter Gruppen mithilfe der Benutzeroberfläche oder erweiterter Filterausdrücke.
 ## Notes-frFR: Permet de filtrer des groupes prédéfinis à l'aide d'une interface utilisateur ou d'expressions de filtre avancées.
