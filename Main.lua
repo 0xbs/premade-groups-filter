@@ -201,6 +201,14 @@ function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
 end
 
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
+    -- sort applications to the top
+    local _, appStatus1, pendingStatus1, appDuration1 = C_LFGList.GetApplicationInfo(searchResultID1)
+    local _, appStatus2, pendingStatus2, appDuration2 = C_LFGList.GetApplicationInfo(searchResultID2)
+    local isApplication1 = appStatus1 ~= "none" or pendingStatus1 or false
+    local isApplication2 = appStatus2 ~= "none" or pendingStatus2 or false
+    if isApplication1 ~= isApplication2 then return isApplication1 end
+    if appDuration1 ~= appDuration2 then return appDuration1 > appDuration2 end
+
     local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1)
     local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2)
 
@@ -330,6 +338,8 @@ function PGF.DoFilterSearchResults(results)
         local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
         -- /dump C_LFGList.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
         -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
+        local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
+        -- /dump C_LFGList.GetApplicationInfo(select(2, C_LFGList.GetSearchResults())[1])
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local numGroupDefeated, numPlayerDefeated, maxBosses,
               matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
@@ -407,6 +417,9 @@ function PGF.DoFilterSearchResults(results)
         env.horde = searchResultInfo.leaderFactionGroup == 0
         env.alliance = searchResultInfo.leaderFactionGroup == 1
         env.crossfaction = searchResultInfo.crossFactionListing or false
+        env.appstatus = appStatus
+        env.pendingstatus = pendingStatus
+        env.appduration = appDuration
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
