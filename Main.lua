@@ -201,6 +201,9 @@ function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
 end
 
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
+    if not searchResultID1 or type(searchResultID1) ~= "number" then return false end
+    if not searchResultID2 or type(searchResultID2) ~= "number" then return true end
+
     -- sort applications to the top
     local _, appStatus1, pendingStatus1, appDuration1 = C_LFGList.GetApplicationInfo(searchResultID1)
     local _, appStatus2, pendingStatus2, appDuration2 = C_LFGList.GetApplicationInfo(searchResultID2)
