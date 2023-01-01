@@ -92,6 +92,17 @@ local Tests = {
         local result = PGF.SortByFriendsAndAge("100", "101")
         assert(result == false)
     end,
+
+    SortByFriendsAndAge_Table = function()
+        local results = { nil, 300, 100, 302, nil, 301, 303, nil }
+        table.sort(results, PGF.SortByFriendsAndAge)
+        --for i = 1, #results do print(results[i]) end
+        assert(results[1] == 300)
+        assert(results[2] == 302)
+        assert(results[3] == 301)
+        assert(results[4] == 303)
+        assert(results[5] == 100)
+    end,
 }
 
 -- Run Tests
