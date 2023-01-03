@@ -28,7 +28,7 @@ PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
 PGF.declinedGroups = {}
-PGF.searchIdEnvironments = {}
+PGF.searchResultIDInfo = {}
 
 function PGF.ResetSearchEntries()
     -- make sure to wait at least some time between two resets
@@ -37,7 +37,7 @@ function PGF.ResetSearchEntries()
         PGF.currentSearchLeaders = {}
         PGF.previousSearchExpression = PGF.currentSearchExpression
         PGF.lastSearchEntryReset = time()
-        PGF.searchIdEnvironments = {}
+        PGF.searchResultIDInfo = {}
     end
 end
 
@@ -131,17 +131,17 @@ end
 
 function PGF.SortByExpression(searchResultID1, searchResultID2)
     local sortTableSize, sortTable = PGF.GetSortTableFromModel()
-    local env1 = PGF.searchIdEnvironments[searchResultID1]
-    local env2 = PGF.searchIdEnvironments[searchResultID2]
-    if sortTableSize == 0 or not env1 or not env2 then
+    local info1 = PGF.searchResultIDInfo[searchResultID1]
+    local info2 = PGF.searchResultIDInfo[searchResultID2]
+    if sortTableSize == 0 or not info1 or not info2 then
         return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     end
     for k, v in pairs(sortTable) do
-        if env1[k] ~= env2[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
+        if info1.env[k] ~= info2.env[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
             if v == "desc" then
-                return env1[k] > env2[k]
+                return info1.env[k] > info2.env[k]
             else -- works with unknown 'v', in this case sort ascending by default
-                return env1[k] < env2[k]
+                return info1.env[k] < info2.env[k]
             end
         end
     end
@@ -155,44 +155,32 @@ local roleRemainingKeyLookup = {
     ["DAMAGER"] = "DAMAGER_REMAINING",
 }
 
-local function HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
-    local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
+local function HasRemainingSlotsForLocalPlayerRole(memberCounts)
     local playerRole = GetSpecializationRole(GetSpecialization())
-    return roles[roleRemainingKeyLookup[playerRole]] > 0
+    return memberCounts[roleRemainingKeyLookup[playerRole]] > 0
 end
 
-function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
+function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
     local numGroupMembers = GetNumGroupMembers()
 
     if numGroupMembers == 0 then
         -- not in a group
-        return HasRemainingSlotsForLocalPlayerRole(lfgSearchResultID)
+        return HasRemainingSlotsForLocalPlayerRole(memberCounts)
     end
 
-    local partyRoles = {["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0}
+    local partyRoles = { ["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0 }
 
     for i = 1, numGroupMembers do
-        local unit
-
-        if i == 1 then
-            unit = "player"
-        else
-            unit = "party" .. (i - 1)
-        end
+        local unit = (i == 1) and "player" or ("party" .. (i - 1))
 
         local groupMemberRole = UnitGroupRolesAssigned(unit)
-
-        if groupMemberRole == "NONE" then
-            groupMemberRole = "DAMAGER"
-        end
+        if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
 
         partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
     end
 
-    local roles = C_LFGList.GetSearchResultMemberCounts(lfgSearchResultID)
-
     for role, remainingKey in pairs(roleRemainingKeyLookup) do
-        if roles[remainingKey] < partyRoles[role] then
+        if memberCounts[remainingKey] < partyRoles[role] then
             return false
         end
     end
@@ -201,22 +189,24 @@ function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(lfgSearchResultID)
 end
 
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
-    if not searchResultID1 or type(searchResultID1) ~= "number" then return false end
-    if not searchResultID2 or type(searchResultID2) ~= "number" then return true end
+    if not searchResultID1 or not searchResultID2 then return false end -- race condition
+
+    -- look-up via table should be faster
+    local info1 = PGF.searchResultIDInfo[searchResultID1]
+    local info2 = PGF.searchResultIDInfo[searchResultID2]
+    if not info1 or not info2 then return false end -- race condition
 
     -- sort applications to the top
-    local _, appStatus1, pendingStatus1, appDuration1 = C_LFGList.GetApplicationInfo(searchResultID1)
-    local _, appStatus2, pendingStatus2, appDuration2 = C_LFGList.GetApplicationInfo(searchResultID2)
-    local isApplication1 = appStatus1 ~= "none" or pendingStatus1 or false
-    local isApplication2 = appStatus2 ~= "none" or pendingStatus2 or false
+    local isApplication1 = info1.env.appstatus ~= "none" or info1.env.pendingstatus or false
+    local isApplication2 = info2.env.appstatus ~= "none" or info2.env.pendingstatus or false
     if isApplication1 ~= isApplication2 then return isApplication1 end
-    if appDuration1 ~= appDuration2 then return appDuration1 > appDuration2 end
+    if info1.env.appduration ~= info2.env.appduration then return info1.env.appduration > info2.env.appduration end
 
-    local searchResultInfo1 = C_LFGList.GetSearchResultInfo(searchResultID1)
-    local searchResultInfo2 = C_LFGList.GetSearchResultInfo(searchResultID2)
+    local searchResultInfo1 = info1.searchResultInfo
+    local searchResultInfo2 = info2.searchResultInfo
 
-    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(searchResultID1)
-    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(searchResultID2)
+    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
+    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
 
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 
@@ -366,7 +356,7 @@ function PGF.DoFilterSearchResults(results)
         env.heals = memberCounts.HEALER
         env.healers = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
-        env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(resultID)
+        env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
         env.defeated = numGroupDefeated
         env.normal     = difficulty == C.NORMAL
         env.heroic     = difficulty == C.HEROIC
@@ -572,7 +562,12 @@ function PGF.DoFilterSearchResults(results)
             PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
         end
 
-        PGF.searchIdEnvironments[resultID] = env
+        PGF.searchResultIDInfo[resultID] = {
+            env = env,
+            searchResultInfo = searchResultInfo,
+            memberCounts = memberCounts,
+            activityInfo = activityInfo,
+        }
         if PGF.DoesPassThroughFilter(env, exp) then
             -- leaderName is usually still nil at this point if the group is new, but we can live with that
             if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
@@ -580,7 +575,7 @@ function PGF.DoFilterSearchResults(results)
             table.remove(results, idx)
         end
     end
-    -- sort by age
+
     table.sort(results, PGF.SortByExpression)
     LFGListFrame.SearchPanel.totalResults = #results
     return true
