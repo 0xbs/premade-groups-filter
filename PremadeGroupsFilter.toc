@@ -22,7 +22,8 @@ Localization\zhCN.lua
 Localization\zhTW.lua
 Localization\ruRU.lua
 Localization\esES.lua
-FixGetPlaystyleString.lua
+Fixes\FixGetPlaystyleString.lua
+Fixes\FixReportAdvertisement.lua
 StaticPopup\StaticPopup.xml
 StaticPopup\StaticPopup.lua
 Modules\Util.lua
