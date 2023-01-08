@@ -416,6 +416,9 @@ function PGF.DoFilterSearchResults(results)
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
+        env.haslust = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
+        env.hashero = env.haslust
+        env.hasbl = env.haslust
 
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
