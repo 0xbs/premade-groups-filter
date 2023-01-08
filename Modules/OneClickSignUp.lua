@@ -22,7 +22,7 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
     if not PremadeGroupsFilterSettings.oneClickSignUp then return end
 
     local panel = LFGListFrame.SearchPanel
-    if button ~= "RightButton" and LFGListSearchPanelUtil_CanSelectResult(self.resultID) then
+    if button ~= "RightButton" and LFGListSearchPanelUtil_CanSelectResult(self.resultID) and panel.SignUpButton:IsEnabled() then
         if panel.selectedResult ~= self.resultID then
             LFGListSearchPanel_SelectResult(panel, self.resultID)
         end
