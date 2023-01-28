@@ -77,15 +77,16 @@ C.PVP_TIER_MAP = {
     [8] = { tier = 6, minRating = 1950, quality = 3, }, -- Rival II
 }
 
-C.COLOR_ENTRY_NEW       = { R = 0.3, G = 1.0, B = 0.3 } -- green
-C.COLOR_ENTRY_DECLINED  = { R = 0.5, G = 0.1, B = 0.1 } -- dark red
-C.COLOR_LOCKOUT_PARTIAL = { R = 1.0, G = 0.5, B = 0.1 } -- orange
-C.COLOR_LOCKOUT_FULL    = { R = 0.5, G = 0.1, B = 0.1 } -- red
-C.COLOR_LOCKOUT_MATCH   = { R = 1.0, G = 1.0, B = 1.0 } -- white
+C.COLOR_ENTRY_NEW           = { R = 0.3, G = 1.0, B = 0.3 } -- green
+C.COLOR_ENTRY_DECLINED_SOFT = { R = 0.6, G = 0.2, B = 0.1 } -- dark orange
+C.COLOR_ENTRY_DECLINED_HARD = { R = 0.5, G = 0.0, B = 0.0 } -- dark red
+C.COLOR_LOCKOUT_PARTIAL     = { R = 1.0, G = 0.5, B = 0.1 } -- orange
+C.COLOR_LOCKOUT_FULL        = { R = 0.5, G = 0.1, B = 0.1 } -- red
+C.COLOR_LOCKOUT_MATCH       = { R = 1.0, G = 1.0, B = 1.0 } -- white
 
 C.FONTSIZE_TEXTBOX = 12
 C.SEARCH_ENTRY_RESET_WAIT = 2 -- wait at least 2 seconds between two resets of known premade groups
-C.DECLINED_GROUPS_RESET = 60 * 30 -- reset declined groups after 30 minutes
+C.DECLINED_GROUPS_RESET = 60 * 15 -- reset declined groups after 15 minutes
 
 C.ROLE_PREFIX = {
     ["DAMAGER"] = "dps",

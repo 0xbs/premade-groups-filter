@@ -27,6 +27,7 @@ Fixes\FixReportAdvertisement.lua
 StaticPopup\StaticPopup.xml
 StaticPopup\StaticPopup.lua
 Modules\Util.lua
+Modules\ApplicationStatus.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua
 Modules\Expression.lua

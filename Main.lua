@@ -27,7 +27,6 @@ PGF.previousSearchExpression = ""
 PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
-PGF.declinedGroups = {}
 PGF.searchResultIDInfo = {}
 
 function PGF.ResetSearchEntries()
@@ -377,7 +376,8 @@ function PGF.DoFilterSearchResults(results)
         env.groupid = activityInfo.groupFinderActivityGroupID
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
-        env.declined = PGF.IsDeclinedGroup(searchResultInfo)
+        env.declined = PGF.IsHardDeclinedGroup(searchResultInfo)
+        env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode
         env.playstyle = searchResultInfo.playstyle
         env.earnconq  = searchResultInfo.playstyle == 1
@@ -599,27 +599,6 @@ function PGF.PutRaiderIOAliases(env)
     env.gmbt  = env.tazg -- Tazavesh: So'leah's Gambit
 end
 
-function PGF.GetDeclinedGroupsKey(searchResultInfo)
-    return searchResultInfo.activityID .. searchResultInfo.leaderName
-end
-
-function PGF.IsDeclinedGroup(searchResultInfo)
-    if searchResultInfo.leaderName then -- leaderName is not available for brand new groups
-        local lastDeclined = PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] or 0
-        if lastDeclined > time() - C.DECLINED_GROUPS_RESET then
-            return true
-        end
-    end
-    return false
-end
-
-function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
-    local searchResultInfo = C_LFGList.GetSearchResultInfo(id)
-    if newStatus == "declined" and searchResultInfo.leaderName then -- leaderName is not available for brand new groups
-        PGF.declinedGroups[PGF.GetDeclinedGroupsKey(searchResultInfo)] = time()
-    end
-end
-
 function PGF.ColorGroupTexts(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.coloredGroupTexts then return end
 
@@ -635,8 +614,12 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color name if declined
-        if PGF.IsDeclinedGroup(searchResultInfo) then
-            local color = C.COLOR_ENTRY_DECLINED
+        if PGF.IsSoftDeclinedGroup(searchResultInfo) then
+            local color = C.COLOR_ENTRY_DECLINED_SOFT
+            self.Name:SetTextColor(color.R, color.G, color.B)
+        end
+        if PGF.IsHardDeclinedGroup(searchResultInfo) then
+            local color = C.COLOR_ENTRY_DECLINED_HARD
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color activity if lockout
