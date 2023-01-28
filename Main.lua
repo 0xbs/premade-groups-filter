@@ -377,6 +377,7 @@ function PGF.DoFilterSearchResults(results)
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
         env.declined = PGF.IsHardDeclinedGroup(searchResultInfo)
+        env.harddeclined = env.declined
         env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode
         env.playstyle = searchResultInfo.playstyle
