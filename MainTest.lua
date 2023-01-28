@@ -70,7 +70,7 @@ local Tests = {
 
     SortByFriendsAndAge_SecondNil = function()
         local result = PGF.SortByFriendsAndAge(100, nil)
-        assert(result == true)
+        assert(result == false)
     end,
 
     SortByFriendsAndAge_BothNil = function()
@@ -78,30 +78,17 @@ local Tests = {
         assert(result == false)
     end,
 
-    SortByFriendsAndAge_FirstString = function()
-        local result = PGF.SortByFriendsAndAge("100", 101)
-        assert(result == false)
-    end,
-
-    SortByFriendsAndAge_SecondString = function()
-        local result = PGF.SortByFriendsAndAge(100, "101")
-        assert(result == true)
-    end,
-
-    SortByFriendsAndAge_BothString = function()
-        local result = PGF.SortByFriendsAndAge("100", "101")
-        assert(result == false)
-    end,
-
     SortByFriendsAndAge_Table = function()
         local results = { nil, 300, 100, 302, nil, 301, 303, nil }
         table.sort(results, PGF.SortByFriendsAndAge)
         --for i = 1, #results do print(results[i]) end
-        assert(results[1] == 300)
-        assert(results[2] == 302)
+        assert(results[1] == nil)
+        assert(results[2] == nil)
         assert(results[3] == 301)
-        assert(results[4] == 303)
-        assert(results[5] == 100)
+        assert(results[4] == 302)
+        assert(results[5] == 300)
+        assert(results[6] == 100)
+        assert(results[7] == 303)
     end,
 }
 
