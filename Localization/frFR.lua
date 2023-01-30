@@ -117,6 +117,6 @@ L["settings.oneClickSignUp.tooltip"] = "Cliquer sur un groupe s'inscrire directe
 L["settings.persistSignUpNote.title"] = "Note d'inscription persistante"
 L["settings.persistSignUpNote.tooltip"] = "Persiste la « note au chef de groupe » lors de l'inscription à différents groupes. Par défaut, la note est supprimée lorsqu'un nouveau groupe est sélectionné."
 L["settings.signupOnEnter.title"] = "Inscrivez-vous avec Entrée"
-L["settings.signupOnEnter.tooltip"] = "Mettre en évidence la zone de texte « note au chef du groupe » automatiquement lorsque vous vous inscrivez à un nouveau groupe, puis confirmer votre demande en appuyant Entrée."
+L["settings.signupOnEnter.tooltip"] = "Mettre en évidence la zone de texte « note au chef du groupe » automatiquement lorsque vous vous inscrivez à un groupe, puis confirmer appuyant sur Entrée."
 L["settings.skipSignUpDialog.title"] = "Ignorer la vérification des rôles"
 L["settings.skipSignUpDialog.tooltip"] = "S'inscrire directement en ignorant le rôle. Maj + Clic : afficher la fenêtre des rôles."
