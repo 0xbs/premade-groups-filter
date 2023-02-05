@@ -384,6 +384,7 @@ function PGF.DoFilterSearchResults(results)
 
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
+        env.mymprating = playerInfo.mymprating
         env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityID] or 0
         env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityID] or 0
         env.myavgaffixrating = playerInfo.avgAffixRating

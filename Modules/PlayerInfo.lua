@@ -78,6 +78,7 @@ function PGF.GetPlayerInfo()
     result.avgItemLevel = avgItemLevel
     result.avgItemLevelEquipped = avgItemLevelEquipped
     result.avgItemLevelPvp = avgItemLevelPvp
+    result.mymprating = C_ChallengeMode.GetOverallDungeonScore() or 0
     result.affixRating = {}
     result.avgAffixRating = 0
     result.medianAffixRating = 0
