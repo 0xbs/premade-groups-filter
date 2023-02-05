@@ -121,6 +121,7 @@ C.SETTINGS_DEFAULT = {
     dialogMovable = true,
     classNamesInTooltip = true,
     coloredGroupTexts = true,
+    coloredApplications = true,
     ratingInfo = true,
     classCircle = true,
     classBar = false,

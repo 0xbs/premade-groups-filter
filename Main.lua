@@ -148,45 +148,6 @@ function PGF.SortByExpression(searchResultID1, searchResultID2)
     return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
 end
 
-local roleRemainingKeyLookup = {
-    ["TANK"] = "TANK_REMAINING",
-    ["HEALER"] = "HEALER_REMAINING",
-    ["DAMAGER"] = "DAMAGER_REMAINING",
-}
-
-local function HasRemainingSlotsForLocalPlayerRole(memberCounts)
-    local playerRole = GetSpecializationRole(GetSpecialization())
-    return memberCounts[roleRemainingKeyLookup[playerRole]] > 0
-end
-
-function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
-    local numGroupMembers = GetNumGroupMembers()
-
-    if numGroupMembers == 0 then
-        -- not in a group
-        return HasRemainingSlotsForLocalPlayerRole(memberCounts)
-    end
-
-    local partyRoles = { ["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0 }
-
-    for i = 1, numGroupMembers do
-        local unit = (i == 1) and "player" or ("party" .. (i - 1))
-
-        local groupMemberRole = UnitGroupRolesAssigned(unit)
-        if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
-
-        partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
-    end
-
-    for role, remainingKey in pairs(roleRemainingKeyLookup) do
-        if memberCounts[remainingKey] < partyRoles[role] then
-            return false
-        end
-    end
-
-    return true
-end
-
 function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     if not searchResultID1 or not searchResultID2 then return false end -- race condition
 
@@ -204,8 +165,8 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     local searchResultInfo1 = info1.searchResultInfo
     local searchResultInfo2 = info2.searchResultInfo
 
-    local hasRemainingRole1 = HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
-    local hasRemainingRole2 = HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
+    local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
+    local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
 
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 
@@ -641,6 +602,7 @@ end
 function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
     PGF.ColorGroupTexts(self, searchResultInfo)
+    PGF.ColorApplications(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
     PGF.AddRatingInfo(self, searchResultInfo)
 end

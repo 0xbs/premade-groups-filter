@@ -27,6 +27,8 @@ Fixes\FixReportAdvertisement.lua
 StaticPopup\StaticPopup.xml
 StaticPopup\StaticPopup.lua
 Modules\Util.lua
+Modules\RemainingSlots.lua
+Modules\ColoredApplications.lua
 Modules\ApplicationStatus.lua
 Modules\Difficulty.lua
 Modules\Lockout.lua

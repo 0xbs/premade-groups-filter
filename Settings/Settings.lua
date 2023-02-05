@@ -43,6 +43,12 @@ local PGFSettingsTable = {
         tooltip = L["settings.coloredGroupTexts.tooltip"],
     },
     {
+        key = "coloredApplications",
+        type = "checkbox",
+        title = L["settings.coloredApplications.title"],
+        tooltip = L["settings.coloredApplications.tooltip"],
+    },
+    {
         key = "ratingInfo",
         type = "checkbox",
         title = L["settings.ratingInfo.title"],
