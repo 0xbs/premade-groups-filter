@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- Premade Groups Filter
 -------------------------------------------------------------------------------
--- Copyright (C) 2022 Elotheon-Arthas-EU
+-- Copyright (C) 2023 Elotheon-Arthas-EU
 --
 -- This program is free software; you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ L["error.syntax"] = "|cffff0000Синтаксическая ошибка в вы
 L["error.semantic"] = "|cffff0000Семантическая ошибка в выражении фильтра|r\n\nЭто означает, что Ваше выражение фильтра имеет правильный синтаксис, но Вы, скорее всего, неправильно написали имя переменной, например, 'tansk' вместо 'tanks'.\n\nПодробное сообщение об ошибке:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Семантическая ошибка в выражении фильтра|r\n\nКлючевые слова 'name', 'comment' и 'findnumber' больше не поддерживаются. Удалите их из расширенного выражения фильтра или нажмите кнопку сброса.\n\nНачиная с препатча BFA, эти значения теперь защищены Blizzard и больше не могут быть прочитаны никаким аддоном.\n\nИспользуйте панель поиска по умолчанию над списком групп для фильтрации имен групп.\n\nТехническое сообщение об ошибке:\n|cffaaaaaa%s|r"
 L["message.noplaystylefix"] = "Premade Groups Filter: Не будет применяться исправление для ошибки 'Interface action failed because of an AddOn', потому что, похоже, у Вас нет полностью защищенной учетной записи, и Вы не можете создавать заранее собранные группы. См. FAQ по аддону для получения дополнительной информации и способов решения этой проблемы."
-L["message.settingsupgraded"] = "Premade Groups Filter: Настройки перенесены на версию %s"
+L["message.settingsupgraded"] = "Premade Groups Filter: Настройки перенесены в версию %s"
 
 L["dialog.reset"] = "Сброс"
 L["dialog.reset.confirm"] = "Неужели сбросить все поля?"
@@ -120,3 +120,5 @@ L["settings.signupOnEnter.title"] = "Подписаться с помощью En
 L["settings.signupOnEnter.tooltip"] = "Автоматически выделить текстовое поле «заметка лидеру группы» при регистрации в новой группе и подтвердить свою заявку нажатием Enter."
 L["settings.skipSignUpDialog.title"] = "Пропустить диалог регистрации"
 L["settings.skipSignUpDialog.tooltip"] = "По возможности пропустите подсказку о роли и примечании и сразу зарегистрируйтесь в группе. Удерживайте Shift, чтобы всегда показывать диалог."
+L["settings.coloredApplications.title"] = "Цветная заявка"
+L["settings.coloredApplications.tooltip"] = "Показывает красный фон в заявках на участие в группах M+, если в группе не осталось слотов для Вашей роли."
