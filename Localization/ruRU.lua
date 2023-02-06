@@ -120,3 +120,5 @@ L["settings.signupOnEnter.title"] = "Подписаться с помощью En
 L["settings.signupOnEnter.tooltip"] = "Автоматически выделить текстовое поле «заметка лидеру группы» при регистрации в новой группе и подтвердить свою заявку нажатием Enter."
 L["settings.skipSignUpDialog.title"] = "Пропустить диалог регистрации"
 L["settings.skipSignUpDialog.tooltip"] = "По возможности пропустите подсказку о роли и примечании и сразу зарегистрируйтесь в группе. Удерживайте Shift, чтобы всегда показывать диалог."
+L["settings.coloredApplications.title"] = "Цветная заявка"
+L["settings.coloredApplications.tooltip"] = "Показывает красный фон в заявках на участие в группах M+, если в группе не осталось слотов для Вашей роли."
