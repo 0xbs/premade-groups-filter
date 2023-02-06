@@ -33,6 +33,7 @@ Examples of what can easily be found with Premade Groups Filter:
 
 * **Class Names in Tooltip** - Shows a list of classes by role in the tooltip of a premade group.
 * **Colored Group Name** - Shows group name in green if group is new and in red if you've previously been declined. Shows activity name in red if you have a lockout on that instance.
+* **Colored Applications** - Shows a red background on pending applications for Mythic+ groups if the group has no slot left for your role.
 * **Circle in Class Color** - Shows a circle in class color in the background of each role in the premade dungeon group list.
 * **Bar in Class Color** - Shows a small bar in class color below each role in the premade dungeon group list.
 * **Show Group Leader** - Shows a small crown above the group leader's role in the premade dungeon group list.
