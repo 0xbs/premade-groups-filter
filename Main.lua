@@ -382,6 +382,10 @@ function PGF.DoFilterSearchResults(results)
         env.hashero = env.haslust
         env.hasbl = env.haslust
 
+        env.hasres = env.druids > 0 or env.paladins > 0 or env.warlocks > 0 or env.deathknights > 0
+        env.hasrez = env.hasres
+        env.hasbr = env.hasres
+        
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
         env.mymprating = playerInfo.mymprating
