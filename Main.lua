@@ -378,6 +378,8 @@ function PGF.DoFilterSearchResults(results)
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
+
+        env.hasbr = env.druids > 0 or env.paladins > 0 or env.warlocks > 0 or env.deathknights > 0
         env.haslust = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
         env.hashero = env.haslust
         env.hasbl = env.haslust
