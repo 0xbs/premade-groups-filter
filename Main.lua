@@ -383,7 +383,7 @@ function PGF.DoFilterSearchResults(results)
         env.haslust = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
         env.hashero = env.haslust
         env.hasbl = env.haslust
-        
+
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
         env.mymprating = playerInfo.mymprating
