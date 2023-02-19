@@ -213,7 +213,18 @@ function PGF.Dialog_SetUpUsePGFCheckbox()
     end)
     button:SetScript("OnEnter", function (self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText(L["dialog.usepgf.tooltip"])
+        GameTooltip:SetText(L["addon.name.long"], 1, 1, 1)
+        GameTooltip:AddLine(L["dialog.usepgf.tooltip"], nil, nil, nil, true)
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(L["dialog.usepgf.usage"], nil, nil, nil, true)
+        if PGF.numResultsBeforeFilter > 0 then
+            local removed = PGF.numResultsBeforeFilter - PGF.numResultsAfterFilter
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine(string.format(L["dialog.usepgf.results.server"], PGF.numResultsBeforeFilter))
+            GameTooltip:AddLine(string.format(L["dialog.usepgf.results.removed"], removed))
+            GameTooltip:AddLine(string.format(L["dialog.usepgf.results.displayed"], PGF.numResultsAfterFilter))
+        end
+        GameTooltip:Show()
     end)
     button:SetScript("OnLeave", function () GameTooltip:Hide() end)
     PGF.UsePFGButton = button

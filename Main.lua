@@ -28,6 +28,8 @@ PGF.currentSearchExpression = ""
 PGF.previousSearchLeaders = {}
 PGF.currentSearchLeaders = {}
 PGF.searchResultIDInfo = {}
+PGF.numResultsBeforeFilter = 0
+PGF.numResultsAfterFilter = 0
 
 function PGF.ResetSearchEntries()
     -- make sure to wait at least some time between two resets
@@ -37,6 +39,8 @@ function PGF.ResetSearchEntries()
         PGF.previousSearchExpression = PGF.currentSearchExpression
         PGF.lastSearchEntryReset = time()
         PGF.searchResultIDInfo = {}
+        PGF.numResultsBeforeFilter = 0
+        PGF.numResultsAfterFilter = 0
     end
 end
 
@@ -285,6 +289,7 @@ function PGF.DoFilterSearchResults(results)
 
     local playerInfo = PGF.GetPlayerInfo()
 
+    PGF.numResultsBeforeFilter = #results
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
         local resultID = results[idx]
@@ -543,6 +548,7 @@ function PGF.DoFilterSearchResults(results)
             table.remove(results, idx)
         end
     end
+    PGF.numResultsAfterFilter = #results
 
     table.sort(results, PGF.SortByExpression)
     LFGListFrame.SearchPanel.totalResults = #results
