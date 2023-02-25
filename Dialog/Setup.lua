@@ -45,7 +45,7 @@ end
 function PGF.Dialog_OnShow(dialog)
     RequestRaidInfo() -- need the dungeon/raid lockout information later for filtering
     local model = PGF.GetModel()
-    PGF.UsePFGButton:SetChecked(model.enabled)
+    PGF.UsePGFButton:SetChecked(model.enabled)
     PGF.previousSearchExpression = model.expression
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "MPRating")
     PGF.Dialog_LoadMinMaxFromModel(dialog, model, "PVPRating")
@@ -197,7 +197,7 @@ function PGF.Dialog_SetUpMinMaxField(self, key)
 end
 
 function PGF.Dialog_SetUpUsePGFCheckbox()
-    local button = CreateFrame("CheckButton", "UsePFGButton", LFGListFrame.SearchPanel, "UICheckButtonTemplate")
+    local button = CreateFrame("CheckButton", "UsePGFButton", LFGListFrame.SearchPanel, "UICheckButtonTemplate")
     button:SetSize(26, 26)
     button:SetHitRectInsets(-2, -30, -2, -2)
     button.text:SetText(L["addon.name.short"])
@@ -227,7 +227,7 @@ function PGF.Dialog_SetUpUsePGFCheckbox()
         GameTooltip:Show()
     end)
     button:SetScript("OnLeave", function () GameTooltip:Hide() end)
-    PGF.UsePFGButton = button
+    PGF.UsePGFButton = button
 end
 
 function PGF.Dialog_OnLoad()

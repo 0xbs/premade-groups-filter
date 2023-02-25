@@ -186,7 +186,7 @@ function PGF.Dialog_Toggle()
     local model = PGF.GetModel()
     if PVEFrame:IsVisible() and LFGListFrame.activePanel == LFGListFrame.SearchPanel
             and LFGListFrame.SearchPanel:IsVisible() and model then
-        PGF.UsePFGButton:SetChecked(model.enabled)
+        PGF.UsePGFButton:SetChecked(model.enabled)
         if model.enabled then
             dialog:Show()
         end
