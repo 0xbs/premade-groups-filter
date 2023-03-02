@@ -96,7 +96,7 @@ L["dialog.tooltip.ex.neq"] = "members ~= 0"
 L["dialog.tooltip.ex.lt"] = "hlvl >= 5"
 L["dialog.tooltip.ex.find"] = "name:find(\"статик\")"
 L["dialog.tooltip.ex.match"] = "name:match(\"+(%d)\")==\"5\""
-L["dialog.copy.url.keywords"] = "Нажмите CTRL+C, чтобы скопировать ссылку в список ключевых слов."
+L["dialog.copy.url.keywords"] = "Нажмите CTRL+C, чтобы скопировать ссылку для просмотра ключевых слов."
 
 L["settings.dialogMovable.title"] = "Перемещаемый диалог"
 L["settings.dialogMovable.tooltip"] = "Позволяет перемещать диалог с помощью мыши. ПКМ - сбрасывает положение."
