@@ -330,6 +330,11 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [1189] = C.NORMAL,     -- Vault of the Incarnates
     [1190] = C.HEROIC,     -- Vault of the Incarnates
     [1191] = C.MYTHIC,     -- Vault of the Incarnates
+
+    [1192] = C.MYTHICPLUS, -- Temple of the Jade Serpent
+    [1193] = C.MYTHICPLUS, -- Shadowmoon Burial Grounds
+    [1194] = C.NORMAL,     -- Uldaman: Legacy of Tyr
+    [1195] = C.MYTHICPLUS, -- The Vortex Pinnacle
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfoTable().shortName to difficulties

@@ -63,7 +63,7 @@ C.CHALLENGEMODE_MAP_ID_TO_ACTIVITY_ID = {
     [206] = 462,  -- Neltharion's Lair               --          S2
     [245] = 518,  -- Freehold                        --          S2
     [251] = 507,  -- Underrot                        --          S2
-    --[999] = 999,  -- Vortex Pinnacle                 --          S2 -- TODO Season2
+    [438] = 1195, -- Vortex Pinnacle                 --          S2
 }
 
 function PGF.GetThisWeeksAffixNameLocalized()
