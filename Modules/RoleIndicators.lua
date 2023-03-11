@@ -96,51 +96,23 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         return -- only show rings on role enumerations like dungeon groups
     end
 
-    local members = {}
-    for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized = C_LFGList.GetSearchResultMemberInfo(self.resultID, i)
-        local color = searchResultInfo.isDelisted and { r = 0.2, g = 0.2, b = 0.2 } or RAID_CLASS_COLORS[class]
-        table.insert(members, {
-            role = role,
-            class = class,
-            classLocalized = classLocalized,
-            color = color,
-            leader = i == 1,
-        })
-    end
-
-    local ROLE_ORDER = {
-        ["TANK"] = 1,
-        ["HEALER"] = 2,
-        ["DAMAGER"] = 3,
-    }
-    table.sort(members, function (a, b) -- sort by role, class
-        if ROLE_ORDER[a.role] ~= ROLE_ORDER[b.role] then
-            return ROLE_ORDER[a.role] < ROLE_ORDER[b.role]
-        end
-        return a.class < b.class
-    end)
-
-    local ROLE_ICON = {
-        ["TANK"] = "roleicon-tiny-tank",
-        ["HEALER"] = "roleicon-tiny-healer",
-        ["DAMAGER"] = "roleicon-tiny-dps",
-    }
+    local members = PGF.GetSearchResultMemberInfoTable(self.resultID, searchResultInfo.numMembers)
     for i = 1, #members do
+        local color = searchResultInfo.isDelisted and { r = 0.2, g = 0.2, b = 0.2 } or members[i].classColor
         frames[i]:Show()
         if PremadeGroupsFilterSettings.classBar then
             frames[i].ClassBar:Show()
-            frames[i].ClassBar:SetColorTexture(members[i].color.r, members[i].color.g, members[i].color.b, 1)
+            frames[i].ClassBar:SetColorTexture(color.r, color.g, color.b, 1)
         end
         if PremadeGroupsFilterSettings.classCircle then
             frames[i].ClassCircle:Show()
-            frames[i].ClassCircle:SetColorTexture(members[i].color.r, members[i].color.g, members[i].color.b, 1)
+            frames[i].ClassCircle:SetColorTexture(color.r, color.g, color.b, 1)
             frames[i].RoleIcon:Show()
-            frames[i].RoleIcon:SetAtlas(ROLE_ICON[members[i].role])
+            frames[i].RoleIcon:SetAtlas(members[i].roleAtlas)
             frames[i].RoleIcon:SetDesaturated(searchResultInfo.isDelisted)
             frames[i].RoleIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
-        if PremadeGroupsFilterSettings.leaderCrown and members[i].leader then
+        if PremadeGroupsFilterSettings.leaderCrown and members[i].isLeader then
             frames[i].LeaderCrown:Show()
             frames[i].LeaderCrown:SetDesaturated(searchResultInfo.isDelisted)
             frames[i].LeaderCrown:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)

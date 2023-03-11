@@ -22,35 +22,10 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-function PGF.GetRoleAtlasMarkup(role)
-    if role == "tank" or role == "TANK" then
-        return "|A:roleicon-tiny-tank:0:0:0:0|a"
-    elseif role == "dps" or role == "DAMAGER" then
-        return "|A:roleicon-tiny-dps:0:0:0:0|a"
-    elseif role == "healer" or role == "HEALER" then
-        return "|A:roleicon-tiny-healer:0:0:0:0|a"
-    end
-    return nil
-end
-
 function PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
-    local members = {}
-    for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
-        local classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
-        local roleIcon = PGF.GetRoleAtlasMarkup(role)
-        table.insert(members, {
-            role = role,
-            class = class,
-            classLocalized = classLocalized,
-            specLocalized = specLocalized,
-            classColor = classColor,
-            roleIcon = roleIcon,
-        })
-    end
-    table.sort(members, function(a, b) return b.role < a.role end) -- sort reverse by role -> tank, heal, dps
+    local members = PGF.GetSearchResultMemberInfoTable(resultID, searchResultInfo.numMembers)
     for _, m in pairs(members) do
-        local roleClassSpec = string.format("%s %s - %s", m.roleIcon, m.classLocalized, m.specLocalized)
+        local roleClassSpec = string.format("%s %s - %s %s", m.roleMarkup, m.classLocalized, m.specLocalized, m.leaderMarkup)
         tooltip:AddLine(roleClassSpec, m.classColor.r, m.classColor.g, m.classColor.b)
     end
 end

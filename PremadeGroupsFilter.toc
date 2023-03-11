@@ -27,6 +27,7 @@ Fixes\FixReportAdvertisement.lua
 StaticPopup\StaticPopup.xml
 StaticPopup\StaticPopup.lua
 Modules\Util.lua
+Modules\MemberInfo.lua
 Modules\RemainingSlots.lua
 Modules\ColoredApplications.lua
 Modules\ApplicationStatus.lua
