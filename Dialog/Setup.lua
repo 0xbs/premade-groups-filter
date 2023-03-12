@@ -59,6 +59,9 @@ function PGF.Dialog_OnShow(dialog)
     dialog.Difficulty.Act:SetChecked(model.difficulty.act)
     dialog.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[model.difficulty.val])
     PGF.Dialog_AdjustToMode(model.expert)
+    if not PremadeGroupsFilterSettings.dialogMovable then
+        PGF.Dialog_ResetPosition()
+    end
 end
 
 function PGF.Dialog_OnMouseDown(self, button)
