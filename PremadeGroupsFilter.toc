@@ -1,4 +1,4 @@
-## Interface: 100007
+## Interface: 100100
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
