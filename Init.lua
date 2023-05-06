@@ -101,19 +101,19 @@ C.ROLE_SUFFIX = {
 }
 
 C.DPS_CLASS_TYPE = {
-    ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate"   },
-    ["DEMONHUNTER"] = { range = false, melee = true,  armor = "leather" },
-    ["DRUID"]       = { range = true,  melee = true,  armor = "leather" },
-    ["EVOKER"]      = { range = true,  melee = false, armor = "mail"    },
-    ["HUNTER"]      = { range = true,  melee = true,  armor = "mail"    },
-    ["PALADIN"]     = { range = false, melee = true,  armor = "plate"   },
-    ["PRIEST"]      = { range = true,  melee = false, armor = "cloth"   },
-    ["MAGE"]        = { range = true,  melee = false, armor = "cloth"   },
-    ["MONK"]        = { range = false, melee = true,  armor = "leather" },
-    ["ROGUE"]       = { range = false, melee = true,  armor = "leather" },
-    ["SHAMAN"]      = { range = true,  melee = true,  armor = "mail"    },
-    ["WARLOCK"]     = { range = true,  melee = false, armor = "cloth"   },
-    ["WARRIOR"]     = { range = false, melee = true,  armor = "plate"   },
+    ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate",   br = true,  bl = false },
+    ["DEMONHUNTER"] = { range = false, melee = true,  armor = "leather", br = false, bl = false },
+    ["DRUID"]       = { range = true,  melee = true,  armor = "leather", br = true,  bl = false },
+    ["EVOKER"]      = { range = true,  melee = false, armor = "mail",    br = false, bl = true  },
+    ["HUNTER"]      = { range = true,  melee = true,  armor = "mail",    br = false, bl = true  },
+    ["PALADIN"]     = { range = false, melee = true,  armor = "plate",   br = true,  bl = false },
+    ["PRIEST"]      = { range = true,  melee = false, armor = "cloth",   br = false, bl = false },
+    ["MAGE"]        = { range = true,  melee = false, armor = "cloth",   br = false, bl = true  },
+    ["MONK"]        = { range = false, melee = true,  armor = "leather", br = false, bl = false },
+    ["ROGUE"]       = { range = false, melee = true,  armor = "leather", br = false, bl = false },
+    ["SHAMAN"]      = { range = true,  melee = true,  armor = "mail",    br = false, bl = true  },
+    ["WARLOCK"]     = { range = true,  melee = false, armor = "cloth",   br = true,  bl = false },
+    ["WARRIOR"]     = { range = false, melee = true,  armor = "plate",   br = false, bl = false },
 }
 
 C.SETTINGS_DEFAULT = {

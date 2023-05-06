@@ -385,9 +385,12 @@ function PGF.DoFilterSearchResults(results)
         PGF.PutEncounterNames(resultID, env)
 
         env.hasbr = env.druids > 0 or env.paladins > 0 or env.warlocks > 0 or env.deathknights > 0
-        env.haslust = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
-        env.hashero = env.haslust
-        env.hasbl = env.haslust
+        env.hasbl = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
+        env.hashero = env.hasbl
+        env.haslust = env.hasbl
+
+        env.brfit = env.hasbr or PGF.PlayerOrGroupHasBattleRezz() or PGF.HasRemainingSlotsForBattleRezzAfterJoin(memberCounts)
+        env.blfit = env.hasbl or PGF.PlayerOrGroupHasBloodlust() or PGF.HasRemainingSlotsForBloodlustAfterJoin(memberCounts)
 
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
