@@ -442,7 +442,8 @@ function PGF.DoFilterSearchResults(results)
         -- Dragonflight raids
         --             normal         heroic         mythic
         env.voti     = aID == 1189 or aID == 1190 or aID == 1191 -- Vault of the Incarnates
-        local dfraid = env.voti -- all Dragonflight raids
+        env.asc      = aID == 1235 or aID == 1236 or aID == 1237 -- Aberrus, the Shadowed Crucible
+        local dfraid = env.voti or env.asc -- all Dragonflight raids
 
         -- Legion dungeons
         --                    normal        heroic        mythic        mythic+
@@ -507,7 +508,7 @@ function PGF.DoFilterSearchResults(results)
         env.rlp         = aID == 1173 or aID == 1174 or aID == 1175 or aID == 1176 -- Ruby Life Pools
         env.av          = aID == 1177 or aID == 1178 or aID == 1179 or aID == 1180 -- The Azure Vault
         env.no          = aID == 1181 or aID == 1182 or aID == 1183 or aID == 1184 -- The Nokhud Offensive
-        env.lot         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 -- Uldaman: Legacy of Tyr
+        env.lot         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 or aID == 1194 -- Uldaman: Legacy of Tyr
         local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot -- all Dragonflight dungeons
 
         -- Dragonflight Season 1 dungeons
@@ -515,7 +516,9 @@ function PGF.DoFilterSearchResults(results)
         env.tjs = aID == 1192 -- Temple of the Jade Serpent (Warlords)
         env.hov = aID == 461 -- Halls of Valor (Legion)
         env.cos = aID == 466 -- Court of Stars (Legion)
+        env.vp = aID == 1195 -- Vortex Pinnacle (Cataclysm)
         env.dfs1 = env.rlp or env.no or env.av or env.aa or env.hov or env.cos or env.sbg or env.tjs
+        env.dfs2 = env.bh or env.hoi or env.lot or env.nt or env.fh or env.tur or env.nl or env.vp
 
         -- find more IDs: /run for i=1146,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
 

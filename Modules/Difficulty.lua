@@ -335,6 +335,10 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [1193] = C.MYTHICPLUS, -- Shadowmoon Burial Grounds
     [1194] = C.NORMAL,     -- Uldaman: Legacy of Tyr
     [1195] = C.MYTHICPLUS, -- The Vortex Pinnacle
+
+    [1235] = C.NORMAL,     -- Aberrus, the Shadowed Crucible
+    [1236] = C.HEROIC,     -- Aberrus, the Shadowed Crucible
+    [1237] = C.MYTHIC,     -- Aberrus, the Shadowed Crucible
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfoTable().shortName to difficulties
