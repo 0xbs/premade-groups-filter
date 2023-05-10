@@ -461,10 +461,8 @@ function PGF.DoFilterSearchResults(results)
         -- Battle for Azeroth dungeons
         --                 normal        heroic        mythic        mythic+       normal2
         env.ad           = aID == 501 or aID == 500 or aID == 499 or aID == 502 or aID == 543  -- Atal'Dazar
-        env.tosl         = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
-        env.tos          = env.tosl
-        env.tur          = aID == 506 or aID == 508 or aID == 644 or aID == 507 or aID == 541  -- The Underrot
-        env.undr         = env.tur
+        env.tos         = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
+        env.undr         = aID == 506 or aID == 508 or aID == 644 or aID == 507 or aID == 541  -- The Underrot
         env.tml          = aID == 509 or aID == 511 or aID == 646 or aID == 510 or aID == 540  -- The MOTHERLODE
         env.ml           = env.tml
         env.kr           = aID == 512 or aID == 515 or aID == 513 or aID == 514                -- Kings' Rest
@@ -478,7 +476,7 @@ function PGF.DoFilterSearchResults(results)
         env.opmj         =               aID == 682               or aID == 679  -- Operation: Mechagon - Junkyard
         env.opmw         =               aID == 684               or aID == 683  -- Operation: Mechagon - Workshop
         env.opm          = env.opmj or env.opmw     or aID == 669                -- Operation: Mechagon
-        local bfadungeon = env.ad or env.tosl or env.tur or env.tml or env.kr or env.fh or env.sots or env.td or env.wm or env.sob or env.opm -- all BfA dungeons
+        local bfadungeon = env.ad or env.tos or env.undr or env.tml or env.kr or env.fh or env.sots or env.td or env.wm or env.sob or env.opm -- all BfA dungeons
 
         -- Shadowlands dungeons
         --                normal        heroic        mythic        mythic+
@@ -507,12 +505,12 @@ function PGF.DoFilterSearchResults(results)
         env.aa          = aID == 1157 or aID == 1158 or aID == 1159 or aID == 1160 -- Algeth'ar Academy
         env.bh          = aID == 1161 or aID == 1162 or aID == 1163 or aID == 1164 -- Brackenhide Hollow
         env.hoi         = aID == 1165 or aID == 1166 or aID == 1167 or aID == 1168 -- Halls of Infusion
-        env.nt          = aID == 1169 or aID == 1170 or aID == 1171 or aID == 1172 -- Neltharus
+        env.nelt          = aID == 1169 or aID == 1170 or aID == 1171 or aID == 1172 -- Neltharus
         env.rlp         = aID == 1173 or aID == 1174 or aID == 1175 or aID == 1176 -- Ruby Life Pools
         env.av          = aID == 1177 or aID == 1178 or aID == 1179 or aID == 1180 -- The Azure Vault
         env.no          = aID == 1181 or aID == 1182 or aID == 1183 or aID == 1184 -- The Nokhud Offensive
-        env.lot         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 or aID == 1194 -- Uldaman: Legacy of Tyr
-        local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot -- all Dragonflight dungeons
+        env.uld         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 or aID == 1194 -- Uldaman: Legacy of Tyr
+        local dfdungeon = env.aa or env.bh or env.hoi or env.nelt or env.rlp or env.av or env.no or env.uld -- all Dragonflight dungeons
 
         -- Dragonflight Season 1 dungeons
         env.sbg = aID == 1193 -- Shadowmoon Burial Grounds (Warlords)
@@ -521,7 +519,7 @@ function PGF.DoFilterSearchResults(results)
         env.cos = aID == 466 -- Court of Stars (Legion)
         env.vp = aID == 1195 -- Vortex Pinnacle (Cataclysm)
         env.dfs1 = env.rlp or env.no or env.av or env.aa or env.hov or env.cos or env.sbg or env.tjs
-        env.dfs2 = env.bh or env.hoi or env.lot or env.nt or env.fh or env.tur or env.nl or env.vp
+        env.dfs2 = env.bh or env.hoi or env.uld or env.nt or env.fh or env.undr or env.nelt or env.vp
 
         -- find more IDs: /run for i=1146,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
 
