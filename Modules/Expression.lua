@@ -48,6 +48,9 @@ function PGF.DoesPassThroughFilter(env, exp)
     if status then
         if type(result) == "boolean" then
             return result -- successful execution
+        elseif type(result) == "number" then
+            if result ~= 0 then return true end
+            return false
         else
             PGF.HandleSemanticError("expression did not evaluate to boolean, but to '" .. tostring(result) .. "' of type " .. type(result))
             return true -- do not filter in case of error
