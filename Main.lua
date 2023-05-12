@@ -505,7 +505,7 @@ function PGF.DoFilterSearchResults(results)
         env.aa          = aID == 1157 or aID == 1158 or aID == 1159 or aID == 1160 -- Algeth'ar Academy
         env.bh          = aID == 1161 or aID == 1162 or aID == 1163 or aID == 1164 -- Brackenhide Hollow
         env.hoi         = aID == 1165 or aID == 1166 or aID == 1167 or aID == 1168 -- Halls of Infusion
-        env.nelt          = aID == 1169 or aID == 1170 or aID == 1171 or aID == 1172 -- Neltharus
+        env.nelt        = aID == 1169 or aID == 1170 or aID == 1171 or aID == 1172 -- Neltharus
         env.rlp         = aID == 1173 or aID == 1174 or aID == 1175 or aID == 1176 -- Ruby Life Pools
         env.av          = aID == 1177 or aID == 1178 or aID == 1179 or aID == 1180 -- The Azure Vault
         env.no          = aID == 1181 or aID == 1182 or aID == 1183 or aID == 1184 -- The Nokhud Offensive
