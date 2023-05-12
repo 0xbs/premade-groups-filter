@@ -461,7 +461,7 @@ function PGF.DoFilterSearchResults(results)
         -- Battle for Azeroth dungeons
         --                 normal        heroic        mythic        mythic+       normal2
         env.ad           = aID == 501 or aID == 500 or aID == 499 or aID == 502 or aID == 543  -- Atal'Dazar
-        env.tos         = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
+        env.tos          = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
         env.undr         = aID == 506 or aID == 508 or aID == 644 or aID == 507 or aID == 541  -- The Underrot
         env.tml          = aID == 509 or aID == 511 or aID == 646 or aID == 510 or aID == 540  -- The MOTHERLODE
         env.ml           = env.tml
