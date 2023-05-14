@@ -142,8 +142,10 @@ function PGF.SortByExpression(searchResultID1, searchResultID2)
     for k, v in pairs(sortTable) do
         if info1.env[k] ~= info2.env[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
             if v == "desc" then
+                if type(info1.env[k]) == "boolean" then return info1.env[k] end -- true before false
                 return info1.env[k] > info2.env[k]
             else -- works with unknown 'v', in this case sort ascending by default
+                if type(info1.env[k]) == "boolean" then return info2.env[k] end -- false before true
                 return info1.env[k] < info2.env[k]
             end
         end
