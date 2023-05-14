@@ -464,9 +464,7 @@ function PGF.DoFilterSearchResults(results)
         env.tosl         = aID == 503 or aID == 505 or aID == 645 or aID == 504 or aID == 542  -- Temple of Sethraliss
         env.tos          = env.tosl
         env.tur          = aID == 506 or aID == 508 or aID == 644 or aID == 507 or aID == 541  -- The Underrot
-        env.undr         = env.tur
         env.tml          = aID == 509 or aID == 511 or aID == 646 or aID == 510 or aID == 540  -- The MOTHERLODE
-        env.ml           = env.tml
         env.kr           = aID == 512 or aID == 515 or aID == 513 or aID == 514                -- Kings' Rest
                                                     or aID == 660 or aID == 661
         env.fh           = aID == 516 or aID == 519 or aID == 517 or aID == 518 or aID == 539  -- Freehold
@@ -561,7 +559,7 @@ function PGF.DoFilterSearchResults(results)
     return true
 end
 
-function PGF.PutRaiderIOAliases(env)
+function PGF. PutRaiderIOAliases(env)
     env.lowr = env.lkara
     env.uppr = env.ukara
 
@@ -569,11 +567,17 @@ function PGF.PutRaiderIOAliases(env)
     env.siege = env.sob  -- Siege of Boralus
     env.yard  = env.opmj -- Operation: Mechagon - Junkyard
     env.work  = env.opmw -- Operation: Mechagon - Workshop
+    env.undr  = env.tur  -- The Underrot
+    env.ml    = env.tml  -- The MOTHERLODE
 
     -- Shadowlands
     env.mists = env.mots -- Mists of Tirna Scithe
     env.strt  = env.tazs -- Tazavesh: Streets of Wonder
     env.gmbt  = env.tazg -- Tazavesh: So'leah's Gambit
+
+    -- Dragonflight
+    env.nelt  = env.nt   -- Neltharus
+    env.uld   = env.lot  -- Uldaman: Legacy of Tyr
 end
 
 function PGF.ColorGroupTexts(self, searchResultInfo)
