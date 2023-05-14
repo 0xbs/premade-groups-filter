@@ -171,11 +171,12 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     local searchResultInfo1 = info1.searchResultInfo
     local searchResultInfo2 = info2.searchResultInfo
 
+    -- sort by partyfit
     local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
     local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
-
     if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
 
+    -- sort by friends desc
     if searchResultInfo1.numBNetFriends ~= searchResultInfo2.numBNetFriends then
         return searchResultInfo1.numBNetFriends > searchResultInfo2.numBNetFriends
     end
@@ -185,6 +186,24 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     if searchResultInfo1.numGuildMates ~= searchResultInfo2.numGuildMates then
         return searchResultInfo1.numGuildMates > searchResultInfo2.numGuildMates
     end
+
+    -- if dungeon, sort by mprating desc
+    if info1.activityInfo.categoryID == C.CATEGORY_ID.DUNGEON or
+       info2.activityInfo.categoryID == C.CATEGORY_ID.DUNGEON then
+        if info1.env.mprating ~= info2.env.mprating then
+            return info1.env.mprating > info2.env.mprating
+        end
+    end
+    -- if arena or RBG, sort by pvprating desc
+    if info1.activityInfo.categoryID == C.CATEGORY_ID.ARENA or
+       info2.activityInfo.categoryID == C.CATEGORY_ID.ARENA or
+       info1.activityInfo.categoryID == C.CATEGORY_ID.RATED_BATTLEGROUND or
+       info2.activityInfo.categoryID == C.CATEGORY_ID.RATED_BATTLEGROUND then
+        if info1.env.pvprating ~= info2.env.pvprating then
+            return info1.env.pvprating > info2.env.pvprating
+        end
+    end
+
     if searchResultInfo1.isWarMode ~= searchResultInfo2.isWarMode then
         return searchResultInfo1.isWarMode == C_PvP.IsWarModeDesired()
     end
@@ -287,7 +306,6 @@ function PGF.DoFilterSearchResults(results)
     local sortTableSize, _ = PGF.GetSortTableFromModel()
     local exp = PGF.GetExpressionFromModel()
     PGF.currentSearchExpression = exp
-    if exp == "true" and sortTableSize == 0 then return false end -- skip trivial expression if no sorting
 
     local playerInfo = PGF.GetPlayerInfo()
 
