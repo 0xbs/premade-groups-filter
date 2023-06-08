@@ -44,14 +44,14 @@ function PGF.ResetSearchEntries()
     end
 end
 
-function PGF.GetSortTableFromModel()
-    --local model = PGF.GetModel() -- TODO FIXME
-    if not model or not model.sorting then return 0, {} end
+function PGF.GetUserSortingTable()
+    local sorting = PGF.Dialog:GetSortingExpression()
+    if PGF.Empty(sorting) then return 0, {} end
     -- example string:  "friends asc, age desc , foo asc, bar   desc , x"
     -- resulting table: { ["friends"] = "asc", ["age"] = "desc", ["foo"] = "asc", ["bar"] = "desc" }
     local c = 0
     local t = {}
-    for k, v in string.gmatch(model.sorting, "(%w+)%s+(%w+),?") do
+    for k, v in string.gmatch(sorting, "(%w+)%s+(%w+),?") do
         c = c + 1
         t[k] = v
     end
@@ -59,7 +59,7 @@ function PGF.GetSortTableFromModel()
 end
 
 function PGF.SortByExpression(searchResultID1, searchResultID2)
-    local sortTableSize, sortTable = PGF.GetSortTableFromModel()
+    local sortTableSize, sortTable = PGF.GetUserSortingTable()
     local info1 = PGF.searchResultIDInfo[searchResultID1]
     local info2 = PGF.searchResultIDInfo[searchResultID2]
     if sortTableSize == 0 or not info1 or not info2 then

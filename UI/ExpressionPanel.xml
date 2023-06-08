@@ -32,8 +32,36 @@
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
-                    <Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" y="30"/>
                 </Anchors>
+            </Frame>
+            <Frame parentKey="Sorting">
+                <Size y="28"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeKey="$parent.Advanced" relativePoint="BOTTOM"/>
+                    <Anchor point="LEFT"/>
+                    <Anchor point="RIGHT"/>
+                    <Anchor point="BOTTOM"/>
+                </Anchors>
+                <Layers>
+                    <Layer>
+                        <FontString parentKey="Title" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
+                            <Size x="80"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-3"/>
+                                <Anchor point="BOTTOMLEFT" x="10" y="3"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <EditBox parentKey="Expression" inherits="InputBoxInstructionsTemplate" autoFocus="false" letters="100">
+                        <Size x="190" y="25"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-10" y="-3"/>
+                        </Anchors>
+                    </EditBox>
+                </Frames>
             </Frame>
         </Frames>
     </Frame>

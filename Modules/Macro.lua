@@ -22,18 +22,10 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- TODO FIXME
-function PGF.Macro(exp, sorting)
-    local dialog = PremadeGroupsFilterDialog
-    if dialog and dialog:IsVisible() then
-        PGF.Dialog_Reset()
-        dialog.Expression.EditBox:SetText(exp)
-        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-        if sorting then
-            dialog.Sorting.SortingExpression:SetText(sorting)
-            PGF.Dialog_SortingExpression_OnTextChanged(dialog.Sorting.SortingExpression)
-        end
-        dialog.RefreshButton:Click()
+function PGF.Macro(expression, sorting)
+    if PGF.Dialog and PGF.Dialog:IsVisible() then
+        PGF.Dialog:UpdateExpression(expression, sorting)
+        PGF.Dialog.RefreshButton:Click()
     end
 end
 

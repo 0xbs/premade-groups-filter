@@ -34,13 +34,24 @@ function ExpressionPanel:OnLoad()
     self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
+    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
+    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
+
+    self.Sorting.Title:SetText(L["dialog.sorting"])
+    self.Sorting.Expression:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    self.Sorting.Expression:SetScript("OnTextChanged", InputBoxInstructions_OnTextChanged)
+    self.Sorting.Expression.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    self.Sorting.Expression.Instructions:SetText("friends desc, age asc")
 end
 
 function ExpressionPanel:Init(state)
     PGF.Logger:Debug("ExpressionPanel:Init")
     self.state = state
     self.state.expression = self.state.expression or ""
+    self.state.sorting = self.state.sorting or ""
     self.Advanced.Expression.EditBox:SetText(self.state.expression)
+    self.Sorting.Expression:SetText(self.state.sorting)
 end
 
 function ExpressionPanel:OnShow()
@@ -54,6 +65,14 @@ end
 function ExpressionPanel:OnReset()
     PGF.Logger:Debug("ExpressionPanel:OnReset")
     self.state.expression = ""
+    self.state.sorting = ""
+    self:Init(self.state)
+end
+
+function ExpressionPanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("ExpressionPanel:OnUpdateExpression")
+    self.state.expression = expression
+    self.state.sorting = sorting
     self:Init(self.state)
 end
 
@@ -64,9 +83,20 @@ function ExpressionPanel:GetFilterExpression()
     return userExp
 end
 
+function ExpressionPanel:GetSortingExpression()
+    PGF.Logger:Debug("ExpressionPanel:GetSortingExpression")
+    return self.state.sorting
+end
+
 function ExpressionPanel:OnExpressionTextChanged()
     PGF.Logger:Debug("ExpressionPanel:OnExpressionTextChanged")
     self.state.expression = self.Advanced.Expression.EditBox:GetText()
+    self:TriggerFilterExpressionChange()
+end
+
+function ExpressionPanel:OnSortingExpressionChanged()
+    PGF.Logger:Debug("ExpressionPanel:OnSortingExpressionChanged")
+    self.state.sorting = self.Sorting.Expression:GetText()
     self:TriggerFilterExpressionChange()
 end
 
@@ -76,9 +106,14 @@ function ExpressionPanel:TriggerFilterExpressionChange()
 end
 
 hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    PGF.Logger:Debug("InputScrollFrame_OnTextChanged")
     if self == ExpressionPanel.Advanced.Expression.EditBox then
         ExpressionPanel:OnExpressionTextChanged()
+    end
+end)
+
+hooksecurefunc("InputBoxInstructions_OnTextChanged", function (self)
+    if self == ExpressionPanel.Sorting.Expression then
+        ExpressionPanel:OnSortingExpressionChanged()
     end
 end)
 

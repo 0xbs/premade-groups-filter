@@ -51,7 +51,7 @@ Settings\Settings.xml
 Settings\Settings.lua
 Dialog\PopupMenu.xml
 Dialog\PopupMenu.lua
-UI\Common.lua
+Dialog\Help.lua
 UI\Templates.xml
 UI\Dialog.xml
 UI\Dialog.lua

@@ -87,14 +87,19 @@ function PGFDialog:OnResetButtonClick()
     PGF.StaticPopup_Show("PGF_CONFIRM_RESET")
 end
 
-function PGFDialog:OnResetConfirm()
-    PGF.Logger:Debug("PGFDialog:OnResetConfirm")
-    self.activePanel:OnReset()
-end
-
 function PGFDialog:OnRefreshButtonClick()
     PGF.Logger:Debug("PGFDialog:OnRefreshButtonClick")
     LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
+end
+
+function PGFDialog:Reset()
+    PGF.Logger:Debug("PGFDialog:Reset")
+    self.activePanel:OnReset()
+end
+
+function PGFDialog:UpdateExpression(expression, sorting)
+    PGF.Logger:Debug("PGFDialog:SetExpressionFromMacro")
+    self.activePanel:OnUpdateExpression(expression, sorting)
 end
 
 function PGFDialog:Toggle()
@@ -143,6 +148,12 @@ function PGFDialog:GetFilterExpression()
     PGF.Logger:Debug("PGFDialog:GetFilterExpression")
     if not self.activePanel then return nil end
     return self.activePanel:GetFilterExpression()
+end
+
+function PGFDialog:GetSortingExpression()
+    PGF.Logger:Debug("PGFDialog:GetSortingExpression")
+    if not self.activePanel then return nil end
+    return self.activePanel:GetSortingExpression()
 end
 
 function PGFDialog:ResetPosition()

@@ -176,6 +176,9 @@ function DungeonPanel:Init(state)
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
     end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
+    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
+    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
+    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
 
 function DungeonPanel:OnShow()
@@ -201,6 +204,12 @@ function DungeonPanel:OnReset()
     end
     self.state.expression = ""
     self:TriggerFilterExpressionChange()
+    self:Init(self.state)
+end
+
+function DungeonPanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("DungeonPanel:OnUpdateExpression")
+    self.state.expression = expression
     self:Init(self.state)
 end
 
@@ -246,6 +255,11 @@ function DungeonPanel:GetFilterExpression()
     end
     expression = expression:gsub("^true and ", "")
     return expression
+end
+
+function DungeonPanel:GetSortingExpression()
+    PGF.Logger:Debug("DungeonPanel:GetSortingExpression")
+    return nil
 end
 
 function DungeonPanel:OnExpressionTextChanged()
