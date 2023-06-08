@@ -49,9 +49,9 @@ Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua
 Settings\Settings.xml
 Settings\Settings.lua
-Dialog\PopupMenu.xml
-Dialog\PopupMenu.lua
-Dialog\Help.lua
+UI\PopupMenu.xml
+UI\PopupMenu.lua
+UI\Help.lua
 UI\Templates.xml
 UI\Dialog.xml
 UI\Dialog.lua
