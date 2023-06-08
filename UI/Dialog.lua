@@ -34,7 +34,11 @@ local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "P
 
 function PGFDialog:OnLoad()
     PGF.Logger:Debug("PGFDialog:OnLoad")
+    self.minimizedHeight = 220
+    self.maximizedHeight = PVEFrame:GetHeight()
     self.panels = {}
+    self.activeId = nil
+    self.activeState = nil
     self.activePanel = nil
 
     self:SetScript("OnShow", self.OnShow)
@@ -44,8 +48,8 @@ function PGFDialog:OnLoad()
     self:SetBorder("ButtonFrameTemplateNoPortraitMinimizable")
     self:SetPortraitShown(false)
     self:SetTitle(L["addon.name.long"])
-    self.MaximizeMinimizeFrame:SetOnMaximizedCallback(self.OnMaximize)
-    self.MaximizeMinimizeFrame:SetOnMinimizedCallback(self.OnMinimize)
+    self.MaximizeMinimizeFrame:SetOnMaximizedCallback(function () self:OnMaximize() end)
+    self.MaximizeMinimizeFrame:SetOnMinimizedCallback(function () self:OnMinimize() end)
 
     self.ResetButton:SetText(L["dialog.reset"])
     self.ResetButton:SetScript("OnClick", self.OnResetButtonClick)
@@ -76,10 +80,28 @@ end
 
 function PGFDialog:OnMaximize()
     PGF.Logger:Debug("PGFDialog:OnMaximize")
+    self.activeState.minimized = false
+    self:SetHeight(self.maximizedHeight)
+    self:SwitchToPanel()
 end
 
 function PGFDialog:OnMinimize()
     PGF.Logger:Debug("PGFDialog:OnMinimize")
+    self.activeState.minimized = true
+    self:SetHeight(self.minimizedHeight)
+    self:SwitchToPanel()
+end
+
+function PGFDialog:MaximizeMinimize()
+    if self.activeState.minimized then
+        self.MaximizeMinimizeFrame.isMinimized = true
+        self.MaximizeMinimizeFrame:SetMaximizedLook() -- button should show maximize icon
+        self:SetHeight(self.minimizedHeight)
+    else
+        self.MaximizeMinimizeFrame.isMinimized = false
+        self.MaximizeMinimizeFrame:SetMinimizedLook() -- button should show minimize icon
+        self:SetHeight(self.maximizedHeight)
+    end
 end
 
 function PGFDialog:OnResetButtonClick()
@@ -115,29 +137,33 @@ function PGFDialog:Toggle()
     end
 end
 
-function PGFDialog:UpdateActivePanel(categoryID, filters, baseFilters)
-    PGF.Logger:Debug("PGFDialog:SetActivePanel(".. categoryID ..", "..filters..", "..baseFilters..")")
+function PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
+    PGF.Logger:Debug("PGFDialog:UpdateCategory(".. categoryID ..", "..filters..", "..baseFilters..")")
     local allFilters = bit.bor(baseFilters, filters);
     local id = "c"..categoryID.."f"..allFilters
-    local panel = self.panels[id] or self.panels.default
-    local state = self:GetPanelState(panel.name, id)
+    self.activeId = id
+    self.activeState = self:GetState(id)
+    self:MaximizeMinimize()
+    self:SwitchToPanel()
+end
+
+function PGFDialog:SwitchToPanel()
+    local panel = self.activeState.minimized
+            and self.panels.default       -- if minimized, use default panel
+            or self.panels[self.activeId] -- if maximized, use panel for current category
+            or self.panels.default        -- if no panel for current category, use default panel
+    self.activeState[panel.name] = self.activeState[panel.name] or {} -- initialize panel state
     if self.activePanel then self.activePanel:Hide() end
     self.activePanel = panel
-    self.activePanel:Init(state)
+    self.activePanel:Init(self.activeState[panel.name])
     self.activePanel:Show()
 end
 
-function PGFDialog:GetPanelState(name, id)
-    if not PremadeGroupsFilterState["panels"] then
-        PremadeGroupsFilterState["panels"] = {}
-    end
-    if not PremadeGroupsFilterState["panels"][name] then
-        PremadeGroupsFilterState["panels"][name] = {}
-    end
-    if not PremadeGroupsFilterState["panels"][name][id] then
-        PremadeGroupsFilterState["panels"][name][id] = {}
-    end
-    return PremadeGroupsFilterState["panels"][name][id]
+function PGFDialog:GetState(id)
+    PremadeGroupsFilterState = PremadeGroupsFilterState or {}
+    PremadeGroupsFilterState["categories"] = PremadeGroupsFilterState["categories"] or {}
+    PremadeGroupsFilterState["categories"][id] = PremadeGroupsFilterState["categories"][id] or {}
+    return PremadeGroupsFilterState["categories"][id]
 end
 
 function PGFDialog:OnFilterExpressionChanged()
@@ -151,7 +177,6 @@ function PGFDialog:GetFilterExpression()
 end
 
 function PGFDialog:GetSortingExpression()
-    PGF.Logger:Debug("PGFDialog:GetSortingExpression")
     if not self.activePanel then return nil end
     return self.activePanel:GetSortingExpression()
 end
@@ -168,7 +193,7 @@ function PGFDialog:RegisterPanel(id, panel)
 end
 
 hooksecurefunc("LFGListSearchPanel_SetCategory", function(self, categoryID, filters, baseFilters)
-    PGFDialog:UpdateActivePanel(categoryID, filters, baseFilters)
+    PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
 end)
 hooksecurefunc("LFGListFrame_SetActivePanel", function () PGFDialog:Toggle() end)
 hooksecurefunc("PVEFrame_ShowFrame", function () PGFDialog:Toggle() end)
