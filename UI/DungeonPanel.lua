@@ -28,8 +28,6 @@ local DIFFICULTY_TEXT = {
     [C.HEROIC] = L["dialog.heroic"],
     [C.MYTHIC] = L["dialog.mythic"],
     [C.MYTHICPLUS] = L["dialog.mythicplus"],
-    [C.ARENA2V2] = C_LFGList.GetActivityInfoTable(6).shortName, -- Arena 2v2
-    [C.ARENA3V3] = C_LFGList.GetActivityInfoTable(7).shortName, -- Arena 3v3
 }
 
 local SEASON_DUNGEONS = {
@@ -89,8 +87,8 @@ function DungeonPanel:OnLoad()
             func = onDifficultyChanged
         },
     }
-    PGF.PopupMenu_Register("DifficultyMenu", entries, self.Group, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
-    dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DifficultyMenu") end)
+    PGF.PopupMenu_Register("DungeonDifficultyMenu", entries, self.Group, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
+    dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DungeonDifficultyMenu") end)
     dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
 
     self.Group.MPRating.Title:SetText(L["dialog.mprating"])
