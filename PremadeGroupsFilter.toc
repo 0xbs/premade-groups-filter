@@ -58,5 +58,9 @@ UI\Dialog.xml
 UI\Dialog.lua
 UI\DungeonPanel.xml
 UI\DungeonPanel.lua
+UI\ArenaPanel.xml
+UI\ArenaPanel.lua
+UI\RBGPanel.xml
+UI\RBGPanel.lua
 UI\ExpressionPanel.xml
 UI\ExpressionPanel.lua
