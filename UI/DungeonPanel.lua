@@ -109,24 +109,28 @@ function DungeonPanel:OnLoad()
         self:TriggerFilterExpressionChange()
     end)
 
+    self.Group.Partyfit:SetWidth(290/2)
     self.Group.Partyfit.Title:SetText(L["dialog.partyfit"])
     self.Group.Partyfit.Act:SetScript("OnClick", function(element)
         self.state.partyfit = element:GetChecked()
         self:TriggerFilterExpressionChange()
     end)
 
+    self.Group.ReduceSpam:SetWidth(290/2)
     self.Group.ReduceSpam.Title:SetText(L["dialog.reducespam"])
     self.Group.ReduceSpam.Act:SetScript("OnClick", function(element)
         self.state.reducespam = element:GetChecked()
         self:TriggerFilterExpressionChange()
     end)
 
+    self.Group.BLFit:SetWidth(290/2)
     self.Group.BLFit.Title:SetText(L["dialog.blfit"])
     self.Group.BLFit.Act:SetScript("OnClick", function(element)
         self.state.blfit = element:GetChecked()
         self:TriggerFilterExpressionChange()
     end)
 
+    self.Group.BRFit:SetWidth(290/2)
     self.Group.BRFit.Title:SetText(L["dialog.brfit"])
     self.Group.BRFit.Act:SetScript("OnClick", function(element)
         self.state.brfit = element:GetChecked()
@@ -137,6 +141,12 @@ function DungeonPanel:OnLoad()
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
     for i = 1, #SEASON_DUNGEONS do
         local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityId).fullName
+        self.Dungeons["Dungeon"..i]:SetWidth(290/2)
+        --self.Dungeons["Dungeon"..i]:SetScript("OnEnter", function (self)
+        --    GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+        --    GameTooltip:AddLine(dungeonName);
+        --    GameTooltip:Show();
+        --end)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
         self.Dungeons["Dungeon"..i].Title:SetWidth(100)
         self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
