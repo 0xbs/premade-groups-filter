@@ -32,11 +32,11 @@
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
-                    <Anchor point="BOTTOMRIGHT" y="30"/>
+                    <Anchor point="BOTTOMRIGHT" y="25"/>
                 </Anchors>
             </Frame>
             <Frame parentKey="Sorting">
-                <Size y="28"/>
+                <Size y="25"/>
                 <Anchors>
                     <Anchor point="TOP" relativeKey="$parent.Advanced" relativePoint="BOTTOM"/>
                     <Anchor point="LEFT"/>
@@ -58,7 +58,7 @@
                     <EditBox parentKey="Expression" inherits="InputBoxInstructionsTemplate" autoFocus="false" letters="100">
                         <Size x="190" y="25"/>
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-10" y="-3"/>
+                            <Anchor point="TOPRIGHT" x="-10" y="0"/>
                         </Anchors>
                     </EditBox>
                 </Frames>
