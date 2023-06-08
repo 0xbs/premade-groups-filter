@@ -268,7 +268,6 @@ function DungeonPanel:GetFilterExpression()
 end
 
 function DungeonPanel:GetSortingExpression()
-    PGF.Logger:Debug("DungeonPanel:GetSortingExpression")
     return nil
 end
 

@@ -84,7 +84,6 @@ function ExpressionPanel:GetFilterExpression()
 end
 
 function ExpressionPanel:GetSortingExpression()
-    PGF.Logger:Debug("ExpressionPanel:GetSortingExpression")
     return self.state.sorting
 end
 
