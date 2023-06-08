@@ -22,12 +22,11 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- cannot be placed in Init.lua because language is not yet loaded
 local DIFFICULTY_TEXT = {
-    [C.NORMAL] = L["dialog.normal"],
-    [C.HEROIC] = L["dialog.heroic"],
-    [C.MYTHIC] = L["dialog.mythic"],
-    [C.MYTHICPLUS] = L["dialog.mythicplus"],
+    [1] = { key = C.NORMAL,     title = L["dialog.normal"] },
+    [2] = { key = C.HEROIC,     title = L["dialog.heroic"] },
+    [3] = { key = C.MYTHIC,     title = L["dialog.mythic"] },
+    [4] = { key = C.MYTHICPLUS, title = L["dialog.mythicplus"] },
 }
 
 local SEASON_DUNGEONS = {
@@ -51,61 +50,8 @@ function DungeonPanel:OnLoad()
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
 
-    self.Group.Difficulty.Title:SetText(L["dialog.difficulty"])
-    self.Group.Difficulty.Title:SetWidth(135)
-    self.Group.Difficulty.Act:SetScript("OnClick", function(element)
-        self.state.difficulty.act = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-    local onDifficultyChanged = function (item)
-        self.Group.Difficulty.Act:SetChecked(true)
-        self.Group.Difficulty.DropDown.Text:SetText(item.title)
-        self.state.difficulty.act = true
-        self.state.difficulty.val = item.value
-        self:TriggerFilterExpressionChange()
-    end
-    local dropdown = self.Group.Difficulty.DropDown
-    local entries = {
-        {
-            value = C.NORMAL,
-            title = L["dialog.normal"],
-            func = onDifficultyChanged
-        },
-        {
-            value = C.HEROIC,
-            title = L["dialog.heroic"],
-            func = onDifficultyChanged
-        },
-        {
-            value = C.MYTHIC,
-            title = L["dialog.mythic"],
-            func = onDifficultyChanged
-        },
-        {
-            value = C.MYTHICPLUS,
-            title = L["dialog.mythicplus"],
-            func = onDifficultyChanged
-        },
-    }
-    PGF.PopupMenu_Register("DungeonDifficultyMenu", entries, self.Group, "TOPRIGHT", dropdown, "BOTTOMRIGHT", -15, 10, 95, 150)
-    dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle("DungeonDifficultyMenu") end)
-    dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
-
-    self.Group.MPRating.Title:SetText(L["dialog.mprating"])
-    self.Group.MPRating.Title:SetWidth(135)
-    self.Group.MPRating.To:SetText(L["dialog.to"])
-    self.Group.MPRating.Act:SetScript("OnClick", function(element)
-        self.state.mprating.act = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-    self.Group.MPRating.Min:SetScript("OnTextChanged", function(element)
-        self.state.mprating.min = element:GetText()
-        self:TriggerFilterExpressionChange()
-    end)
-    self.Group.MPRating.Max:SetScript("OnTextChanged", function(element)
-        self.state.mprating.max = element:GetText()
-        self:TriggerFilterExpressionChange()
-    end)
+    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
+    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating")
 
     self.Group.Partyfit:SetWidth(290/2)
     self.Group.Partyfit.Title:SetText(L["dialog.partyfit"])
@@ -170,7 +116,7 @@ function DungeonPanel:Init(state)
     self.state.expression = self.state.expression or ""
 
     self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
-    self.Group.Difficulty.DropDown.Text:SetText(DIFFICULTY_TEXT[self.state.difficulty.val])
+    self.Group.Difficulty.DropDown:SetKey(self.state.difficulty.val)
     self.Group.MPRating.Act:SetChecked(self.state.mprating.act or false)
     self.Group.MPRating.Min:SetText(self.state.mprating.min or "")
     self.Group.MPRating.Max:SetText(self.state.mprating.max or "")
@@ -201,8 +147,8 @@ function DungeonPanel:OnReset()
     PGF.Logger:Debug("DungeonPanel:OnReset")
     self.state.difficulty.act = false
     self.state.mprating.act = false
-    self.state.mprating.min = "0"
-    self.state.mprating.max = "0"
+    self.state.mprating.min = ""
+    self.state.mprating.max = ""
     self.state.partyfit = false
     self.state.reducespam = false
     self.state.blfit = false
@@ -224,7 +170,8 @@ end
 function DungeonPanel:TriggerFilterExpressionChange()
     PGF.Logger:Debug("DungeonPanel:TriggerFilterExpressionChange")
     local expression = self:GetFilterExpression()
-    self.Advanced.Expression.EditBox.Instructions:SetText(expression)
+    local hint = expression == "true" and "" or expression
+    self.Advanced.Expression.EditBox.Instructions:SetText(hint)
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
