@@ -74,7 +74,7 @@ function PGFDialog:OnMouseUp(button)
     if not PremadeGroupsFilterSettings.dialogMovable then return end
     self:StopMovingOrSizing()
     if button == "RightButton" then
-        self:ResetPosition(self)
+        self:ResetPosition()
     end
 end
 
@@ -111,6 +111,10 @@ end
 
 function PGFDialog:OnRefreshButtonClick()
     PGF.Logger:Debug("PGFDialog:OnRefreshButtonClick")
+    self:Refresh()
+end
+
+function PGFDialog:Refresh()
     LFGListSearchPanel_DoSearch(LFGListFrame.SearchPanel)
 end
 
@@ -129,8 +133,7 @@ function PGFDialog:Toggle()
     local isSearchPanelVisible = PVEFrame:IsVisible()
             and LFGListFrame.activePanel == LFGListFrame.SearchPanel
             and LFGListFrame.SearchPanel:IsVisible()
-    -- TODO check if PGF checkbox is active
-    if isSearchPanelVisible then
+    if isSearchPanelVisible and self.activeState and self.activeState.enabled then
         self:Show()
     else
         self:Hide()
@@ -166,8 +169,21 @@ function PGFDialog:GetState(id)
     return PremadeGroupsFilterState[id]
 end
 
-function PGFDialog:OnFilterExpressionChanged()
+function PGFDialog:GetEnabled()
+    return self.activeState and self.activeState.enabled or false
+end
+
+function PGFDialog:SetEnabled(enabled)
+    self.activeState.enabled = enabled
+    self:Toggle()
+    self:OnFilterExpressionChanged(true)
+end
+
+function PGFDialog:OnFilterExpressionChanged(shouldRefresh)
     PGF.Logger:Debug("PGFDialog:OnFilterExpressionChanged")
+    if shouldRefresh then
+        self:Refresh()
+    end
 end
 
 function PGFDialog:GetFilterExpression()

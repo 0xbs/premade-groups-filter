@@ -225,8 +225,7 @@ function PGF.DoFilterSearchResults(results)
     --print("filtering, size is "..#results)
 
     PGF.ResetSearchEntries()
-    --local model = PGF.GetModel() -- TODO FIXME
-    --if not model or not model.enabled then return false end
+    if not PGF.Dialog:GetEnabled() then return false end
     if not results or #results == 0 then return false end
 
     local exp = PGF.Dialog:GetFilterExpression()
