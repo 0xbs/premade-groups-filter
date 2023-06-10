@@ -22,6 +22,30 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+function PGF.UI_SetupCheckBox(panel, field, keyword, halfSize)
+    local title = L["dialog."..keyword]
+    field.Title:SetText(title)
+    field.Act:SetScript("OnClick", function(element)
+        panel.state[keyword] = element:GetChecked()
+        panel:TriggerFilterExpressionChange()
+    end)
+    if halfSize then
+        field:SetWidth(290/2)
+    end
+    local tooltip = L["dialog."..keyword..".tooltip"]
+    if tooltip then
+        field:SetScript("OnEnter", function (self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(title, nil, nil, nil, nil, true)
+            GameTooltip:AddLine(tooltip, 1, 1, 1, 1, true)
+            GameTooltip:Show()
+        end)
+        field:SetScript("OnLeave", function(self)
+            GameTooltip:Hide()
+        end)
+    end
+end
+
 function PGF.UI_SetupMinMaxField(panel, field, keyword)
     field.Title:SetText(L["dialog."..keyword])
     field.Title:SetWidth(135)

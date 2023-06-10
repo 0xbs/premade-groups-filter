@@ -42,20 +42,8 @@ function RaidPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
     PGF.UI_SetupMinMaxField(self, self.Group.Defeated, "defeated")
-
-    self.Group.MatchingId:SetWidth(290/2)
-    self.Group.MatchingId.Title:SetText(L["dialog.matchingid"])
-    self.Group.MatchingId.Act:SetScript("OnClick", function(element)
-        self.state.matchingid = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-
-    self.Group.NotDeclined:SetWidth(290/2)
-    self.Group.NotDeclined.Title:SetText(L["dialog.notdeclined"])
-    self.Group.NotDeclined.Act:SetScript("OnClick", function(element)
-        self.state.notdeclined = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
+    PGF.UI_SetupCheckBox(self, self.Group.MatchingId, "matchingid", true)
+    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
 
     -- Advanced
     InputScrollFrame_OnLoad(self.Advanced.Expression)
@@ -110,6 +98,7 @@ end
 
 function RaidPanel:OnReset()
     PGF.Logger:Debug("RaidPanel:OnReset")
+    self.state.difficulty.act = false
     self.state.tanks.act = false
     self.state.tanks.min = ""
     self.state.tanks.max = ""

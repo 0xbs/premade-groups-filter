@@ -52,34 +52,10 @@ function DungeonPanel:OnLoad()
 
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
     PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating")
-
-    self.Group.Partyfit:SetWidth(290/2)
-    self.Group.Partyfit.Title:SetText(L["dialog.partyfit"])
-    self.Group.Partyfit.Act:SetScript("OnClick", function(element)
-        self.state.partyfit = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-
-    self.Group.NotDeclined:SetWidth(290/2)
-    self.Group.NotDeclined.Title:SetText(L["dialog.notdeclined"])
-    self.Group.NotDeclined.Act:SetScript("OnClick", function(element)
-        self.state.notdeclined = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-
-    self.Group.BLFit:SetWidth(290/2)
-    self.Group.BLFit.Title:SetText(L["dialog.blfit"])
-    self.Group.BLFit.Act:SetScript("OnClick", function(element)
-        self.state.blfit = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
-
-    self.Group.BRFit:SetWidth(290/2)
-    self.Group.BRFit.Title:SetText(L["dialog.brfit"])
-    self.Group.BRFit.Act:SetScript("OnClick", function(element)
-        self.state.brfit = element:GetChecked()
-        self:TriggerFilterExpressionChange()
-    end)
+    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", true)
+    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
+    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", true)
+    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", true)
 
     -- Dungeons
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
