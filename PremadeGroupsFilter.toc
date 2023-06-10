@@ -62,5 +62,7 @@ UI\ArenaPanel.xml
 UI\ArenaPanel.lua
 UI\RBGPanel.xml
 UI\RBGPanel.lua
+UI\RaidPanel.xml
+UI\RaidPanel.lua
 UI\ExpressionPanel.xml
 UI\ExpressionPanel.lua

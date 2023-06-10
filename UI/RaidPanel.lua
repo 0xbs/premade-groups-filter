@@ -22,18 +22,82 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local RaidPanel = CreateFrame("Frame")
+local DIFFICULTY_TEXT = {
+    [1] = { key = C.NORMAL, title = L["dialog.normal"] },
+    [2] = { key = C.HEROIC, title = L["dialog.heroic"] },
+    [3] = { key = C.MYTHIC, title = L["dialog.mythic"] },
+}
+
+local RaidPanel = CreateFrame("Frame", "PremadeGroupsFilterRaidPanel", PGF.Dialog, "PremadeGroupsFilterRaidPanelTemplate")
 
 function RaidPanel:OnLoad()
     PGF.Logger:Debug("RaidPanel:OnLoad")
-    self.name = "raid"
-    self:SetPoint("TOPLEFT")
-    self:SetPoint("BOTTOMRIGHT")
+    self.name = "Raid"
+
+    -- Group
+    self.Group.Title:SetText(L["dialog.filters.group"])
+
+    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "RaidDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
+    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
+    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
+    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
+    PGF.UI_SetupMinMaxField(self, self.Group.Defeated, "defeated")
+
+    self.Group.MatchingId:SetWidth(290/2)
+    self.Group.MatchingId.Title:SetText(L["dialog.matchingid"])
+    self.Group.MatchingId.Act:SetScript("OnClick", function(element)
+        self.state.matchingid = element:GetChecked()
+        self:TriggerFilterExpressionChange()
+    end)
+
+    self.Group.NotDeclined:SetWidth(290/2)
+    self.Group.NotDeclined.Title:SetText(L["dialog.notdeclined"])
+    self.Group.NotDeclined.Act:SetScript("OnClick", function(element)
+        self.state.notdeclined = element:GetChecked()
+        self:TriggerFilterExpressionChange()
+    end)
+
+    -- Advanced
+    InputScrollFrame_OnLoad(self.Advanced.Expression)
+    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
+    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
+    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
 end
 
 function RaidPanel:Init(state)
-    PGF.Logger:Debug("RaidPanel:Init")
+    PGF.Logger:Debug("Raidpanel:Init")
     self.state = state
+    self.state.difficulty = self.state.difficulty or {}
+    self.state.tanks = self.state.tanks or {}
+    self.state.heals = self.state.heals or {}
+    self.state.dps = self.state.dps or {}
+    self.state.defeated = self.state.defeated or {}
+    self.state.expression = self.state.expression or ""
+
+    self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
+    self.Group.Difficulty.DropDown:SetKey(self.state.difficulty.val)
+    self.Group.Tanks.Act:SetChecked(self.state.tanks.act or false)
+    self.Group.Tanks.Min:SetText(self.state.tanks.min or "")
+    self.Group.Tanks.Max:SetText(self.state.tanks.max or "")
+    self.Group.Heals.Act:SetChecked(self.state.heals.act or false)
+    self.Group.Heals.Min:SetText(self.state.heals.min or "")
+    self.Group.Heals.Max:SetText(self.state.heals.max or "")
+    self.Group.DPS.Act:SetChecked(self.state.dps.act or false)
+    self.Group.DPS.Min:SetText(self.state.dps.min or "")
+    self.Group.DPS.Max:SetText(self.state.dps.max or "")
+    self.Group.Defeated.Act:SetChecked(self.state.defeated.act or false)
+    self.Group.Defeated.Min:SetText(self.state.defeated.min or "")
+    self.Group.Defeated.Max:SetText(self.state.defeated.max or "")
+
+    self.Group.MatchingId.Act:SetChecked(self.state.matchingid or false)
+    self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
+
+    self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
+    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
+    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
+    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
 
 function RaidPanel:OnShow()
@@ -45,14 +109,87 @@ function RaidPanel:OnHide()
 end
 
 function RaidPanel:OnReset()
-    PGF.Logger:Debug("RaidPanel:OnHide")
+    PGF.Logger:Debug("RaidPanel:OnReset")
+    self.state.tanks.act = false
+    self.state.tanks.min = ""
+    self.state.tanks.max = ""
+    self.state.heals.act = false
+    self.state.heals.min = ""
+    self.state.heals.max = ""
+    self.state.dps.act = false
+    self.state.dps.min = ""
+    self.state.dps.max = ""
+    self.state.defeated.act = false
+    self.state.defeated.min = ""
+    self.state.defeated.max = ""
+    self.state.matchingid = false
+    self.state.notdeclined = false
+    self.state.expression = ""
+    self:TriggerFilterExpressionChange()
+    self:Init(self.state)
 end
 
-function RaidPanel:GetFilterRaidPanel()
-    PGF.Logger:Debug("RaidPanel:GetFilterRaidPanel")
+function RaidPanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("RaidPanel:OnUpdateExpression")
+    self.state.expression = expression
+    self:Init(self.state)
 end
+
+function RaidPanel:TriggerFilterExpressionChange()
+    PGF.Logger:Debug("RaidPanel:TriggerFilterExpressionChange")
+    local expression = self:GetFilterExpression()
+    local hint = expression == "true" and "" or expression
+    self.Advanced.Expression.EditBox.Instructions:SetText(hint)
+    PGF.Dialog:OnFilterExpressionChanged()
+end
+
+function RaidPanel:GetFilterExpression()
+    PGF.Logger:Debug("RaidPanel:GetFilterExpression")
+    local expression = "true" -- start with neutral element of logical and
+    if self.state.difficulty.act then expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val] end
+    if self.state.tanks.act then
+        if PGF.NotEmpty(self.state.tanks.min) then expression = expression .. " and tanks >= " .. self.state.tanks.min end
+        if PGF.NotEmpty(self.state.tanks.max) then expression = expression .. " and tanks <= " .. self.state.tanks.max end
+    end
+    if self.state.heals.act then
+        if PGF.NotEmpty(self.state.heals.min) then expression = expression .. " and heals >= " .. self.state.heals.min end
+        if PGF.NotEmpty(self.state.heals.max) then expression = expression .. " and heals <= " .. self.state.heals.max end
+    end
+    if self.state.dps.act then
+        if PGF.NotEmpty(self.state.dps.min) then expression = expression .. " and dps >= " .. self.state.dps.min end
+        if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
+    end
+    if self.state.defeated.act then
+        if PGF.NotEmpty(self.state.defeated.min) then expression = expression .. " and defeated >= " .. self.state.defeated.min end
+        if PGF.NotEmpty(self.state.defeated.max) then expression = expression .. " and defeated <= " .. self.state.defeated.max end
+    end
+    if self.state.matchingid  then expression = expression .. " and matchingid"   end
+    if self.state.notdeclined then expression = expression .. " and not declined" end
+
+    if PGF.NotEmpty(self.state.expression) then
+        local userExp = PGF.RemoveCommentLines(self.state.expression)
+        expression = expression .. " and ( " .. userExp .. " )"
+    end
+    expression = expression:gsub("^true and ", "")
+    return expression
+end
+
+function RaidPanel:GetSortingExpression()
+    return nil
+end
+
+function RaidPanel:OnExpressionTextChanged()
+    PGF.Logger:Debug("RaidPanel:OnExpressionTextChanged")
+    self.state.expression = self.Advanced.Expression.EditBox:GetText() or ""
+    self:TriggerFilterExpressionChange()
+end
+
+hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
+    if self == RaidPanel.Advanced.Expression.EditBox then
+        RaidPanel:OnExpressionTextChanged()
+    end
+end)
 
 RaidPanel:OnLoad()
-PGF.Dialog:RegisterPanel("c3f0", RaidPanel) -- raid
-PGF.Dialog:RegisterPanel("c3f1", RaidPanel) -- raid recommended
-PGF.Dialog:RegisterPanel("c3f2", RaidPanel) -- raid not recommended
+PGF.Dialog:RegisterPanel("c3f5", RaidPanel)
+PGF.Dialog:RegisterPanel("c3f6", RaidPanel)

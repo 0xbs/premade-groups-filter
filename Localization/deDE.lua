@@ -108,6 +108,7 @@ L["dialog.partyfit"] = "Party Fit"
 L["dialog.notdeclined"] = "Nicht abgelehnt"
 L["dialog.blfit"] = "Bloodlust Fit"
 L["dialog.brfit"] = "Battle Rezz Fit"
+L["dialog.matchingid"] = "Passende ID"
 
 L["settings.dialogMovable.title"] = "Dialog verschiebbar"
 L["settings.dialogMovable.tooltip"] = "Ermöglicht das Verschieben des Dialogs mit der Maus. Rechtsklick setzt die Position zurück."
