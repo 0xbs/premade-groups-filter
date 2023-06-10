@@ -133,53 +133,7 @@ C.SETTINGS_DEFAULT = {
 }
 
 C.STATE_DEFAULT = {
-    version = 4,
-}
-
-C.MODEL_DEFAULT = {
-    enabled = true,
-    expert = false,
-    expression = "",
-    sorting = "",
-    difficulty = {
-        act = false,
-        val = 3,
-    },
-    mprating = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    pvprating = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    members = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    tanks = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    heals = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    dps = {
-        act = false,
-        min = "",
-        max = "",
-    },
-    defeated = {
-        act = false,
-        min = "",
-        max = "",
-    },
+    version = 5,
 }
 
 function PGF.MigrateStateV2()
@@ -219,14 +173,46 @@ function PGF.MigrateStateV4()
     end
 end
 
+function PGF.MigrateStateV5()
+    if PremadeGroupsFilterState.version < 5 then
+        local mapping = {
+            ["t1c1f0"] = { key = "c1f4", enabled = false, panel = "expression" }, -- quests
+            ["t1c2f0"] = { key = "c2f4", enabled = true,  panel = "dungeon"    }, -- dungeons
+            ["t1c3f1"] = { key = "c3f5", enabled = true,  panel = "raid"       }, -- raids new
+            ["t1c3f2"] = { key = "c3f6", enabled = true,  panel = "raid"       }, -- raids old
+            ["t1c6f0"] = { key = "c6f4", enabled = false, panel = "expression" }, -- custom pve
+            ["t2c4f0"] = { key = "c4f8", enabled = true,  panel = "arena"      }, -- arena
+            ["t2c6f0"] = { key = "c6f8", enabled = false, panel = "expression" }, -- custom pvp
+            ["t2c7f0"] = { key = "c7f8", enabled = false, panel = "expression" }, -- skirmish
+            ["t2c8f0"] = { key = "c8f8", enabled = false, panel = "expression" }, -- bg
+            ["t2c9f0"] = { key = "c9f8", enabled = true,  panel = "rbg"        }, -- rbg
+        }
+        local state5 = {
+            version = 5
+        }
+        for k, v in pairs(PremadeGroupsFilterState) do
+            if type(v) == "table" and mapping[k] then
+                state5[mapping[k].key] = {
+                    enabled = mapping[k].enabled and v.enabled,
+                    minimized = v.expert,
+                    expression = {
+                        expression = v.expression,
+                        sorting = v.sorting,
+                    },
+                    [mapping[k].panel] = {
+                        expression = v.expression,
+                        sorting = v.sorting,
+                    },
+                }
+            end
+        end
+        PremadeGroupsFilterState = state5
+        print(string.format(L["message.settingsupgraded"], "5"))
+    end
+end
+
 function PGF.UpdateStateWithDefaults()
     PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.STATE_DEFAULT)
-    -- update all state tables with the current set of defaults
-    for k, v in pairs(PremadeGroupsFilterState) do
-        if type(v) == "table" then
-            PGF.Table_UpdateWithDefaults(v, PGF.C.MODEL_DEFAULT)
-        end
-    end
 end
 
 function PGF.UpdateSettingsWithDefaults()
@@ -240,6 +226,7 @@ function PGF.OnAddonLoaded(name)
         PGF.MigrateStateV2()
         PGF.MigrateStateV3()
         PGF.MigrateStateV4()
+        PGF.MigrateStateV5()
         PGF.UpdateStateWithDefaults()
 
         -- request various player information from the server

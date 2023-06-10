@@ -162,9 +162,8 @@ end
 
 function PGFDialog:GetState(id)
     PremadeGroupsFilterState = PremadeGroupsFilterState or {}
-    PremadeGroupsFilterState["categories"] = PremadeGroupsFilterState["categories"] or {}
-    PremadeGroupsFilterState["categories"][id] = PremadeGroupsFilterState["categories"][id] or {}
-    return PremadeGroupsFilterState["categories"][id]
+    PremadeGroupsFilterState[id] = PremadeGroupsFilterState[id] or {}
+    return PremadeGroupsFilterState[id]
 end
 
 function PGFDialog:OnFilterExpressionChanged()
