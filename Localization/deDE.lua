@@ -105,7 +105,7 @@ L["dialog.filters.group"] = "Gruppe"
 L["dialog.filters.dungeons"] = "Dungeons"
 L["dialog.filters.advanced"] = "Erweiterter Filterausdruck"
 L["dialog.partyfit"] = "Party Fit"
-L["dialog.reducespam"] = "Spam reduzieren"
+L["dialog.notdeclined"] = "Nicht abgelehnt"
 L["dialog.blfit"] = "Bloodlust Fit"
 L["dialog.brfit"] = "Battle Rezz Fit"
 

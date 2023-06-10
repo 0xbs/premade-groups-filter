@@ -60,10 +60,10 @@ function DungeonPanel:OnLoad()
         self:TriggerFilterExpressionChange()
     end)
 
-    self.Group.ReduceSpam:SetWidth(290/2)
-    self.Group.ReduceSpam.Title:SetText(L["dialog.reducespam"])
-    self.Group.ReduceSpam.Act:SetScript("OnClick", function(element)
-        self.state.reducespam = element:GetChecked()
+    self.Group.NotDeclined:SetWidth(290/2)
+    self.Group.NotDeclined.Title:SetText(L["dialog.notdeclined"])
+    self.Group.NotDeclined.Act:SetScript("OnClick", function(element)
+        self.state.notdeclined = element:GetChecked()
         self:TriggerFilterExpressionChange()
     end)
 
@@ -122,7 +122,7 @@ function DungeonPanel:Init(state)
     self.Group.MPRating.Max:SetText(self.state.mprating.max or "")
 
     self.Group.Partyfit.Act:SetChecked(self.state.partyfit or false)
-    self.Group.ReduceSpam.Act:SetChecked(self.state.reducespam or false)
+    self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
     self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
     self.Group.BRFit.Act:SetChecked(self.state.brfit or false)
 
@@ -150,7 +150,7 @@ function DungeonPanel:OnReset()
     self.state.mprating.min = ""
     self.state.mprating.max = ""
     self.state.partyfit = false
-    self.state.reducespam = false
+    self.state.notdeclined = false
     self.state.blfit = false
     self.state.brfit = false
     for i = 1, #SEASON_DUNGEONS do
@@ -183,10 +183,10 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.mprating.min) then expression = expression .. " and mprating >= " .. self.state.mprating.min end
         if PGF.NotEmpty(self.state.mprating.max) then expression = expression .. " and mprating <= " .. self.state.mprating.max end
     end
-    if self.state.partyfit   then expression = expression .. " and partyfit" end
-    if self.state.blfit      then expression = expression .. " and blfit"    end
-    if self.state.brfit      then expression = expression .. " and brfit"    end
-    if self.state.reducespam then expression = expression .. " and age <= 5" end
+    if self.state.partyfit    then expression = expression .. " and partyfit"     end
+    if self.state.blfit       then expression = expression .. " and blfit"        end
+    if self.state.brfit       then expression = expression .. " and brfit"        end
+    if self.state.notdeclined then expression = expression .. " and not declined" end
 
     local anyDungeonSelected = false
     for i = 1, #SEASON_DUNGEONS do

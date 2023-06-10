@@ -41,7 +41,7 @@
                             <Anchor point="TOPLEFT" relativeKey="$parent.MPRating" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="ReduceSpam" inherits="PremadeGroupsFilterBasicTemplate">
+                    <Frame parentKey="NotDeclined" inherits="PremadeGroupsFilterBasicTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
