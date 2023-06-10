@@ -43,7 +43,7 @@ PGF.StaticPopupDialogs = {
         text = L["dialog.reset.confirm"],
         button1 = OKAY,
         button2 = CANCEL,
-        OnAccept = function (self, data) PGF.Dialog_ResetButton_OnConfirm(self, data) end,
+        OnAccept = function (self) PGF.Dialog:OnResetConfirm() end,
         hideOnEscape = true,
     },
     ["PGF_COPY_URL_KEYWORDS"] = {

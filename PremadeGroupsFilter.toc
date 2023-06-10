@@ -23,6 +23,7 @@ Localization\zhCN.lua
 Localization\zhTW.lua
 Localization\ruRU.lua
 Localization\esES.lua
+Modules\Logger.lua
 Fixes\FixGetPlaystyleString.lua
 Fixes\FixReportAdvertisement.lua
 StaticPopup\StaticPopup.xml
@@ -50,7 +51,11 @@ Settings\Settings.xml
 Settings\Settings.lua
 Dialog\PopupMenu.xml
 Dialog\PopupMenu.lua
-Dialog\Help.lua
-Dialog\Setup.lua
-Dialog\Dialog.lua
-Dialog\Dialog.xml
+UI\Common.lua
+UI\Templates.xml
+UI\Dialog.xml
+UI\Dialog.lua
+UI\DungeonPanel.xml
+UI\DungeonPanel.lua
+UI\ExpressionPanel.xml
+UI\ExpressionPanel.lua

@@ -22,19 +22,40 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- TODO FIXME
-function PGF.Macro(exp, sorting)
-    local dialog = PremadeGroupsFilterDialog
-    if dialog and dialog:IsVisible() then
-        PGF.Dialog_Reset()
-        dialog.Expression.EditBox:SetText(exp)
-        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-        if sorting then
-            dialog.Sorting.SortingExpression:SetText(sorting)
-            PGF.Dialog_SortingExpression_OnTextChanged(dialog.Sorting.SortingExpression)
-        end
-        dialog.RefreshButton:Click()
+C.LOG_PREFIX = "[PGF] "
+C.LOG_LEVEL = {
+    DEBUG = 1,
+    INFO = 2,
+    WARN = 3,
+    ERROR = 4,
+}
+
+local Logger = {
+    level = C.LOG_LEVEL.DEBUG
+}
+
+function Logger:Debug(str)
+    if self.level >= C.LOG_LEVEL.DEBUG then
+        print(C.LOG_PREFIX .. str)
     end
 end
 
-PremadeGroupsFilter.Macro = PGF.Macro
+function Logger:Info(str)
+    if self.level >= C.LOG_LEVEL.INFO then
+        print(C.LOG_PREFIX .. str)
+    end
+end
+
+function Logger:Warn(str)
+    if self.level >= C.LOG_LEVEL.WARN then
+        print(C.LOG_PREFIX .. str)
+    end
+end
+
+function Logger:Error(str)
+    if self.level >= C.LOG_LEVEL.ERROR then
+        print(C.LOG_PREFIX .. str)
+    end
+end
+
+PGF.Logger = Logger

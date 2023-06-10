@@ -44,82 +44,8 @@ function PGF.ResetSearchEntries()
     end
 end
 
-function PGF.GetExpressionFromMinMaxModel(model, key)
-    local exp = ""
-    if model[key].act then
-        if PGF.NotEmpty(model[key].min) then exp = exp .. " and " .. key .. ">=" .. model[key].min end
-        if PGF.NotEmpty(model[key].max) then exp = exp .. " and " .. key .. "<=" .. model[key].max end
-    end
-    return exp
-end
-
-function PGF.GetExpressionFromDifficultyModel(model)
-    if model.difficulty.act then
-        return " and " .. C.DIFFICULTY_STRING[model.difficulty.val]
-    end
-    return ""
-end
-
-function PGF.GetExpressionFromAdvancedExpression(model)
-    if model.expression then
-        local exp = PGF.String_TrimWhitespace(PGF.RemoveCommentLines(model.expression))
-        if exp ~= "" then
-            return " and ( " .. PGF.RemoveCommentLines(model.expression) .. " ) "
-        end
-    end
-    return ""
-end
-
-function PGF.RemoveCommentLines(exp)
-    local result = ""
-    for line in exp:gmatch("([^\n]+)") do -- split by newline and skip empty lines
-        if not line:match("^%s*%-%-") then -- if not comment line
-            result = result .. " " .. line
-        end
-    end
-    return result
-end
-
-function PGF.GetModel()
-    local tab = PVEFrame.activeTabIndex
-    local category = LFGListFrame.SearchPanel.categoryID or LFGListFrame.CategorySelection.selectedCategory
-    local filters = LFGListFrame.SearchPanel.filters or LFGListFrame.CategorySelection.selectedFilters or 0
-    if not tab then return nil end
-    if not category then return nil end
-    if filters < 0 then filters = "n" .. filters end
-    local modelKey = "t" .. tab .. "c" .. category .. "f" .. filters
-    if PremadeGroupsFilterState[modelKey] == nil then
-        local defaultState = {}
-        -- if we have an old v1.10 state, take it instead of the default one
-        local oldGlobalState = PremadeGroupsFilterState["v110"]
-        if oldGlobalState ~= nil then
-            defaultState = PGF.Table_Copy_Rec(oldGlobalState)
-        end
-        PGF.Table_UpdateWithDefaults(defaultState, C.MODEL_DEFAULT)
-        PremadeGroupsFilterState[modelKey] = defaultState
-    end
-    return PremadeGroupsFilterState[modelKey]
-end
-
-function PGF.GetExpressionFromModel()
-    local model = PGF.GetModel()
-    if not model then return "true" end
-    local exp = "true" -- start with neutral element
-    exp = exp .. PGF.GetExpressionFromDifficultyModel(model)
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "mprating")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "pvprating")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "members")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "tanks")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "heals")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "dps")
-    exp = exp .. PGF.GetExpressionFromMinMaxModel(model, "defeated")
-    exp = exp .. PGF.GetExpressionFromAdvancedExpression(model)
-    exp = exp:gsub("^true and ", "")
-    return exp
-end
-
 function PGF.GetSortTableFromModel()
-    local model = PGF.GetModel()
+    --local model = PGF.GetModel() -- TODO FIXME
     if not model or not model.sorting then return 0, {} end
     -- example string:  "friends asc, age desc , foo asc, bar   desc , x"
     -- resulting table: { ["friends"] = "asc", ["age"] = "desc", ["foo"] = "asc", ["bar"] = "desc" }
@@ -299,12 +225,12 @@ function PGF.DoFilterSearchResults(results)
     --print("filtering, size is "..#results)
 
     PGF.ResetSearchEntries()
-    local model = PGF.GetModel()
-    if not model or not model.enabled then return false end
+    --local model = PGF.GetModel() -- TODO FIXME
+    --if not model or not model.enabled then return false end
     if not results or #results == 0 then return false end
 
-    local sortTableSize, _ = PGF.GetSortTableFromModel()
-    local exp = PGF.GetExpressionFromModel()
+    local exp = PGF.Dialog:GetFilterExpression()
+    PGF.Logger:Debug("Main: exp = "..exp)
     PGF.currentSearchExpression = exp
 
     local playerInfo = PGF.GetPlayerInfo()

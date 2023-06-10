@@ -22,19 +22,12 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- TODO FIXME
-function PGF.Macro(exp, sorting)
-    local dialog = PremadeGroupsFilterDialog
-    if dialog and dialog:IsVisible() then
-        PGF.Dialog_Reset()
-        dialog.Expression.EditBox:SetText(exp)
-        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-        if sorting then
-            dialog.Sorting.SortingExpression:SetText(sorting)
-            PGF.Dialog_SortingExpression_OnTextChanged(dialog.Sorting.SortingExpression)
+function PGF.RemoveCommentLines(exp)
+    local result = ""
+    for line in exp:gmatch("([^\n]+)") do -- split by newline and skip empty lines
+        if not line:match("^%s*%-%-") then -- if not comment line
+            result = result .. " " .. line
         end
-        dialog.RefreshButton:Click()
     end
+    return result
 end
-
-PremadeGroupsFilter.Macro = PGF.Macro

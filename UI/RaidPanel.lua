@@ -22,19 +22,37 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- TODO FIXME
-function PGF.Macro(exp, sorting)
-    local dialog = PremadeGroupsFilterDialog
-    if dialog and dialog:IsVisible() then
-        PGF.Dialog_Reset()
-        dialog.Expression.EditBox:SetText(exp)
-        PGF.Dialog_Expression_OnTextChanged(dialog.Expression.EditBox)
-        if sorting then
-            dialog.Sorting.SortingExpression:SetText(sorting)
-            PGF.Dialog_SortingExpression_OnTextChanged(dialog.Sorting.SortingExpression)
-        end
-        dialog.RefreshButton:Click()
-    end
+local RaidPanel = CreateFrame("Frame")
+
+function RaidPanel:OnLoad()
+    PGF.Logger:Debug("RaidPanel:OnLoad")
+    self.name = "raid"
+    self:SetPoint("TOPLEFT")
+    self:SetPoint("BOTTOMRIGHT")
 end
 
-PremadeGroupsFilter.Macro = PGF.Macro
+function RaidPanel:Init(state)
+    PGF.Logger:Debug("RaidPanel:Init")
+    self.state = state
+end
+
+function RaidPanel:OnShow()
+    PGF.Logger:Debug("RaidPanel:OnShow")
+end
+
+function RaidPanel:OnHide()
+    PGF.Logger:Debug("RaidPanel:OnHide")
+end
+
+function RaidPanel:OnReset()
+    PGF.Logger:Debug("RaidPanel:OnHide")
+end
+
+function RaidPanel:GetFilterRaidPanel()
+    PGF.Logger:Debug("RaidPanel:GetFilterRaidPanel")
+end
+
+RaidPanel:OnLoad()
+PGF.Dialog:RegisterPanel("c3f0", RaidPanel) -- raid
+PGF.Dialog:RegisterPanel("c3f1", RaidPanel) -- raid recommended
+PGF.Dialog:RegisterPanel("c3f2", RaidPanel) -- raid not recommended

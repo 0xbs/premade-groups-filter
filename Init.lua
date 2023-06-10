@@ -55,13 +55,13 @@ C.CATEGORY_ID = {
     THORGAST           = 113,
 }
 
-C.DIFFICULTY_STRING = {
-    [1] = "normal",
-    [2] = "heroic",
-    [3] = "mythic",
-    [4] = "mythicplus",
-    [5] = "arena2v2",
-    [6] = "arena3v3",
+C.DIFFICULTY_KEYWORD = {
+    [C.NORMAL] = "normal",
+    [C.HEROIC] = "heroic",
+    [C.MYTHIC] = "mythic",
+    [C.MYTHICPLUS] = "mythicplus",
+    [C.ARENA2V2] = "arena2v2",
+    [C.ARENA3V3] = "arena3v3",
 }
 
 -- Translates tier enum values into normalized values - check via /dump PVPUtil.GetTierName(1)

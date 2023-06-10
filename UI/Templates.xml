@@ -1,0 +1,161 @@
+<!--
+  ~ -------------------------------------------------------------------------------
+  ~ -- Premade Groups Filter
+  ~ -------------------------------------------------------------------------------
+  ~ -- Copyright (C) 2015 Elotheon-Arthas-EU
+  ~ --
+  ~ -- This program is free software; you can redistribute it and/or modify
+  ~ -- it under the terms of the GNU General Public License as published by
+  ~ -- the Free Software Foundation; either version 2 of the License, or
+  ~ -- (at your option) any later version.
+  ~ --
+  ~ -- This program is distributed in the hope that it will be useful,
+  ~ -- but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ -- GNU General Public License for more details.
+  ~ --
+  ~ -- You should have received a copy of the GNU General Public License along
+  ~ -- with this program; if not, write to the Free Software Foundation, Inc.,
+  ~ -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  ~ -------------------------------------------------------------------------------
+  -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- basic template for a filter row: a checkbox and a title -->
+    <Frame name="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Size x="290" y="23"/>
+        <Frames>
+            <CheckButton parentKey="Act" inherits="UICheckButtonTemplate" checked="false">
+                <Anchors>
+                    <Anchor point="TOPLEFT" y="4"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+        <Layers>
+            <Layer>
+                <FontString parentKey="Title" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
+                    <Size x="255" y="23"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="35" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <!-- filter row with a dropdown box after the checkbox and the title -->
+    <Frame name="PremadeGroupsFilterDropdownTemplate" inherits="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Size x="290" y="23"/>
+        <Frames>
+            <Frame parentKey="DropDown" inherits="PremadeGroupsFilterDropDownPopupMenuTemplate">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="13" y="4"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+
+    <!-- filter row with minimum and maximum input box after the checkbox and the title -->
+    <Frame name="PremadeGroupsFilterMinMaxTemplate" inherits="PremadeGroupsFilterBasicTemplate" virtual="true">
+        <Size x="290" y="23"/>
+        <Frames>
+            <EditBox parentKey="Min" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
+                <Size x="35" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="180" y="-1"/>
+                </Anchors>
+            </EditBox>
+            <EditBox parentKey="Max" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
+                <Size x="35" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="250" y="-1"/>
+                </Anchors>
+            </EditBox>
+        </Frames>
+        <Layers>
+            <Layer>
+                <FontString parentKey="To" inherits="GameFontHighlight" wordwrap="false">
+                    <Size x="30" y="23"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="215" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <!-- yellow info button for showing information in a tooltip -->
+    <Button name="PremadeGroupsFilterInfoButtonTemplate" virtual="true">
+        <Size x="38" y="38"/>
+        <HitRectInsets>
+            <AbsInset left="10" right="10" top="10" bottom="10"/>
+        </HitRectInsets>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="I" file="Interface\common\help-i">
+                    <Size x="38" y="38"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture parentKey="H" file="Interface\common\help-i" alphaMode="ADD" hidden="true">
+            <Size x="38" y="38"/>
+            <Anchors>
+                <Anchor point="CENTER"/>
+            </Anchors>
+            <Color r="1" g="1" b="1" a=".2"/>
+        </HighlightTexture>
+        <Scripts>
+            <OnMouseDown>
+                self.I:SetPoint("CENTER", 1, -1)
+                self.H:SetPoint("CENTER", 1, -1)
+            </OnMouseDown>
+            <OnMouseUp>
+                self.I:SetPoint("CENTER", 0, 0)
+                self.H:SetPoint("CENTER", 0, 0)
+            </OnMouseUp>
+        </Scripts>
+    </Button>
+
+    <!-- expression input box with a title and a yellow info button -->
+    <Frame name="PremadeGroupsFilterExpressionTemplate" virtual="true">
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                    <Size y="25"/>
+                    <Anchors>
+                        <Anchor point="TOP" y="-5"/>
+                        <Anchor point="LEFT" x="10"/>
+                        <Anchor point="RIGHT" x="-10"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="Info" inherits="PremadeGroupsFilterInfoButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" y="6" relativeKey="$parent.Title" relativePoint="TOP"/>
+                    <Anchor point="RIGHT" x="0"/>
+                </Anchors>
+            </Button>
+            <ScrollFrame parentKey="Expression" inherits="InputScrollFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOP" y="-5" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                    <Anchor point="LEFT" x="15"/>
+                    <Anchor point="RIGHT" x="-15"/>
+                    <Anchor point="BOTTOM" y="5"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="maxLetters" value="2000" type="number"/>
+                    <!--<KeyValue key="instructions" value="" type="global"/>-->
+                    <KeyValue key="hideCharCount" value="true" type="boolean"/>
+                </KeyValues>
+            </ScrollFrame>
+        </Frames>
+    </Frame>
+
+</Ui>

@@ -1,0 +1,154 @@
+<!--
+  ~ -------------------------------------------------------------------------------
+  ~ -- Premade Groups Filter
+  ~ -------------------------------------------------------------------------------
+  ~ -- Copyright (C) 2015 Elotheon-Arthas-EU
+  ~ --
+  ~ -- This program is free software; you can redistribute it and/or modify
+  ~ -- it under the terms of the GNU General Public License as published by
+  ~ -- the Free Software Foundation; either version 2 of the License, or
+  ~ -- (at your option) any later version.
+  ~ --
+  ~ -- This program is distributed in the hope that it will be useful,
+  ~ -- but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ -- GNU General Public License for more details.
+  ~ --
+  ~ -- You should have received a copy of the GNU General Public License along
+  ~ -- with this program; if not, write to the Free Software Foundation, Inc.,
+  ~ -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  ~ -------------------------------------------------------------------------------
+  -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Frame name="PremadeGroupsFilterDungeonPanelTemplate" virtual="true" hidden="true">
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-20"/>
+            <Anchor point="BOTTOMRIGHT" y="30"/>
+        </Anchors>
+        <Frames>
+            <Frame parentKey="Group">
+                <Size x="300" y="125"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                            <Size y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" y="-5"/>
+                                <Anchor point="LEFT" x="10"/>
+                                <Anchor point="RIGHT" x="-10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                            <Anchor point="LEFT" x="5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="MPRating" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Partyfit" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.MPRating" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="ReduceSpam" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="BLFit" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="145" relativeKey="$parent.MPRating" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="BRFit" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.BLFit" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Dungeons">
+                <Size x="300" y="125"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                            <Size y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" y="-5"/>
+                                <Anchor point="LEFT" x="10"/>
+                                <Anchor point="RIGHT" x="-10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Dungeon1" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                            <Anchor point="LEFT" x="5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon2" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                            <Anchor point="LEFT" x="150"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon3" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon1" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon4" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon2" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon5" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon3" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon6" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon4" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon7" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon5" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Dungeon8" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon6" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Dungeons" relativePoint="BOTTOMLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+
+</Ui>
