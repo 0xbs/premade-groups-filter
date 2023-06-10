@@ -22,7 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-C.LOG_PREFIX = "[PGF] "
 C.LOG_LEVEL = {
     DEBUG = 1,
     INFO = 2,
@@ -34,27 +33,32 @@ local Logger = {
     level = C.LOG_LEVEL.DEBUG
 }
 
+function Logger:Log(level, str)
+    local timestamp = date('%H:%M:%S')
+    print(string.format("%s PGF [%s] %s", timestamp, level, str))
+end
+
 function Logger:Debug(str)
     if self.level >= C.LOG_LEVEL.DEBUG then
-        print(C.LOG_PREFIX .. str)
+        self:Log("D", str)
     end
 end
 
 function Logger:Info(str)
     if self.level >= C.LOG_LEVEL.INFO then
-        print(C.LOG_PREFIX .. str)
+        self:Log("I", str)
     end
 end
 
 function Logger:Warn(str)
     if self.level >= C.LOG_LEVEL.WARN then
-        print(C.LOG_PREFIX .. str)
+        self:Log("W", str)
     end
 end
 
 function Logger:Error(str)
     if self.level >= C.LOG_LEVEL.ERROR then
-        print(C.LOG_PREFIX .. str)
+        self:Log("E", str)
     end
 end
 
