@@ -32,7 +32,7 @@ local RaidPanel = CreateFrame("Frame", "PremadeGroupsFilterRaidPanel", PGF.Dialo
 
 function RaidPanel:OnLoad()
     PGF.Logger:Debug("RaidPanel:OnLoad")
-    self.name = "Raid"
+    self.name = "raid"
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])

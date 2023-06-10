@@ -31,7 +31,7 @@ local ArenaPanel = CreateFrame("Frame", "PremadeGroupsFilterArenaPanel", PGF.Dia
 
 function ArenaPanel:OnLoad()
     PGF.Logger:Debug("ArenaPanel:OnLoad")
-    self.name = "Arena"
+    self.name = "arena"
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])

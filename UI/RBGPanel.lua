@@ -26,7 +26,7 @@ local RBGPanel = CreateFrame("Frame", "PremadeGroupsFilterRBGPanel", PGF.Dialog,
 
 function RBGPanel:OnLoad()
     PGF.Logger:Debug("RBGPanel:OnLoad")
-    self.name = "RBG"
+    self.name = "rbg"
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
