@@ -52,9 +52,9 @@ function PGFDialog:OnLoad()
     self.MaximizeMinimizeFrame:SetOnMinimizedCallback(function () self:OnMinimize() end)
 
     self.ResetButton:SetText(L["dialog.reset"])
-    self.ResetButton:SetScript("OnClick", self.OnResetButtonClick)
+    self.ResetButton:SetScript("OnClick", function () self:OnResetButtonClick() end)
     self.RefreshButton:SetText(L["dialog.refresh"])
-    self.RefreshButton:SetScript("OnClick", self.OnRefreshButtonClick)
+    self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
 end
 
 function PGFDialog:OnShow()
