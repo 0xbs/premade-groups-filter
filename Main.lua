@@ -22,6 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+PGF.currentSearchResults = {}
 PGF.lastSearchEntryReset = time()
 PGF.previousSearchExpression = ""
 PGF.currentSearchExpression = ""
@@ -224,9 +225,8 @@ function PGF.DoFilterSearchResults(results)
     --print(debugstack())
     --print("filtering, size is "..#results)
 
-    PGF.ResetSearchEntries()
-    if not PGF.Dialog:GetEnabled() then return false end
-    if not results or #results == 0 then return false end
+    if not PGF.Dialog:GetEnabled() then return results end
+    if not results or #results == 0 then return results end
 
     local exp = PGF.Dialog:GetFilterExpression()
     PGF.Logger:Debug("Main: exp = "..exp)
@@ -500,8 +500,7 @@ function PGF.DoFilterSearchResults(results)
     PGF.numResultsAfterFilter = #results
 
     table.sort(results, PGF.SortByExpression)
-    LFGListFrame.SearchPanel.totalResults = #results
-    return true
+    return results
 end
 
 function PGF. PutRaiderIOAliases(env)
@@ -571,5 +570,22 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     PGF.AddRatingInfo(self, searchResultInfo)
 end
 
+function PGF.OnLFGListSearchPanelUpdateResultList(self)
+    PGF.Logger:Debug("PGF.OnLFGListSearchPanelUpdateResultList")
+    PGF.currentSearchResults = self.results
+    PGF.ResetSearchEntries()
+    PGF.FilterSearchResults()
+end
+
+function PGF.FilterSearchResults()
+    PGF.Logger:Debug("PGF.FilterSearchResults")
+    local copy = PGF.Table_Copy_Shallow(PGF.currentSearchResults)
+    local results = PGF.DoFilterSearchResults(copy)
+    -- publish
+    LFGListFrame.SearchPanel.results = results
+    LFGListFrame.SearchPanel.totalResults = #results
+    LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel)
+end
+
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)
-hooksecurefunc("LFGListUtil_SortSearchResults", PGF.DoFilterSearchResults)
+hooksecurefunc("LFGListSearchPanel_UpdateResultList", PGF.OnLFGListSearchPanelUpdateResultList)

@@ -184,6 +184,7 @@ function PGFDialog:OnFilterExpressionChanged(shouldRefresh)
     if shouldRefresh then
         self:Refresh()
     end
+    PGF.FilterSearchResults()
 end
 
 function PGFDialog:GetFilterExpression()
