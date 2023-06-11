@@ -118,3 +118,28 @@ function PGF.UI_SetupDropDown(panel, field, name, title, entryTable)
     dropdown.Button:SetScript("OnClick", function () PGF.PopupMenu_Toggle(name) end)
     dropdown:SetScript("OnHide", PGF.PopupMenu_Hide)
 end
+
+
+local advancedExpressionPanels = {}
+
+function PGF.UI_SetupAdvancedExpression(panel)
+    table.insert(advancedExpressionPanels, panel)
+    InputScrollFrame_OnLoad(panel.Advanced.Expression)
+    panel.Advanced.Title:SetText(L["dialog.filters.advanced"])
+    local fontFile, _, fontFlags = panel.Advanced.Title:GetFont()
+    panel.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    panel.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
+    panel.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    panel.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
+    panel.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
+    panel.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
+end
+
+hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
+    for _, panel in ipairs(advancedExpressionPanels) do
+        if self == panel then
+            panel.state.expression = panel.Advanced.Expression.EditBox:GetText() or ""
+            panel:TriggerFilterExpressionChange()
+        end
+    end
+end)

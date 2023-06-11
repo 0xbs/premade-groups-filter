@@ -28,16 +28,7 @@ function ExpressionPanel:OnLoad()
     PGF.Logger:Debug("ExpressionPanel:OnLoad")
     self.name = "expression"
 
-    InputScrollFrame_OnLoad(self.Advanced.Expression)
-    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
-    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
-    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
-    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
-    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
-    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
-
+    PGF.UI_SetupAdvancedExpression(self)
     self.Sorting.Title:SetText(L["dialog.sorting"])
     self.Sorting.Expression:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Sorting.Expression:SetScript("OnTextChanged", InputBoxInstructions_OnTextChanged)
@@ -87,12 +78,6 @@ function ExpressionPanel:GetSortingExpression()
     return self.state.sorting
 end
 
-function ExpressionPanel:OnExpressionTextChanged()
-    PGF.Logger:Debug("ExpressionPanel:OnExpressionTextChanged")
-    self.state.expression = self.Advanced.Expression.EditBox:GetText()
-    self:TriggerFilterExpressionChange()
-end
-
 function ExpressionPanel:OnSortingExpressionChanged()
     PGF.Logger:Debug("ExpressionPanel:OnSortingExpressionChanged")
     self.state.sorting = self.Sorting.Expression:GetText()
@@ -103,12 +88,6 @@ function ExpressionPanel:TriggerFilterExpressionChange()
     PGF.Logger:Debug("ExpressionPanel:TriggerFilterExpressionChange")
     PGF.Dialog:OnFilterExpressionChanged()
 end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    if self == ExpressionPanel.Advanced.Expression.EditBox then
-        ExpressionPanel:OnExpressionTextChanged()
-    end
-end)
 
 hooksecurefunc("InputBoxInstructions_OnTextChanged", function (self)
     if self == ExpressionPanel.Sorting.Expression then

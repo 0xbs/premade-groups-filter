@@ -44,14 +44,7 @@ function RaidPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Defeated, "defeated")
     PGF.UI_SetupCheckBox(self, self.Group.MatchingId, "matchingid", true)
     PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
-
-    -- Advanced
-    InputScrollFrame_OnLoad(self.Advanced.Expression)
-    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
-    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
-    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    PGF.UI_SetupAdvancedExpression(self)
 end
 
 function RaidPanel:Init(state)
@@ -83,9 +76,6 @@ function RaidPanel:Init(state)
     self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
 
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
-    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
-    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
-    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
 
 function RaidPanel:OnShow()
@@ -166,18 +156,6 @@ end
 function RaidPanel:GetSortingExpression()
     return nil
 end
-
-function RaidPanel:OnExpressionTextChanged()
-    PGF.Logger:Debug("RaidPanel:OnExpressionTextChanged")
-    self.state.expression = self.Advanced.Expression.EditBox:GetText() or ""
-    self:TriggerFilterExpressionChange()
-end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    if self == RaidPanel.Advanced.Expression.EditBox then
-        RaidPanel:OnExpressionTextChanged()
-    end
-end)
 
 RaidPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c3f5", RaidPanel)

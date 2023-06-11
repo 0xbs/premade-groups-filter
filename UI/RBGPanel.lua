@@ -35,14 +35,7 @@ function RBGPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
-
-    -- Advanced
-    InputScrollFrame_OnLoad(self.Advanced.Expression)
-    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
-    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
-    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    PGF.UI_SetupAdvancedExpression(self)
 end
 
 function RBGPanel:Init(state)
@@ -68,9 +61,6 @@ function RBGPanel:Init(state)
     self.Group.DPS.Max:SetText(self.state.dps.max or "")
 
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
-    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
-    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
-    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
 
 function RBGPanel:OnShow()
@@ -145,18 +135,6 @@ end
 function RBGPanel:GetSortingExpression()
     return nil
 end
-
-function RBGPanel:OnExpressionTextChanged()
-    PGF.Logger:Debug("RBGPanel:OnExpressionTextChanged")
-    self.state.expression = self.Advanced.Expression.EditBox:GetText() or ""
-    self:TriggerFilterExpressionChange()
-end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    if self == RBGPanel.Advanced.Expression.EditBox then
-        RBGPanel:OnExpressionTextChanged()
-    end
-end)
 
 RBGPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c9f8", RBGPanel)

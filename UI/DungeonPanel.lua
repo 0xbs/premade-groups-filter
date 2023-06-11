@@ -49,24 +49,19 @@ function DungeonPanel:OnLoad()
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
-
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
     PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating")
     PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", true)
     PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
     PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", true)
     PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", true)
+    PGF.UI_SetupAdvancedExpression(self)
 
     -- Dungeons
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
     for i = 1, #SEASON_DUNGEONS do
         local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityId).fullName
         self.Dungeons["Dungeon"..i]:SetWidth(290/2)
-        --self.Dungeons["Dungeon"..i]:SetScript("OnEnter", function (self)
-        --    GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-        --    GameTooltip:AddLine(dungeonName);
-        --    GameTooltip:Show();
-        --end)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
         self.Dungeons["Dungeon"..i].Title:SetWidth(100)
         self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
@@ -74,14 +69,6 @@ function DungeonPanel:OnLoad()
             self:TriggerFilterExpressionChange()
         end)
     end
-
-    -- Advanced
-    InputScrollFrame_OnLoad(self.Advanced.Expression)
-    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
-    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
-    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
 end
 
 function DungeonPanel:Init(state)
@@ -106,9 +93,6 @@ function DungeonPanel:Init(state)
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
     end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
-    self.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
-    self.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
-    self.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
 
 function DungeonPanel:OnShow()
@@ -191,18 +175,6 @@ end
 function DungeonPanel:GetSortingExpression()
     return nil
 end
-
-function DungeonPanel:OnExpressionTextChanged()
-    PGF.Logger:Debug("DungeonPanel:OnExpressionTextChanged")
-    self.state.expression = self.Advanced.Expression.EditBox:GetText() or ""
-    self:TriggerFilterExpressionChange()
-end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    if self == DungeonPanel.Advanced.Expression.EditBox then
-        DungeonPanel:OnExpressionTextChanged()
-    end
-end)
 
 DungeonPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c2f4", DungeonPanel)
