@@ -130,16 +130,12 @@ function PGF.UI_SetupAdvancedExpression(panel)
     panel.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     panel.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     panel.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    panel.Advanced.Expression.EditBox:SetScript("OnEscapePressed", InputScrollFrame_OnEscapePressed)
+    panel.Advanced.Expression.EditBox:SetScript("OnEditFocusLost", function (self)
+        panel.state.expression = self:GetText() or ""
+        panel:TriggerFilterExpressionChange()
+    end)
     panel.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
     panel.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
     panel.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    for _, panel in ipairs(advancedExpressionPanels) do
-        if self == panel.Advanced.Expression.EditBox then
-            panel.state.expression = panel.Advanced.Expression.EditBox:GetText() or ""
-            panel:TriggerFilterExpressionChange()
-        end
-    end
-end)

@@ -33,6 +33,10 @@ function ExpressionPanel:OnLoad()
     self.Sorting.Title:SetText(L["dialog.sorting"])
     self.Sorting.Expression:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Sorting.Expression:SetScript("OnTextChanged", InputBoxInstructions_OnTextChanged)
+    self.Sorting.Expression:SetScript("OnEditFocusLost", function ()
+        self.state.sorting = self.Sorting.Expression:GetText()
+        self:TriggerFilterExpressionChange()
+    end)
     self.Sorting.Expression.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Sorting.Expression.Instructions:SetText("friends desc, age asc")
 end
@@ -79,22 +83,10 @@ function ExpressionPanel:GetSortingExpression()
     return self.state.sorting
 end
 
-function ExpressionPanel:OnSortingExpressionChanged()
-    PGF.Logger:Debug("ExpressionPanel:OnSortingExpressionChanged")
-    self.state.sorting = self.Sorting.Expression:GetText()
-    self:TriggerFilterExpressionChange()
-end
-
 function ExpressionPanel:TriggerFilterExpressionChange()
     PGF.Logger:Debug("ExpressionPanel:TriggerFilterExpressionChange")
     PGF.Dialog:OnFilterExpressionChanged()
 end
-
-hooksecurefunc("InputBoxInstructions_OnTextChanged", function (self)
-    if self == ExpressionPanel.Sorting.Expression then
-        ExpressionPanel:OnSortingExpressionChanged()
-    end
-end)
 
 ExpressionPanel:OnLoad()
 PGF.Dialog:RegisterPanel("default", ExpressionPanel)
