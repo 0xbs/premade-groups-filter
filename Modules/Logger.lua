@@ -30,7 +30,7 @@ C.LOG_LEVEL = {
 }
 
 local Logger = {
-    level = C.LOG_LEVEL.DEBUG
+    level = C.LOG_LEVEL.ERROR
 }
 
 function Logger:Log(level, str)
@@ -63,3 +63,7 @@ function Logger:Error(str)
 end
 
 PGF.Logger = Logger
+
+PremadeGroupsFilter.EnableDebugLogging = function ()
+    Logger.level = C.LOG_LEVEL.DEBUG
+end
