@@ -29,6 +29,7 @@ function ExpressionPanel:OnLoad()
     self.name = "expression"
 
     PGF.UI_SetupAdvancedExpression(self)
+    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
     self.Sorting.Title:SetText(L["dialog.sorting"])
     self.Sorting.Expression:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     self.Sorting.Expression:SetScript("OnTextChanged", InputBoxInstructions_OnTextChanged)

@@ -26,8 +26,8 @@ Localization\esES.lua
 Modules\Logger.lua
 Fixes\FixGetPlaystyleString.lua
 Fixes\FixReportAdvertisement.lua
-StaticPopup\StaticPopup.xml
-StaticPopup\StaticPopup.lua
+UI\StaticPopup.xml
+UI\StaticPopup.lua
 Modules\Util.lua
 Modules\MemberInfo.lua
 Modules\RemainingSlots.lua
