@@ -114,6 +114,8 @@ L["dialog.brfit"] = "Battle Rezz Fit"
 L["dialog.brfit.tooltip"] = "Wenn in eurer Gruppe niemand einen Battle Rezz zur Verfügung stellt, zeige nur Gruppen in denen bereits eine Klasse mit Battle Rezz vorhanden ist oder in denen nach Beitritt noch ein Platz frei ist. Funktioniert auch allein."
 L["dialog.matchingid"] = "Passende ID"
 L["dialog.matchingid.tooltip"] = "Zeige nur Gruppen mit exakt der gleichen Instanz-ID wir Ihr selbst, die also die genau gleichen Gegner besiegt haben. Funktioniert auch allein."
+L["dialog.dungeon.alert.single.title"] = "Einzelner Dungeon ausgewählt"
+L["dialog.dungeon.alert.single.info"] = "Bei der Suche nach einem einzelnen Dungeon erhaltet Ihr wesentlich mehr relevante Ergebnisse, wenn Ihr einen Teil des Namens des Dungeons in das Standard-Suchfeld eingebt, z. B. 'neltharus' oder 'vortex 10'. Aufgrund von Einschränkungen können Addons das Suchfeld nicht für Euch ändern."
 
 L["settings.dialogMovable.title"] = "Dialog verschiebbar"
 L["settings.dialogMovable.tooltip"] = "Ermöglicht das Verschieben des Dialogs mit der Maus. Rechtsklick setzt die Position zurück."

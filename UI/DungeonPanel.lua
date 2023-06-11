@@ -59,6 +59,16 @@ function DungeonPanel:OnLoad()
 
     -- Dungeons
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
+    self.Dungeons.Alert.Icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
+    self.Dungeons.Alert:SetScript("OnEnter", function (self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(L["dialog.dungeon.alert.single.title"], nil, nil, nil, nil, true)
+        GameTooltip:AddLine(L["dialog.dungeon.alert.single.info"], 1, 1, 1, 1, true)
+        GameTooltip:Show()
+    end)
+    self.Dungeons.Alert:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
     for i = 1, #SEASON_DUNGEONS do
         local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityId).fullName
         self.Dungeons["Dungeon"..i]:SetWidth(290/2)
@@ -66,6 +76,7 @@ function DungeonPanel:OnLoad()
         self.Dungeons["Dungeon"..i].Title:SetWidth(100)
         self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
             self.state["dungeon" .. i] = element:GetChecked()
+            self:ToogleDungeonAlert()
             self:TriggerFilterExpressionChange()
         end)
     end
@@ -93,6 +104,7 @@ function DungeonPanel:Init(state)
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
     end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
+    self:ToogleDungeonAlert()
 end
 
 function DungeonPanel:OnShow()
@@ -148,14 +160,7 @@ function DungeonPanel:GetFilterExpression()
     if self.state.brfit       then expression = expression .. " and brfit"        end
     if self.state.notdeclined then expression = expression .. " and not declined" end
 
-    local anyDungeonSelected = false
-    for i = 1, #SEASON_DUNGEONS do
-        if self.state["dungeon"..i] then
-            anyDungeonSelected = true
-            break
-        end
-    end
-    if anyDungeonSelected then
+    if self:GetNumDungeonsSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or
         for i = 1, #SEASON_DUNGEONS do
             if self.state["dungeon"..i] then expression = expression .. " or " .. SEASON_DUNGEONS[i].keyword end
@@ -174,6 +179,25 @@ end
 
 function DungeonPanel:GetSortingExpression()
     return nil
+end
+
+function DungeonPanel:GetNumDungeonsSelected()
+    local numDungeonsSelected = 0
+    for i = 1, #SEASON_DUNGEONS do
+        if self.state["dungeon"..i] then
+            numDungeonsSelected = numDungeonsSelected + 1
+        end
+    end
+    return numDungeonsSelected
+end
+
+function DungeonPanel:ToogleDungeonAlert()
+    PGF.Logger:Debug("DungeonPanel:ToogleDungeonAlert")
+    if self:GetNumDungeonsSelected() == 1 then
+        self.Dungeons.Alert:Show()
+    else
+        self.Dungeons.Alert:Hide()
+    end
 end
 
 DungeonPanel:OnLoad()
