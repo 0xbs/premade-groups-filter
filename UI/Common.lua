@@ -137,7 +137,7 @@ end
 
 hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
     for _, panel in ipairs(advancedExpressionPanels) do
-        if self == panel then
+        if self == panel.Advanced.Expression.EditBox then
             panel.state.expression = panel.Advanced.Expression.EditBox:GetText() or ""
             panel:TriggerFilterExpressionChange()
         end
