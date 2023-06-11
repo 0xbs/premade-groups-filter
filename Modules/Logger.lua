@@ -39,25 +39,25 @@ function Logger:Log(level, str)
 end
 
 function Logger:Debug(str)
-    if self.level >= C.LOG_LEVEL.DEBUG then
+    if self.level <= C.LOG_LEVEL.DEBUG then
         self:Log("D", str)
     end
 end
 
 function Logger:Info(str)
-    if self.level >= C.LOG_LEVEL.INFO then
+    if self.level <= C.LOG_LEVEL.INFO then
         self:Log("I", str)
     end
 end
 
 function Logger:Warn(str)
-    if self.level >= C.LOG_LEVEL.WARN then
+    if self.level <= C.LOG_LEVEL.WARN then
         self:Log("W", str)
     end
 end
 
 function Logger:Error(str)
-    if self.level >= C.LOG_LEVEL.ERROR then
+    if self.level <= C.LOG_LEVEL.ERROR then
         self:Log("E", str)
     end
 end
