@@ -38,14 +38,7 @@ function ArenaPanel:OnLoad()
 
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "ArenaDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
     PGF.UI_SetupMinMaxField(self, self.Group.PvPRating, "pvprating")
-
-    -- Advanced
-    InputScrollFrame_OnLoad(self.Advanced.Expression)
-    self.Advanced.Title:SetText(L["dialog.filters.advanced"])
-    local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
-    self.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    self.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    PGF.UI_SetupAdvancedExpression(self)
 end
 
 function ArenaPanel:Init(state)
@@ -120,18 +113,6 @@ end
 function ArenaPanel:GetSortingExpression()
     return nil
 end
-
-function ArenaPanel:OnExpressionTextChanged()
-    PGF.Logger:Debug("ArenaPanel:OnExpressionTextChanged")
-    self.state.expression = self.Advanced.Expression.EditBox:GetText() or ""
-    self:TriggerFilterExpressionChange()
-end
-
-hooksecurefunc("InputScrollFrame_OnTextChanged", function (self)
-    if self == ArenaPanel.Advanced.Expression.EditBox then
-        ArenaPanel:OnExpressionTextChanged()
-    end
-end)
 
 ArenaPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c4f8", ArenaPanel)
