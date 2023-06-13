@@ -61,11 +61,6 @@
                             <Anchor point="TOPLEFT" relativeKey="$parent.Defeated" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="NotDeclined" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" x="145" relativeKey="$parent.Defeated" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
                 </Frames>
             </Frame>
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">

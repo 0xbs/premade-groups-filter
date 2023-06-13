@@ -44,7 +44,6 @@ function RaidPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
     PGF.UI_SetupMinMaxField(self, self.Group.Defeated, "defeated")
     PGF.UI_SetupCheckBox(self, self.Group.MatchingId, "matchingid", 290/2)
-    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", 290/2)
     PGF.UI_SetupAdvancedExpression(self)
 end
 
@@ -78,7 +77,6 @@ function RaidPanel:Init(state)
     self.Group.Defeated.Max:SetText(self.state.defeated.max or "")
 
     self.Group.MatchingId.Act:SetChecked(self.state.matchingid or false)
-    self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
 
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
 end
@@ -110,7 +108,6 @@ function RaidPanel:OnReset()
     self.state.defeated.min = ""
     self.state.defeated.max = ""
     self.state.matchingid = false
-    self.state.notdeclined = false
     self.state.expression = ""
     self:TriggerFilterExpressionChange()
     self:Init(self.state)
@@ -155,7 +152,6 @@ function RaidPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.defeated.max) then expression = expression .. " and defeated <= " .. self.state.defeated.max end
     end
     if self.state.matchingid  then expression = expression .. " and matchingid"   end
-    if self.state.notdeclined then expression = expression .. " and not declined" end
 
     if PGF.NotEmpty(self.state.expression) then
         local userExp = PGF.RemoveCommentLines(self.state.expression)
