@@ -49,14 +49,15 @@ function DungeonPanel:OnLoad()
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
-    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
-    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating")
-    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
-    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
-    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
-    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", 290/2)
-    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", 290/4)
-    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", 290/4)
+    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT, 225)
+    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating", 225)
+    PGF.UI_SetupMinMaxField(self, self.Group.Members, "members", 225)
+    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks", 225)
+    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", 225)
+    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", 225)
+    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", 225)
+    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", 225)
+    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", 225)
     PGF.UI_SetupAdvancedExpression(self)
 
     -- Dungeons
@@ -73,9 +74,9 @@ function DungeonPanel:OnLoad()
     end)
     for i = 1, #SEASON_DUNGEONS do
         local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityId).fullName
-        self.Dungeons["Dungeon"..i]:SetWidth(290/2)
+        self.Dungeons["Dungeon"..i]:SetWidth(145)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
-        self.Dungeons["Dungeon"..i].Title:SetWidth(100)
+        self.Dungeons["Dungeon"..i].Title:SetWidth(105)
         self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
             self.state["dungeon" .. i] = element:GetChecked()
             self:ToogleDungeonAlert()
@@ -89,6 +90,10 @@ function DungeonPanel:Init(state)
     self.state = state
     self.state.difficulty = self.state.difficulty or {}
     self.state.mprating = self.state.mprating or {}
+    self.state.members = self.state.members or {}
+    self.state.tanks = self.state.tanks or {}
+    self.state.heals = self.state.heals or {}
+    self.state.dps = self.state.dps or {}
     self.state.expression = self.state.expression or ""
 
     self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
@@ -96,6 +101,9 @@ function DungeonPanel:Init(state)
     self.Group.MPRating.Act:SetChecked(self.state.mprating.act or false)
     self.Group.MPRating.Min:SetText(self.state.mprating.min or "")
     self.Group.MPRating.Max:SetText(self.state.mprating.max or "")
+    self.Group.Members.Act:SetChecked(self.state.members.act or false)
+    self.Group.Members.Min:SetText(self.state.members.min or "")
+    self.Group.Members.Max:SetText(self.state.members.max or "")
     self.Group.Tanks.Act:SetChecked(self.state.tanks.act or false)
     self.Group.Tanks.Min:SetText(self.state.tanks.min or "")
     self.Group.Tanks.Max:SetText(self.state.tanks.max or "")
@@ -131,6 +139,9 @@ function DungeonPanel:OnReset()
     self.state.mprating.act = false
     self.state.mprating.min = ""
     self.state.mprating.max = ""
+    self.state.members.act = false
+    self.state.members.min = ""
+    self.state.members.max = ""
     self.state.tanks.act = false
     self.state.tanks.min = ""
     self.state.tanks.max = ""
@@ -173,6 +184,10 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.mprating.min) then expression = expression .. " and mprating >= " .. self.state.mprating.min end
         if PGF.NotEmpty(self.state.mprating.max) then expression = expression .. " and mprating <= " .. self.state.mprating.max end
     end
+    if self.state.members.act then
+        if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
+        if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end
+    end
     if self.state.tanks.act then
         if PGF.NotEmpty(self.state.tanks.min) then expression = expression .. " and tanks >= " .. self.state.tanks.min end
         if PGF.NotEmpty(self.state.tanks.max) then expression = expression .. " and tanks <= " .. self.state.tanks.max end
@@ -210,6 +225,10 @@ function DungeonPanel:GetSortingExpression()
     return nil
 end
 
+function DungeonPanel:GetDesiredDialogWidth()
+    return 400
+end
+
 function DungeonPanel:GetNumDungeonsSelected()
     local numDungeonsSelected = 0
     for i = 1, #SEASON_DUNGEONS do
@@ -226,6 +245,36 @@ function DungeonPanel:ToogleDungeonAlert()
         self.Dungeons.Alert:Show()
     else
         self.Dungeons.Alert:Hide()
+    end
+end
+
+function DungeonPanel:TogglePartyfit()
+    PGF.Logger:Debug("DungeonPanel:TogglePartyfit")
+    if self.state.partyfit then
+        self.Group:SetHeight(85)
+        self.Group.Members:Hide()
+        self.Group.Tanks:Hide()
+        self.Group.Heals:Hide()
+        self.Group.DPS:Hide()
+        self.state.members.act = false
+        self.state.members.min = ""
+        self.state.members.max = ""
+        self.state.tanks.act = false
+        self.state.tanks.min = ""
+        self.state.tanks.max = ""
+        self.state.heals.act = false
+        self.state.heals.min = ""
+        self.state.heals.max = ""
+        self.state.dps.act = false
+        self.state.dps.min = ""
+        self.state.dps.max = ""
+        self:Init(self.state)
+        self:TriggerFilterExpressionChange()
+    else
+        self.Group:SetHeight(185)
+        self.Group.Members:Show()
+        self.Group.Tanks:Show()
+        self.Group.Heals:Show()
     end
 end
 

@@ -160,6 +160,12 @@ function PGFDialog:SwitchToPanel()
     if self.activePanel then self.activePanel:Hide() end
     self.activePanel = panel
     self.activePanel:Init(self.activeState[panel.name])
+    if self.activePanel.GetDesiredDialogWidth then
+        local desiredWidth = self.activePanel:GetDesiredDialogWidth()
+        self:SetWidth(desiredWidth)
+    else
+        self:SetWidth(300)
+    end
     self.activePanel:Show()
 end
 

@@ -3,7 +3,7 @@
 
     <!-- basic template for a filter row: a checkbox and a title -->
     <Frame name="PremadeGroupsFilterBasicTemplate" virtual="true">
-        <Size x="290" y="23"/>
+        <Size x="250" y="23"/>
         <Frames>
             <CheckButton parentKey="Act" inherits="UICheckButtonTemplate" checked="false">
                 <Anchors>
@@ -14,7 +14,7 @@
         <Layers>
             <Layer>
                 <FontString parentKey="Title" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
-                    <Size x="255" y="23"/>
+                    <Size y="23"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" x="35" y="0"/>
                     </Anchors>
@@ -42,13 +42,13 @@
             <EditBox parentKey="Min" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
                 <Size x="35" y="20"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="180" y="-1"/>
+                    <Anchor point="TOPLEFT" x="-110" y="-1" relativePoint="TOPRIGHT"/>
                 </Anchors>
             </EditBox>
             <EditBox parentKey="Max" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
                 <Size x="35" y="20"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="250" y="-1"/>
+                    <Anchor point="TOPLEFT" x="-40" y="-1" relativePoint="TOPRIGHT"/>
                 </Anchors>
             </EditBox>
         </Frames>
@@ -57,7 +57,7 @@
                 <FontString parentKey="To" inherits="GameFontHighlight" wordwrap="false">
                     <Size x="30" y="23"/>
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="215" y="0"/>
+                        <Anchor point="TOPLEFT" x="-75" y="0" relativePoint="TOPRIGHT"/>
                     </Anchors>
                 </FontString>
             </Layer>

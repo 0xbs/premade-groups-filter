@@ -46,9 +46,11 @@ function PGF.UI_SetupCheckBox(panel, field, keyword, size)
     end
 end
 
-function PGF.UI_SetupMinMaxField(panel, field, keyword)
+function PGF.UI_SetupMinMaxField(panel, field, keyword, size)
+    if not size then size = 290 end
+    field:SetWidth(size)
     field.Title:SetText(L["dialog."..keyword])
-    field.Title:SetWidth(135)
+    field.Title:SetWidth(size - 155)
     field.To:SetText(L["dialog.to"])
 
     -- check box
@@ -83,7 +85,9 @@ function PGF.UI_SetupMinMaxField(panel, field, keyword)
     end)
 end
 
-function PGF.UI_SetupDropDown(panel, field, name, title, entryTable)
+function PGF.UI_SetupDropDown(panel, field, name, title, entryTable, size)
+    if not size then size = 290 end
+    field:SetWidth(size)
     field.DropDown.SetKey = function(self, key)
         for _, v in ipairs(entryTable) do
             if v.key == key then
@@ -93,7 +97,7 @@ function PGF.UI_SetupDropDown(panel, field, name, title, entryTable)
         end
     end
     field.Title:SetText(title)
-    field.Title:SetWidth(135)
+    field.Title:SetWidth(size - 155)
     field.Act:SetScript("OnClick", function(element)
         panel.state.difficulty.act = element:GetChecked()
         panel:TriggerFilterExpressionChange()
