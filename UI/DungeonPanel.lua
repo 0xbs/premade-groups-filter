@@ -46,18 +46,20 @@ local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF
 function DungeonPanel:OnLoad()
     PGF.Logger:Debug("DungeonPanel:OnLoad")
     self.name = "dungeon"
+    self.dialogWidth = 420
+    self.groupWidth = 245
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
-    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT, 225)
-    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating", 225)
-    PGF.UI_SetupMinMaxField(self, self.Group.Members, "members", 225)
-    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks", 225)
-    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", 225)
-    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", 225)
-    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", 225)
-    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", 225)
-    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", 225)
+    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT, self.groupWidth)
+    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating", self.groupWidth)
+    PGF.UI_SetupMinMaxField(self, self.Group.Members, "members", self.groupWidth)
+    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks", self.groupWidth)
+    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", self.groupWidth)
+    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", self.groupWidth)
     PGF.UI_SetupAdvancedExpression(self)
 
     -- Dungeons
@@ -226,7 +228,7 @@ function DungeonPanel:GetSortingExpression()
 end
 
 function DungeonPanel:GetDesiredDialogWidth()
-    return 400
+    return self.dialogWidth
 end
 
 function DungeonPanel:GetNumDungeonsSelected()

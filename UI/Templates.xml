@@ -40,15 +40,15 @@
         <Size x="290" y="23"/>
         <Frames>
             <EditBox parentKey="Min" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
-                <Size x="35" y="20"/>
+                <Size x="40" y="20"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="-110" y="-1" relativePoint="TOPRIGHT"/>
                 </Anchors>
             </EditBox>
             <EditBox parentKey="Max" inherits="InputBoxTemplate" autoFocus="false" letters="4" numeric="true">
-                <Size x="35" y="20"/>
+                <Size x="40" y="20"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="-40" y="-1" relativePoint="TOPRIGHT"/>
+                    <Anchor point="TOPLEFT" x="-45" y="-1" relativePoint="TOPRIGHT"/>
                 </Anchors>
             </EditBox>
         </Frames>
