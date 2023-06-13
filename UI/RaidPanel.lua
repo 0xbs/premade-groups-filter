@@ -38,6 +38,7 @@ function RaidPanel:OnLoad()
     self.Group.Title:SetText(L["dialog.filters.group"])
 
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "RaidDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
+    PGF.UI_SetupMinMaxField(self, self.Group.Members, "members")
     PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
@@ -51,6 +52,7 @@ function RaidPanel:Init(state)
     PGF.Logger:Debug("Raidpanel:Init")
     self.state = state
     self.state.difficulty = self.state.difficulty or {}
+    self.state.members = self.state.members or {}
     self.state.tanks = self.state.tanks or {}
     self.state.heals = self.state.heals or {}
     self.state.dps = self.state.dps or {}
@@ -59,6 +61,9 @@ function RaidPanel:Init(state)
 
     self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
     self.Group.Difficulty.DropDown:SetKey(self.state.difficulty.val)
+    self.Group.Members.Act:SetChecked(self.state.members.act or false)
+    self.Group.Members.Min:SetText(self.state.members.min or "")
+    self.Group.Members.Max:SetText(self.state.members.max or "")
     self.Group.Tanks.Act:SetChecked(self.state.tanks.act or false)
     self.Group.Tanks.Min:SetText(self.state.tanks.min or "")
     self.Group.Tanks.Max:SetText(self.state.tanks.max or "")
@@ -89,6 +94,9 @@ end
 function RaidPanel:OnReset()
     PGF.Logger:Debug("RaidPanel:OnReset")
     self.state.difficulty.act = false
+    self.state.members.act = false
+    self.state.members.min = ""
+    self.state.members.max = ""
     self.state.tanks.act = false
     self.state.tanks.min = ""
     self.state.tanks.max = ""
@@ -126,6 +134,10 @@ function RaidPanel:GetFilterExpression()
     PGF.Logger:Debug("RaidPanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
     if self.state.difficulty.act then expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val] end
+    if self.state.members.act then
+        if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
+        if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end
+    end
     if self.state.tanks.act then
         if PGF.NotEmpty(self.state.tanks.min) then expression = expression .. " and tanks >= " .. self.state.tanks.min end
         if PGF.NotEmpty(self.state.tanks.max) then expression = expression .. " and tanks <= " .. self.state.tanks.max end
