@@ -22,15 +22,15 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-function PGF.UI_SetupCheckBox(panel, field, keyword, halfSize)
+function PGF.UI_SetupCheckBox(panel, field, keyword, size)
     local title = L["dialog."..keyword]
     field.Title:SetText(title)
     field.Act:SetScript("OnClick", function(element)
         panel.state[keyword] = element:GetChecked()
         panel:TriggerFilterExpressionChange()
     end)
-    if halfSize then
-        field:SetWidth(290/2)
+    if size then
+        field:SetWidth(size)
     end
     local tooltip = L["dialog."..keyword..".tooltip"]
     if tooltip then

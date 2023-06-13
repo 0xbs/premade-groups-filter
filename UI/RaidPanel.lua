@@ -42,8 +42,8 @@ function RaidPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
     PGF.UI_SetupMinMaxField(self, self.Group.Defeated, "defeated")
-    PGF.UI_SetupCheckBox(self, self.Group.MatchingId, "matchingid", true)
-    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
+    PGF.UI_SetupCheckBox(self, self.Group.MatchingId, "matchingid", 290/2)
+    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", 290/2)
     PGF.UI_SetupAdvancedExpression(self)
 end
 

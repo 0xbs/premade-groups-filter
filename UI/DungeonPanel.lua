@@ -51,10 +51,12 @@ function DungeonPanel:OnLoad()
     self.Group.Title:SetText(L["dialog.filters.group"])
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
     PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating")
-    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", true)
-    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", true)
-    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", true)
-    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", true)
+    PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
+    PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
+    PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
+    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", 290/2)
+    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", 290/4)
+    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", 290/4)
     PGF.UI_SetupAdvancedExpression(self)
 
     -- Dungeons
@@ -94,9 +96,17 @@ function DungeonPanel:Init(state)
     self.Group.MPRating.Act:SetChecked(self.state.mprating.act or false)
     self.Group.MPRating.Min:SetText(self.state.mprating.min or "")
     self.Group.MPRating.Max:SetText(self.state.mprating.max or "")
+    self.Group.Tanks.Act:SetChecked(self.state.tanks.act or false)
+    self.Group.Tanks.Min:SetText(self.state.tanks.min or "")
+    self.Group.Tanks.Max:SetText(self.state.tanks.max or "")
+    self.Group.Heals.Act:SetChecked(self.state.heals.act or false)
+    self.Group.Heals.Min:SetText(self.state.heals.min or "")
+    self.Group.Heals.Max:SetText(self.state.heals.max or "")
+    self.Group.DPS.Act:SetChecked(self.state.dps.act or false)
+    self.Group.DPS.Min:SetText(self.state.dps.min or "")
+    self.Group.DPS.Max:SetText(self.state.dps.max or "")
 
     self.Group.Partyfit.Act:SetChecked(self.state.partyfit or false)
-    self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
     self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
     self.Group.BRFit.Act:SetChecked(self.state.brfit or false)
 
@@ -121,8 +131,16 @@ function DungeonPanel:OnReset()
     self.state.mprating.act = false
     self.state.mprating.min = ""
     self.state.mprating.max = ""
+    self.state.tanks.act = false
+    self.state.tanks.min = ""
+    self.state.tanks.max = ""
+    self.state.heals.act = false
+    self.state.heals.min = ""
+    self.state.heals.max = ""
+    self.state.dps.act = false
+    self.state.dps.min = ""
+    self.state.dps.max = ""
     self.state.partyfit = false
-    self.state.notdeclined = false
     self.state.blfit = false
     self.state.brfit = false
     for i = 1, #SEASON_DUNGEONS do
@@ -155,10 +173,21 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.mprating.min) then expression = expression .. " and mprating >= " .. self.state.mprating.min end
         if PGF.NotEmpty(self.state.mprating.max) then expression = expression .. " and mprating <= " .. self.state.mprating.max end
     end
+    if self.state.tanks.act then
+        if PGF.NotEmpty(self.state.tanks.min) then expression = expression .. " and tanks >= " .. self.state.tanks.min end
+        if PGF.NotEmpty(self.state.tanks.max) then expression = expression .. " and tanks <= " .. self.state.tanks.max end
+    end
+    if self.state.heals.act then
+        if PGF.NotEmpty(self.state.heals.min) then expression = expression .. " and heals >= " .. self.state.heals.min end
+        if PGF.NotEmpty(self.state.heals.max) then expression = expression .. " and heals <= " .. self.state.heals.max end
+    end
+    if self.state.dps.act then
+        if PGF.NotEmpty(self.state.dps.min) then expression = expression .. " and dps >= " .. self.state.dps.min end
+        if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
+    end
     if self.state.partyfit    then expression = expression .. " and partyfit"     end
     if self.state.blfit       then expression = expression .. " and blfit"        end
     if self.state.brfit       then expression = expression .. " and brfit"        end
-    if self.state.notdeclined then expression = expression .. " and not declined" end
 
     if self:GetNumDungeonsSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or
