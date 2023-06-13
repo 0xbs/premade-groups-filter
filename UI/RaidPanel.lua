@@ -130,7 +130,9 @@ end
 function RaidPanel:GetFilterExpression()
     PGF.Logger:Debug("RaidPanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
-    if self.state.difficulty.act then expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val] end
+    if self.state.difficulty.act and self.state.difficulty.val then
+        expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val]
+    end
     if self.state.members.act then
         if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
         if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end

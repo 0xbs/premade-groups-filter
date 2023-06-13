@@ -96,7 +96,9 @@ end
 function ArenaPanel:GetFilterExpression()
     PGF.Logger:Debug("ArenaPanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
-    if self.state.difficulty.act then expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val] end
+    if self.state.difficulty.act and self.state.difficulty.val then
+        expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val]
+    end
     if self.state.pvprating.act then
         if PGF.NotEmpty(self.state.pvprating.min) then expression = expression .. " and pvprating >= " .. self.state.pvprating.min end
         if PGF.NotEmpty(self.state.pvprating.max) then expression = expression .. " and pvprating <= " .. self.state.pvprating.max end
