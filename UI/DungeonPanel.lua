@@ -30,14 +30,14 @@ local DIFFICULTY_TEXT = {
 }
 
 local SEASON_DUNGEONS = {
-    [1] = { activityId = 1164, keyword = "bh" },   -- Brackenhide Hollow
-    [2] = { activityId = 1168, keyword = "hoi" },  -- Halls of Infusion
-    [3] = { activityId = 1172, keyword = "nelt" }, -- Neltharus
-    [4] = { activityId = 1188, keyword = "uld" },  -- Uldaman: Legacy of Tyr
-    [5] = { activityId = 518,  keyword = "fh" },   -- Freehold
-    [6] = { activityId = 462,  keyword = "nl" },   -- Neltharion's Lair
-    [7] = { activityId = 507,  keyword = "undr" }, -- The Underrot
-    [8] = { activityId = 1195, keyword = "vp" },   -- Vortex Pinnacle
+    [1] = { activityID = 1164, mapID = 405, keyword = "bh" },   -- Brackenhide Hollow
+    [2] = { activityID = 1168, mapID = 406, keyword = "hoi" },  -- Halls of Infusion
+    [3] = { activityID = 1172, mapID = 404, keyword = "nelt" }, -- Neltharus
+    [4] = { activityID = 1188, mapID = 403, keyword = "uld" },  -- Uldaman: Legacy of Tyr
+    [5] = { activityID = 518,  mapID = 245, keyword = "fh" },   -- Freehold
+    [6] = { activityID = 462,  mapID = 206, keyword = "nl" },   -- Neltharion's Lair
+    [7] = { activityID = 507,  mapID = 251, keyword = "undr" }, -- The Underrot
+    [8] = { activityID = 1195, mapID = 438, keyword = "vp" },   -- Vortex Pinnacle
     -- note that there are currently one 8 checkboxes available in the xml file
 }
 
@@ -75,7 +75,8 @@ function DungeonPanel:OnLoad()
         GameTooltip:Hide()
     end)
     for i = 1, #SEASON_DUNGEONS do
-        local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityId).fullName
+        --local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityID).fullName
+        local dungeonName = C_ChallengeMode.GetMapUIInfo(SEASON_DUNGEONS[i].mapID)
         self.Dungeons["Dungeon"..i]:SetWidth(145)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
         self.Dungeons["Dungeon"..i].Title:SetWidth(105)
