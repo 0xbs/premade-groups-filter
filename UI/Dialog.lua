@@ -59,6 +59,9 @@ end
 
 function PGFDialog:OnShow()
     PGF.Logger:Debug("PGFDialog:OnShow")
+    if not PremadeGroupsFilterSettings.dialogMovable then
+        self:ResetPosition()
+    end
 end
 
 function PGFDialog:OnHide()
