@@ -124,17 +124,6 @@ function PGF.Table_Median(tbl)
     end
 end
 
---- Removes all lines starting with a comment (--) from the given string.
-function PGF.RemoveCommentLines(exp)
-    local result = ""
-    for line in exp:gmatch("([^\n]+)") do -- split by newline and skip empty lines
-        if not line:match("^%s*%-%-") then -- if not comment line
-            result = result .. " " .. line
-        end
-    end
-    return result
-end
-
 function PGF.IsMostLikelySameInstance(instanceName, activityName)
     -- instanceName is just the dungeon's name used in the lockout and challenge mode APIs, e.g. 'The Emerald Nightmare'
     local instanceNameLower = instanceName:lower()
