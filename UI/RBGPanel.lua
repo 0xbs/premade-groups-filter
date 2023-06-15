@@ -32,6 +32,7 @@ function RBGPanel:OnLoad()
     self.Group.Title:SetText(L["dialog.filters.group"])
 
     PGF.UI_SetupMinMaxField(self, self.Group.PvPRating, "pvprating")
+    PGF.UI_SetupMinMaxField(self, self.Group.Members, "members")
     PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks")
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals")
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps")
@@ -42,6 +43,7 @@ function RBGPanel:Init(state)
     PGF.Logger:Debug("RBGpanel:Init")
     self.state = state
     self.state.pvprating = self.state.pvprating or {}
+    self.state.members = self.state.members or {}
     self.state.tanks = self.state.tanks or {}
     self.state.heals = self.state.heals or {}
     self.state.dps = self.state.dps or {}
@@ -50,6 +52,9 @@ function RBGPanel:Init(state)
     self.Group.PvPRating.Act:SetChecked(self.state.pvprating.act or false)
     self.Group.PvPRating.Min:SetText(self.state.pvprating.min or "")
     self.Group.PvPRating.Max:SetText(self.state.pvprating.max or "")
+    self.Group.Members.Act:SetChecked(self.state.members.act or false)
+    self.Group.Members.Min:SetText(self.state.members.min or "")
+    self.Group.Members.Max:SetText(self.state.members.max or "")
     self.Group.Tanks.Act:SetChecked(self.state.tanks.act or false)
     self.Group.Tanks.Min:SetText(self.state.tanks.min or "")
     self.Group.Tanks.Max:SetText(self.state.tanks.max or "")
@@ -79,6 +84,9 @@ function RBGPanel:OnReset()
     self.state.tanks.act = false
     self.state.tanks.min = ""
     self.state.tanks.max = ""
+    self.state.members.act = false
+    self.state.members.min = ""
+    self.state.members.max = ""
     self.state.heals.act = false
     self.state.heals.min = ""
     self.state.heals.max = ""
@@ -110,6 +118,10 @@ function RBGPanel:GetFilterExpression()
     if self.state.pvprating.act then
         if PGF.NotEmpty(self.state.pvprating.min) then expression = expression .. " and pvprating >= " .. self.state.pvprating.min end
         if PGF.NotEmpty(self.state.pvprating.max) then expression = expression .. " and pvprating <= " .. self.state.pvprating.max end
+    end
+    if self.state.members.act then
+        if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
+        if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end
     end
     if self.state.tanks.act then
         if PGF.NotEmpty(self.state.tanks.min) then expression = expression .. " and tanks >= " .. self.state.tanks.min end

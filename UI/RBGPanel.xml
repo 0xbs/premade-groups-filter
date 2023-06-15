@@ -8,7 +8,7 @@
         </Anchors>
         <Frames>
             <Frame parentKey="Group">
-                <Size x="300" y="125"/>
+                <Size x="300" y="150"/>
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
                 </Anchors>
@@ -31,9 +31,14 @@
                             <Anchor point="LEFT" x="5"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
+                    <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.PvPRating" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Members" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Heals" inherits="PremadeGroupsFilterMinMaxTemplate">
