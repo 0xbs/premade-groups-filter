@@ -62,6 +62,7 @@ function ExpressionPanel:OnReset()
     PGF.Logger:Debug("ExpressionPanel:OnReset")
     self.state.expression = ""
     self.state.sorting = ""
+    self:TriggerFilterExpressionChange()
     self:Init(self.state)
 end
 
