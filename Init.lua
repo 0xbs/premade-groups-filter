@@ -131,34 +131,6 @@ C.SETTINGS_DEFAULT = {
     skipSignUpDialog = false,
 }
 
-C.STATE_DEFAULT = {
-    version = 5,
-}
-
-function PGF.MigrateStateV2()
-    -- check if migration from 1.10 to 1.11 is necessary
-    if PremadeGroupsFilterState.enabled ~= nil then
-        local stateV110 = PremadeGroupsFilterState
-        PremadeGroupsFilterState = {}
-        PremadeGroupsFilterState.v110 = stateV110
-        print(string.format(L["message.settingsupgraded"], "2"))
-    end
-end
-
-function PGF.MigrateStateV3()
-    if PremadeGroupsFilterState.version == nil then
-        PremadeGroupsFilterState.moveable = nil
-        for k, v in pairs(PremadeGroupsFilterState) do
-            if type(v) == "table" then
-                v.ilvl = nil
-                v.noilvl = nil
-            end
-        end
-        PremadeGroupsFilterState.version = 3
-        print(string.format(L["message.settingsupgraded"], "3"))
-    end
-end
-
 function PGF.MigrateStateV4()
     if PremadeGroupsFilterState.version < 4 then
         for k, v in pairs(PremadeGroupsFilterState) do
@@ -210,27 +182,18 @@ function PGF.MigrateStateV5()
     end
 end
 
-function PGF.UpdateStateWithDefaults()
-    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterState, PGF.C.STATE_DEFAULT)
-end
-
-function PGF.UpdateSettingsWithDefaults()
-    PGF.Table_UpdateWithDefaults(PremadeGroupsFilterSettings, PGF.C.SETTINGS_DEFAULT)
-end
-
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
-        PGF.UpdateSettingsWithDefaults()
+        -- update new settings with defaults
+        PGF.Table_UpdateWithDefaults(PremadeGroupsFilterSettings, PGF.C.SETTINGS_DEFAULT)
 
-        if PremadeGroupsFilterState == nil then
+        -- initialize dialog state and migrate to latest version
+        if PremadeGroupsFilterState == nil or PremadeGroupsFilterState.version == nil then
             PremadeGroupsFilterState = {}
-        else
-            PGF.MigrateStateV2()
-            PGF.MigrateStateV3()
-            PGF.MigrateStateV4()
-            PGF.MigrateStateV5()
+            PremadeGroupsFilterState.version = 5
         end
-        PGF.UpdateStateWithDefaults()
+        PGF.MigrateStateV4()
+        PGF.MigrateStateV5()
 
         -- request various player information from the server
         RequestRaidInfo()
