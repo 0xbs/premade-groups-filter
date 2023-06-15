@@ -173,8 +173,12 @@ function PGFDialog:SwitchToPanel()
 end
 
 function PGFDialog:GetState(id)
-    PremadeGroupsFilterState = PremadeGroupsFilterState or {}
-    PremadeGroupsFilterState[id] = PremadeGroupsFilterState[id] or {}
+    if PremadeGroupsFilterState[id] == nil then
+        PremadeGroupsFilterState[id] = {}
+        if self.panels[id] then -- if there is a special panel registered for this id, enable it on first run
+            PremadeGroupsFilterState[id].enabled = true
+        end
+    end
     return PremadeGroupsFilterState[id]
 end
 

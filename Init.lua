@@ -19,7 +19,6 @@
 -------------------------------------------------------------------------------
 
 PremadeGroupsFilter = {}
-PremadeGroupsFilterState = PremadeGroupsFilterState or {}
 PremadeGroupsFilterSettings = PremadeGroupsFilterSettings or {}
 
 local PGFAddonName = select(1, ...)
@@ -223,10 +222,14 @@ function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
         PGF.UpdateSettingsWithDefaults()
 
-        PGF.MigrateStateV2()
-        PGF.MigrateStateV3()
-        PGF.MigrateStateV4()
-        PGF.MigrateStateV5()
+        if PremadeGroupsFilterState == nil then
+            PremadeGroupsFilterState = {}
+        else
+            PGF.MigrateStateV2()
+            PGF.MigrateStateV3()
+            PGF.MigrateStateV4()
+            PGF.MigrateStateV5()
+        end
         PGF.UpdateStateWithDefaults()
 
         -- request various player information from the server
