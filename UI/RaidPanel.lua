@@ -155,10 +155,9 @@ function RaidPanel:GetFilterExpression()
     end
     if self.state.matchingid  then expression = expression .. " and matchingid"   end
 
-    if PGF.NotEmpty(self.state.expression) then
-        local userExp = PGF.RemoveCommentLines(self.state.expression)
-        expression = expression .. " and ( " .. userExp .. " )"
-    end
+    local userExp = PGF.UI_NormalizeExpression(self.state.expression)
+    if userExp ~= "" then expression = expression .. " and ( " .. userExp .. " )" end
+
     expression = expression:gsub("^true and ", "")
     return expression
 end

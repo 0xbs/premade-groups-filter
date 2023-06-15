@@ -143,3 +143,19 @@ function PGF.UI_SetupAdvancedExpression(panel)
     panel.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)
     panel.Advanced.Info:SetScript("OnClick", PGF.Dialog_InfoButton_OnClick)
 end
+
+--- Removes all comment lines (--), trims each line and joins them to one single line
+function PGF.UI_NormalizeExpression(exp)
+    if not exp or exp == "" then
+        return ""
+    end
+
+    local result = ""
+    for line in exp:gmatch("([^\n]+)") do -- split by newline and skip empty lines
+        if not line:match("^%s*%-%-") then -- if not comment line
+            result = result .. " " .. strtrim(line)
+        end
+    end
+
+    return strtrim(result)
+end

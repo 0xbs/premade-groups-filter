@@ -218,10 +218,9 @@ function DungeonPanel:GetFilterExpression()
         expression = expression:gsub("false or ", "")
     end
 
-    if PGF.NotEmpty(self.state.expression) then
-        local userExp = PGF.RemoveCommentLines(self.state.expression)
-        expression = expression .. " and ( " .. userExp .. " )"
-    end
+    local userExp = PGF.UI_NormalizeExpression(self.state.expression)
+    if userExp ~= "" then expression = expression .. " and ( " .. userExp .. " )" end
+
     expression = expression:gsub("^true and ", "")
     return expression
 end

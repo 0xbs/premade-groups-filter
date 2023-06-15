@@ -136,10 +136,9 @@ function RBGPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
     end
 
-    if PGF.NotEmpty(self.state.expression) then
-        local userExp = PGF.RemoveCommentLines(self.state.expression)
-        expression = expression .. " and ( " .. userExp .. " )"
-    end
+    local userExp = PGF.UI_NormalizeExpression(self.state.expression)
+    if userExp ~= "" then expression = expression .. " and ( " .. userExp .. " )" end
+
     expression = expression:gsub("^true and ", "")
     return expression
 end
