@@ -72,5 +72,9 @@ hooksecurefunc("LFGListSearchPanel_SetCategory", function () UsePGFButton:Update
 --hooksecurefunc("PVEFrame_ShowFrame", function () UsePGFButton:OnShow() end)
 --PVEFrame:HookScript("OnShow", function () UsePGFButton:OnShow() end)
 
+-- reparent UsePGFButton to ApplicationViewer or SearchPanel when either is shown
+LFGListFrame.SearchPanel:HookScript("OnShow", function () UsePGFButton:SetParent(LFGListFrame.SearchPanel) end)
+LFGListFrame.ApplicationViewer:HookScript("OnShow", function () UsePGFButton:SetParent(LFGListFrame.ApplicationViewer) end)
+
 UsePGFButton:OnLoad()
 PGF.UsePGFButton = UsePGFButton

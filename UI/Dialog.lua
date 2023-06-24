@@ -136,7 +136,10 @@ function PGFDialog:Toggle()
     local isSearchPanelVisible = PVEFrame:IsVisible()
             and LFGListFrame.activePanel == LFGListFrame.SearchPanel
             and LFGListFrame.SearchPanel:IsVisible()
-    if isSearchPanelVisible and self.activeState and self.activeState.enabled then
+    local isApplicationPanelVisible = PVEFrame:IsVisible()
+            and LFGListFrame.activePanel == LFGListFrame.ApplicationViewer
+            and LFGListFrame.ApplicationViewer:IsVisible()
+    if (isSearchPanelVisible or isApplicationPanelVisible) and self.activeState and self.activeState.enabled then
         self:Show()
     else
         self:Hide()
@@ -151,6 +154,11 @@ function PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
     self.activeState = self:GetState(id)
     self:MaximizeMinimize()
     self:SwitchToPanel()
+    if categoryID < 0 then
+        self.groupLeaderMode = true
+    else
+        self.groupLeaderMode = nil
+    end
 end
 
 function PGFDialog:SwitchToPanel()
@@ -189,7 +197,9 @@ end
 function PGFDialog:SetEnabled(enabled)
     self.activeState.enabled = enabled
     self:Toggle()
-    self:OnFilterExpressionChanged(true)
+    if not self.groupLeaderMode then
+        self:OnFilterExpressionChanged(true)
+    end
 end
 
 function PGFDialog:OnFilterExpressionChanged(shouldRefresh)
@@ -225,6 +235,7 @@ end
 hooksecurefunc("LFGListSearchPanel_SetCategory", function(self, categoryID, filters, baseFilters)
     PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
 end)
+LFGListFrame.ApplicationViewer:HookScript("OnShow", function () PGFDialog:UpdateCategory(-1, 0, 0) end)
 hooksecurefunc("LFGListFrame_SetActivePanel", function () PGFDialog:Toggle() end)
 hooksecurefunc("PVEFrame_ShowFrame", function () PGFDialog:Toggle() end)
 PVEFrame:HookScript("OnShow", function () PGFDialog:Toggle() end)

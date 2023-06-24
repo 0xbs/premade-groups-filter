@@ -66,4 +66,6 @@ UI\RaidPanel.xml
 UI\RaidPanel.lua
 UI\ExpressionPanel.xml
 UI\ExpressionPanel.lua
+UI\LFMPanel.xml
+UI\LFMPanel.lua
 UI\UsePGFButton.lua
