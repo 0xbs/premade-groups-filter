@@ -455,7 +455,10 @@ function PGF.DoFilterSearchResults(results)
         env.av          = aID == 1177 or aID == 1178 or aID == 1179 or aID == 1180 -- The Azure Vault
         env.no          = aID == 1181 or aID == 1182 or aID == 1183 or aID == 1184 -- The Nokhud Offensive
         env.lot         = aID == 1185 or aID == 1186 or aID == 1187 or aID == 1188 or aID == 1194 -- Uldaman: Legacy of Tyr
-        local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot -- all Dragonflight dungeons
+        env.doti        = aID == 1244 or aID == 1245 or aID == 1246 or aID == 1247 or aID == 1248 -- Dawn of the Infinite
+        env.gala        =                aID == 1245                or aID == 1247  -- Dawn of the Infinite: Galakrond's Fall
+        env.muro        =                aID == 1246                or aID == 1248  -- Dawn of the Infinite: Murozond's Rise
+        local dfdungeon = env.aa or env.bh or env.hoi or env.nt or env.rlp or env.av or env.no or env.lot or env.doti -- all Dragonflight dungeons
 
         -- Dragonflight Season 1 dungeons
         env.sbg = aID == 1193 -- Shadowmoon Burial Grounds (Warlords)

@@ -26,7 +26,7 @@ local C = PGF.C
 PGF.ACTIVITY_TO_DIFFICULTY = {    
     [6] = C.ARENA2V2, -- Arena 2v2
     [7] = C.ARENA3V3, -- Arena 3v3
-    
+
     -- Warlords of Draenor (raids only)
     [37]  = C.NORMAL, -- Highmaul
     [38]  = C.HEROIC, -- Highmaul
@@ -339,6 +339,12 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [1235] = C.NORMAL,     -- Aberrus, the Shadowed Crucible
     [1236] = C.HEROIC,     -- Aberrus, the Shadowed Crucible
     [1237] = C.MYTHIC,     -- Aberrus, the Shadowed Crucible
+
+    [1244] = C.MYTHIC,     -- Dawn of the Infinite
+    [1245] = C.HEROIC,     -- Dawn of the Infinite: Galakrond's Fall
+    [1246] = C.HEROIC,     -- Dawn of the Infinite: Murozond's Rise
+    [1247] = C.MYTHICPLUS, -- Dawn of the Infinite: Galakrond's Fall
+    [1248] = C.MYTHICPLUS, -- Dawn of the Infinite: Murozond's Rise
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfoTable().shortName to difficulties
