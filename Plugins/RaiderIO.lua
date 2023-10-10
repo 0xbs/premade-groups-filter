@@ -22,6 +22,19 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+-- maps from table GroupFinderActivity to table Map (not MapChallengeMode!)
+local ACTIVITY_TO_MAP = {
+    [1189] = 2522, -- Vault of the Incarnates
+    [1190] = 2522, -- Vault of the Incarnates
+    [1191] = 2522, -- Vault of the Incarnates
+    [1235] = 2569, -- Aberrus, the Shadowed Crucible
+    [1236] = 2569, -- Aberrus, the Shadowed Crucible
+    [1237] = 2569, -- Aberrus, the Shadowed Crucible
+    [1251] = 2549, -- Amirdrassil, the Dream's Hope
+    [1252] = 2549, -- Amirdrassil, the Dream's Hope
+    [1253] = 2549, -- Amirdrassil, the Dream's Hope
+}
+
 function PGF.GetNameRealmFaction(leaderName)
     local name, realm, faction
     local factionMapping = {
@@ -100,6 +113,19 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
                     env.riomainprogress = math.max(env.riomainprogress, mainProgress.progressCount)
                 end
             end
+
+            --DevTools_Dump(result.raidProfile.progress)
+            -- result.raidProfile.progress[i].difficulty     -- int
+            -- result.raidProfile.progress[i].progressCount  -- itable<int, int>
+            -- result.raidProfile.progress[i].killsPerBoss   -- int
+            -- result.raidProfile.progress[i].raid           -- table<string, ?>
+            -- result.raidProfile.progress[i].raid.mapId     -- int                 -- 2522 2569
+            -- result.raidProfile.progress[i].raid.shortName -- string              -- VOTI ATSC
+            -- result.raidProfile.progress[i].raid.name      -- string
+            -- result.raidProfile.progress[i].raid.bossCount -- int
+            -- result.raidProfile.progress[i].raid.id        -- int
+            -- result.raidProfile.progress[i].raid.ordinal   -- int
+
             if result.raidProfile.progress and type(result.raidProfile.progress) == "table" then
                 for _, progress in pairs(result.raidProfile.progress) do
                     if progress.difficulty == 1 then
