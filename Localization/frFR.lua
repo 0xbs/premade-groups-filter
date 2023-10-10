@@ -108,7 +108,7 @@ L["dialog.dungeon.alert.single.title"] = "Un seul donjon sélectionné"
 L["dialog.dungeon.alert.single.info"] = "Lorsque vous recherchez un seul donjon, vous obtiendrez beaucoup plus de résultats pertinents si vous écrivez une partie du nom dans le champ de recherche, par exemple 'neltharus' ou 'vortex 10'. En raison de restrictions, les modules complémentaires ne peuvent pas modifier le champ de recherche à votre place."
 
 L["settings.dialogMovable.title"] = "Verrouiller la fenêtre PGF"
-L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic + droit pour réinitialiser la position."
+L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic droit pour réinitialiser la position."
 L["settings.classNamesInTooltip.title"] = "Nom des classes dans l’infobulle"
 L["settings.classNamesInTooltip.tooltip"] = "Dans l’infobulle, affiche la liste des classes (trié par rôle)"
 L["settings.coloredGroupTexts.title"] = "Colorer le nom du groupe"
