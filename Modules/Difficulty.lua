@@ -345,6 +345,13 @@ PGF.ACTIVITY_TO_DIFFICULTY = {
     [1246] = C.HEROIC,     -- Dawn of the Infinite: Murozond's Rise
     [1247] = C.MYTHICPLUS, -- Dawn of the Infinite: Galakrond's Fall
     [1248] = C.MYTHICPLUS, -- Dawn of the Infinite: Murozond's Rise
+    [1250] = C.MYTHICPLUS, -- Galakrond's Fall (again?)
+
+    [1251] = C.NORMAL,     -- Amirdrassil, the Dream's Hope
+    [1252] = C.HEROIC,     -- Amirdrassil, the Dream's Hope
+    [1253] = C.MYTHIC,     -- Amirdrassil, the Dream's Hope
+
+    [1274] = C.MYTHICPLUS, -- Throne of the Tides
 }
 
 -- maps localized shortNames from C_LFGList.GetActivityInfoTable().shortName to difficulties

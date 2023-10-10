@@ -30,6 +30,7 @@ local DIFFICULTY_TEXT = {
 }
 
 local SEASON_DUNGEONS = {
+    -- Dragonflight Season 2
     [1] = { activityID = 1164, mapID = 405, keyword = "bh" },   -- Brackenhide Hollow
     [2] = { activityID = 1168, mapID = 406, keyword = "hoi" },  -- Halls of Infusion
     [3] = { activityID = 1172, mapID = 404, keyword = "nelt" }, -- Neltharus
@@ -38,7 +39,20 @@ local SEASON_DUNGEONS = {
     [6] = { activityID = 462,  mapID = 206, keyword = "nl" },   -- Neltharion's Lair
     [7] = { activityID = 507,  mapID = 251, keyword = "undr" }, -- The Underrot
     [8] = { activityID = 1195, mapID = 438, keyword = "vp" },   -- Vortex Pinnacle
+
+    -- Dragonflight Season 3
+    --[1] = { activityID = 1247, mapID = 463, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
+    --[2] = { activityID = 1248, mapID = 464, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
+    --[3] = { activityID = 530,  mapID = 248, keyword = "wm"   }, -- Waycrest Manor (Battle for Azeroth)
+    --[4] = { activityID = 502,  mapID = 244, keyword = "ad"   }, -- Atal'Dazar (Battle for Azeroth)
+    --[5] = { activityID = 460,  mapID = 198, keyword = "dht"  }, -- Darkheart Thicket (Legion)
+    --[6] = { activityID = 463,  mapID = 199, keyword = "brh"  }, -- Black Rook Hold (Legion)
+    --[7] = { activityID = 184,  mapID = 168, keyword = "teb"  },  -- The Everbloom (Warlords of Draenor)
+    --[8] = { activityID = 1274, mapID = 456, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+
     -- note that there are currently one 8 checkboxes available in the xml file
+    -- activityID can be found here: https://wago.tools/db2/GroupFinderActivity?sort[ID]=desc
+    -- mapID      can be found here: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
 
 local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF.Dialog, "PremadeGroupsFilterDungeonPanelTemplate")
