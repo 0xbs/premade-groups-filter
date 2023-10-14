@@ -22,17 +22,17 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- maps from table GroupFinderActivity to table Map (not MapChallengeMode!)
-local ACTIVITY_TO_MAP = {
-    [1189] = 2522, -- Vault of the Incarnates
-    [1190] = 2522, -- Vault of the Incarnates
-    [1191] = 2522, -- Vault of the Incarnates
-    [1235] = 2569, -- Aberrus, the Shadowed Crucible
-    [1236] = 2569, -- Aberrus, the Shadowed Crucible
-    [1237] = 2569, -- Aberrus, the Shadowed Crucible
-    [1251] = 2549, -- Amirdrassil, the Dream's Hope
-    [1252] = 2549, -- Amirdrassil, the Dream's Hope
-    [1253] = 2549, -- Amirdrassil, the Dream's Hope
+-- maps from ActivityID to MapID (not MapChallengeModeID!)
+local ACTIVITY_TO_MAP_ID = {
+    [1189] = 2522, -- Vault of the Incarnates (Normal)
+    [1190] = 2522, -- Vault of the Incarnates (Heroic)
+    [1191] = 2522, -- Vault of the Incarnates (Mythic)
+    [1235] = 2569, -- Aberrus, the Shadowed Crucible (Normal)
+    [1236] = 2569, -- Aberrus, the Shadowed Crucible (Heroic)
+    [1237] = 2569, -- Aberrus, the Shadowed Crucible (Mythic)
+    [1251] = 2549, -- Amirdrassil, the Dream's Hope (Normal)
+    [1252] = 2549, -- Amirdrassil, the Dream's Hope (Heroic)
+    [1253] = 2549, -- Amirdrassil, the Dream's Hope (Mythic)
 }
 
 function PGF.GetNameRealmFaction(leaderName)
@@ -60,7 +60,7 @@ end
 --- @generic V
 --- @param env table<string, V> environment to be prepared
 --- @param leaderName string name of the group leader
-function PGF.PutRaiderIOMetrics(env, leaderName)
+function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
     env.hasrio            = false
     env.norio             = true
     env.rio               = 0
@@ -126,22 +126,25 @@ function PGF.PutRaiderIOMetrics(env, leaderName)
             -- result.raidProfile.progress[i].raid.id        -- int
             -- result.raidProfile.progress[i].raid.ordinal   -- int
 
+            local mapID = ACTIVITY_TO_MAP_ID[activityID]
             if result.raidProfile.progress and type(result.raidProfile.progress) == "table" then
                 for _, progress in pairs(result.raidProfile.progress) do
-                    if progress.difficulty == 1 then
-                        env.rionormalprogress = progress.progressCount
-                        for i, k in ipairs(progress.killsPerBoss) do
-                            env.rionormalkills[i] = k
-                        end
-                    elseif progress.difficulty == 2 then
-                        env.rioheroicprogress = progress.progressCount
-                        for i, k in ipairs(progress.killsPerBoss) do
-                            env.rioheroickills[i] = k
-                        end
-                    elseif progress.difficulty == 3 then
-                        env.riomythicprogress = progress.progressCount
-                        for i, k in ipairs(progress.killsPerBoss) do
-                            env.riomythickills[i] = k
+                    if mapID and progress.raid and mapID == progress.raid.mapId then
+                        if progress.difficulty == 1 then
+                            env.rionormalprogress = progress.progressCount
+                            for i, k in ipairs(progress.killsPerBoss) do
+                                env.rionormalkills[i] = k
+                            end
+                        elseif progress.difficulty == 2 then
+                            env.rioheroicprogress = progress.progressCount
+                            for i, k in ipairs(progress.killsPerBoss) do
+                                env.rioheroickills[i] = k
+                            end
+                        elseif progress.difficulty == 3 then
+                            env.riomythicprogress = progress.progressCount
+                            for i, k in ipairs(progress.killsPerBoss) do
+                                env.riomythickills[i] = k
+                            end
                         end
                     end
                 end

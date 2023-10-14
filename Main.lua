@@ -488,7 +488,7 @@ function PGF.DoFilterSearchResults(results)
 
         PGF.PutRaiderIOAliases(env)
         if PGF.PutRaiderIOMetrics then
-            PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName)
+            PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, searchResultInfo.activityID)
         end
         if PGF.PutPremadeRegionInfo then
             PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
