@@ -472,8 +472,8 @@ function PGF.DoFilterSearchResults(results)
         env.dfs2 = env.bh or env.hoi or env.lot or env.nt or env.fh or env.tur or env.nl or env.vp
         -- Dragonflight Season 3 dungeons
         env.tott = aID == 1274 -- Throne of the Tides (Cataclysm)
-        env.teb  = aID == 184  -- The Everbloom (Warlords of Draenor)
-        env.dfs2 = env.fall or env.rise or env.wm or env.ad or env.dht or env.brh or env.tott or env.teb
+        env.eb   = aID == 184  -- The Everbloom (Warlords of Draenor)
+        env.dfs2 = env.fall or env.rise or env.wm or env.ad or env.dht or env.brh or env.tott or env.eb
 
         -- find more IDs: /run for i=1146,2000 do local info = C_LFGList.GetActivityInfoTable(i); if info then print(i, info.fullName) end end
         -- or simply here: https://wago.tools/db2/GroupFinderActivity?sort[ID]=desc

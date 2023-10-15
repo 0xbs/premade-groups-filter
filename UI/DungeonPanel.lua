@@ -47,7 +47,7 @@ local SEASON_DUNGEONS = {
     --[4] = { activityID = 502,  mapID = 244, keyword = "ad"   }, -- Atal'Dazar (Battle for Azeroth)
     --[5] = { activityID = 460,  mapID = 198, keyword = "dht"  }, -- Darkheart Thicket (Legion)
     --[6] = { activityID = 463,  mapID = 199, keyword = "brh"  }, -- Black Rook Hold (Legion)
-    --[7] = { activityID = 184,  mapID = 168, keyword = "teb"  },  -- The Everbloom (Warlords of Draenor)
+    --[7] = { activityID = 184,  mapID = 168, keyword = "eb"   }, -- The Everbloom (Warlords of Draenor)
     --[8] = { activityID = 1274, mapID = 456, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
 
     -- note that there are currently one 8 checkboxes available in the xml file
