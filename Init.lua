@@ -38,6 +38,7 @@ C.MYTHIC     = 3
 C.MYTHICPLUS = 4
 C.ARENA2V2   = 5
 C.ARENA3V3   = 6
+C.ARENA5V5   = 7
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
 C.CATEGORY_ID = {
@@ -52,6 +53,10 @@ C.CATEGORY_ID = {
     RATED_BATTLEGROUND = 9,
     ASHRAN             = 10,
     THORGAST           = 113,
+    WRATH_RAID         = 114,
+    WRATH_QUESTING     = 116,
+    WRATH_BATTLEGROUND = 118,
+    WRATH_CUSTOM       = 120,
 }
 
 C.DIFFICULTY_KEYWORD = {
@@ -61,6 +66,7 @@ C.DIFFICULTY_KEYWORD = {
     [C.MYTHICPLUS] = "mythicplus",
     [C.ARENA2V2] = "arena2v2",
     [C.ARENA3V3] = "arena3v3",
+    [C.ARENA5V5] = "arena5v5",
 }
 
 -- Translates tier enum values into normalized values - check via /dump PVPUtil.GetTierName(1)
@@ -122,8 +128,8 @@ C.SETTINGS_DEFAULT = {
     coloredGroupTexts = true,
     coloredApplications = true,
     ratingInfo = true,
-    classCircle = true,
-    classBar = false,
+    classCircle = false,
+    classBar = true,
     leaderCrown = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
@@ -197,8 +203,8 @@ function PGF.OnAddonLoaded(name)
 
         -- request various player information from the server
         RequestRaidInfo()
-        C_MythicPlus.RequestCurrentAffixes()
-        C_MythicPlus.RequestMapInfo()
+        --C_MythicPlus.RequestCurrentAffixes()
+        --C_MythicPlus.RequestMapInfo()
     end
 end
 

@@ -54,12 +54,12 @@ local PGFSettingsTable = {
         title = L["settings.ratingInfo.title"],
         tooltip = L["settings.ratingInfo.tooltip"],
     },
-    {
-        key = "classCircle",
-        type = "checkbox",
-        title = L["settings.classCircle.title"],
-        tooltip = L["settings.classCircle.tooltip"],
-    },
+--    {
+--        key = "classCircle",
+--        type = "checkbox",
+--        title = L["settings.classCircle.title"],
+--        tooltip = L["settings.classCircle.tooltip"],
+--    },
     {
         key = "classBar",
         type = "checkbox",

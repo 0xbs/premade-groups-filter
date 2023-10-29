@@ -3,8 +3,8 @@
 
     <Frame name="PremadeGroupsFilterExpressionPanelTemplate" virtual="true" hidden="true">
         <Anchors>
-            <Anchor point="TOPLEFT" y="-20"/>
-            <Anchor point="BOTTOMRIGHT" y="30"/>
+            <Anchor point="TOPLEFT" y="-20" x="5"/>
+            <Anchor point="BOTTOMRIGHT" y="35" x="-5"/>
         </Anchors>
         <Frames>
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">

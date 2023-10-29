@@ -2,28 +2,24 @@
 ..\FrameXML\UI.xsd">
 
     <Frame name="PremadeGroupsFilterDialogTemplate" virtual="true"
-           inherits="PortraitFrameTemplateMinimizable"
+           inherits="DefaultPanelTemplate"
            frameStrata="FULLSCREEN" movable="true" enableMouse="true" hidden="true">
-        <Size x="300" y="427"/>
+        <Size x="310" y="432"/>
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" />
         </Anchors>
         <Frames>
-            <Frame parentKey="MaximizeMinimizeFrame" inherits="MaximizeMinimizeButtonFrameTemplate">
-                <Anchors>
-                    <Anchor point="RIGHT" relativeKey="$parent.CloseButton" relativePoint="LEFT" x="-1" y="0"/>
-                </Anchors>
-            </Frame>
-            <Button parentKey="ResetButton" inherits="MagicButtonTemplate">
+            <Button name="$parentCloseButton" parentKey="CloseButton" inherits="UIPanelCloseButtonDefaultAnchors"/>
+            <Button parentKey="ResetButton" inherits="UIPanelButtonTemplate">
                 <Size x="135" y="22"/>
                 <Anchors>
-                    <Anchor point="BOTTOMLEFT" x="3" y="4"/>
+                    <Anchor point="BOTTOMLEFT" x="9" y="9"/>
                 </Anchors>
             </Button>
-            <Button parentKey="RefreshButton" inherits="MagicButtonTemplate">
+            <Button parentKey="RefreshButton" inherits="UIPanelButtonTemplate">
                 <Size x="135" y="22"/>
                 <Anchors>
-                    <Anchor point="BOTTOMRIGHT" x="-5" y="4"/>
+                    <Anchor point="BOTTOMRIGHT" x="-7" y="9"/>
                 </Anchors>
             </Button>
         </Frames>

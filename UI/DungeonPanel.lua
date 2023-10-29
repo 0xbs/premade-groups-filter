@@ -25,34 +25,6 @@ local C = PGF.C
 local DIFFICULTY_TEXT = {
     [1] = { key = C.NORMAL,     title = L["dialog.normal"] },
     [2] = { key = C.HEROIC,     title = L["dialog.heroic"] },
-    [3] = { key = C.MYTHIC,     title = L["dialog.mythic"] },
-    [4] = { key = C.MYTHICPLUS, title = L["dialog.mythicplus"] },
-}
-
-local SEASON_DUNGEONS = {
-    -- Dragonflight Season 2
-    [1] = { activityID = 1164, mapID = 405, keyword = "bh" },   -- Brackenhide Hollow
-    [2] = { activityID = 1168, mapID = 406, keyword = "hoi" },  -- Halls of Infusion
-    [3] = { activityID = 1172, mapID = 404, keyword = "nelt" }, -- Neltharus
-    [4] = { activityID = 1188, mapID = 403, keyword = "uld" },  -- Uldaman: Legacy of Tyr
-    [5] = { activityID = 518,  mapID = 245, keyword = "fh" },   -- Freehold
-    [6] = { activityID = 462,  mapID = 206, keyword = "nl" },   -- Neltharion's Lair
-    [7] = { activityID = 507,  mapID = 251, keyword = "undr" }, -- The Underrot
-    [8] = { activityID = 1195, mapID = 438, keyword = "vp" },   -- Vortex Pinnacle
-
-    -- Dragonflight Season 3
-    --[1] = { activityID = 1247, mapID = 463, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
-    --[2] = { activityID = 1248, mapID = 464, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
-    --[3] = { activityID = 530,  mapID = 248, keyword = "wm"   }, -- Waycrest Manor (Battle for Azeroth)
-    --[4] = { activityID = 502,  mapID = 244, keyword = "ad"   }, -- Atal'Dazar (Battle for Azeroth)
-    --[5] = { activityID = 460,  mapID = 198, keyword = "dht"  }, -- Darkheart Thicket (Legion)
-    --[6] = { activityID = 463,  mapID = 199, keyword = "brh"  }, -- Black Rook Hold (Legion)
-    --[7] = { activityID = 184,  mapID = 168, keyword = "eb"   }, -- The Everbloom (Warlords of Draenor)
-    --[8] = { activityID = 1274, mapID = 456, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
-
-    -- note that there are currently one 8 checkboxes available in the xml file
-    -- activityID can be found here: https://wago.tools/db2/GroupFinderActivity?sort[ID]=desc
-    -- mapID      can be found here: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
 
 local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF.Dialog, "PremadeGroupsFilterDungeonPanelTemplate")
@@ -60,53 +32,21 @@ local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF
 function DungeonPanel:OnLoad()
     PGF.Logger:Debug("DungeonPanel:OnLoad")
     self.name = "dungeon"
-    self.dialogWidth = 420
-    self.groupWidth = 245
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
     PGF.UI_SetupDropDown(self, self.Group.Difficulty, "DungeonDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT, self.groupWidth)
-    PGF.UI_SetupMinMaxField(self, self.Group.MPRating, "mprating", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.Members, "members", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", self.groupWidth)
-    PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", self.groupWidth)
-    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", self.groupWidth)
-    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", self.groupWidth)
     PGF.UI_SetupAdvancedExpression(self)
-
-    -- Dungeons
-    self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
-    self.Dungeons.Alert.Icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
-    self.Dungeons.Alert:SetScript("OnEnter", function (self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText(L["dialog.dungeon.alert.single.title"], nil, nil, nil, nil, true)
-        GameTooltip:AddLine(L["dialog.dungeon.alert.single.info"], 1, 1, 1, 1, true)
-        GameTooltip:Show()
-    end)
-    self.Dungeons.Alert:SetScript("OnLeave", function(self)
-        GameTooltip:Hide()
-    end)
-    for i = 1, #SEASON_DUNGEONS do
-        --local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityID).fullName
-        local dungeonName = C_ChallengeMode.GetMapUIInfo(SEASON_DUNGEONS[i].mapID)
-        self.Dungeons["Dungeon"..i]:SetWidth(145)
-        self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
-        self.Dungeons["Dungeon"..i].Title:SetWidth(105)
-        self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
-            self.state["dungeon" .. i] = element:GetChecked()
-            self:ToogleDungeonAlert()
-            self:TriggerFilterExpressionChange()
-        end)
-    end
 end
 
 function DungeonPanel:Init(state)
     PGF.Logger:Debug("Dungeonpanel:Init")
     self.state = state
     self.state.difficulty = self.state.difficulty or {}
-    self.state.mprating = self.state.mprating or {}
     self.state.members = self.state.members or {}
     self.state.tanks = self.state.tanks or {}
     self.state.heals = self.state.heals or {}
@@ -115,9 +55,6 @@ function DungeonPanel:Init(state)
 
     self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
     self.Group.Difficulty.DropDown:SetKey(self.state.difficulty.val)
-    self.Group.MPRating.Act:SetChecked(self.state.mprating.act or false)
-    self.Group.MPRating.Min:SetText(self.state.mprating.min or "")
-    self.Group.MPRating.Max:SetText(self.state.mprating.max or "")
     self.Group.Members.Act:SetChecked(self.state.members.act or false)
     self.Group.Members.Min:SetText(self.state.members.min or "")
     self.Group.Members.Max:SetText(self.state.members.max or "")
@@ -131,15 +68,7 @@ function DungeonPanel:Init(state)
     self.Group.DPS.Min:SetText(self.state.dps.min or "")
     self.Group.DPS.Max:SetText(self.state.dps.max or "")
 
-    self.Group.Partyfit.Act:SetChecked(self.state.partyfit or false)
-    self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
-    self.Group.BRFit.Act:SetChecked(self.state.brfit or false)
-
-    for i = 1, #SEASON_DUNGEONS do
-        self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
-    end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
-    self:ToogleDungeonAlert()
 end
 
 function DungeonPanel:OnShow()
@@ -153,9 +82,6 @@ end
 function DungeonPanel:OnReset()
     PGF.Logger:Debug("DungeonPanel:OnReset")
     self.state.difficulty.act = false
-    self.state.mprating.act = false
-    self.state.mprating.min = ""
-    self.state.mprating.max = ""
     self.state.members.act = false
     self.state.members.min = ""
     self.state.members.max = ""
@@ -168,12 +94,6 @@ function DungeonPanel:OnReset()
     self.state.dps.act = false
     self.state.dps.min = ""
     self.state.dps.max = ""
-    self.state.partyfit = false
-    self.state.blfit = false
-    self.state.brfit = false
-    for i = 1, #SEASON_DUNGEONS do
-        self.state["dungeon"..i] = false
-    end
     self.state.expression = ""
     self:TriggerFilterExpressionChange()
     self:Init(self.state)
@@ -199,10 +119,6 @@ function DungeonPanel:GetFilterExpression()
     if self.state.difficulty.act and self.state.difficulty.val then
         expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val]
     end
-    if self.state.mprating.act then
-        if PGF.NotEmpty(self.state.mprating.min) then expression = expression .. " and mprating >= " .. self.state.mprating.min end
-        if PGF.NotEmpty(self.state.mprating.max) then expression = expression .. " and mprating <= " .. self.state.mprating.max end
-    end
     if self.state.members.act then
         if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
         if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end
@@ -219,18 +135,6 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.dps.min) then expression = expression .. " and dps >= " .. self.state.dps.min end
         if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
     end
-    if self.state.partyfit    then expression = expression .. " and partyfit"     end
-    if self.state.blfit       then expression = expression .. " and blfit"        end
-    if self.state.brfit       then expression = expression .. " and brfit"        end
-
-    if self:GetNumDungeonsSelected() > 0 then
-        expression = expression .. " and ( false" -- start with neutral element of logical or
-        for i = 1, #SEASON_DUNGEONS do
-            if self.state["dungeon"..i] then expression = expression .. " or " .. SEASON_DUNGEONS[i].keyword end
-        end
-        expression = expression .. " )"
-        expression = expression:gsub("false or ", "")
-    end
 
     local userExp = PGF.UI_NormalizeExpression(self.state.expression)
     if userExp ~= "" then expression = expression .. " and ( " .. userExp .. " )" end
@@ -241,29 +145,6 @@ end
 
 function DungeonPanel:GetSortingExpression()
     return nil
-end
-
-function DungeonPanel:GetDesiredDialogWidth()
-    return self.dialogWidth
-end
-
-function DungeonPanel:GetNumDungeonsSelected()
-    local numDungeonsSelected = 0
-    for i = 1, #SEASON_DUNGEONS do
-        if self.state["dungeon"..i] then
-            numDungeonsSelected = numDungeonsSelected + 1
-        end
-    end
-    return numDungeonsSelected
-end
-
-function DungeonPanel:ToogleDungeonAlert()
-    PGF.Logger:Debug("DungeonPanel:ToogleDungeonAlert")
-    if self:GetNumDungeonsSelected() == 1 then
-        self.Dungeons.Alert:Show()
-    else
-        self.Dungeons.Alert:Hide()
-    end
 end
 
 function DungeonPanel:TogglePartyfit()

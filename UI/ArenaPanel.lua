@@ -23,8 +23,9 @@ local L = PGF.L
 local C = PGF.C
 
 local DIFFICULTY_TEXT = {
-    [1] = { key = C.ARENA2V2, title = C_LFGList.GetActivityInfoTable(6).shortName }, -- Arena 2v2
-    [2] = { key = C.ARENA3V3, title = C_LFGList.GetActivityInfoTable(7).shortName }, -- Arena 3v3
+    [1] = { key = C.ARENA2V2, title = C_LFGList.GetActivityInfoTable(936).shortName }, -- Arena 2v2
+    [2] = { key = C.ARENA3V3, title = C_LFGList.GetActivityInfoTable(937).shortName }, -- Arena 3v3
+    [3] = { key = C.ARENA5V5, title = C_LFGList.GetActivityInfoTable(938).shortName }, -- Arena 5v5
 }
 
 local ArenaPanel = CreateFrame("Frame", "PremadeGroupsFilterArenaPanel", PGF.Dialog, "PremadeGroupsFilterArenaPanelTemplate")

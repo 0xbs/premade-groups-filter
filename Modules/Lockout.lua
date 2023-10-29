@@ -39,7 +39,7 @@ end
 
 function PGF.GetLockoutInfo(activity, resultID)
     local activityInfo = C_LFGList.GetActivityInfoTable(activity)
-    local difficulty = PGF.GetDifficulty(activity, activityInfo.fullName, activityInfo.shortName)
+    local difficulty = C.ACTIVITY[activity].difficulty
     local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID)
     local groupDefeatedBossNames = PGF.Table_ValuesAsKeys(encounterInfo)
     local numGroupDefeated = PGF.Table_Count(encounterInfo)
@@ -54,7 +54,7 @@ function PGF.GetLockoutInfo(activity, resultID)
         local instanceName, instanceID, instanceReset, instanceDifficulty,
             locked, extended, instanceIDMostSig, isRaid, maxPlayers,
             difficultyName, maxBosses, defeatedBosses = GetSavedInstanceInfo(index)
-        if activity == 449 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses during the weekly lockout
+        if C.ACTIVITY[activity].mapID == 608 then maxBosses = 3 end -- Violet Hold has fixed 3 bosses
         if (extended or locked) and PGF.IsMatchingInstance(instanceName, activityInfo.fullName, instanceDifficulty, difficulty) then
             local playerDefeatedBossNames = PGF.GetPlayerDefeatedBossNames(index, maxBosses)
             local numPlayerDefeated = PGF.Table_Count(playerDefeatedBossNames)

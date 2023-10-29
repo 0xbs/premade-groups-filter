@@ -3,12 +3,12 @@
 
     <Frame name="PremadeGroupsFilterDungeonPanelTemplate" virtual="true" hidden="true">
         <Anchors>
-            <Anchor point="TOPLEFT" y="-20"/>
-            <Anchor point="BOTTOMRIGHT" y="30"/>
+            <Anchor point="TOPLEFT" y="-20" x="5"/>
+            <Anchor point="BOTTOMRIGHT" y="35"/>
         </Anchors>
         <Frames>
             <Frame parentKey="Group">
-                <Size x="400" y="250"/>
+                <Size x="300" y="200"/>
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
                 </Anchors>
@@ -31,14 +31,9 @@
                             <Anchor point="LEFT" x="5"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="MPRating" inherits="PremadeGroupsFilterMinMaxTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
                     <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.MPRating" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
@@ -56,100 +51,12 @@
                             <Anchor point="TOPLEFT" relativeKey="$parent.Heals" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="Partyfit" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.DPS" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="BLFit" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="BRFit" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.BLFit" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                </Frames>
-            </Frame>
-            <Frame parentKey="Dungeons">
-                <Size x="160" y="250"/>
-                <Anchors>
-                    <Anchor point="TOPRIGHT"/>
-                </Anchors>
-                <Layers>
-                    <Layer level="OVERLAY">
-                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
-                            <Size y="25"/>
-                            <Anchors>
-                                <Anchor point="TOP" y="-5"/>
-                                <Anchor point="LEFT" x="10"/>
-                            </Anchors>
-                        </FontString>
-                    </Layer>
-                </Layers>
-                <Frames>
-                    <Frame parentKey="Alert" hidden="true">
-                        <Size x="16" y="16"/>
-                        <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="RIGHT" x="5"/>
-                        </Anchors>
-                        <Layers>
-                            <Layer level="OVERLAY">
-                                <Texture parentKey="Icon">
-                                    <Size x="16" y="16"/>
-                                </Texture>
-                            </Layer>
-                        </Layers>
-                    </Frame>
-                    <Frame parentKey="Dungeon1" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
-                            <Anchor point="LEFT" x="5"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon2" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon1" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon3" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon2" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon4" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon3" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon5" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon4" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon6" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon5" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon7" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon6" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Dungeon8" inherits="PremadeGroupsFilterBasicTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Dungeon7" relativePoint="BOTTOMLEFT"/>
-                        </Anchors>
-                    </Frame>
                 </Frames>
             </Frame>
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
-                    <Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" x="-5"/>
                 </Anchors>
             </Frame>
         </Frames>

@@ -3,8 +3,8 @@
 
     <Frame name="PremadeGroupsFilterArenaPanelTemplate" virtual="true" hidden="true">
         <Anchors>
-            <Anchor point="TOPLEFT" y="-20"/>
-            <Anchor point="BOTTOMRIGHT" y="30"/>
+            <Anchor point="TOPLEFT" y="-20" x="5"/>
+            <Anchor point="BOTTOMRIGHT" y="35"/>
         </Anchors>
         <Frames>
             <Frame parentKey="Group">
@@ -61,7 +61,7 @@
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
-                    <Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" x="-5"/>
                 </Anchors>
             </Frame>
         </Frames>
