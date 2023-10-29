@@ -28,4 +28,4 @@ jobs:
       - name: BigWigs Packager
         uses: BigWigsMods/packager@v2
         with:
-          args: -a BO67g063 -p 102896 -w 0
+          args: -g wrath -a BO67g063 -p 102896 -w 0
