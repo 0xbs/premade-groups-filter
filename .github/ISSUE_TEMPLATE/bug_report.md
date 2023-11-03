@@ -16,14 +16,14 @@ Retail / Wrath
 
 ### Lua error from Bugsack
 ```
-[Paste error here, keep the backticks below and above.]
+Paste error here, keep the backticks below and above.
 ```
 
 ### Screenshots
-[Screenshots are extremely helpful. Drag your screenshot files here (do not paste). Full un-cropped screenshots are preferred.]
+Screenshots are extremely helpful. Drag your screenshot files here (do not paste). Full un-cropped screenshots are preferred.
 
 ### Current behaviour
-[Describe what your issue here as detailed as possible.]
+Describe what your issue here as detailed as possible.
 
 ### Steps to reproduce
 1. Open premade dungeon list
@@ -31,4 +31,4 @@ Retail / Wrath
 3. Click on ...
 
 ### Expected behaviour
-[Describe what you expect to happen.]
+Describe what you expect to happen.
