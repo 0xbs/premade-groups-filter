@@ -59,13 +59,22 @@ function PGF.GetUserSortingTable()
     return c, t
 end
 
-function PGF.SortByExpression(searchResultID1, searchResultID2)
+function PGF.SortSearchResults(results)
     local sortTableSize, sortTable = PGF.GetUserSortingTable()
+    if sortTableSize > 0 then -- use custom sorting if defined
+        table.sort(results, PGF.SortByExpression)
+    elseif PGF.IsRetail() then -- use our extended useful sorting
+        table.sort(results, PGF.SortByUsefulOrder)
+    end
+    -- else keep the existing sorting as Wrath clients have a pretty big
+    -- intelligent sorting algorithm in LFGBrowseUtil_SortSearchResults
+end
+
+function PGF.SortByExpression(searchResultID1, searchResultID2)
     local info1 = PGF.searchResultIDInfo[searchResultID1]
     local info2 = PGF.searchResultIDInfo[searchResultID2]
-    if sortTableSize == 0 or not info1 or not info2 then
-        return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
-    end
+    if not info1 or not info2 then return false end -- race condition
+    local sortTableSize, sortTable = PGF.GetUserSortingTable()
     for k, v in pairs(sortTable) do
         if info1.env[k] ~= info2.env[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
             if v == "desc" then
@@ -78,10 +87,10 @@ function PGF.SortByExpression(searchResultID1, searchResultID2)
         end
     end
     -- no sorting defined or all properties are the same, fall back to default sorting
-    return PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
+    return PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
 end
 
-function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
+function PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
     if not searchResultID1 or not searchResultID2 then return false end -- race condition
 
     -- look-up via table should be faster
@@ -98,10 +107,12 @@ function PGF.SortByFriendsAndAge(searchResultID1, searchResultID2)
     local searchResultInfo1 = info1.searchResultInfo
     local searchResultInfo2 = info2.searchResultInfo
 
-    -- sort by partyfit
-    --local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
-    --local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
-    --if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
+    if PGF.SupportsSpecializations() then
+        -- sort by partyfit
+        local hasRemainingRole1 = PGF.HasRemainingSlotsForLocalPlayerRole(info1.memberCounts)
+        local hasRemainingRole2 = PGF.HasRemainingSlotsForLocalPlayerRole(info2.memberCounts)
+        if hasRemainingRole1 ~= hasRemainingRole2 then return hasRemainingRole1 end
+    end
 
     -- sort by friends desc
     if searchResultInfo1.numBNetFriends ~= searchResultInfo2.numBNetFriends then
@@ -266,7 +277,6 @@ function PGF.DoFilterSearchResults(results)
         env.heals = memberCounts.HEALER
         env.healers = memberCounts.HEALER
         env.dps = memberCounts.DAMAGER + memberCounts.NOROLE
-        --env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
         env.defeated = numGroupDefeated
         env.normal     = difficulty == C.NORMAL
         env.heroic     = difficulty == C.HEROIC
@@ -290,11 +300,23 @@ function PGF.DoFilterSearchResults(results)
         env.declined = PGF.IsHardDeclinedGroup(searchResultInfo)
         env.harddeclined = env.declined
         env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
+        env.warmode = searchResultInfo.isWarMode or false
         env.playstyle = searchResultInfo.playstyle
         env.earnconq  = searchResultInfo.playstyle == 1
         env.learning  = searchResultInfo.playstyle == 2
         env.beattimer = searchResultInfo.playstyle == 3
         env.push      = searchResultInfo.playstyle == 3
+        env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
+        env.mpmaprating = 0
+        env.mpmapname   = ""
+        env.mpmapmaxkey = 0
+        env.mpmapintime = false
+        if searchResultInfo.leaderDungeonScoreInfo then
+            env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
+            env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
+            env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
+            env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
+        end
         env.pvpactivityname = ""
         env.pvprating = 0
         env.pvptierx = 0
@@ -317,21 +339,31 @@ function PGF.DoFilterSearchResults(results)
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
 
-        --env.hasbr = env.druids > 0 or env.paladins > 0 or env.warlocks > 0 or env.deathknights > 0
-        --env.hasbl = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
-        --env.hashero = env.hasbl
-        --env.haslust = env.hasbl
-
-        --env.brfit = env.hasbr or PGF.PlayerOrGroupHasBattleRezz() or PGF.HasRemainingSlotsForBattleRezzAfterJoin(memberCounts)
-        --env.blfit = env.hasbl or PGF.PlayerOrGroupHasBloodlust() or PGF.HasRemainingSlotsForBloodlustAfterJoin(memberCounts)
+        if PGF.IsRetail() then -- changed a lot each expansion
+            env.hasbr = env.druids > 0 or env.paladins > 0 or env.warlocks > 0 or env.deathknights > 0
+            env.hasbl = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
+            env.hashero = env.hasbl
+            env.haslust = env.hasbl
+        end
+        if PGF.SupportsSpecializations() then
+            env.brfit = env.hasbr or PGF.PlayerOrGroupHasBattleRezz() or PGF.HasRemainingSlotsForBattleRezzAfterJoin(memberCounts)
+            env.blfit = env.hasbl or PGF.PlayerOrGroupHasBloodlust() or PGF.HasRemainingSlotsForBloodlustAfterJoin(memberCounts)
+            env.partyfit = PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
+        end
 
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
+        env.mymprating = playerInfo.mymprating
+        env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityID] or 0
+        env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityID] or 0
+        env.myavgaffixrating = playerInfo.avgAffixRating
+        env.mymedianaffixrating = playerInfo.medianAffixRating
+        env.myavgdungeonrating = playerInfo.avgDungeonRating
+        env.mymediandungeonrating = playerInfo.medianDungeonRating
 
         local aID = searchResultInfo.activityID
-        env.arena2v2 = aID == 936
-        env.arena3v3 = aID == 937
-        env.arena5v5 = aID == 938
+
+        -- TODO RESTORE KEYWORDS
 
 
         if PGF.PutRaiderIOMetrics then
@@ -356,7 +388,7 @@ function PGF.DoFilterSearchResults(results)
     end
     PGF.numResultsAfterFilter = #results
 
-    table.sort(results, PGF.SortByExpression)
+    PGF.SortSearchResults(results)
     return results
 end
 

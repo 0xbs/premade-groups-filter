@@ -2,6 +2,7 @@
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## IconTexture: 397907
+## X-Flavor: Retail
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Notes-deDE: Ermöglicht das Filtern organisierter Gruppen mithilfe der Benutzeroberfläche oder erweiterter Filterausdrücke.
 ## Notes-frFR: Permet de filtrer des groupes prédéfinis à l'aide d'une interface utilisateur ou d'expressions de filtre avancées.
@@ -29,11 +30,11 @@ Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
+Modules\Activity.lua
 Modules\MemberInfo.lua
 Modules\RemainingSlots.lua
 Modules\ColoredApplications.lua
 Modules\ApplicationStatus.lua
-Modules\Difficulty.lua
 Modules\Lockout.lua
 Modules\Expression.lua
 Modules\PlayerInfo.lua

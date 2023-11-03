@@ -34,6 +34,8 @@ local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "P
 
 function PGFDialog:OnLoad()
     PGF.Logger:Debug("PGFDialog:OnLoad")
+    self.minimizedHeight = 220
+    self.maximizedHeight = PVEFrame:GetHeight()
     self.panels = {}
     self.activeId = nil
     self.activeState = nil
@@ -44,6 +46,12 @@ function PGFDialog:OnLoad()
     self:SetScript("OnMouseUp", self.OnMouseUp)
 
     self:SetTitle(L["addon.name.long"])
+    if PGF.SupportsDragonflightUI() then
+        self:SetBorder("ButtonFrameTemplateNoPortraitMinimizable")
+        self:SetPortraitShown(false)
+        self.MaximizeMinimizeFrame:SetOnMaximizedCallback(function () self:OnMaximize() end)
+        self.MaximizeMinimizeFrame:SetOnMinimizedCallback(function () self:OnMinimize() end)
+    end
 
     self.ResetButton:SetText(L["dialog.reset"])
     self.ResetButton:SetScript("OnClick", function () self:OnResetButtonClick() end)
@@ -72,6 +80,32 @@ function PGFDialog:OnMouseUp(button)
     self:StopMovingOrSizing()
     if button == "RightButton" then
         self:ResetPosition()
+    end
+end
+
+function PGFDialog:OnMaximize()
+    PGF.Logger:Debug("PGFDialog:OnMaximize")
+    self.activeState.minimized = false
+    self:SetHeight(self.maximizedHeight)
+    self:SwitchToPanel()
+end
+
+function PGFDialog:OnMinimize()
+    PGF.Logger:Debug("PGFDialog:OnMinimize")
+    self.activeState.minimized = true
+    self:SetHeight(self.minimizedHeight)
+    self:SwitchToPanel()
+end
+
+function PGFDialog:MaximizeMinimize()
+    if self.activeState.minimized then
+        self.MaximizeMinimizeFrame.isMinimized = true
+        self.MaximizeMinimizeFrame:SetMaximizedLook() -- button should show maximize icon
+        self:SetHeight(self.minimizedHeight)
+    else
+        self.MaximizeMinimizeFrame.isMinimized = false
+        self.MaximizeMinimizeFrame:SetMinimizedLook() -- button should show minimize icon
+        self:SetHeight(self.maximizedHeight)
     end
 end
 
@@ -117,17 +151,36 @@ function PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
     local id = "c"..categoryID.."f"..allFilters
     self.activeId = id
     self.activeState = self:GetState(id)
+    if PGF.SupportsDragonflightUI() then
+        self:MaximizeMinimize()
+    end
     self:SwitchToPanel()
 end
 
 function PGFDialog:SwitchToPanel()
-    local panel = self.panels[self.activeId] -- try to use panel for current category
-               or self.panels.default        -- if no panel for current category, use default panel
+    local panel = self.activeState.minimized
+            and self.panels.default       -- if minimized, use default panel
+            or self.panels[self.activeId] -- if maximized, use panel for current category
+            or self.panels.default        -- if no panel for current category, use default panel
     PGF.Logger:Debug("PGFDialog:SwitchToPanel("..panel.name..")")
     self.activeState[panel.name] = self.activeState[panel.name] or {} -- initialize panel state
     if self.activePanel then self.activePanel:Hide() end
     self.activePanel = panel
     self.activePanel:Init(self.activeState[panel.name])
+    if self.activePanel.GetDesiredDialogWidth then
+        local desiredWidth = self.activePanel:GetDesiredDialogWidth()
+        self:SetWidth(desiredWidth)
+    else
+        self:SetWidth(300)
+    end
+    self.activePanel:ClearAllPoints()
+    if PGF.SupportsDragonflightUI() then
+        self.activePanel:SetPoint("TOPLEFT", 0, -20)
+        self.activePanel:SetPoint("BOTTOMRIGHT", 0, 30)
+    else -- old design
+        self.activePanel:SetPoint("TOPLEFT", 5, -20)
+        self.activePanel:SetPoint("BOTTOMRIGHT", 0, 35)
+    end
     self.activePanel:Show()
 end
 
@@ -173,7 +226,11 @@ end
 function PGFDialog:ResetPosition()
     PGF.Logger:Debug("PGFDialog:ResetPosition")
     self:ClearAllPoints()
-    self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", -5, 0)
+    if PGF.SupportsDragonflightUI() then
+        self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT")
+    else
+        self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", -5, 0)
+    end
 end
 
 function PGFDialog:RegisterPanel(id, panel)

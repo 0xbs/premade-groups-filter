@@ -25,6 +25,7 @@ local C = PGF.C
 local DIFFICULTY_TEXT = {
     [1] = { key = C.NORMAL, title = L["dialog.normal"] },
     [2] = { key = C.HEROIC, title = L["dialog.heroic"] },
+    [3] = { key = C.MYTHIC, title = L["dialog.mythic"] },
 }
 
 local RaidPanel = CreateFrame("Frame", "PremadeGroupsFilterRaidPanel", PGF.Dialog, "PremadeGroupsFilterRaidPanelTemplate")
@@ -166,6 +167,8 @@ function RaidPanel:GetSortingExpression()
 end
 
 RaidPanel:OnLoad()
-PGF.Dialog:RegisterPanel("c114f4", RaidPanel)
-PGF.Dialog:RegisterPanel("c114f5", RaidPanel)
-PGF.Dialog:RegisterPanel("c114f6", RaidPanel)
+PGF.Dialog:RegisterPanel("c3f5", RaidPanel) -- Retail
+PGF.Dialog:RegisterPanel("c3f6", RaidPanel) -- Retail
+PGF.Dialog:RegisterPanel("c114f4", RaidPanel) -- Wrath
+PGF.Dialog:RegisterPanel("c114f5", RaidPanel) -- Wrath
+PGF.Dialog:RegisterPanel("c114f6", RaidPanel) -- Wrath

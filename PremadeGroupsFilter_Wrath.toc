@@ -2,6 +2,7 @@
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## IconTexture: 397907
+## X-Flavor: Wrath
 ## Notes: Allows filtering of premade groups using an UI or advanced filter expressions.
 ## Notes-deDE: Ermöglicht das Filtern organisierter Gruppen mithilfe der Benutzeroberfläche oder erweiterter Filterausdrücke.
 ## Notes-frFR: Permet de filtrer des groupes prédéfinis à l'aide d'une interface utilisateur ou d'expressions de filtre avancées.
@@ -29,7 +30,7 @@ Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
-Modules\Activity.lua
+Modules\Activity_Wrath.lua
 Modules\MemberInfo.lua
 #   Modules\RemainingSlots.lua
 Modules\ColoredApplications.lua
@@ -54,14 +55,10 @@ UI\PopupMenu.xml
 UI\PopupMenu.lua
 UI\Help.lua
 UI\Templates.xml
-UI\Dialog.xml
+UI\Dialog_Wrath.xml
 UI\Dialog.lua
-UI\DungeonPanel.xml
-UI\DungeonPanel.lua
-#   UI\ArenaPanel.xml
-#   UI\ArenaPanel.lua
-#   UI\RBGPanel.xml
-#   UI\RBGPanel.lua
+UI\DungeonPanel_Wrath.xml
+UI\DungeonPanel_Wrath.lua
 UI\RaidPanel.xml
 UI\RaidPanel.lua
 UI\ExpressionPanel.xml

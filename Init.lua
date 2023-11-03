@@ -121,6 +121,14 @@ C.DPS_CLASS_TYPE = {
     ["WARRIOR"]     = { range = false, melee = true,  armor = "plate",   br = false, bl = false },
 }
 
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local flavor = GetAddOnMetadata(PGFAddonName, "X-Flavor")
+function PGF.IsRetail() return flavor == "Retail" end
+function PGF.IsWrath() return flavor == "Wrath" end
+function PGF.SupportsMythicPlus() return PGF.IsRetail() end -- Mythic Plus (as opposed to Challenge Mode with gear scaling) is supported from Legion onwards
+function PGF.SupportsSpecializations() return PGF.IsRetail() end -- Specialization (as opposed to free talent trees) are supported from Mists of Pandaria onwards
+function PGF.SupportsDragonflightUI() return PGF.IsRetail() end -- User Interface has changed drastically in Dragonflight
+
 C.SETTINGS_DEFAULT = {
     version = 1,
     dialogMovable = true,
@@ -128,8 +136,8 @@ C.SETTINGS_DEFAULT = {
     coloredGroupTexts = true,
     coloredApplications = true,
     ratingInfo = true,
-    classCircle = false,
-    classBar = true,
+    classCircle = PGF.SupportsDragonflightUI(),
+    classBar = not PGF.SupportsDragonflightUI(),
     leaderCrown = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
@@ -203,8 +211,10 @@ function PGF.OnAddonLoaded(name)
 
         -- request various player information from the server
         RequestRaidInfo()
-        --C_MythicPlus.RequestCurrentAffixes()
-        --C_MythicPlus.RequestMapInfo()
+        if PGF.SupportsMythicPlus() then
+            C_MythicPlus.RequestCurrentAffixes()
+            C_MythicPlus.RequestMapInfo()
+        end
     end
 end
 
