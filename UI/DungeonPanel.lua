@@ -266,35 +266,5 @@ function DungeonPanel:ToogleDungeonAlert()
     end
 end
 
-function DungeonPanel:TogglePartyfit()
-    PGF.Logger:Debug("DungeonPanel:TogglePartyfit")
-    if self.state.partyfit then
-        self.Group:SetHeight(85)
-        self.Group.Members:Hide()
-        self.Group.Tanks:Hide()
-        self.Group.Heals:Hide()
-        self.Group.DPS:Hide()
-        self.state.members.act = false
-        self.state.members.min = ""
-        self.state.members.max = ""
-        self.state.tanks.act = false
-        self.state.tanks.min = ""
-        self.state.tanks.max = ""
-        self.state.heals.act = false
-        self.state.heals.min = ""
-        self.state.heals.max = ""
-        self.state.dps.act = false
-        self.state.dps.min = ""
-        self.state.dps.max = ""
-        self:Init(self.state)
-        self:TriggerFilterExpressionChange()
-    else
-        self.Group:SetHeight(185)
-        self.Group.Members:Show()
-        self.Group.Tanks:Show()
-        self.Group.Heals:Show()
-    end
-end
-
 DungeonPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c2f4", DungeonPanel)
