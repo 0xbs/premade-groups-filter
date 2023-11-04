@@ -237,11 +237,20 @@ function PGFDialog:RegisterPanel(id, panel)
     self.panels[id] = panel
 end
 
+local pvpButtonsHooked = false
 hooksecurefunc("LFGListSearchPanel_SetCategory", function(self, categoryID, filters, baseFilters)
     PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
 end)
 hooksecurefunc("LFGListFrame_SetActivePanel", function () PGFDialog:Toggle() end)
-hooksecurefunc("PVEFrame_ShowFrame", function () PGFDialog:Toggle() end)
+hooksecurefunc("PVEFrame_ShowFrame", function (sidePanelName, selection)
+    -- PVPUIFrame is loaded dynamically and not available on startup
+    if sidePanelName == "PVPUIFrame" and PVPQueueFrame_ShowFrame and not pvpButtonsHooked then
+        hooksecurefunc("PVPQueueFrame_ShowFrame", function () PGFDialog:Toggle() end)
+        pvpButtonsHooked = true
+    end
+    PGFDialog:Toggle()
+end)
+hooksecurefunc("GroupFinderFrame_ShowGroupFrame", function () PGFDialog:Toggle() end)
 PVEFrame:HookScript("OnShow", function () PGFDialog:Toggle() end)
 PVEFrame:HookScript("OnHide", function () PGFDialog:Toggle() end)
 
