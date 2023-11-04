@@ -170,8 +170,10 @@ function PGFDialog:SwitchToPanel()
     if self.activePanel.GetDesiredDialogWidth then
         local desiredWidth = self.activePanel:GetDesiredDialogWidth()
         self:SetWidth(desiredWidth)
-    else
+    elseif PGF.SupportsDragonflightUI() then
         self:SetWidth(300)
+    else
+        self:SetWidth(310)
     end
     self.activePanel:ClearAllPoints()
     if PGF.SupportsDragonflightUI() then

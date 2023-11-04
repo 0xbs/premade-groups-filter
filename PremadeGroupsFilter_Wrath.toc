@@ -31,6 +31,7 @@ UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
 Modules\Activity_Wrath.lua
+Modules\ActivityKeywords.lua
 Modules\MemberInfo.lua
 #   Modules\RemainingSlots.lua
 Modules\ColoredApplications.lua

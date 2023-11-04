@@ -361,10 +361,7 @@ function PGF.DoFilterSearchResults(results)
         env.myavgdungeonrating = playerInfo.avgDungeonRating
         env.mymediandungeonrating = playerInfo.medianDungeonRating
 
-        local aID = searchResultInfo.activityID
-
-        -- TODO RESTORE KEYWORDS
-
+        PGF.PutActivityKeywords(env, searchResultInfo.activityID)
 
         if PGF.PutRaiderIOMetrics then
             PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, searchResultInfo.activityID)
