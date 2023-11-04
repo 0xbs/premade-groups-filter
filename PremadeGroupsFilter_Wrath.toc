@@ -62,6 +62,8 @@ UI\DungeonPanel_Wrath.xml
 UI\DungeonPanel_Wrath.lua
 UI\RaidPanel.xml
 UI\RaidPanel.lua
+UI\MultiPanel.xml
+UI\MultiPanel.lua
 UI\ExpressionPanel.xml
 UI\ExpressionPanel.lua
 UI\UsePGFButton.lua

@@ -159,9 +159,9 @@ end
 
 function PGFDialog:SwitchToPanel()
     local panel = self.activeState.minimized
-            and self.panels.default       -- if minimized, use default panel
+            and self.panels.expression    -- if minimized, use expression panel
             or self.panels[self.activeId] -- if maximized, use panel for current category
-            or self.panels.default        -- if no panel for current category, use default panel
+            or self.panels.multi          -- if no panel for current category, use multi panel
     PGF.Logger:Debug("PGFDialog:SwitchToPanel("..panel.name..")")
     self.activeState[panel.name] = self.activeState[panel.name] or {} -- initialize panel state
     if self.activePanel then self.activePanel:Hide() end
@@ -175,11 +175,8 @@ function PGFDialog:SwitchToPanel()
     else
         self:SetWidth(310)
     end
-    self.activePanel:ClearAllPoints()
-    if PGF.SupportsDragonflightUI() then
-        self.activePanel:SetPoint("TOPLEFT", 0, -20)
-        self.activePanel:SetPoint("BOTTOMRIGHT", 0, 30)
-    else -- old design
+    if not PGF.SupportsDragonflightUI() then
+        self.activePanel:ClearAllPoints()
         self.activePanel:SetPoint("TOPLEFT", 5, -20)
         self.activePanel:SetPoint("BOTTOMRIGHT", 0, 35)
     end

@@ -1,14 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <Frame name="PremadeGroupsFilterDungeonPanelTemplate" virtual="true" hidden="true">
+    <Frame name="PremadeGroupsFilterMultiPanelTemplate" virtual="true" hidden="true">
         <Anchors>
             <Anchor point="TOPLEFT" y="-20"/>
             <Anchor point="BOTTOMRIGHT" y="30"/>
         </Anchors>
         <Frames>
             <Frame parentKey="Group">
-                <Size x="300" y="150"/>
+                <Size x="300" y="125"/>
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
                 </Anchors>
@@ -25,15 +25,10 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate">
+                    <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
                         <Anchors>
                             <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
                             <Anchor point="LEFT" x="5"/>
-                        </Anchors>
-                    </Frame>
-                    <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">

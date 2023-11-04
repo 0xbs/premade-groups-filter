@@ -93,4 +93,4 @@ function ExpressionPanel:TriggerFilterExpressionChange()
 end
 
 ExpressionPanel:OnLoad()
-PGF.Dialog:RegisterPanel("default", ExpressionPanel)
+PGF.Dialog:RegisterPanel("expression", ExpressionPanel)
