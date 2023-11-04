@@ -29,60 +29,70 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.dialogMovable.title"],
         tooltip = L["settings.dialogMovable.tooltip"],
+        visible = true,
     },
     {
         key = "classNamesInTooltip",
         type = "checkbox",
         title = L["settings.classNamesInTooltip.title"],
         tooltip = L["settings.classNamesInTooltip.tooltip"],
+        visible = true,
     },
     {
         key = "coloredGroupTexts",
         type = "checkbox",
         title = L["settings.coloredGroupTexts.title"],
         tooltip = L["settings.coloredGroupTexts.tooltip"],
+        visible = true,
     },
     {
         key = "coloredApplications",
         type = "checkbox",
         title = L["settings.coloredApplications.title"],
         tooltip = L["settings.coloredApplications.tooltip"],
+        visible = true,
     },
     {
         key = "ratingInfo",
         type = "checkbox",
         title = L["settings.ratingInfo.title"],
         tooltip = L["settings.ratingInfo.tooltip"],
+        visible = true,
     },
     {
         key = "classCircle",
         type = "checkbox",
         title = L["settings.classCircle.title"],
         tooltip = L["settings.classCircle.tooltip"],
+        visible = PGF.IsRetail(),
     },
     {
         key = "classBar",
         type = "checkbox",
         title = L["settings.classBar.title"],
         tooltip = L["settings.classBar.tooltip"],
+        visible = true,
     },
     {
         key = "leaderCrown",
         type = "checkbox",
         title = L["settings.leaderCrown.title"],
         tooltip = L["settings.leaderCrown.tooltip"],
+        visible = true,
     },
     {
         key = "oneClickSignUp",
         type = "checkbox",
         title = L["settings.oneClickSignUp.title"],
         tooltip = L["settings.oneClickSignUp.tooltip"],
+        visible = true,
     },
     {
         key = "persistSignUpNote",
         type = "checkbox",
         title = L["settings.persistSignUpNote.title"],
         tooltip = L["settings.persistSignUpNote.tooltip"],
+        visible = true,
         callback = function(value) PGF.PersistSignUpNote() end,
     },
     {
@@ -90,12 +100,14 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.signupOnEnter.title"],
         tooltip = L["settings.signupOnEnter.tooltip"],
+        visible = true,
     },
     {
         key = "skipSignUpDialog",
         type = "checkbox",
         title = L["settings.skipSignUpDialog.title"],
         tooltip = L["settings.skipSignUpDialog.tooltip"],
+        visible = true,
     },
 }
 
@@ -133,7 +145,9 @@ end
 function PGFSettings:RefreshDataProvider()
     local dataProvider = CreateDataProvider()
     for i = 1, #PGFSettingsTable do
-        dataProvider:Insert(PGFSettingsTable[i])
+        if PGFSettingsTable[i].visible then
+            dataProvider:Insert(PGFSettingsTable[i])
+        end
     end
     self.ScrollBox:SetDataProvider(dataProvider)
 end

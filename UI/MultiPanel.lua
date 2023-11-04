@@ -22,22 +22,14 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local DIFFICULTY_TEXT = {
-    [1] = { key = C.ARENA2V2, title = C_LFGList.GetActivityInfoTable(6).shortName }, -- Arena 2v2
-    [2] = { key = C.ARENA3V3, title = C_LFGList.GetActivityInfoTable(7).shortName }, -- Arena 3v3
-}
+local MultiPanel = CreateFrame("Frame", "PremadeGroupsFilterMultiPanel", PGF.Dialog, "PremadeGroupsFilterMultiPanelTemplate")
 
-local ArenaPanel = CreateFrame("Frame", "PremadeGroupsFilterArenaPanel", PGF.Dialog, "PremadeGroupsFilterArenaPanelTemplate")
-
-function ArenaPanel:OnLoad()
-    PGF.Logger:Debug("ArenaPanel:OnLoad")
-    self.name = "arena"
+function MultiPanel:OnLoad()
+    PGF.Logger:Debug("MultiPanel:OnLoad")
+    self.name = "multi"
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
-
-    PGF.UI_SetupDropDown(self, self.Group.Difficulty, "ArenaDifficultyMenu", L["dialog.difficulty"], DIFFICULTY_TEXT)
-    PGF.UI_SetupMinMaxField(self, self.Group.PvPRating, "pvprating")
     PGF.UI_SetupMinMaxField(self, self.Group.Members, "members", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.Tanks, "tanks", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", self.groupWidth)
@@ -45,22 +37,15 @@ function ArenaPanel:OnLoad()
     PGF.UI_SetupAdvancedExpression(self)
 end
 
-function ArenaPanel:Init(state)
-    PGF.Logger:Debug("Arenapanel:Init")
+function MultiPanel:Init(state)
+    PGF.Logger:Debug("MultiPanel:Init")
     self.state = state
-    self.state.difficulty = self.state.difficulty or {}
-    self.state.pvprating = self.state.pvprating or {}
     self.state.members = self.state.members or {}
     self.state.tanks = self.state.tanks or {}
     self.state.heals = self.state.heals or {}
     self.state.dps = self.state.dps or {}
     self.state.expression = self.state.expression or ""
 
-    self.Group.Difficulty.Act:SetChecked(self.state.difficulty.act or false)
-    self.Group.Difficulty.DropDown:SetKey(self.state.difficulty.val)
-    self.Group.PvPRating.Act:SetChecked(self.state.pvprating.act or false)
-    self.Group.PvPRating.Min:SetText(self.state.pvprating.min or "")
-    self.Group.PvPRating.Max:SetText(self.state.pvprating.max or "")
     self.Group.Members.Act:SetChecked(self.state.members.act or false)
     self.Group.Members.Min:SetText(self.state.members.min or "")
     self.Group.Members.Max:SetText(self.state.members.max or "")
@@ -77,26 +62,22 @@ function ArenaPanel:Init(state)
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
 end
 
-function ArenaPanel:OnShow()
-    PGF.Logger:Debug("ArenaPanel:OnShow")
+function MultiPanel:OnShow()
+    PGF.Logger:Debug("MultiPanel:OnShow")
 end
 
-function ArenaPanel:OnHide()
-    PGF.Logger:Debug("ArenaPanel:OnHide")
+function MultiPanel:OnHide()
+    PGF.Logger:Debug("MultiPanel:OnHide")
 end
 
-function ArenaPanel:OnReset()
-    PGF.Logger:Debug("ArenaPanel:OnReset")
-    self.state.difficulty.act = false
-    self.state.pvprating.act = false
-    self.state.pvprating.min = ""
-    self.state.pvprating.max = ""
-    self.state.tanks.act = false
-    self.state.tanks.min = ""
-    self.state.tanks.max = ""
+function MultiPanel:OnReset()
+    PGF.Logger:Debug("MultiPanel:OnReset")
     self.state.members.act = false
     self.state.members.min = ""
     self.state.members.max = ""
+    self.state.tanks.act = false
+    self.state.tanks.min = ""
+    self.state.tanks.max = ""
     self.state.heals.act = false
     self.state.heals.min = ""
     self.state.heals.max = ""
@@ -108,30 +89,23 @@ function ArenaPanel:OnReset()
     self:Init(self.state)
 end
 
-function ArenaPanel:OnUpdateExpression(expression, sorting)
-    PGF.Logger:Debug("ArenaPanel:OnUpdateExpression")
+function MultiPanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("MultiPanel:OnUpdateExpression")
     self.state.expression = expression
     self:Init(self.state)
 end
 
-function ArenaPanel:TriggerFilterExpressionChange()
-    PGF.Logger:Debug("ArenaPanel:TriggerFilterExpressionChange")
+function MultiPanel:TriggerFilterExpressionChange()
+    PGF.Logger:Debug("MultiPanel:TriggerFilterExpressionChange")
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
-function ArenaPanel:GetFilterExpression()
-    PGF.Logger:Debug("ArenaPanel:GetFilterExpression")
+function MultiPanel:GetFilterExpression()
+    PGF.Logger:Debug("MultiPanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
-    if self.state.difficulty.act and self.state.difficulty.val then
-        expression = expression .. " and " .. C.DIFFICULTY_KEYWORD[self.state.difficulty.val]
-    end
-    if self.state.pvprating.act then
-        if PGF.NotEmpty(self.state.pvprating.min) then expression = expression .. " and pvprating >= " .. self.state.pvprating.min end
-        if PGF.NotEmpty(self.state.pvprating.max) then expression = expression .. " and pvprating <= " .. self.state.pvprating.max end
-    end
     if self.state.members.act then
         if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
         if PGF.NotEmpty(self.state.members.max) then expression = expression .. " and members <= " .. self.state.members.max end
@@ -156,9 +130,9 @@ function ArenaPanel:GetFilterExpression()
     return expression
 end
 
-function ArenaPanel:GetSortingExpression()
+function MultiPanel:GetSortingExpression()
     return nil
 end
 
-ArenaPanel:OnLoad()
-PGF.Dialog:RegisterPanel("c4f8", ArenaPanel)
+MultiPanel:OnLoad()
+PGF.Dialog:RegisterPanel("multi", MultiPanel)

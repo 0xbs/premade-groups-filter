@@ -38,6 +38,7 @@ C.MYTHIC     = 3
 C.MYTHICPLUS = 4
 C.ARENA2V2   = 5
 C.ARENA3V3   = 6
+C.ARENA5V5   = 7
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
 C.CATEGORY_ID = {
@@ -52,6 +53,10 @@ C.CATEGORY_ID = {
     RATED_BATTLEGROUND = 9,
     ASHRAN             = 10,
     THORGAST           = 113,
+    WRATH_RAID         = 114,
+    WRATH_QUESTING     = 116,
+    WRATH_BATTLEGROUND = 118,
+    WRATH_CUSTOM       = 120,
 }
 
 C.DIFFICULTY_KEYWORD = {
@@ -61,6 +66,7 @@ C.DIFFICULTY_KEYWORD = {
     [C.MYTHICPLUS] = "mythicplus",
     [C.ARENA2V2] = "arena2v2",
     [C.ARENA3V3] = "arena3v3",
+    [C.ARENA5V5] = "arena5v5",
 }
 
 -- Translates tier enum values into normalized values - check via /dump PVPUtil.GetTierName(1)
@@ -115,6 +121,14 @@ C.DPS_CLASS_TYPE = {
     ["WARRIOR"]     = { range = false, melee = true,  armor = "plate",   br = false, bl = false },
 }
 
+local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
+local flavor = GetAddOnMetadata(PGFAddonName, "X-Flavor")
+function PGF.IsRetail() return flavor == "Retail" end
+function PGF.IsWrath() return flavor == "Wrath" end
+function PGF.SupportsMythicPlus() return PGF.IsRetail() end -- Mythic Plus (as opposed to Challenge Mode with gear scaling) is supported from Legion onwards
+function PGF.SupportsSpecializations() return PGF.IsRetail() end -- Specialization (as opposed to free talent trees) are supported from Mists of Pandaria onwards
+function PGF.SupportsDragonflightUI() return PGF.IsRetail() end -- User Interface has changed drastically in Dragonflight
+
 C.SETTINGS_DEFAULT = {
     version = 1,
     dialogMovable = true,
@@ -122,8 +136,8 @@ C.SETTINGS_DEFAULT = {
     coloredGroupTexts = true,
     coloredApplications = true,
     ratingInfo = true,
-    classCircle = true,
-    classBar = false,
+    classCircle = PGF.SupportsDragonflightUI(),
+    classBar = not PGF.SupportsDragonflightUI(),
     leaderCrown = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
@@ -197,8 +211,10 @@ function PGF.OnAddonLoaded(name)
 
         -- request various player information from the server
         RequestRaidInfo()
-        C_MythicPlus.RequestCurrentAffixes()
-        C_MythicPlus.RequestMapInfo()
+        if PGF.SupportsMythicPlus() then
+            C_MythicPlus.RequestCurrentAffixes()
+            C_MythicPlus.RequestMapInfo()
+        end
     end
 end
 

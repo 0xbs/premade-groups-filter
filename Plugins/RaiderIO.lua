@@ -22,19 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- maps from ActivityID to MapID (not MapChallengeModeID!)
-local ACTIVITY_TO_MAP_ID = {
-    [1189] = 2522, -- Vault of the Incarnates (Normal)
-    [1190] = 2522, -- Vault of the Incarnates (Heroic)
-    [1191] = 2522, -- Vault of the Incarnates (Mythic)
-    [1235] = 2569, -- Aberrus, the Shadowed Crucible (Normal)
-    [1236] = 2569, -- Aberrus, the Shadowed Crucible (Heroic)
-    [1237] = 2569, -- Aberrus, the Shadowed Crucible (Mythic)
-    [1251] = 2549, -- Amirdrassil, the Dream's Hope (Normal)
-    [1252] = 2549, -- Amirdrassil, the Dream's Hope (Heroic)
-    [1253] = 2549, -- Amirdrassil, the Dream's Hope (Mythic)
-}
-
 function PGF.GetNameRealmFaction(leaderName)
     local name, realm, faction
     local factionMapping = {
@@ -126,7 +113,7 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
             -- result.raidProfile.progress[i].raid.id        -- int
             -- result.raidProfile.progress[i].raid.ordinal   -- int
 
-            local mapID = ACTIVITY_TO_MAP_ID[activityID]
+            local mapID = C.ACTIVITY[activityID].mapID
             if result.raidProfile.progress and type(result.raidProfile.progress) == "table" then
                 for _, progress in pairs(result.raidProfile.progress) do
                     if mapID and progress.raid and mapID == progress.raid.mapId then

@@ -25,13 +25,15 @@ local C = PGF.C
 local didApplyPatch = false
 local originalFunc = LFGListApplicationDialog_Show
 local patchedFunc = function(self, resultID)
-    local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID);
-    --if ( searchResultInfo.activityID ~= self.activityID ) then
-    --    C_LFGList.ClearApplicationTextFields();
-    --end
+    if resultID then
+        local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID);
+        --if ( searchResultInfo.activityID ~= self.activityID ) then
+        --    C_LFGList.ClearApplicationTextFields();
+        --end
 
-    self.resultID = resultID;
-    self.activityID = searchResultInfo.activityID;
+        self.resultID = resultID;
+        self.activityID = searchResultInfo.activityID;
+    end
     LFGListApplicationDialog_UpdateRoles(self);
     StaticPopupSpecial_Show(self);
 end

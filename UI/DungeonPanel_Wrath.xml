@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <Frame name="PremadeGroupsFilterRBGPanelTemplate" virtual="true" hidden="true">
+    <Frame name="PremadeGroupsFilterDungeonPanelTemplate" virtual="true" hidden="true">
         <Anchors>
             <Anchor point="TOPLEFT" y="-20"/>
             <Anchor point="BOTTOMRIGHT" y="30"/>
@@ -25,7 +25,7 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="PvPRating" inherits="PremadeGroupsFilterMinMaxTemplate">
+                    <Frame parentKey="Difficulty" inherits="PremadeGroupsFilterDropdownTemplate">
                         <Anchors>
                             <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
                             <Anchor point="LEFT" x="5"/>
@@ -33,7 +33,7 @@
                     </Frame>
                     <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.PvPRating" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
@@ -56,7 +56,7 @@
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
-                    <Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" x="-5"/>
                 </Anchors>
             </Frame>
         </Frames>
