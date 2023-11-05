@@ -22,11 +22,11 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local MultiPanel = CreateFrame("Frame", "PremadeGroupsFilterMultiPanel", PGF.Dialog, "PremadeGroupsFilterMultiPanelTemplate")
+local RolePanel = CreateFrame("Frame", "PremadeGroupsFilterRolePanel", PGF.Dialog, "PremadeGroupsFilterRolePanelTemplate")
 
-function MultiPanel:OnLoad()
-    PGF.Logger:Debug("MultiPanel:OnLoad")
-    self.name = "multi"
+function RolePanel:OnLoad()
+    PGF.Logger:Debug("RolePanel:OnLoad")
+    self.name = "role"
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
@@ -37,8 +37,8 @@ function MultiPanel:OnLoad()
     PGF.UI_SetupAdvancedExpression(self)
 end
 
-function MultiPanel:Init(state)
-    PGF.Logger:Debug("MultiPanel:Init")
+function RolePanel:Init(state)
+    PGF.Logger:Debug("RolePanel:Init")
     self.state = state
     self.state.members = self.state.members or {}
     self.state.tanks = self.state.tanks or {}
@@ -62,16 +62,16 @@ function MultiPanel:Init(state)
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
 end
 
-function MultiPanel:OnShow()
-    PGF.Logger:Debug("MultiPanel:OnShow")
+function RolePanel:OnShow()
+    PGF.Logger:Debug("RolePanel:OnShow")
 end
 
-function MultiPanel:OnHide()
-    PGF.Logger:Debug("MultiPanel:OnHide")
+function RolePanel:OnHide()
+    PGF.Logger:Debug("RolePanel:OnHide")
 end
 
-function MultiPanel:OnReset()
-    PGF.Logger:Debug("MultiPanel:OnReset")
+function RolePanel:OnReset()
+    PGF.Logger:Debug("RolePanel:OnReset")
     self.state.members.act = false
     self.state.members.min = ""
     self.state.members.max = ""
@@ -89,22 +89,22 @@ function MultiPanel:OnReset()
     self:Init(self.state)
 end
 
-function MultiPanel:OnUpdateExpression(expression, sorting)
-    PGF.Logger:Debug("MultiPanel:OnUpdateExpression")
+function RolePanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("RolePanel:OnUpdateExpression")
     self.state.expression = expression
     self:Init(self.state)
 end
 
-function MultiPanel:TriggerFilterExpressionChange()
-    PGF.Logger:Debug("MultiPanel:TriggerFilterExpressionChange")
+function RolePanel:TriggerFilterExpressionChange()
+    PGF.Logger:Debug("RolePanel:TriggerFilterExpressionChange")
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
-function MultiPanel:GetFilterExpression()
-    PGF.Logger:Debug("MultiPanel:GetFilterExpression")
+function RolePanel:GetFilterExpression()
+    PGF.Logger:Debug("RolePanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
     if self.state.members.act then
         if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
@@ -130,9 +130,9 @@ function MultiPanel:GetFilterExpression()
     return expression
 end
 
-function MultiPanel:GetSortingExpression()
+function RolePanel:GetSortingExpression()
     return nil
 end
 
-MultiPanel:OnLoad()
-PGF.Dialog:RegisterPanel("multi", MultiPanel)
+RolePanel:OnLoad()
+PGF.Dialog:RegisterPanel("role", RolePanel)

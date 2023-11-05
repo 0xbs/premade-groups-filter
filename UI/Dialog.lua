@@ -161,7 +161,7 @@ function PGFDialog:SwitchToPanel()
     local panel = self.activeState.minimized
             and self.panels.expression    -- if minimized, use expression panel
             or self.panels[self.activeId] -- if maximized, use panel for current category
-            or self.panels.multi          -- if no panel for current category, use multi panel
+            or self.panels.role           -- if no panel for current category, use role panel
     PGF.Logger:Debug("PGFDialog:SwitchToPanel("..panel.name..")")
     self.activeState[panel.name] = self.activeState[panel.name] or {} -- initialize panel state
     if self.activePanel then self.activePanel:Hide() end

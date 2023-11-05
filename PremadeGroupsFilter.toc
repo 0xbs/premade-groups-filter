@@ -60,8 +60,8 @@ UI\Dialog.xml
 UI\Dialog.lua
 UI\DungeonPanel.xml
 UI\DungeonPanel.lua
-UI\MultiPanel.xml
-UI\MultiPanel.lua
+UI\RolePanel.xml
+UI\RolePanel.lua
 UI\ArenaPanel.xml
 UI\ArenaPanel.lua
 UI\RBGPanel.xml
