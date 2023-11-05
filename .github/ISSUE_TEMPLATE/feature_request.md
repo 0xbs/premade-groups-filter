@@ -3,13 +3,13 @@ name: Feature request
 about: Suggest an idea for this project
 title: ''
 labels: enhancement
-assignees: 0xbs
+assignees: ''
 
 ---
 
-Please check (replace the space in the brackets with an x like this `- [x] ...`):
-- [ ]  I read the FAQ:  https://github.com/0xbs/premade-groups-filter/wiki/FAQ
-- [ ]  I searched for existing requests:  https://github.com/0xbs/premade-groups-filter/issues?q=
+Please check FAQ and existing issue first:
+- FAQ / Wiki: https://github.com/0xbs/premade-groups-filter/wiki/FAQ
+- All Issues: https://github.com/0xbs/premade-groups-filter/issues?q=
 
 ### Is your feature request related to a problem? Please describe.
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
