@@ -199,11 +199,14 @@ end
 function PGF.MigrateStateV6()
     if PremadeGroupsFilterState.version < 6 then
         for k, v in pairs(PremadeGroupsFilterState) do
-            if type(v) == "table" and v.default then
-                v.mini = v.default
-                v.default = nil
+            -- expression panel is now called mini
+            if type(v) == "table" and v.expression then
+                v.mini = v.expression
+                v.expression = nil
             end
         end
+        PremadeGroupsFilterState.version = 6
+        print(string.format(L["message.settingsupgraded"], "6"))
     end
 end
 
