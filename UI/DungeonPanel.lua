@@ -29,21 +29,34 @@ local DIFFICULTY_TEXT = {
     [4] = { key = C.MYTHICPLUS, title = L["dialog.mythicplus"] },
 }
 
-local SEASON_DUNGEONS = {
-    -- Dragonflight Season 3
-    [1] = { activityID = 1247, cmID = 463, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
-    [2] = { activityID = 1248, cmID = 464, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
-    [3] = { activityID = 530,  cmID = 248, keyword = "wm"   }, -- Waycrest Manor (Battle for Azeroth)
-    [4] = { activityID = 502,  cmID = 244, keyword = "ad"   }, -- Atal'Dazar (Battle for Azeroth)
-    [5] = { activityID = 460,  cmID = 198, keyword = "dht"  }, -- Darkheart Thicket (Legion)
-    [6] = { activityID = 463,  cmID = 199, keyword = "brh"  }, -- Black Rook Hold (Legion)
-    [7] = { activityID = 184,  cmID = 168, keyword = "eb"   }, -- The Everbloom (Warlords of Draenor)
-    [8] = { activityID = 1274, cmID = 456, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+local CMID_MAP = {
+    -- Dragonflight Season 2
+    [405] = { order = 1, keyword = "bh" },   -- Brackenhide Hollow
+    [406] = { order = 2, keyword = "hoi" },  -- Halls of Infusion
+    [404] = { order = 3, keyword = "nelt" }, -- Neltharus
+    [403] = { order = 4, keyword = "uld" },  -- Uldaman: Legacy of Tyr
+    [245] = { order = 5, keyword = "fh" },   -- Freehold
+    [206] = { order = 6, keyword = "nl" },   -- Neltharion's Lair
+    [251] = { order = 7, keyword = "undr" }, -- The Underrot
+    [438] = { order = 8, keyword = "vp" },   -- Vortex Pinnacle
 
-    -- note that there are currently one 8 checkboxes available in the xml file
-    -- activityID can be found here as column ID: https://wago.tools/db2/GroupFinderActivity?sort[ID]=desc
-    -- cmID       can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
+    -- Dragonflight Season 3
+    [463] = { order = 1, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
+    [464] = { order = 2, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
+    [248] = { order = 3, keyword = "wm" },   -- Waycrest Manor (Battle for Azeroth)
+    [244] = { order = 4, keyword = "ad" },   -- Atal'Dazar (Battle for Azeroth)
+    [198] = { order = 5, keyword = "dht" },  -- Darkheart Thicket (Legion)
+    [199] = { order = 6, keyword = "brh" },  -- Black Rook Hold (Legion)
+    [168] = { order = 7, keyword = "eb" },   -- The Everbloom (Warlords of Draenor)
+    [456] = { order = 8, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+
+    -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
+setmetatable(CMID_MAP, { __index = function() return { order = 0, keyword = "true" } end })
+
+-- Note that there are currently one 8 checkboxes available in the xml file.
+-- If a season has more or less than 8 dungeons, the code has to be adapted.
+local NUM_DUNGEON_CHECKBOXES = 8
 
 local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF.Dialog, "PremadeGroupsFilterDungeonPanelTemplate")
 
@@ -78,9 +91,17 @@ function DungeonPanel:OnLoad()
     self.Dungeons.Alert:SetScript("OnLeave", function(self)
         GameTooltip:Hide()
     end)
-    for i = 1, #SEASON_DUNGEONS do
-        --local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityID).fullName
-        local dungeonName = C_ChallengeMode.GetMapUIInfo(SEASON_DUNGEONS[i].cmID) or "?"
+
+    self.cmIDs = C_ChallengeMode.GetMapTable()
+    table.sort(self.cmIDs, function(a, b) -- sort by order asc, id asc
+        if CMID_MAP[a].order ~= CMID_MAP[b].order then
+            return CMID_MAP[a].order < CMID_MAP[b].order
+        end
+        return a < b
+    end)
+
+    for i, cmID in ipairs(self.cmIDs) do
+        local dungeonName = C_ChallengeMode.GetMapUIInfo(cmID) or "?"
         self.Dungeons["Dungeon"..i]:SetWidth(145)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
         self.Dungeons["Dungeon"..i].Title:SetWidth(105)
@@ -133,7 +154,7 @@ function DungeonPanel:Init(state)
     self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
     self.Group.BRFit.Act:SetChecked(self.state.brfit or false)
 
-    for i = 1, #SEASON_DUNGEONS do
+    for i = 1, NUM_DUNGEON_CHECKBOXES do
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
     end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
@@ -169,7 +190,7 @@ function DungeonPanel:OnReset()
     self.state.partyfit = false
     self.state.blfit = false
     self.state.brfit = false
-    for i = 1, #SEASON_DUNGEONS do
+    for i = 1, NUM_DUNGEON_CHECKBOXES do
         self.state["dungeon"..i] = false
     end
     self.state.expression = ""
@@ -223,8 +244,9 @@ function DungeonPanel:GetFilterExpression()
 
     if self:GetNumDungeonsSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or
-        for i = 1, #SEASON_DUNGEONS do
-            if self.state["dungeon"..i] then expression = expression .. " or " .. SEASON_DUNGEONS[i].keyword end
+        for i = 1, NUM_DUNGEON_CHECKBOXES do
+            local keyword = CMID_MAP[self.cmIDs[i]].keyword
+            if self.state["dungeon"..i] then expression = expression .. " or " .. keyword end
         end
         expression = expression .. " )"
         expression = expression:gsub("false or ", "")
@@ -247,7 +269,7 @@ end
 
 function DungeonPanel:GetNumDungeonsSelected()
     local numDungeonsSelected = 0
-    for i = 1, #SEASON_DUNGEONS do
+    for i = 1, NUM_DUNGEON_CHECKBOXES do
         if self.state["dungeon"..i] then
             numDungeonsSelected = numDungeonsSelected + 1
         end
