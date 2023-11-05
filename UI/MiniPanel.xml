@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <Frame name="PremadeGroupsFilterExpressionPanelTemplate" virtual="true" hidden="true">
+    <Frame name="PremadeGroupsFilterMiniPanelTemplate" virtual="true" hidden="true">
         <Anchors>
             <Anchor point="TOPLEFT" y="-20"/>
             <Anchor point="BOTTOMRIGHT" y="30"/>

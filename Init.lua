@@ -196,6 +196,17 @@ function PGF.MigrateStateV5()
     end
 end
 
+function PGF.MigrateStateV6()
+    if PremadeGroupsFilterState.version < 6 then
+        for k, v in pairs(PremadeGroupsFilterState) do
+            if type(v) == "table" and v.default then
+                v.mini = v.default
+                v.default = nil
+            end
+        end
+    end
+end
+
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
         -- update new settings with defaults
@@ -208,6 +219,7 @@ function PGF.OnAddonLoaded(name)
         end
         PGF.MigrateStateV4()
         PGF.MigrateStateV5()
+        PGF.MigrateStateV6()
 
         -- request various player information from the server
         RequestRaidInfo()

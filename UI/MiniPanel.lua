@@ -22,11 +22,11 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local ExpressionPanel = CreateFrame("Frame", "PremadeGroupsFilterExpressionPanel", PGF.Dialog, "PremadeGroupsFilterExpressionPanelTemplate")
+local MiniPanel = CreateFrame("Frame", "PremadeGroupsFilterMiniPanel", PGF.Dialog, "PremadeGroupsFilterMiniPanelTemplate")
 
-function ExpressionPanel:OnLoad()
-    PGF.Logger:Debug("ExpressionPanel:OnLoad")
-    self.name = "expression"
+function MiniPanel:OnLoad()
+    PGF.Logger:Debug("MiniPanel:OnLoad")
+    self.name = "mini"
 
     PGF.UI_SetupAdvancedExpression(self)
     local fontFile, _, fontFlags = self.Advanced.Title:GetFont()
@@ -41,8 +41,8 @@ function ExpressionPanel:OnLoad()
     self.Sorting.Expression.Instructions:SetText("friends desc, age asc")
 end
 
-function ExpressionPanel:Init(state)
-    PGF.Logger:Debug("ExpressionPanel:Init")
+function MiniPanel:Init(state)
+    PGF.Logger:Debug("MiniPanel:Init")
     self.state = state
     self.state.expression = self.state.expression or ""
     self.state.sorting = self.state.sorting or ""
@@ -50,31 +50,31 @@ function ExpressionPanel:Init(state)
     self.Sorting.Expression:SetText(self.state.sorting)
 end
 
-function ExpressionPanel:OnShow()
-    PGF.Logger:Debug("ExpressionPanel:OnShow")
+function MiniPanel:OnShow()
+    PGF.Logger:Debug("MiniPanel:OnShow")
 end
 
-function ExpressionPanel:OnHide()
-    PGF.Logger:Debug("ExpressionPanel:OnHide")
+function MiniPanel:OnHide()
+    PGF.Logger:Debug("MiniPanel:OnHide")
 end
 
-function ExpressionPanel:OnReset()
-    PGF.Logger:Debug("ExpressionPanel:OnReset")
+function MiniPanel:OnReset()
+    PGF.Logger:Debug("MiniPanel:OnReset")
     self.state.expression = ""
     self.state.sorting = ""
     self:TriggerFilterExpressionChange()
     self:Init(self.state)
 end
 
-function ExpressionPanel:OnUpdateExpression(expression, sorting)
-    PGF.Logger:Debug("ExpressionPanel:OnUpdateExpression")
+function MiniPanel:OnUpdateExpression(expression, sorting)
+    PGF.Logger:Debug("MiniPanel:OnUpdateExpression")
     self.state.expression = expression
     self.state.sorting = sorting
     self:Init(self.state)
 end
 
-function ExpressionPanel:GetFilterExpression()
-    PGF.Logger:Debug("ExpressionPanel:GetFilterExpression")
+function MiniPanel:GetFilterExpression()
+    PGF.Logger:Debug("MiniPanel:GetFilterExpression")
     local userExp = PGF.UI_NormalizeExpression(self.state.expression)
     if userExp == "" then
         return "true"
@@ -83,14 +83,14 @@ function ExpressionPanel:GetFilterExpression()
     end
 end
 
-function ExpressionPanel:GetSortingExpression()
+function MiniPanel:GetSortingExpression()
     return self.state.sorting
 end
 
-function ExpressionPanel:TriggerFilterExpressionChange()
-    PGF.Logger:Debug("ExpressionPanel:TriggerFilterExpressionChange")
+function MiniPanel:TriggerFilterExpressionChange()
+    PGF.Logger:Debug("MiniPanel:TriggerFilterExpressionChange")
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
-ExpressionPanel:OnLoad()
-PGF.Dialog:RegisterPanel("expression", ExpressionPanel)
+MiniPanel:OnLoad()
+PGF.Dialog:RegisterPanel("mini", MiniPanel)
