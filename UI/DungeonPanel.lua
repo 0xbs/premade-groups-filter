@@ -80,7 +80,7 @@ function DungeonPanel:OnLoad()
     end)
     for i = 1, #SEASON_DUNGEONS do
         --local dungeonName = C_LFGList.GetActivityInfoTable(SEASON_DUNGEONS[i].activityID).fullName
-        local dungeonName = C_ChallengeMode.GetMapUIInfo(SEASON_DUNGEONS[i].cmID)
+        local dungeonName = C_ChallengeMode.GetMapUIInfo(SEASON_DUNGEONS[i].cmID) or "?"
         self.Dungeons["Dungeon"..i]:SetWidth(145)
         self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
         self.Dungeons["Dungeon"..i].Title:SetWidth(105)
@@ -88,6 +88,14 @@ function DungeonPanel:OnLoad()
             self.state["dungeon" .. i] = element:GetChecked()
             self:ToogleDungeonAlert()
             self:TriggerFilterExpressionChange()
+        end)
+        self.Dungeons["Dungeon"..i]:SetScript("OnEnter", function (self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(dungeonName, nil, nil, nil, nil, true)
+            GameTooltip:Show()
+        end)
+        self.Dungeons["Dungeon"..i]:SetScript("OnLeave", function(self)
+            GameTooltip:Hide()
         end)
     end
 end
