@@ -214,8 +214,17 @@ function PGF.OnAddonLoaded(name)
 
         -- initialize dialog state and migrate to latest version
         if PremadeGroupsFilterState == nil or PremadeGroupsFilterState.version == nil then
-            PremadeGroupsFilterState = {}
-            PremadeGroupsFilterState.version = 5
+            PremadeGroupsFilterState = {
+                version = 6,
+                c2f4 = { enabled = true, }, -- Dungeons
+                c3f5 = { enabled = true, }, -- Raids
+                c3f6 = { enabled = true, }, -- Raids
+                c114f4 = { enabled = true, }, -- Raids (Wrath)
+                c114f5 = { enabled = true, }, -- Raids (Wrath)
+                c114f6 = { enabled = true, }, -- Raids (Wrath)
+                c4f8 = { enabled = true, }, -- Arena
+                c9f8 = { enabled = true, }, -- RBG
+            }
         end
         PGF.MigrateStateV4()
         PGF.MigrateStateV5()
