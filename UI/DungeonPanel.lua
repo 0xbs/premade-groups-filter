@@ -65,6 +65,10 @@ function DungeonPanel:OnLoad()
     self.name = "dungeon"
     self.dialogWidth = 420
     self.groupWidth = 245
+    self.cmIDs = {}
+
+    self:RegisterEvent("CHALLENGE_MODE_MAPS_UPDATE")
+    self:SetScript("OnEvent", self.OnEvent)
 
     -- Group
     self.Group.Title:SetText(L["dialog.filters.group"])
@@ -92,6 +96,43 @@ function DungeonPanel:OnLoad()
         GameTooltip:Hide()
     end)
 
+    for i = 1, NUM_DUNGEON_CHECKBOXES do
+        local dungeon = self.Dungeons["Dungeon"..i]
+        dungeon.cmId = cmID
+        dungeon.name = "..."
+        dungeon:SetWidth(145)
+        dungeon.Title:SetText("...")
+        dungeon.Title:SetWidth(105)
+        dungeon.Act:SetScript("OnClick", function(element)
+            self.state["dungeon" .. i] = element:GetChecked()
+            self:ToogleDungeonAlert()
+            self:TriggerFilterExpressionChange()
+        end)
+        dungeon:SetScript("OnEnter", function (self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(self.name, nil, nil, nil, nil, true)
+            GameTooltip:Show()
+        end)
+        dungeon:SetScript("OnLeave", function(self)
+            GameTooltip:Hide()
+        end)
+    end
+    self:TryInitChallengeModes()
+end
+
+function DungeonPanel:TryInitChallengeModes()
+    if not self.cmIDs or #self.cmIDs == 0 then
+        self:InitChallengeModes()
+    end
+end
+
+function DungeonPanel:InitChallengeModes()
+    PGF.Logger:Debug("Dungeonpanel:InitChallengeModes")
+    if not C_ChallengeMode.GetMapTable() then
+        PGF.Logger:Debug("C_ChallengeMode.GetMapTable() not yet ready")
+        return
+    end
+
     self.cmIDs = C_ChallengeMode.GetMapTable()
     table.sort(self.cmIDs, function(a, b) -- sort by order asc, id asc
         if CMID_MAP[a].order ~= CMID_MAP[b].order then
@@ -102,22 +143,10 @@ function DungeonPanel:OnLoad()
 
     for i, cmID in ipairs(self.cmIDs) do
         local dungeonName = C_ChallengeMode.GetMapUIInfo(cmID) or "?"
-        self.Dungeons["Dungeon"..i]:SetWidth(145)
-        self.Dungeons["Dungeon"..i].Title:SetText(dungeonName)
-        self.Dungeons["Dungeon"..i].Title:SetWidth(105)
-        self.Dungeons["Dungeon"..i].Act:SetScript("OnClick", function(element)
-            self.state["dungeon" .. i] = element:GetChecked()
-            self:ToogleDungeonAlert()
-            self:TriggerFilterExpressionChange()
-        end)
-        self.Dungeons["Dungeon"..i]:SetScript("OnEnter", function (self)
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:SetText(dungeonName, nil, nil, nil, nil, true)
-            GameTooltip:Show()
-        end)
-        self.Dungeons["Dungeon"..i]:SetScript("OnLeave", function(self)
-            GameTooltip:Hide()
-        end)
+        local dungeon = self.Dungeons["Dungeon"..i]
+        dungeon.cmId = cmID
+        dungeon.name = dungeonName
+        dungeon.Title:SetText(dungeonName)
     end
 end
 
@@ -161,8 +190,16 @@ function DungeonPanel:Init(state)
     self:ToogleDungeonAlert()
 end
 
+function DungeonPanel:OnEvent(event)
+    if event == "CHALLENGE_MODE_MAPS_UPDATE" then
+        PGF.Logger:Debug("DungeonPanel:OnEvent(CHALLENGE_MODE_MAPS_UPDATE)")
+        self:InitChallengeModes()
+    end
+end
+
 function DungeonPanel:OnShow()
     PGF.Logger:Debug("DungeonPanel:OnShow")
+    self:TryInitChallengeModes()
 end
 
 function DungeonPanel:OnHide()

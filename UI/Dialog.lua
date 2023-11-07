@@ -42,6 +42,7 @@ function PGFDialog:OnLoad()
     self.activePanel = nil
 
     self:SetScript("OnShow", self.OnShow)
+    self:SetScript("OnHide", self.OnHide)
     self:SetScript("OnMouseDown", self.OnMouseDown)
     self:SetScript("OnMouseUp", self.OnMouseUp)
 
@@ -64,10 +65,16 @@ function PGFDialog:OnShow()
     if not PremadeGroupsFilterSettings.dialogMovable then
         self:ResetPosition()
     end
+    if self.activePanel and self.activePanel.OnShow then
+        self.activePanel:OnShow()
+    end
 end
 
 function PGFDialog:OnHide()
     PGF.Logger:Debug("PGFDialog:OnHide")
+    if self.activePanel and self.activePanel.OnHide then
+        self.activePanel:OnHide()
+    end
 end
 
 function PGFDialog:OnMouseDown(button)
