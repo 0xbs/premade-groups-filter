@@ -344,6 +344,7 @@ function PGF.DoFilterSearchResults(results)
             env.hasbl = env.shamans > 0 or env.evokers > 0 or env.hunters > 0 or env.mages > 0
             env.hashero = env.hasbl
             env.haslust = env.hasbl
+            env.dispells = env.shamans + env.evokers +  env.priests + env.mages + env.paladins + env.monks + env.druids
         end
         if PGF.SupportsSpecializations() then
             env.brfit = env.hasbr or PGF.PlayerOrGroupHasBattleRezz() or PGF.HasRemainingSlotsForBattleRezzAfterJoin(memberCounts)
