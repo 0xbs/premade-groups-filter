@@ -58,6 +58,16 @@ setmetatable(CMID_MAP, { __index = function() return { order = 0, keyword = "tru
 -- If a season has more or less than 8 dungeons, the code has to be adapted.
 local NUM_DUNGEON_CHECKBOXES = 8
 
+-- Strip some prefixes from dungeons names next to checkboxes to make them more readable
+local stripPrefixes = {
+    "^The ",
+    "^Der ",
+    "^Die ",
+    "^Das ",
+    "^Dawn of the Infinite: ",
+    "^Dämmerung des Ewigen: ",
+}
+
 local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF.Dialog, "PremadeGroupsFilterDungeonPanelTemplate")
 
 function DungeonPanel:OnLoad()
@@ -143,10 +153,14 @@ function DungeonPanel:InitChallengeModes()
 
     for i, cmID in ipairs(self.cmIDs) do
         local dungeonName = C_ChallengeMode.GetMapUIInfo(cmID) or "?"
+        local shortName = dungeonName
+        for _, prefix in ipairs(stripPrefixes) do
+            shortName = shortName:gsub(prefix, "", 1)
+        end
         local dungeon = self.Dungeons["Dungeon"..i]
         dungeon.cmId = cmID
         dungeon.name = dungeonName
-        dungeon.Title:SetText(dungeonName)
+        dungeon.Title:SetText(shortName)
     end
 end
 
