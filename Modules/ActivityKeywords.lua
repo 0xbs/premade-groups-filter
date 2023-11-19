@@ -58,6 +58,14 @@ C.ACTIVITY_ID_TO_KEYWORDS = {
 
 C.MAP_ID_TO_KEYWORDS = {
     -- Raids
+    [ 249] = { "wrath", "ony" }, -- Onyxia's Lair
+    [ 533] = { "wrath", "naxx" }, -- Naxxramas
+    [ 615] = { "wrath", "os" }, -- The Obsidian Sanctum
+    [ 616] = { "wrath", "eoe" }, -- The Eye of Eternity
+    [ 624] = { "wrath", "voa" }, -- Vault of Archavon
+    [ 631] = { "wrath", "icc" }, -- Icecrown Citadel
+    [ 649] = { "wrath", "toc" }, -- Trial of the Crusader
+    [ 724] = { "wrath", "rs" }, -- Ruby Sanctum
     [1205] = { "wod", "brf" }, -- Blackrock Foundry
     [1228] = { "wod", "hm" }, -- Highmaul
     [1448] = { "wod", "hfc" }, -- Hellfire Citadel
