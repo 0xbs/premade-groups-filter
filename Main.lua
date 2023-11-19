@@ -47,21 +47,23 @@ end
 
 function PGF.GetUserSortingTable()
     local sorting = PGF.Dialog:GetSortingExpression()
-    if PGF.Empty(sorting) then return 0, {} end
-    -- example string:  "friends asc, age desc , foo asc, bar   desc , x"
-    -- resulting table: { ["friends"] = "asc", ["age"] = "desc", ["foo"] = "asc", ["bar"] = "desc" }
-    local c = 0
+    if PGF.Empty(sorting) then return {} end
+    -- example string:  "friends asc, age desc , bar   desc , x"
+    -- resulting sortTable = {
+    --     [1] = { key = "friends", order = "asc" },
+    --     [2] = { key = "age",     order = "desc" },
+    --     [3] = { key = "bar",     order = "desc" },
+    -- }
     local t = {}
     for k, v in string.gmatch(sorting, "(%w+)%s+(%w+),?") do
-        c = c + 1
-        t[k] = v
+        table.insert(t, { key = k, order = v })
     end
-    return c, t
+    return t
 end
 
 function PGF.SortSearchResults(results)
-    local sortTableSize, sortTable = PGF.GetUserSortingTable()
-    if sortTableSize > 0 then -- use custom sorting if defined
+    local sortTable = PGF.GetUserSortingTable()
+    if sortTable and #sortTable > 0 then -- use custom sorting if defined
         table.sort(results, PGF.SortByExpression)
     elseif PGF.IsRetail() then -- use our extended useful sorting
         table.sort(results, PGF.SortByUsefulOrder)
@@ -71,18 +73,22 @@ function PGF.SortSearchResults(results)
 end
 
 function PGF.SortByExpression(searchResultID1, searchResultID2)
+    if not searchResultID1 or not searchResultID2 then return false end -- race condition
+
+    -- look-up via table should be faster
     local info1 = PGF.searchResultIDInfo[searchResultID1]
     local info2 = PGF.searchResultIDInfo[searchResultID2]
     if not info1 or not info2 then return false end -- race condition
-    local sortTableSize, sortTable = PGF.GetUserSortingTable()
-    for k, v in pairs(sortTable) do
-        if info1.env[k] ~= info2.env[k] then -- works with unknown 'k' as 'nil ~= nil' is false (or 'nil == nil' is true)
-            if v == "desc" then
-                if type(info1.env[k]) == "boolean" then return info1.env[k] end -- true before false
-                return info1.env[k] > info2.env[k]
+
+    local sortTable = PGF.GetUserSortingTable()
+    for _, sort in ipairs(sortTable) do
+        if info1.env[sort.key] ~= info2.env[sort.key] then -- works with unknown keys as 'nil ~= nil' is false (or 'nil == nil' is true)
+            if sort.order == "desc" then
+                if type(info1.env[sort.key]) == "boolean" then return info1.env[sort.key] end -- true before false
+                return info1.env[sort.key] > info2.env[sort.key]
             else -- works with unknown 'v', in this case sort ascending by default
-                if type(info1.env[k]) == "boolean" then return info2.env[k] end -- false before true
-                return info1.env[k] < info2.env[k]
+                if type(info1.env[sort.key]) == "boolean" then return info2.env[sort.key] end -- false before true
+                return info1.env[sort.key] < info2.env[sort.key]
             end
         end
     end
