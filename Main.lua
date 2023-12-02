@@ -351,6 +351,12 @@ function PGF.DoFilterSearchResults(results)
             env.hashero = env.hasbl
             env.haslust = env.hasbl
             env.dispells = env.shamans + env.evokers +  env.priests + env.mages + env.paladins + env.monks + env.druids
+
+            -- tier token filters
+            env.dreadful = env.deathknights + env.warlocks +  env.demonhunters
+            env.mystic = env.hunters + env.mages + env.druids
+            env.venerated = env.shamans + env.priests + env.paladins
+            env.zenith = env.warriors + env.evokers + env.monks + env.rogues
         end
         if PGF.SupportsSpecializations() then
             env.brfit = env.hasbr or PGF.PlayerOrGroupHasBattleRezz() or PGF.HasRemainingSlotsForBattleRezzAfterJoin(memberCounts)
