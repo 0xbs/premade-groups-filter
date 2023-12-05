@@ -60,6 +60,7 @@ C.MAP_ID_TO_KEYWORDS = {
     -- Raids
     [ 249] = { "wrath", "ony" }, -- Onyxia's Lair
     [ 533] = { "wrath", "naxx" }, -- Naxxramas
+    [ 603] = { "wrath", "uld" }, -- Ulduar
     [ 615] = { "wrath", "os" }, -- The Obsidian Sanctum
     [ 616] = { "wrath", "eoe" }, -- The Eye of Eternity
     [ 624] = { "wrath", "voa" }, -- Vault of Archavon
