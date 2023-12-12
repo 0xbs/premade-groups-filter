@@ -32,23 +32,23 @@ local DIFFICULTY_TEXT = {
 local CMID_MAP = {
     -- Dragonflight Season 2
     [405] = { order = 1, keyword = "bh" },   -- Brackenhide Hollow
-    [406] = { order = 2, keyword = "hoi" },  -- Halls of Infusion
-    [404] = { order = 3, keyword = "nelt" }, -- Neltharus
-    [403] = { order = 4, keyword = "uld" },  -- Uldaman: Legacy of Tyr
-    [245] = { order = 5, keyword = "fh" },   -- Freehold
-    [206] = { order = 6, keyword = "nl" },   -- Neltharion's Lair
+    [245] = { order = 2, keyword = "fh" },   -- Freehold
+    [406] = { order = 3, keyword = "hoi" },  -- Halls of Infusion
+    [206] = { order = 4, keyword = "nl" },   -- Neltharion's Lair
+    [404] = { order = 5, keyword = "nelt" }, -- Neltharus
+    [403] = { order = 6, keyword = "uld" },  -- Uldaman: Legacy of Tyr
     [251] = { order = 7, keyword = "undr" }, -- The Underrot
     [438] = { order = 8, keyword = "vp" },   -- Vortex Pinnacle
 
     -- Dragonflight Season 3
-    [463] = { order = 1, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
-    [464] = { order = 2, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
-    [248] = { order = 3, keyword = "wm" },   -- Waycrest Manor (Battle for Azeroth)
-    [244] = { order = 4, keyword = "ad" },   -- Atal'Dazar (Battle for Azeroth)
-    [198] = { order = 5, keyword = "dht" },  -- Darkheart Thicket (Legion)
-    [199] = { order = 6, keyword = "brh" },  -- Black Rook Hold (Legion)
-    [168] = { order = 7, keyword = "eb" },   -- The Everbloom (Warlords of Draenor)
-    [456] = { order = 8, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+    [244] = { order = 1, keyword = "ad" },   -- Atal'Dazar (Battle for Azeroth)
+    [199] = { order = 2, keyword = "brh" },  -- Black Rook Hold (Legion)
+    [198] = { order = 3, keyword = "dht" },  -- Darkheart Thicket (Legion)
+    [168] = { order = 4, keyword = "eb" },   -- The Everbloom (Warlords of Draenor)
+    [463] = { order = 5, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
+    [464] = { order = 6, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
+    [456] = { order = 7, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+    [248] = { order = 8, keyword = "wm" },   -- Waycrest Manor (Battle for Azeroth)
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
