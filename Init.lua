@@ -239,6 +239,9 @@ function PGF.OnAddonLoaded(name)
             C_MythicPlus.RequestCurrentAffixes()
             C_MythicPlus.RequestMapInfo()
         end
+        if PGF.SupportsSpecializations() then
+            PGF.InitSpecializations()
+        end
     end
 end
 
