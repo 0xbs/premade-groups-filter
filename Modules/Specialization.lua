@@ -97,6 +97,9 @@ function PGF.InitSpecializations()
             armor = C.DPS_CLASS_TYPE[class].armor,
             range = specInfo.range or false,
             melee = specInfo.melee or false,
+            classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR,
+            roleAtlas = C.ROLE_ATLAS[role],
+            roleMarkup = string.format("|A:%s:0:0:0:0|a", C.ROLE_ATLAS[role]),
         }
     end
 end
@@ -147,4 +150,22 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.discs = env.discipline_priests
     env.ranged_strict = env.ranged
     env.melees_strict = env.melees
+end
+
+function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
+    local members = {}
+    for i = 1, numMembers do
+        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local specInfo = PGF.GetSpecInfo(class, specLocalized)
+        local memberInfo = PGF.Table_Copy_Shallow(specInfo)
+        memberInfo.isLeader = i == 1
+        memberInfo.leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
+        table.insert(members, memberInfo)
+    end
+    -- sort reverse by role -> tank, heal, dps; then by class
+    table.sort(members, function(a, b)
+        if a.role ~= b.role then return b.role < a.role end
+        return a.class < b.class
+    end)
+    return members
 end

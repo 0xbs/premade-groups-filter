@@ -22,27 +22,3 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
-    local members = {}
-    for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
-        local classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
-        table.insert(members, {
-            role = role,
-            class = class,
-            classLocalized = classLocalized,
-            specLocalized = specLocalized,
-            classColor = classColor,
-            roleAtlas = C.ROLE_ATLAS[role],
-            roleMarkup = string.format("|A:%s:0:0:0:0|a", C.ROLE_ATLAS[role]),
-            isLeader = i == 1,
-            leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or "",
-        })
-    end
-    -- sort reverse by role -> tank, heal, dps; then by class
-    table.sort(members, function(a, b)
-        if a.role ~= b.role then return b.role < a.role end
-        return a.class < b.class
-    end)
-    return members
-end
