@@ -110,11 +110,16 @@ end
 
 --- Attemps to get the correct specialization info based on the class and localized specialization name
 --- as returned by C_LFGList.GetSearchResultMemberInfo
-function PGF.GetSpecializationInfo(class, specLocalized)
+function PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
     for specID, specInfo in pairs(specs) do
         if specInfo.class == class and specInfo.specLocalized == specLocalized then
             return specInfo
         end
     end
     return nil
+end
+
+function PGF.GetSpecializationInfoForUnit(unit)
+    local specID = GetInspectSpecialization(unit)
+    return specs[specID]
 end

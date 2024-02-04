@@ -39,7 +39,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
         local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
-        local specInfo = PGF.GetSpecializationInfo(class, specLocalized)
+        local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             if specInfo.role == "DAMAGER" then
                 env.ranged = env.ranged + (specInfo.range and 1 or 0)
@@ -64,7 +64,7 @@ function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
         local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
-        local specInfo = PGF.GetSpecializationInfo(class, specLocalized)
+        local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         local memberInfo = PGF.Table_Copy_Shallow(specInfo)
         memberInfo.isLeader = i == 1
         memberInfo.leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
