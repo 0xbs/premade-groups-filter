@@ -25,7 +25,12 @@ local C = PGF.C
 function PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
     local members = PGF.GetSearchResultMemberInfoTable(resultID, searchResultInfo.numMembers)
     for _, m in pairs(members) do
-        local roleClassSpec = string.format("%s %s - %s %s", m.roleMarkup, m.classLocalized, m.specLocalized, m.leaderMarkup)
+        local roleClassSpec
+        if m.specLocalized and m.specLocalized ~= "" then -- no real specs in Wrath
+            roleClassSpec = string.format("%s %s - %s %s", m.roleMarkup, m.classLocalized, m.specLocalized, m.leaderMarkup)
+        else
+            roleClassSpec = string.format("%s %s %s", m.roleMarkup, m.classLocalized, m.leaderMarkup)
+        end
         tooltip:AddLine(roleClassSpec, m.classColor.r, m.classColor.g, m.classColor.b)
     end
 end
