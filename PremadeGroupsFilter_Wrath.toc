@@ -32,7 +32,7 @@ UI\StaticPopup.lua
 Modules\Util.lua
 Modules\Activity_Wrath.lua
 Modules\ActivityKeywords.lua
-Modules\MemberInfo.lua
+Modules\MemberInfo_Wrath.lua
 #   Modules\RemainingSlots.lua
 Modules\ColoredApplications.lua
 Modules\ApplicationStatus.lua
@@ -46,7 +46,6 @@ Modules\RatingInfo.lua
 Modules\OneClickSignUp.lua
 Modules\PersistSignUpNote.lua
 Modules\SignUpOnEnter.lua
-Modules\Specialization_Wrath.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua

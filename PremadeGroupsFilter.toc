@@ -46,7 +46,6 @@ Modules\RatingInfo.lua
 Modules\OneClickSignUp.lua
 Modules\PersistSignUpNote.lua
 Modules\SignUpOnEnter.lua
-Modules\Specialization.lua
 Main.lua
 Plugins\PremadeRegions.lua
 Plugins\RaiderIO.lua
