@@ -81,21 +81,22 @@ local specs = {}
 --- Initializes the table of localized specializations
 function PGF.InitSpecializations()
     for specID, specInfo in pairs(C.SPECIALIZATIONS) do
-        local spec = specInfo.spec
         local id, specLocalized, description, icon, role, class, classLocalized = GetSpecializationInfoByID(specID)
         specs[specID] = {
             specID = specID,
             class = class, -- should be the same as specInfo.class
             classLocalized = classLocalized,
             classKeyword = string.format("%ss", class:lower()), -- "warriors"
-            spec = spec,
+            spec = specInfo.spec,
             specLocalized = specLocalized,
-            specKeyword = string.format("%s_%ss", spec:lower(), class:lower()), -- "arms_warriors"
-            icon = icon,
+            specKeyword = string.format("%s_%ss", specInfo.spec:lower(), class:lower()), -- "arms_warriors"
+            specIcon = icon,
             role = role,
             roleClassKeyword = string.format("%s_%ss", C.ROLE_PREFIX[role], class:lower()), -- "tank_warriors"
             classRoleKeyword = string.format("%s_%s", class:lower(), C.ROLE_SUFFIX[role]), -- "warrior_tanks"
-            armorKeyword = C.DPS_CLASS_TYPE[class].armor or "unkown_armor"
+            armor = C.DPS_CLASS_TYPE[class].armor,
+            range = specInfo.range or false,
+            melee = specInfo.melee or false,
         }
     end
 end
@@ -111,7 +112,7 @@ function PGF.GetSpecInfo(class, specLocalized)
     return nil
 end
 
---- Sets specialization keyword values based on the search result info
+--- Sets member info keyword values based on the search result info
 function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     -- init to zero
     env.ranged = 0
@@ -121,7 +122,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         env[specInfo.classKeyword] = 0
         env[specInfo.roleClassKeyword] = 0
         env[specInfo.classRoleKeyword] = 0
-        env[specInfo.armorKeyword] = 0
+        env[specInfo.armor] = 0
     end
 
     -- increment keywords
@@ -137,7 +138,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
             env[specInfo.classKeyword] = env[specInfo.classKeyword] + 1
             env[specInfo.roleClassKeyword] = env[specInfo.roleClassKeyword] + 1
             env[specInfo.classRoleKeyword] = env[specInfo.classRoleKeyword] + 1
-            env[specInfo.armorKeyword] = env[specInfo.armorKeyword] + 1
+            env[specInfo.armor] = env[specInfo.armor] + 1
         end
     end
 
