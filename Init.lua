@@ -105,6 +105,14 @@ C.ROLE_SUFFIX = {
     ["TANK"] = "tanks",
 }
 
+C.ROLE_ATLAS = {
+    ["TANK"] = "roleicon-tiny-tank",
+    ["HEALER"] = "roleicon-tiny-healer",
+    ["DAMAGER"] = "roleicon-tiny-dps",
+}
+
+C.LEADER_ATLAS = "groupfinder-icon-leader"
+
 C.DPS_CLASS_TYPE = {
     ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate",   br = true,  bl = false },
     ["DEMONHUNTER"] = { range = false, melee = true,  armor = "leather", br = false, bl = false },

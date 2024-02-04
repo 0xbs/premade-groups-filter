@@ -22,13 +22,6 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-C.ROLE_ATLAS = {
-    ["TANK"] = "roleicon-tiny-tank",
-    ["HEALER"] = "roleicon-tiny-healer",
-    ["DAMAGER"] = "roleicon-tiny-dps",
-}
-C.LEADER_ATLAS = "groupfinder-icon-leader"
-
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
