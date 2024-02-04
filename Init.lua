@@ -120,6 +120,10 @@ C.DPS_CLASS_TYPE = {
     ["WARLOCK"]     = { range = true,  melee = false, armor = "cloth",   br = true,  bl = false },
     ["WARRIOR"]     = { range = false, melee = true,  armor = "plate",   br = false, bl = false },
 }
+setmetatable(C.DPS_CLASS_TYPE, { __index = function()
+    return { range = false, melee = false, armor = "unknown", br = false, bl = false }
+end })
+
 
 local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local flavor = GetAddOnMetadata(PGFAddonName, "X-Flavor")
