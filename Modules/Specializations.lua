@@ -32,12 +32,12 @@ C.SPECIALIZATIONS = {
 
     [ 102] = { class = "DRUID",       spec = "BALANCE",       range = true,  melee = false },
     [ 103] = { class = "DRUID",       spec = "FERAL",         range = false, melee = true  },
-    [ 104] = { class = "DRUID",       spec = "GUARDIAN",      range = true,  melee = false },
+    [ 104] = { class = "DRUID",       spec = "GUARDIAN",      range = false, melee = true  },
     [ 105] = { class = "DRUID",       spec = "RESTORATION",   range = true,  melee = false },
 
     [1467] = { class = "EVOKER",      spec = "DEVASTATION",   range = true,  melee = false },
     [1468] = { class = "EVOKER",      spec = "PRESERVATION",  range = true,  melee = false },
-    [1473] = { class = "EVOKER",      spec = "AUGMENTATION",  range = true,  melee = false, keyword2 = "augs" },
+    [1473] = { class = "EVOKER",      spec = "AUGMENTATION",  range = true,  melee = false },
 
     [ 253] = { class = "HUNTER",      spec = "BEASTMASTERY",  range = true,  melee = false },
     [ 254] = { class = "HUNTER",      spec = "MARKSMANSHIP",  range = true,  melee = false },
@@ -47,7 +47,7 @@ C.SPECIALIZATIONS = {
     [  66] = { class = "PALADIN",     spec = "PROTECTION",    range = false, melee = true  },
     [  70] = { class = "PALADIN",     spec = "RETRIBUTION",   range = false, melee = true  },
 
-    [ 256] = { class = "PRIEST",      spec = "DISCIPLINE",    range = true,  melee = false, keyword2 = "discs" },
+    [ 256] = { class = "PRIEST",      spec = "DISCIPLINE",    range = true,  melee = false },
     [ 257] = { class = "PRIEST",      spec = "HOLY",          range = true,  melee = false },
     [ 258] = { class = "PRIEST",      spec = "SHADOW",        range = true,  melee = false },
 
