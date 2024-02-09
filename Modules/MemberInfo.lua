@@ -65,10 +65,12 @@ function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     for i = 1, numMembers do
         local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
-        local memberInfo = PGF.Table_Copy_Shallow(specInfo)
-        memberInfo.isLeader = i == 1
-        memberInfo.leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
-        table.insert(members, memberInfo)
+        if specInfo then
+            local memberInfo = PGF.Table_Copy_Shallow(specInfo)
+            memberInfo.isLeader = i == 1
+            memberInfo.leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
+            table.insert(members, memberInfo)
+        end
     end
     -- sort reverse by role -> tank, heal, dps; then by class
     table.sort(members, function(a, b)
