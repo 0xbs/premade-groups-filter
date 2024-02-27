@@ -108,7 +108,7 @@ L["dialog.matchingid.tooltip"] = "Afficher seulement les groupes qui ont exactem
 L["dialog.dungeon.alert.single.title"] = "Un seul donjon sélectionné"
 L["dialog.dungeon.alert.single.info"] = "Lorsque vous recherchez un seul donjon, vous obtiendrez beaucoup plus de résultats pertinents si vous écrivez une partie du nom dans le champ de recherche, par exemple 'neltharus' ou 'vortex 10'. En raison de restrictions, les modules complémentaires ne peuvent pas modifier le champ de recherche à votre place."
 
-L["settings.dialogMovable.title"] = "Verouiller / déverrouiller la fenêtre PGF"
+L["settings.dialogMovable.title"] = "Déverrouiller la fenêtre PGF"
 L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic droit pour réinitialiser la position."
 L["settings.classNamesInTooltip.title"] = "Nom des classes dans l’infobulle"
 L["settings.classNamesInTooltip.tooltip"] = "Afficher la liste des classes dans l’infobulle. (trié par rôle)"
@@ -130,6 +130,6 @@ L["settings.persistSignUpNote.tooltip"] = "Conserver la « Note au chef de group
 L["settings.signupOnEnter.title"] = "S’inscre avec Entrée"
 L["settings.signupOnEnter.tooltip"] = "Activer automatiquement la zone de texte « Note au chef de groupe » lors de votre inscription à un nouveau groupe et confirmez votre candidature en appuyant sur Entrée."
 L["settings.skipSignUpDialog.title"] = "Ignorer la vérification des rôles"
-L["settings.skipSignUpDialog.tooltip"] = "Ignorer la sélection du rôle et s’inscire immédiatement dans le groupe. Maj + clic droit pour afficher la boîte de dialogue de la « Note au chef de groupe »."
+L["settings.skipSignUpDialog.tooltip"] = "Ignorer la sélection du rôle et s’inscire immédiatement dans le groupe. Appuyez sur la touche Majuscule pour ajouter une note au chef de groupe."
 L["settings.coloredApplications.title"] = "Colorer les candidatures"
 L["settings.coloredApplications.tooltip"] = "Afficher un fond rouge pour les candidatures en attente si le groupe n’a plus de place pour votre rôle."
