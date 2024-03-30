@@ -30,16 +30,6 @@ local DIFFICULTY_TEXT = {
 }
 
 local CMID_MAP = {
-    -- Dragonflight Season 2
-    [405] = { order = 1, keyword = "bh" },   -- Brackenhide Hollow
-    [406] = { order = 2, keyword = "hoi" },  -- Halls of Infusion
-    [404] = { order = 3, keyword = "nelt" }, -- Neltharus
-    [403] = { order = 4, keyword = "uld" },  -- Uldaman: Legacy of Tyr
-    [245] = { order = 5, keyword = "fh" },   -- Freehold
-    [206] = { order = 6, keyword = "nl" },   -- Neltharion's Lair
-    [251] = { order = 7, keyword = "undr" }, -- The Underrot
-    [438] = { order = 8, keyword = "vp" },   -- Vortex Pinnacle
-
     -- Dragonflight Season 3
     [463] = { order = 1, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
     [464] = { order = 2, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
@@ -49,6 +39,16 @@ local CMID_MAP = {
     [199] = { order = 6, keyword = "brh" },  -- Black Rook Hold (Legion)
     [168] = { order = 7, keyword = "eb" },   -- The Everbloom (Warlords of Draenor)
     [456] = { order = 8, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
+
+    -- Dragonflight Season 4
+    [402] = { order = 1, keyword = "aa" },   -- Algeth'ar Academy
+    [401] = { order = 2, keyword = "av" },   -- The Azure Vault
+    [405] = { order = 3, keyword = "bh" },   -- Brackenhide Hollow
+    [406] = { order = 4, keyword = "hoi" },  -- Halls of Infusion
+    [404] = { order = 5, keyword = "nelt" }, -- Neltharus
+    [400] = { order = 6, keyword = "no" },   -- The Nokhud Offensive
+    [399] = { order = 7, keyword = "rlp" },  -- Ruby Life Pools
+    [403] = { order = 8, keyword = "uld" },  -- Uldaman: Legacy of Tyr
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
