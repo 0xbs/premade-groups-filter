@@ -12,7 +12,7 @@
 ## Notes-koKR: 사용자 인터페이스 또는 고급 필터 표현식을 사용하여 미리 만들어진 그룹을 필터링할 수 있습니다.
 ## Notes-zhCN: 允许使用用户界面或高级过滤器表达式过滤预制组。
 ## Notes-zhTW: 允許使用用戶界面或高級過濾器表達式過濾預製組。
-## Author: Elotheon-Arthas-EU
+## Author: Bernhard Saumweber
 ## SavedVariables: PremadeGroupsFilterSettings
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
 
