@@ -67,6 +67,7 @@ C.MAP_ID_TO_KEYWORDS = {
     [ 631] = { "wrath", "icc" }, -- Icecrown Citadel
     [ 649] = { "wrath", "toc" }, -- Trial of the Crusader
     [ 724] = { "wrath", "rs" }, -- Ruby Sanctum
+    [ 732] = { "cata", "bara" }, -- Baradin Hold
     [1205] = { "wod", "brf" }, -- Blackrock Foundry
     [1228] = { "wod", "hm" }, -- Highmaul
     [1448] = { "wod", "hfc" }, -- Hellfire Citadel
