@@ -304,7 +304,6 @@ end
 
 function DungeonPanel:UpdateBlizzardAdvancedFilter()
     local blizzFilter = self:GetDefaultBlizzFilter()
-    DevTool:AddData(PGF.Dialog)
 
     if self.state.difficulty.act and self.state.difficulty.val then
         blizzFilter.difficultyNormal = false;
