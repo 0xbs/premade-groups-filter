@@ -103,6 +103,8 @@ function DungeonPanel:OnLoad()
     self.cmIDs = {}
 
     self:RegisterEvent("CHALLENGE_MODE_MAPS_UPDATE")
+    self:RegisterEvent("ACTIVE_PLAYER_SPECIALIZATION_CHANGED")
+    self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:SetScript("OnEvent", self.OnEvent)
 
     -- Group
@@ -233,6 +235,9 @@ function DungeonPanel:OnEvent(event)
     if event == "CHALLENGE_MODE_MAPS_UPDATE" then
         PGF.Logger:Debug("DungeonPanel:OnEvent(CHALLENGE_MODE_MAPS_UPDATE)")
         self:InitChallengeModes()
+    elseif self.state.partyfit and (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE") then
+        PGF.Logger:Debug("DungeonPanel:OnEvent(" .. event .. ")")
+        self:UpdateBlizzardAdvancedFilter()
     end
 end
 
