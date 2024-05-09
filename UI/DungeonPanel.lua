@@ -486,11 +486,12 @@ end
 
 function DungeonPanel:ToogleDungeonAlert()
     PGF.Logger:Debug("DungeonPanel:ToogleDungeonAlert")
-    if self:GetNumDungeonsSelected() == 1 then
-        self.Dungeons.Alert:Show()
-    else
-        self.Dungeons.Alert:Hide()
-    end
+    -- There is no reason for this alert anymore, so it can be removed
+    -- if self:GetNumDungeonsSelected() == 1 then
+    --     self.Dungeons.Alert:Show()
+    -- else
+    --     self.Dungeons.Alert:Hide()
+    -- end
 end
 
 DungeonPanel:OnLoad()
