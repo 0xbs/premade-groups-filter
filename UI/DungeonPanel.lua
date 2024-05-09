@@ -332,14 +332,14 @@ function DungeonPanel:UpdateBlizzardAdvancedFilter()
 
     if self.state.mprating.act then
         if PGF.NotEmpty(self.state.mprating.min) then 
-            blizzFilter.minimumRating = self.state.mprating.min
+            blizzFilter.minimumRating = tonumber(self.state.mprating.min)
         end
     end
     if self.state.tanks.act then
         if PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0 then 
             blizzFilter.hasTank = true
         end
-        if PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.min) == 0 then 
+        if PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.max) == 0 then 
             blizzFilter.needsTank = true
         end
     end
@@ -347,12 +347,12 @@ function DungeonPanel:UpdateBlizzardAdvancedFilter()
         if PGF.NotEmpty(self.state.heals.min) and tonumber(self.state.heals.min) > 0 then 
             blizzFilter.hasHealer = true
         end
-        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.min) == 0 then 
+        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.max) == 0 then 
             blizzFilter.needsHealer = true
         end
     end
     if self.state.dps.act then
-        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.min) < 3 then 
+        if PGF.NotEmpty(self.state.dps.max) and tonumber(self.state.dps.max) < 3 then 
             blizzFilter.needsDamage  = true
         end
     end
