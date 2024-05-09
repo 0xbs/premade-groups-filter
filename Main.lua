@@ -343,6 +343,7 @@ end
 
 function PGF.ColorGroupTexts(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.coloredGroupTexts then return end
+    if not searchResultInfo then return end
 
     -- try once again to update the leaderName (this information is not immediately available)
     if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end

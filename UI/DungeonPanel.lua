@@ -54,6 +54,18 @@ local CMID_MAP = {
 }
 setmetatable(CMID_MAP, { __index = function() return { order = 0, keyword = "true" } end })
 
+-- Blizzard Advanced filter uses Acitivy Group IDs for instances
+local CMID_TO_ACTIVITY_GROUP_ID = {
+    [402] = 302,   -- Algeth'ar Academy
+    [401] = 307,   -- The Azure Vault
+    [405] = 303,   -- Brackenhide Hollow
+    [406] = 304,  -- Halls of Infusion
+    [404] = 305, -- Neltharus
+    [400] = 308,   -- The Nokhud Offensive
+    [399] = 306,  -- Ruby Life Pools
+    [403] = 309,  -- Uldaman: Legacy of Tyr
+}
+
 -- Note that there are currently one 8 checkboxes available in the xml file.
 -- If a season has more or less than 8 dungeons, the code has to be adapted.
 local NUM_DUNGEON_CHECKBOXES = 8
@@ -262,6 +274,132 @@ function DungeonPanel:OnReset()
     self:Init(self.state)
 end
 
+function DungeonPanel:GetDefaultBlizzFilter()
+    local filter = C_LFGList.GetAdvancedFilter();
+    filter.needsTank = false;
+    filter.needsHealer = false;
+    filter.needsDamage = false;
+    filter.needsMyClass = false;
+    filter.hasTank = false;
+    filter.hasHealer = false;
+    filter.minimumRating = 0;
+    filter.activities = {};
+    
+    filter.difficultyNormal = true;
+    filter.difficultyHeroic = true;
+    filter.difficultyMythic = true;
+    filter.difficultyMythicPlus = true;
+
+    local seasonGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentSeason, Enum.LFGListFilter.PvE));
+    local expansionGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentExpansion, Enum.LFGListFilter.NotCurrentSeason, Enum.LFGListFilter.PvE));
+    
+    local allDungeons = {};
+
+    tAppendAll(allDungeons, seasonGroups);
+    tAppendAll(allDungeons, expansionGroups);
+
+    filter.activities = allDungeons;
+    return filter
+end
+
+function DungeonPanel:UpdateBlizzardAdvancedFilter()
+    local blizzFilter = self:GetDefaultBlizzFilter()
+    DevTool:AddData(PGF.Dialog)
+
+    if self.state.difficulty.act and self.state.difficulty.val then
+        blizzFilter.difficultyNormal = false;
+        blizzFilter.difficultyHeroic = false;
+        blizzFilter.difficultyMythic = false;
+        blizzFilter.difficultyMythicPlus = false;
+
+        if self.state.difficulty.val == C.NORMAL then
+            blizzFilter.difficultyNormal = true
+        end
+        if self.state.difficulty.val == C.HEROIC then
+            blizzFilter.difficultyHeroic = true
+        end
+        if self.state.difficulty.val == C.MYTHIC then
+            blizzFilter.difficultyMythic = true
+        end
+        if self.state.difficulty.val == C.MYTHICPLUS then
+            blizzFilter.difficultyMythicPlus = true
+        end
+    end
+
+    if self.state.mprating.act then
+        if PGF.NotEmpty(self.state.mprating.min) then 
+            blizzFilter.minimumRating = self.state.mprating.min
+        end
+    end
+    if self.state.tanks.act then
+        if PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0 then 
+            blizzFilter.hasTank = true
+        end
+        if PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.min) == 0 then 
+            blizzFilter.needsTank = true
+        end
+    end
+    if self.state.heals.act then
+        if PGF.NotEmpty(self.state.heals.min) and tonumber(self.state.heals.min) > 0 then 
+            blizzFilter.hasHealer = true
+        end
+        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.min) == 0 then 
+            blizzFilter.needsHealer = true
+        end
+    end
+    if self.state.dps.act then
+        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.min) < 3 then 
+            blizzFilter.needsDamage  = true
+        end
+    end
+    if self.state.partyfit then
+        local numGroupMembers = GetNumGroupMembers()
+        local groupType = IsInRaid() and "raid" or "party"
+
+        local partyRoles = { ["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0 }
+
+        if numGroupMembers == 0 then
+            local playerRole = GetSpecializationRole(GetSpecialization())
+            partyRoles[playerRole] = 1
+        else
+            for i = 1, numGroupMembers do
+                local unit = (i == 1) and "player" or (groupType .. (i - 1))
+
+                local groupMemberRole = UnitGroupRolesAssigned(unit)
+                if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
+
+                partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
+            end
+        end
+
+        if partyRoles["TANK"] > 0 then
+            blizzFilter.needsTank = true
+        end
+        if partyRoles["HEALER"] > 0 then
+            blizzFilter.needsHealer = true
+        end
+        if partyRoles["DAMAGER"] > 0 then
+            blizzFilter.needsDamage  = true
+        end
+    end
+
+    if self:GetNumDungeonsSelected() > 0 then
+        local selectedDungeons = {};
+
+        for i = 1, NUM_DUNGEON_CHECKBOXES do
+            local activityGroupID = CMID_TO_ACTIVITY_GROUP_ID[self.cmIDs[i]]
+            if self.state["dungeon"..i] and activityGroupID then 
+                tinsert(selectedDungeons, activityGroupID)
+            end
+        end
+       
+       blizzFilter.activities = selectedDungeons
+    end
+
+    MinRatingFrame.MinRating:SetNumber(blizzFilter.minimumRating);
+    C_LFGList.SaveAdvancedFilter(blizzFilter); 
+end
+
 function DungeonPanel:OnUpdateExpression(expression, sorting)
     PGF.Logger:Debug("DungeonPanel:OnUpdateExpression")
     self.state.expression = expression
@@ -273,6 +411,7 @@ function DungeonPanel:TriggerFilterExpressionChange()
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
+    self:UpdateBlizzardAdvancedFilter()
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
