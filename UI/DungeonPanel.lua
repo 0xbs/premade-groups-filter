@@ -31,14 +31,14 @@ local DIFFICULTY_TEXT = {
 
 local CMID_MAP = {
     -- Dragonflight Season 4
-    [402] = { order = 1, keyword = "aa" },   -- Algeth'ar Academy
-    [401] = { order = 2, keyword = "av" },   -- The Azure Vault
-    [405] = { order = 3, keyword = "bh" },   -- Brackenhide Hollow
-    [406] = { order = 4, keyword = "hoi" },  -- Halls of Infusion
-    [404] = { order = 5, keyword = "nelt" }, -- Neltharus
-    [400] = { order = 6, keyword = "no" },   -- The Nokhud Offensive
-    [399] = { order = 7, keyword = "rlp" },  -- Ruby Life Pools
-    [403] = { order = 8, keyword = "uld" },  -- Uldaman: Legacy of Tyr
+    [402] = { order = 1, activityGroupID = 302, keyword = "aa" },   -- Algeth'ar Academy
+    [401] = { order = 2, activityGroupID = 307, keyword = "av" },   -- The Azure Vault
+    [405] = { order = 3, activityGroupID = 303, keyword = "bh" },   -- Brackenhide Hollow
+    [406] = { order = 4, activityGroupID = 304, keyword = "hoi" },  -- Halls of Infusion
+    [404] = { order = 5, activityGroupID = 305, keyword = "nelt" }, -- Neltharus
+    [400] = { order = 6, activityGroupID = 308, keyword = "no" },   -- The Nokhud Offensive
+    [399] = { order = 7, activityGroupID = 306, keyword = "rlp" },  -- Ruby Life Pools
+    [403] = { order = 8, activityGroupID = 309, keyword = "uld" },  -- Uldaman: Legacy of Tyr
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
@@ -98,16 +98,6 @@ function DungeonPanel:OnLoad()
 
     -- Dungeons
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
-    self.Dungeons.Alert.Icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
-    self.Dungeons.Alert:SetScript("OnEnter", function (self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText(L["dialog.dungeon.alert.single.title"], nil, nil, nil, nil, true)
-        GameTooltip:AddLine(L["dialog.dungeon.alert.single.info"], 1, 1, 1, 1, true)
-        GameTooltip:Show()
-    end)
-    self.Dungeons.Alert:SetScript("OnLeave", function(self)
-        GameTooltip:Hide()
-    end)
 
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         local dungeon = self.Dungeons["Dungeon"..i]
@@ -118,7 +108,6 @@ function DungeonPanel:OnLoad()
         dungeon.Title:SetWidth(105)
         dungeon.Act:SetScript("OnClick", function(element)
             self.state["dungeon" .. i] = element:GetChecked()
-            self:ToogleDungeonAlert()
             self:TriggerFilterExpressionChange()
         end)
         dungeon:SetScript("OnEnter", function (self)
@@ -204,7 +193,6 @@ function DungeonPanel:Init(state)
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
     end
     self.Advanced.Expression.EditBox:SetText(self.state.expression or "")
-    self:ToogleDungeonAlert()
 end
 
 function DungeonPanel:OnEvent(event)
@@ -329,15 +317,6 @@ function DungeonPanel:GetNumDungeonsSelected()
         end
     end
     return numDungeonsSelected
-end
-
-function DungeonPanel:ToogleDungeonAlert()
-    PGF.Logger:Debug("DungeonPanel:ToogleDungeonAlert")
-    if self:GetNumDungeonsSelected() == 1 then
-        self.Dungeons.Alert:Show()
-    else
-        self.Dungeons.Alert:Hide()
-    end
 end
 
 DungeonPanel:OnLoad()

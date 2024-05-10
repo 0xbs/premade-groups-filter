@@ -105,8 +105,6 @@ L["dialog.brfit"] = "戰副適配"
 L["dialog.brfit.tooltip"] = "如果您的隊伍中沒有人有戰鬥復活，只顯示已經有戰鬥復活的隊伍，或者加入後，仍然有一個開放的空位。也同時作用在你只有一人時。"
 L["dialog.matchingid"] = "匹配ID"
 L["dialog.matchingid.tooltip"] = "僅顯示具有與您自己完全相同的副本鎖定ID的團隊。總是顯示所有團隊如果根本沒有鎖定的ID。"
-L["dialog.dungeon.alert.single.title"] = "單一地下城選擇"
-L["dialog.dungeon.alert.single.info"] = "在搜索單個地下城時，如果將地下城名稱的一部分鍵入標準搜索字段，例如“ Neltharus”或“ Vortex 10”，您將獲得更多相關的結果。 由於限制，插件無法為您更改搜索字段。"
 
 L["settings.dialogMovable.title"] = "可移動的對話框"
 L["settings.dialogMovable.tooltip"] = "允許您使用鼠標移動對話框。 右鍵單擊重置位置。"

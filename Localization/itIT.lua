@@ -105,8 +105,6 @@ L["dialog.brfit"] = "Battle Res Presente"
 L["dialog.brfit.tooltip"] = "Se nessuno nel tuo gruppo ha un Battle Res, mostra solo i gruppi che hanno già un Battle Res, o dopo essersi uniti, c'è ancora uno slot libero. Funziona anche se sei solo."
 L["dialog.matchingid"] = "Matching ID"
 L["dialog.matchingid.tooltip"] = "Mostra solo i gruppi che hanno esattamente lo stesso blocco delle istanze del tuo. Mostra sempre tutti i gruppi in cui non è presente alcun blocco."
-L["dialog.dungeon.alert.single.title"] = "Spedizione singola selezionata"
-L["dialog.dungeon.alert.single.info"] = "Quando cerchi una singola spedizione, otterrai molti più risultati pertinenti se digiti una parte del nome della spedizione nel campo di ricerca standard, ad esempio 'neltharus' o 'vortice 10'. A causa delle restrizioni, i componenti aggiuntivi non possono modificare il campo di ricerca per te."
 
 L["settings.dialogMovable.title"] = "Finestra di dialogo mobile"
 L["settings.dialogMovable.tooltip"] = "Consente di spostare la finestra di dialogo con il mouse. Il clic con il tasto destro reimposta la posizione."

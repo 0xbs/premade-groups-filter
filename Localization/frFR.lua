@@ -105,8 +105,6 @@ L["dialog.brfit"] = "Résurrection en combat"
 L["dialog.brfit.tooltip"] = "Dans votre groupe, si personne n’a de résurrection en combat alors PGF affichera uniquement les groupes qui ont en une, ou seulement après avoir rejoint le groupe, il y a toujours une place de disponible. Fonctionne également si vous êtes seul."
 L["dialog.matchingid"] = "ID de Verrouillage"
 L["dialog.matchingid.tooltip"] = "Afficher seulement les groupes qui ont exactement la même ID de verrouillage que vous. Les groupes n’ayant aucune ID s’afficheront quand même."
-L["dialog.dungeon.alert.single.title"] = "Un seul donjon sélectionné"
-L["dialog.dungeon.alert.single.info"] = "Lorsque vous recherchez un seul donjon, vous obtiendrez beaucoup plus de résultats pertinents si vous écrivez une partie du nom dans le champ de recherche, par exemple 'neltharus' ou 'vortex 10'. En raison de restrictions, les modules complémentaires ne peuvent pas modifier le champ de recherche à votre place."
 
 L["settings.dialogMovable.title"] = "Déverrouiller la fenêtre PGF"
 L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic droit pour réinitialiser la position."
