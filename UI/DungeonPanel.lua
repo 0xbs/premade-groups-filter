@@ -357,42 +357,26 @@ function DungeonPanel:UpdateAdvancedFilter()
         enabled.difficultyMythic = self.state.difficulty.val == C.MYTHIC
         enabled.difficultyMythicPlus = self.state.difficulty.val == C.MYTHICPLUS
     end
-    if self.state.mprating.act and PGF.NotEmpty(self.state.mprating.min) then
-        enabled.minimumRating = tonumber(self.state.mprating.min)
+    if self.state.mprating.act then
+        enabled.minimumRating = PGF.NotEmpty(self.state.mprating.min) and tonumber(self.state.mprating.min) or 0
         MinRatingFrame.MinRating:SetNumber(enabled.minimumRating)
     end
     if self.state.tanks.act then
-        if PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0 then
-            enabled.hasTank = true
-        end
-        if PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.max) == 0 then
-            enabled.needsTank = true
-        end
+        enabled.hasTank = PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0
+        enabled.needsTank = PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.max) == 0
     end
     if self.state.heals.act then
-        if PGF.NotEmpty(self.state.heals.min) and tonumber(self.state.heals.min) > 0 then
-            enabled.hasHealer = true
-        end
-        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.max) == 0 then
-            enabled.needsHealer = true
-        end
+        enabled.hasHealer = PGF.NotEmpty(self.state.heals.min) and tonumber(self.state.heals.min) > 0
+        enabled.needsHealer = PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.max) == 0
     end
     if self.state.dps.act then
-        if PGF.NotEmpty(self.state.dps.max) and tonumber(self.state.dps.max) < 3 then
-            enabled.needsDamage  = true
-        end
+        enabled.needsDamage = PGF.NotEmpty(self.state.dps.max) and tonumber(self.state.dps.max) < 3
     end
     if self.state.partyfit then
         local partyRoles = PGF.GetPartyRoles()
-        if partyRoles["TANK"] > 0 then
-            enabled.needsTank = true
-        end
-        if partyRoles["HEALER"] > 0 then
-            enabled.needsHealer = true
-        end
-        if partyRoles["DAMAGER"] > 0 then
-            enabled.needsDamage  = true
-        end
+        enabled.needsTank = partyRoles["TANK"] > 0
+        enabled.needsHealer = partyRoles["HEALER"] > 0
+        enabled.needsDamage = partyRoles["DAMAGER"] > 0
     end
     if self:GetNumDungeonsSelected() > 0 then
         local selectedDungeons = {};
