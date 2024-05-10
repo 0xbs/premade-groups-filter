@@ -332,7 +332,6 @@ function DungeonPanel:ResetAdvancedFilter()
     enabled.needsTank = false
     enabled.needsHealer = false
     enabled.needsDamage = false
-    enabled.needsMyClass = false
     enabled.hasTank = false
     enabled.hasHealer = false
     enabled.difficultyNormal = true
