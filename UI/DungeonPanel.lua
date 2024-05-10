@@ -204,7 +204,7 @@ function DungeonPanel:OnEvent(event)
     elseif (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE")
             and self.state and self.state.partyfit then
         PGF.Logger:Debug("DungeonPanel:OnEvent(" .. event .. ")")
-        self:UpdateAdvancedFilter()
+        self:UpdateAdvancedFilters()
     end
 end
 
@@ -242,7 +242,6 @@ function DungeonPanel:OnReset()
         self.state["dungeon"..i] = false
     end
     self.state.expression = ""
-    self:ResetAdvancedFilter()
     self:TriggerFilterExpressionChange()
     self:Init(self.state)
 end
@@ -258,7 +257,7 @@ function DungeonPanel:TriggerFilterExpressionChange()
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
-    self:UpdateAdvancedFilter()
+    self:UpdateAdvancedFilters()
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
@@ -327,30 +326,8 @@ function DungeonPanel:GetNumDungeonsSelected()
     return numDungeonsSelected
 end
 
-function DungeonPanel:ResetAdvancedFilter()
-    local enabled = C_LFGList.GetAdvancedFilter()
-    enabled.needsTank = false
-    enabled.needsHealer = false
-    enabled.needsDamage = false
-    enabled.hasTank = false
-    enabled.hasHealer = false
-    enabled.difficultyNormal = true
-    enabled.difficultyHeroic = true
-    enabled.difficultyMythic = true
-    enabled.difficultyMythicPlus = true
-    enabled.minimumRating = 0
-    MinRatingFrame.MinRating:SetNumber(0)
-    local seasonGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentSeason, Enum.LFGListFilter.PvE));
-    local expansionGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentExpansion, Enum.LFGListFilter.NotCurrentSeason, Enum.LFGListFilter.PvE));
-    local allDungeons = {};
-    tAppendAll(allDungeons, seasonGroups);
-    tAppendAll(allDungeons, expansionGroups);
-    enabled.activities = allDungeons;
-    C_LFGList.SaveAdvancedFilter(enabled)
-end
-
-function DungeonPanel:UpdateAdvancedFilter()
-    local enabled = C_LFGList.GetAdvancedFilter()
+function DungeonPanel:UpdateAdvancedFilters()
+    local enabled = PGF.GetAdvancedFilterDefaults()
     if self.state.difficulty.act and self.state.difficulty.val then
         enabled.difficultyNormal = self.state.difficulty.val == C.NORMAL
         enabled.difficultyHeroic = self.state.difficulty.val == C.HEROIC
@@ -388,7 +365,7 @@ function DungeonPanel:UpdateAdvancedFilter()
         end
         enabled.activities = selectedDungeons
     end
-    C_LFGList.SaveAdvancedFilter(enabled)
+    PGF.SetAdvancedFilter(enabled)
 end
 
 DungeonPanel:OnLoad()

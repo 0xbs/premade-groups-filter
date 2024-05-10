@@ -34,6 +34,7 @@ UI\StaticPopup.lua
 Modules\Util.lua
 Modules\Activity.lua
 Modules\ActivityKeywords.lua
+Modules\AdvancedFilter.lua
 Modules\Specializations.lua
 Modules\MemberInfo.lua
 Modules\RemainingSlots.lua
