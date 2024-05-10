@@ -34,27 +34,35 @@ function PGF.HasRemainingSlotsForLocalPlayerRole(memberCounts)
     return (memberCounts[roleRemainingKeyLookup[playerRole]] or 0) > 0
 end
 
-function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
-    if not memberCounts then return false end
+function PGF.GetPartyRoles()
     local numGroupMembers = GetNumGroupMembers()
     local groupType = IsInRaid() and "raid" or "party"
-
+    local partyRoles = { ["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0 }
     if numGroupMembers == 0 then
+        local playerRole = GetSpecializationRole(GetSpecialization())
+        partyRoles[playerRole] = 1
+    else
+        for i = 1, numGroupMembers do
+            local unit = (i == 1) and "player" or (groupType .. (i - 1))
+
+            local groupMemberRole = UnitGroupRolesAssigned(unit)
+            if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
+
+            partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
+        end
+    end
+    return partyRoles
+end
+
+function PGF.HasRemainingSlotsForLocalPlayerPartyRoles(memberCounts)
+    if not memberCounts then return false end
+
+    if GetNumGroupMembers() == 0 then
         -- not in a group
         return PGF.HasRemainingSlotsForLocalPlayerRole(memberCounts)
     end
 
-    local partyRoles = { ["TANK"] = 0, ["HEALER"] = 0, ["DAMAGER"] = 0 }
-
-    for i = 1, numGroupMembers do
-        local unit = (i == 1) and "player" or (groupType .. (i - 1))
-
-        local groupMemberRole = UnitGroupRolesAssigned(unit)
-        if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
-
-        partyRoles[groupMemberRole] = partyRoles[groupMemberRole] + 1
-    end
-
+    local partyRoles = PGF.GetPartyRoles()
     for role, remainingKey in pairs(roleRemainingKeyLookup) do
         if memberCounts[remainingKey] < partyRoles[role] then
             return false

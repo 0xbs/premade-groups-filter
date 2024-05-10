@@ -81,6 +81,8 @@ function DungeonPanel:OnLoad()
     self.cmIDs = {}
 
     self:RegisterEvent("CHALLENGE_MODE_MAPS_UPDATE")
+    self:RegisterEvent("ACTIVE_PLAYER_SPECIALIZATION_CHANGED")
+    self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:SetScript("OnEvent", self.OnEvent)
 
     -- Group
@@ -199,6 +201,10 @@ function DungeonPanel:OnEvent(event)
     if event == "CHALLENGE_MODE_MAPS_UPDATE" then
         PGF.Logger:Debug("DungeonPanel:OnEvent(CHALLENGE_MODE_MAPS_UPDATE)")
         self:InitChallengeModes()
+    elseif (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE")
+            and self.state and self.state.partyfit then
+        PGF.Logger:Debug("DungeonPanel:OnEvent(" .. event .. ")")
+        self:UpdateAdvancedFilter()
     end
 end
 
@@ -236,6 +242,7 @@ function DungeonPanel:OnReset()
         self.state["dungeon"..i] = false
     end
     self.state.expression = ""
+    self:ResetAdvancedFilter()
     self:TriggerFilterExpressionChange()
     self:Init(self.state)
 end
@@ -251,6 +258,7 @@ function DungeonPanel:TriggerFilterExpressionChange()
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
+    self:UpdateAdvancedFilter()
     PGF.Dialog:OnFilterExpressionChanged()
 end
 
@@ -317,6 +325,87 @@ function DungeonPanel:GetNumDungeonsSelected()
         end
     end
     return numDungeonsSelected
+end
+
+function DungeonPanel:ResetAdvancedFilter()
+    local enabled = C_LFGList.GetAdvancedFilter()
+    enabled.needsTank = false
+    enabled.needsHealer = false
+    enabled.needsDamage = false
+    enabled.needsMyClass = false
+    enabled.hasTank = false
+    enabled.hasHealer = false
+    enabled.difficultyNormal = true
+    enabled.difficultyHeroic = true
+    enabled.difficultyMythic = true
+    enabled.difficultyMythicPlus = true
+    enabled.minimumRating = 0
+    MinRatingFrame.MinRating:SetNumber(0)
+    local seasonGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentSeason, Enum.LFGListFilter.PvE));
+    local expansionGroups = C_LFGList.GetAvailableActivityGroups(GROUP_FINDER_CATEGORY_ID_DUNGEONS, bit.bor(Enum.LFGListFilter.CurrentExpansion, Enum.LFGListFilter.NotCurrentSeason, Enum.LFGListFilter.PvE));
+    local allDungeons = {};
+    tAppendAll(allDungeons, seasonGroups);
+    tAppendAll(allDungeons, expansionGroups);
+    enabled.activities = allDungeons;
+    C_LFGList.SaveAdvancedFilter(enabled)
+end
+
+function DungeonPanel:UpdateAdvancedFilter()
+    local enabled = C_LFGList.GetAdvancedFilter()
+    if self.state.difficulty.act and self.state.difficulty.val then
+        enabled.difficultyNormal = self.state.difficulty.val == C.NORMAL
+        enabled.difficultyHeroic = self.state.difficulty.val == C.HEROIC
+        enabled.difficultyMythic = self.state.difficulty.val == C.MYTHIC
+        enabled.difficultyMythicPlus = self.state.difficulty.val == C.MYTHICPLUS
+    end
+    if self.state.mprating.act and PGF.NotEmpty(self.state.mprating.min) then
+        enabled.minimumRating = tonumber(self.state.mprating.min)
+        MinRatingFrame.MinRating:SetNumber(enabled.minimumRating)
+    end
+    if self.state.tanks.act then
+        if PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0 then
+            enabled.hasTank = true
+        end
+        if PGF.NotEmpty(self.state.tanks.max) and tonumber(self.state.tanks.max) == 0 then
+            enabled.needsTank = true
+        end
+    end
+    if self.state.heals.act then
+        if PGF.NotEmpty(self.state.heals.min) and tonumber(self.state.heals.min) > 0 then
+            enabled.hasHealer = true
+        end
+        if PGF.NotEmpty(self.state.heals.max) and tonumber(self.state.heals.max) == 0 then
+            enabled.needsHealer = true
+        end
+    end
+    if self.state.dps.act then
+        if PGF.NotEmpty(self.state.dps.max) and tonumber(self.state.dps.max) < 3 then
+            enabled.needsDamage  = true
+        end
+    end
+    if self.state.partyfit then
+        local partyRoles = PGF.GetPartyRoles()
+        if partyRoles["TANK"] > 0 then
+            enabled.needsTank = true
+        end
+        if partyRoles["HEALER"] > 0 then
+            enabled.needsHealer = true
+        end
+        if partyRoles["DAMAGER"] > 0 then
+            enabled.needsDamage  = true
+        end
+    end
+    if self:GetNumDungeonsSelected() > 0 then
+        local selectedDungeons = {};
+        for i = 1, NUM_DUNGEON_CHECKBOXES do
+            local activityGroupID = CMID_MAP[self.cmIDs[i]].activityGroupID
+            if self.state["dungeon"..i] and activityGroupID then
+                table.insert(selectedDungeons, activityGroupID)
+            end
+        end
+        enabled.activities = selectedDungeons
+    end
+    C_LFGList.SaveAdvancedFilter(enabled)
 end
 
 DungeonPanel:OnLoad()
