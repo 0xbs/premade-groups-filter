@@ -235,7 +235,7 @@ function DungeonPanel:OnEvent(event)
     if event == "CHALLENGE_MODE_MAPS_UPDATE" then
         PGF.Logger:Debug("DungeonPanel:OnEvent(CHALLENGE_MODE_MAPS_UPDATE)")
         self:InitChallengeModes()
-    elseif self.state.partyfit and (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE") then
+    elseif self.state and self.state.partyfit and (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE") then
         PGF.Logger:Debug("DungeonPanel:OnEvent(" .. event .. ")")
         self:UpdateBlizzardAdvancedFilter()
     end
