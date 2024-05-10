@@ -64,21 +64,21 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.classCircle.title"],
         tooltip = L["settings.classCircle.tooltip"],
-        visible = PGF.IsRetail(),
+        visible = false, -- circle not available in wrath and provided by default in retail since 10.2.7
     },
     {
         key = "classBar",
         type = "checkbox",
         title = L["settings.classBar.title"],
         tooltip = L["settings.classBar.tooltip"],
-        visible = true,
+        visible = not PGF.IsRetail(),
     },
     {
         key = "leaderCrown",
         type = "checkbox",
         title = L["settings.leaderCrown.title"],
         tooltip = L["settings.leaderCrown.tooltip"],
-        visible = true,
+        visible = not PGF.IsRetail(),
     },
     {
         key = "oneClickSignUp",
