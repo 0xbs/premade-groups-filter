@@ -23,6 +23,9 @@ local L = PGF.L
 local C = PGF.C
 
 function PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
+    tooltip:AddLine(" ")
+    tooltip:AddLine(CLASS_ROLES)
+
     local members = PGF.GetSearchResultMemberInfoTable(resultID, searchResultInfo.numMembers)
     for _, m in pairs(members) do
         local roleClassSpec
@@ -36,6 +39,9 @@ function PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
 end
 
 function PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
+    tooltip:AddLine(" ")
+    tooltip:AddLine(CLASS_ROLES)
+
     local roles = {}
     local classInfo = {}
     for i = 1, searchResultInfo.numMembers do
@@ -76,13 +82,12 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
     -- Comment         ?
 
     if searchResultInfo.isDelisted or not tooltip:IsShown() then return end
-    tooltip:AddLine(" ")
-    tooltip:AddLine(CLASS_ROLES)
 
-    if activityInfo.displayType == Enum.LFGListDisplayType.RoleEnumerate then
-        PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
-    else
+    if activityInfo.displayType ~= Enum.LFGListDisplayType.ClassEnumerate and
+            activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
         PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
+    elseif not PGF.IsRetail() then -- retail has spec enumeration since 10.2.7
+        PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
     end
     tooltip:Show()
 end
