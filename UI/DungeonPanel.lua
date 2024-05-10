@@ -30,16 +30,6 @@ local DIFFICULTY_TEXT = {
 }
 
 local CMID_MAP = {
-    -- Dragonflight Season 3
-    [463] = { order = 1, keyword = "fall" }, -- Dawn of the Infinite: Galakrond's Fall
-    [464] = { order = 2, keyword = "rise" }, -- Dawn of the Infinite: Murozond's Rise
-    [248] = { order = 3, keyword = "wm" },   -- Waycrest Manor (Battle for Azeroth)
-    [244] = { order = 4, keyword = "ad" },   -- Atal'Dazar (Battle for Azeroth)
-    [198] = { order = 5, keyword = "dht" },  -- Darkheart Thicket (Legion)
-    [199] = { order = 6, keyword = "brh" },  -- Black Rook Hold (Legion)
-    [168] = { order = 7, keyword = "eb" },   -- The Everbloom (Warlords of Draenor)
-    [456] = { order = 8, keyword = "tott" }, -- Throne of the Tides (Cataclysm)
-
     -- Dragonflight Season 4
     [402] = { order = 1, keyword = "aa" },   -- Algeth'ar Academy
     [401] = { order = 2, keyword = "av" },   -- The Azure Vault
