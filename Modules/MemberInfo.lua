@@ -63,12 +63,12 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized, isLeader = C_LFGList.GetSearchResultMemberInfo(resultID, i)
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             local memberInfo = PGF.Table_Copy_Shallow(specInfo)
-            memberInfo.isLeader = i == 1
-            memberInfo.leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
+            memberInfo.isLeader = isLeader
+            memberInfo.leaderMarkup = isLeader and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
             table.insert(members, memberInfo)
         end
     end
