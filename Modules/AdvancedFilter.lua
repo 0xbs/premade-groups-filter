@@ -106,3 +106,18 @@ function PGF.SetAdvancedFilter(enabled)
     MinRatingFrame.MinRating:SetNumber(enabled.minimumRating)
     UpdateFilterRedX()
 end
+
+-- struct AdvancedFilterOptions {
+--   needsTank             bool
+--   needsHealer           bool
+--   needsDamage           bool
+--   needsMyClass          bool
+--   hasTank               bool
+--   hasHealer             bool
+--   activities            table<number> (list of activityGroupID)
+--   minimumRating         number
+--   difficultyNormal      bool
+--   difficultyHeroic      bool
+--   difficultyMythic      bool
+--   difficultyMythicPlus  bool
+-- }
