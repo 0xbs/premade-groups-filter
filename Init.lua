@@ -149,8 +149,8 @@ C.SETTINGS_DEFAULT = {
     coloredGroupTexts = true,
     coloredApplications = true,
     ratingInfo = true,
-    classCircle = PGF.SupportsDragonflightUI(),
-    classBar = not PGF.SupportsDragonflightUI(),
+    classCircle = false,
+    classBar = false,
     leaderCrown = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
@@ -223,10 +223,22 @@ function PGF.MigrateStateV6()
     end
 end
 
+function PGF.MigrateSettingsV2()
+    if not PremadeGroupsFilterSettings.version or PremadeGroupsFilterSettings.version < 2 then
+        if PGF.IsRetail() then -- disable features now provided by default
+            PremadeGroupsFilterSettings.classCircle = false
+            PremadeGroupsFilterSettings.classBar = false
+            PremadeGroupsFilterSettings.leaderCrown = false -- does not work well because of different icon order
+        end
+        PremadeGroupsFilterSettings.version = 2
+    end
+end
+
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
         -- update new settings with defaults
         PGF.Table_UpdateWithDefaults(PremadeGroupsFilterSettings, PGF.C.SETTINGS_DEFAULT)
+        PGF.MigrateSettingsV2()
 
         -- initialize dialog state and migrate to latest version
         if PremadeGroupsFilterState == nil or PremadeGroupsFilterState.version == nil then
