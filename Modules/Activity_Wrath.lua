@@ -212,6 +212,7 @@ C.ACTIVITY = {
     [1271] = { difficulty = 2, category = 114, mapID =  615 }, -- The Obsidian Sanctum (25 Heroic)
     [1272] = { difficulty = 2, category = 114, mapID =  624 }, -- Vault of Archavon (25 Heroic)
     [1273] = { difficulty = 2, category = 114, mapID =  616 }, -- The Eye of Eternity (25 Heroic)
+    [1517] = { difficulty = 1, category = 114, mapID =  732 }, -- Baradin Hold (10 Normal)
 }
 
 -- Return a default set if activity not found

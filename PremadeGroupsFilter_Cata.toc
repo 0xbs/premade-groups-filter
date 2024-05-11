@@ -30,7 +30,7 @@ Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
-Modules\Activity_Cata.lua
+Modules\Activity_Wrath.lua
 Modules\ActivityKeywords.lua
 Modules\MemberInfo_Wrath.lua
 #   Modules\RemainingSlots.lua
