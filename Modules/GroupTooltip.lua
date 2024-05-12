@@ -83,6 +83,12 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
 
     if searchResultInfo.isDelisted or not tooltip:IsShown() then return end
 
+    -- restore age dropped in 10.2.7
+    if searchResultInfo.age > 0 then
+        tooltip:AddLine(" ")
+        tooltip:AddLine(string.format(LFG_LIST_TOOLTIP_AGE, SecondsToTime(searchResultInfo.age, false, false, 1, false)));
+    end
+
     if activityInfo.displayType ~= Enum.LFGListDisplayType.ClassEnumerate and
             activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
         PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
