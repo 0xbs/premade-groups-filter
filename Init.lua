@@ -52,6 +52,7 @@ C.CATEGORY_ID = {
     BATTLEGROUND       = 8,
     RATED_BATTLEGROUND = 9,
     ASHRAN             = 10,
+    ISLAND             = 111,
     THORGAST           = 113,
     WRATH_RAID         = 114,
     WRATH_QUESTING     = 116,

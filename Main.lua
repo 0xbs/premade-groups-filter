@@ -105,10 +105,9 @@ function PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
     if not info1 or not info2 then return false end -- race condition
 
     -- sort applications to the top
-    local isApplication1 = info1.env.appstatus ~= "none" or info1.env.pendingstatus or false
-    local isApplication2 = info2.env.appstatus ~= "none" or info2.env.pendingstatus or false
-    if isApplication1 ~= isApplication2 then return isApplication1 end
-    if info1.env.appduration ~= info2.env.appduration then return info1.env.appduration > info2.env.appduration end
+    if info1.env.apporder ~= info2.env.apporder then
+        return info1.env.apporder > info2.env.apporder
+    end
 
     local searchResultInfo1 = info1.searchResultInfo
     local searchResultInfo2 = info2.searchResultInfo
@@ -199,6 +198,15 @@ function PGF.DoFilterSearchResults(results)
         -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
         local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
         -- /dump C_LFGList.GetApplicationInfo(select(2, C_LFGList.GetSearchResults())[1])
+        -- appStatus flow:
+        --   none ─┬─▶ applied ─┬─▶ invited ───┬─▶ inviteaccepted
+        --         └─▶ failed   ├─▶ cancelled  └─▶ invitedeclined
+        --                      ├─▶ declined
+        --                      ├─▶ declined_delisted
+        --                      ├─▶ declined_full
+        --                      └─▶ timedout
+        -- pendingStatus flow (used for role check if in a group before transition of appStatus to applied):
+        --   <nil> ◀──▶ applied ──▶ cancelled
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local numGroupDefeated, numPlayerDefeated, maxBosses,
               matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
@@ -280,6 +288,8 @@ function PGF.DoFilterSearchResults(results)
         env.appstatus = appStatus
         env.pendingstatus = pendingStatus
         env.appduration = appDuration
+        env.isapp = appStatus ~= "none" or pendingStatus or false
+        env.apporder = env.isapp and resultID or 0 -- allows sorting applications to the top via `apporder desc`
 
         PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         PGF.PutEncounterNames(resultID, env)
