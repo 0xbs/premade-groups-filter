@@ -391,6 +391,7 @@ end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
+    --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.ColorApplications(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
