@@ -69,7 +69,7 @@ C.DIFFICULTY_MAP = {
     [193] = C.HEROIC,     -- Ulduar10Heroic
     [194] = C.HEROIC,     -- Ulduar25Heroic
 }
-setmetatable(C.DIFFICULTY, { __index = function() return 0 end })
+setmetatable(C.DIFFICULTY_MAP, { __index = function() return 0 end })
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
 C.CATEGORY_ID = {
