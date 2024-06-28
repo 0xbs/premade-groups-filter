@@ -40,6 +40,37 @@ C.ARENA2V2   = 5
 C.ARENA3V3   = 6
 C.ARENA5V5   = 7
 
+-- Difficulty values as used in various tables like GroupFinderActivity and in lockouts
+C.DIFFICULTY_MAP = {
+    [  1] = C.NORMAL,     -- DungeonNormal
+    [  2] = C.HEROIC,     -- DungeonHeroic
+    [  3] = C.NORMAL,     -- Raid10Normal
+    [  4] = C.NORMAL,     -- Raid25Normal
+    [  5] = C.HEROIC,     -- Raid10Heroic
+    [  6] = C.HEROIC,     -- Raid25Heroic
+    [  7] = 0,            -- RaidLFR
+    [  8] = C.MYTHICPLUS, -- DungeonChallenge
+    [  9] = C.NORMAL,     -- Raid40
+    [ 14] = C.NORMAL,     -- PrimaryRaidNormal
+    [ 15] = C.HEROIC,     -- PrimaryRaidHeroic
+    [ 16] = C.MYTHIC,     -- PrimaryRaidMythic
+    [ 17] = 0,            -- PrimaryRaidLFR
+    [ 23] = C.MYTHIC,     -- DungeonMythic
+    [ 24] = 0,            -- DungeonTimewalker
+    [ 33] = 0,            -- RaidTimewalker
+    [ 38] = C.NORMAL,     -- RandomIslandNormal
+    [ 39] = C.HEROIC,     -- RandomIslandHeroic
+    [ 40] = C.MYTHIC,     -- RandomIslandMythic
+    [ 45] = 0,            -- RandomIslandPvP
+    [148] = C.NORMAL,     -- Raid20 (Ruins of Ahn'Qiraj and Zul'Gurub)
+    [167] = 0,            -- Torghast
+    [175] = C.NORMAL,     -- Ulduar10Normal
+    [176] = C.NORMAL,     -- Ulduar25Normal
+    [193] = C.HEROIC,     -- Ulduar10Heroic
+    [194] = C.HEROIC,     -- Ulduar25Heroic
+}
+setmetatable(C.DIFFICULTY, { __index = function() return 0 end })
+
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
 C.CATEGORY_ID = {
     QUESTING           = 1,

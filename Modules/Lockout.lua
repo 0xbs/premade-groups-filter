@@ -22,18 +22,9 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local LOCKOUT_D = {
-    [1]  = C.NORMAL, -- normal dungeon
-    [2]  = C.HEROIC, -- heroic dungeon
-    [23] = C.MYTHIC, -- mythic dungeon
-    [14] = C.NORMAL, -- normal raid
-    [15] = C.HEROIC, -- heroic raid
-    [16] = C.MYTHIC, -- mythic raid
-}
-
 function PGF.IsMatchingInstance(lockoutName, activityName, lockoutDifficulty, activityDifficulty)
     -- no match if difficulty does not match
-    if not (LOCKOUT_D[lockoutDifficulty] == activityDifficulty) then return false end
+    if not (C.DIFFICULTY_MAP[lockoutDifficulty] == activityDifficulty) then return false end
     return PGF.IsMostLikelySameInstance(lockoutName, activityName)
 end
 
