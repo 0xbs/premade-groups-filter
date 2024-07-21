@@ -31,14 +31,30 @@ local DIFFICULTY_TEXT = {
 
 local CMID_MAP = {
     -- Dragonflight Season 4
-    [402] = { order = 1, activityGroupID = 302, keyword = "aa" },   -- Algeth'ar Academy
-    [401] = { order = 2, activityGroupID = 307, keyword = "av" },   -- The Azure Vault
-    [405] = { order = 3, activityGroupID = 303, keyword = "bh" },   -- Brackenhide Hollow
-    [406] = { order = 4, activityGroupID = 304, keyword = "hoi" },  -- Halls of Infusion
+    [402] = { order = 1, activityGroupID = 302, keyword = "aa"   }, -- Algeth'ar Academy
+    [401] = { order = 2, activityGroupID = 307, keyword = "av"   }, -- The Azure Vault
+    [405] = { order = 3, activityGroupID = 303, keyword = "bh"   }, -- Brackenhide Hollow
+    [406] = { order = 4, activityGroupID = 304, keyword = "hoi"  }, -- Halls of Infusion
     [404] = { order = 5, activityGroupID = 305, keyword = "nelt" }, -- Neltharus
-    [400] = { order = 6, activityGroupID = 308, keyword = "no" },   -- The Nokhud Offensive
-    [399] = { order = 7, activityGroupID = 306, keyword = "rlp" },  -- Ruby Life Pools
-    [403] = { order = 8, activityGroupID = 309, keyword = "uld" },  -- Uldaman: Legacy of Tyr
+    [400] = { order = 6, activityGroupID = 308, keyword = "no"   }, -- The Nokhud Offensive
+    [399] = { order = 7, activityGroupID = 306, keyword = "rlp"  }, -- Ruby Life Pools
+    [403] = { order = 8, activityGroupID = 309, keyword = "uld"  }, -- Uldaman: Legacy of Tyr
+
+    -- The War Within Season 1
+    [503] = { order = 1, activityGroupID = 323, keyword = "arak"  }, -- Ara-Kara, City of Echoes
+    [502] = { order = 2, activityGroupID = 329, keyword = "cot"   }, -- City of Threads
+    [505] = { order = 3, activityGroupID = 326, keyword = "dawn"  }, -- The Dawnbreaker
+    [507] = { order = 4, activityGroupID =  56, keyword = "gb"    }, -- Grim Batol
+    [375] = { order = 5, activityGroupID = 262, keyword = "mists" }, -- Mists of Tirna Scithe
+    [376] = { order = 6, activityGroupID = 265, keyword = "nw"    }, -- The Necrotic Wake
+    [353] = { order = 7, activityGroupID = 146, keyword = "siege" }, -- Siege of Boralus
+    [501] = { order = 8, activityGroupID = 328, keyword = "sv"    }, -- The Stonevault
+
+    -- The War Within Season 2
+    [506] = { order = 1, activityGroupID = 327, keyword = "brew" }, -- Cinderbrew Meadery
+    [504] = { order = 2, activityGroupID = 322, keyword = "dfc"  }, -- Darkflame Cleft
+    [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
+    [500] = { order = 4, activityGroupID = 325, keyword = "rook" }, -- The Rookery
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
