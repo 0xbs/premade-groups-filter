@@ -179,7 +179,6 @@ C.SETTINGS_DEFAULT = {
     dialogMovable = true,
     classNamesInTooltip = true,
     coloredGroupTexts = true,
-    coloredApplications = true,
     ratingInfo = true,
     classCircle = false,
     classBar = false,
@@ -266,11 +265,19 @@ function PGF.MigrateSettingsV2()
     end
 end
 
+function PGF.MigrateSettingsV3()
+    if not PremadeGroupsFilterSettings.version or PremadeGroupsFilterSettings.version < 3 then
+        PremadeGroupsFilterSettings.coloredApplications = nil
+        PremadeGroupsFilterSettings.version = 3
+    end
+end
+
 function PGF.OnAddonLoaded(name)
     if name == PGFAddonName then
         -- update new settings with defaults
         PGF.Table_UpdateWithDefaults(PremadeGroupsFilterSettings, PGF.C.SETTINGS_DEFAULT)
         PGF.MigrateSettingsV2()
+        PGF.MigrateSettingsV3()
 
         -- initialize dialog state and migrate to latest version
         if PremadeGroupsFilterState == nil or PremadeGroupsFilterState.version == nil then

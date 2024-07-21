@@ -38,7 +38,6 @@ Modules\AdvancedFilter.lua
 Modules\Specializations.lua
 Modules\MemberInfo.lua
 Modules\RemainingSlots.lua
-Modules\ColoredApplications.lua
 Modules\ApplicationStatus.lua
 Modules\Lockout.lua
 Modules\Expression.lua

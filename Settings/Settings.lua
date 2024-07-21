@@ -46,13 +46,6 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
-        key = "coloredApplications",
-        type = "checkbox",
-        title = L["settings.coloredApplications.title"],
-        tooltip = L["settings.coloredApplications.tooltip"],
-        visible = true,
-    },
-    {
         key = "ratingInfo",
         type = "checkbox",
         title = L["settings.ratingInfo.title"],
