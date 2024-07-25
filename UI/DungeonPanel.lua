@@ -352,7 +352,7 @@ function DungeonPanel:UpdateAdvancedFilters()
     end
     if self.state.mprating.act then
         enabled.minimumRating = PGF.NotEmpty(self.state.mprating.min) and tonumber(self.state.mprating.min) or 0
-        MinRatingFrame.MinRating:SetNumber(enabled.minimumRating)
+        --MinRatingFrame.MinRating:SetNumber(enabled.minimumRating)
     end
     if self.state.tanks.act then
         enabled.hasTank = PGF.NotEmpty(self.state.tanks.min) and tonumber(self.state.tanks.min) > 0

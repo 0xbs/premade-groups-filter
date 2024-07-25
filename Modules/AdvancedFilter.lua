@@ -72,7 +72,7 @@ local function LFGListAdvancedFiltersCheckAllDungeons(enabled)
 end
 
 local function UpdateFilterRedX()
-    local redx = LFGListFrame.SearchPanel.FilterButton.ResetToDefaults;
+    local redx = LFGListFrame.SearchPanel.FilterButton.ResetButton;
     local enabled = C_LFGList.GetAdvancedFilter();
     if LFGListFrame.CategorySelection.selectedCategory ~= GROUP_FINDER_CATEGORY_ID_DUNGEONS
             or LFGListAdvancedFiltersIsDefault(enabled) then
