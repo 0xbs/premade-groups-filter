@@ -89,6 +89,7 @@ C.CATEGORY_ID = {
     WRATH_QUESTING     = 116,
     WRATH_BATTLEGROUND = 118,
     WRATH_CUSTOM       = 120,
+    DELVES             = 121,
 }
 
 C.DIFFICULTY_KEYWORD = {
