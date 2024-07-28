@@ -53,7 +53,9 @@ function PGF.GetLockoutInfo(activity, resultID)
             return numGroupDefeated, numPlayerDefeated, maxBosses, matching, groupAhead, groupBehind
         end
     end
-    return numGroupDefeated, 0, 0, 0, 0, 0
+    -- if there is no matching player lockout, groupAhead should be equal numGroupDefeated (#268)
+    -- return numGroupDefeated, numPlayerDefeated, maxBosses, matching, groupAhead, groupBehind
+    return numGroupDefeated, 0, 0, 0, numGroupDefeated, 0
 end
 
 function PGF.GetMatchingBossInfo(groupDefeatedBossNames, playerDefeatedBossesNames)
