@@ -70,6 +70,7 @@ function PGF.SortSearchResults(results)
     end
     -- else keep the existing sorting as Wrath clients have a pretty big
     -- intelligent sorting algorithm in LFGBrowseUtil_SortSearchResults
+    PremadeGroupsFilter.callbacks:Fire("SortSearchResults", results)
 end
 
 function PGF.SortByExpression(searchResultID1, searchResultID2)

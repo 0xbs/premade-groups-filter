@@ -16,6 +16,8 @@
 ## SavedVariables: PremadeGroupsFilterSettings
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
 
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
 Init.lua
 Localization\enUS.lua
 Localization\frFR.lua

@@ -25,6 +25,7 @@ local PGFAddonName = select(1, ...)
 local PGF = select(2, ...)
 
 PremadeGroupsFilter.Debug = PGF
+PremadeGroupsFilter.callbacks = PremadeGroupsFilter.callbacks or LibStub("CallbackHandler-1.0"):New(PremadeGroupsFilter)
 
 PGF.L = {}
 PGF.C = {}
