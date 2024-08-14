@@ -124,6 +124,14 @@ function PGF.Table_Median(tbl)
     end
 end
 
+function PGF.Table_Invert(tbl)
+    local inverted = {}
+    for key, value in pairs(tbl) do
+        inverted[value] = key
+    end
+    return inverted
+end
+
 function PGF.IsMostLikelySameInstance(instanceName, activityName)
     -- instanceName is just the dungeon's name used in the lockout and challenge mode APIs, e.g. 'The Emerald Nightmare'
     local instanceNameLower = instanceName:lower()

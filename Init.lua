@@ -181,6 +181,7 @@ C.SETTINGS_DEFAULT = {
     classNamesInTooltip = true,
     coloredGroupTexts = true,
     ratingInfo = true,
+    specIcon = false,
     classCircle = false,
     classBar = false,
     leaderCrown = false,

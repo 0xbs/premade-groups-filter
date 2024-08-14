@@ -38,7 +38,7 @@ function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
             frame:SetPoint("RIGHT", self, "RIGHT", -13 - (numIcons - iconIndex) * 18, 0)
 
             frame.ClassBar = frame:CreateTexture("$parentClassBar", "OVERLAY")
-            frame.ClassBar:SetSize(14, 3)
+            frame.ClassBar:SetSize(15, 3)
             frame.ClassBar:SetPoint("CENTER")
             frame.ClassBar:SetPoint("BOTTOM", 0, 3)
 
@@ -47,9 +47,20 @@ function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
             frame.LeaderCrown:SetPoint("TOP", 0, -5)
             frame.LeaderCrown:SetAtlas("groupfinder-icon-leader", false, "LINEAR")
 
-            frame.ClassCircle = frame:CreateTexture("$parentClassCircle", "BACKGROUND")
+            -- ClassBorder is only used if the ClassCircle is used for roles
+            frame.ClassBorder = frame:CreateTexture("$parentClassCircleBorder", "BACKGROUND", nil, 1)
+            frame.ClassBorder:SetSize(18, 18)
+            frame.ClassBorder:SetPoint("CENTER", 1, -2)
+            frame.ClassBorderMask = frame:CreateMaskTexture()
+            frame.ClassBorderMask:SetSize(18, 18)
+            frame.ClassBorderMask:SetAllPoints(frame.ClassBorder)
+            frame.ClassBorderMask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+            frame.ClassBorder:AddMaskTexture(frame.ClassBorderMask)
+
+            -- ClassCircle is also used for displaying roles
+            frame.ClassCircle = frame:CreateTexture("$parentClassCircle", "BACKGROUND", nil, 2)
             frame.ClassCircle:SetSize(16, 16)
-            frame.ClassCircle:SetPoint("CENTER", 0, -1)
+            frame.ClassCircle:SetPoint("CENTER", 1, -2)
             frame.ClassCircleMask = frame:CreateMaskTexture()
             frame.ClassCircleMask:SetSize(18, 18)
             frame.ClassCircleMask:SetAllPoints(frame.ClassCircle)
@@ -76,12 +87,14 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         frames[i]:Hide()
         frames[i].ClassBar:Hide()
         frames[i].LeaderCrown:Hide()
+        frames[i].ClassBorder:Hide()
         frames[i].ClassCircle:Hide()
         frames[i].RoleIcon:Hide()
     end
 
     if not PremadeGroupsFilterSettings.classBar and
        not PremadeGroupsFilterSettings.classCircle and
+       not PremadeGroupsFilterSettings.specIcon and
        not PremadeGroupsFilterSettings.leaderCrown then
         return -- stop if all features are disabled
     end
@@ -111,6 +124,14 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
             frames[i].RoleIcon:SetAtlas(members[i].roleAtlas)
             frames[i].RoleIcon:SetDesaturated(searchResultInfo.isDelisted)
             frames[i].RoleIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
+        end
+        if PremadeGroupsFilterSettings.specIcon then
+            frames[i].ClassBorder:Show()
+            frames[i].ClassBorder:SetColorTexture(color.r, color.g, color.b, 1)
+            frames[i].ClassCircle:Show()
+            frames[i].ClassCircle:SetTexture(members[i].specIcon)
+            frames[i].ClassCircle:SetDesaturated(searchResultInfo.isDelisted)
+            frames[i].ClassCircle:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
         if PremadeGroupsFilterSettings.leaderCrown and members[i].isLeader then
             frames[i].LeaderCrown:Show()

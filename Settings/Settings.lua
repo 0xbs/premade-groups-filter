@@ -53,6 +53,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "specIcon",
+        type = "checkbox",
+        title = L["settings.specIcon.title"],
+        tooltip = L["settings.specIcon.tooltip"],
+        visible = PGF.SupportsSpecializations(),
+    },
+    {
         key = "classCircle",
         type = "checkbox",
         title = L["settings.classCircle.title"],

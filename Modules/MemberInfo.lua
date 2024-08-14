@@ -73,9 +73,10 @@ function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
         end
     end
     -- sort reverse by role -> tank, heal, dps; then by class
+    local classOrder = PGF.Table_Invert(CLASS_SORT_ORDER)
     table.sort(members, function(a, b)
         if a.role ~= b.role then return b.role < a.role end
-        return a.class < b.class
+        return classOrder[a.class] < classOrder[b.class]
     end)
     return members
 end
