@@ -26,8 +26,8 @@ PGF.currentSearchResults = {}
 PGF.lastSearchEntryReset = time()
 PGF.previousSearchExpression = ""
 PGF.currentSearchExpression = ""
-PGF.previousSearchLeaders = {}
-PGF.currentSearchLeaders = {}
+PGF.previousSearchGroupKeys = {}
+PGF.currentSearchGroupKeys = {}
 PGF.searchResultIDInfo = {}
 PGF.numResultsBeforeFilter = 0
 PGF.numResultsAfterFilter = 0
@@ -35,8 +35,8 @@ PGF.numResultsAfterFilter = 0
 function PGF.ResetSearchEntries()
     -- make sure to wait at least some time between two resets
     if time() - PGF.lastSearchEntryReset > C.SEARCH_ENTRY_RESET_WAIT then
-        PGF.previousSearchLeaders = PGF.Table_Copy_Shallow(PGF.currentSearchLeaders)
-        PGF.currentSearchLeaders = {}
+        PGF.previousSearchGroupKeys = PGF.Table_Copy_Shallow(PGF.currentSearchGroupKeys)
+        PGF.currentSearchGroupKeys = {}
         PGF.previousSearchExpression = PGF.currentSearchExpression
         PGF.lastSearchEntryReset = time()
         PGF.searchResultIDInfo = {}
@@ -339,8 +339,9 @@ function PGF.DoFilterSearchResults(results)
             activityInfo = activityInfo,
         }
         if PGF.DoesPassThroughFilter(env, exp) then
-            -- leaderName is usually still nil at this point if the group is new, but we can live with that
-            if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
+            local groupKey = PGF.GetGroupKey(searchResultInfo)
+            -- group key can be nil if falling back to leaderName, which is nil at this point if the group is new
+            if groupKey then PGF.currentSearchGroupKeys[groupKey] = true end
         else
             table.remove(results, idx)
         end
@@ -353,15 +354,14 @@ end
 
 function PGF.ColorGroupTexts(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.coloredGroupTexts then return end
-
-    -- try once again to update the leaderName (this information is not immediately available)
-    if searchResultInfo.leaderName then PGF.currentSearchLeaders[searchResultInfo.leaderName] = true end
-    -- self.ActivityName:SetText("[" .. searchResultInfo.activityID .. "/" .. self.resultID .. "] " .. self.ActivityName:GetText()) -- DEBUG
+    local groupKey = PGF.GetGroupKey(searchResultInfo)
+    -- try once again to update the group key if we had to fall back to the leaderName
+    if groupKey then PGF.currentSearchGroupKeys[groupKey] = true end
     if not searchResultInfo.isDelisted then
         -- color name if new
-        if PGF.currentSearchExpression ~= "true"                        -- not trivial search
-        and PGF.currentSearchExpression == PGF.previousSearchExpression -- and the same search
-        and (searchResultInfo.leaderName and not PGF.previousSearchLeaders[searchResultInfo.leaderName]) then -- and leader is new
+        if PGF.currentSearchExpression ~= "true"                          -- not trivial search
+        and PGF.currentSearchExpression == PGF.previousSearchExpression   -- and the same search
+        and (groupKey and not PGF.previousSearchGroupKeys[groupKey]) then -- and group is new
             local color = C.COLOR_ENTRY_NEW
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
