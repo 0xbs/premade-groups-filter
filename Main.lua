@@ -369,10 +369,12 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
         if PGF.IsSoftDeclinedGroup(searchResultInfo) then
             local color = C.COLOR_ENTRY_DECLINED_SOFT
             self.Name:SetTextColor(color.R, color.G, color.B)
+            self.PendingLabel:SetTextColor(color.R, color.G, color.B)
         end
         if PGF.IsHardDeclinedGroup(searchResultInfo) then
             local color = C.COLOR_ENTRY_DECLINED_HARD
             self.Name:SetTextColor(color.R, color.G, color.B)
+            self.PendingLabel:SetTextColor(color.R, color.G, color.B)
         end
         -- color activity if lockout
         local numGroupDefeated, numPlayerDefeated, maxBosses,
