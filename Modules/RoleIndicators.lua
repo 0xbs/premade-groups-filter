@@ -38,26 +38,20 @@ function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
             frame:SetPoint("RIGHT", self, "RIGHT", -13 - (numIcons - iconIndex) * 18, 0)
 
             frame.ClassBar = frame:CreateTexture("$parentClassBar", "OVERLAY")
-            frame.ClassBar:SetSize(15, 3)
-            frame.ClassBar:SetPoint("CENTER")
+            frame.ClassBar:SetSize(16, 3)
+            frame.ClassBar:SetPoint("CENTER", 1, 0)
             frame.ClassBar:SetPoint("BOTTOM", 0, 3)
 
             frame.LeaderCrown = frame:CreateTexture("$parentLeaderCrown", "OVERLAY")
             frame.LeaderCrown:SetSize(10, 5)
-            frame.LeaderCrown:SetPoint("TOP", 0, -5)
+            frame.LeaderCrown:SetPoint("TOP", 1, -5)
             frame.LeaderCrown:SetAtlas("groupfinder-icon-leader", false, "LINEAR")
 
-            -- ClassBorder is only used if the ClassCircle is used for roles
-            frame.ClassBorder = frame:CreateTexture("$parentClassCircleBorder", "BACKGROUND", nil, 1)
-            frame.ClassBorder:SetSize(18, 18)
-            frame.ClassBorder:SetPoint("CENTER", 1, -2)
-            frame.ClassBorderMask = frame:CreateMaskTexture()
-            frame.ClassBorderMask:SetSize(18, 18)
-            frame.ClassBorderMask:SetAllPoints(frame.ClassBorder)
-            frame.ClassBorderMask:SetTexture("Interface/CHARACTERFRAME/TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-            frame.ClassBorder:AddMaskTexture(frame.ClassBorderMask)
+            frame.SpecIcon = frame:CreateTexture("$parentSpecIcon", "BACKGROUND", nil, 1)
+            frame.SpecIcon:SetSize(16, 16)
+            frame.SpecIcon:SetPoint("CENTER", 1, -2)
+            frame.SpecIcon:SetTexCoord(.08, .92, .08, .92) -- zoom in to remove borders
 
-            -- ClassCircle is also used for displaying roles
             frame.ClassCircle = frame:CreateTexture("$parentClassCircle", "BACKGROUND", nil, 2)
             frame.ClassCircle:SetSize(16, 16)
             frame.ClassCircle:SetPoint("CENTER", 1, -2)
@@ -69,7 +63,7 @@ function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
 
             frame.RoleIcon = frame:CreateTexture("$parentRoleIcon", "ARTWORK")
             frame.RoleIcon:SetSize(12, 12)
-            frame.RoleIcon:SetPoint("CENTER", 0, -1)
+            frame.RoleIcon:SetPoint("CENTER", 1, -2)
 
             frames[iconIndex] = frame
         end
@@ -87,7 +81,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         frames[i]:Hide()
         frames[i].ClassBar:Hide()
         frames[i].LeaderCrown:Hide()
-        frames[i].ClassBorder:Hide()
+        frames[i].SpecIcon:Hide()
         frames[i].ClassCircle:Hide()
         frames[i].RoleIcon:Hide()
     end
@@ -95,7 +89,8 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.classBar and
        not PremadeGroupsFilterSettings.classCircle and
        not PremadeGroupsFilterSettings.specIcon and
-       not PremadeGroupsFilterSettings.leaderCrown then
+       not PremadeGroupsFilterSettings.leaderCrown and
+       not PremadeGroupsFilterSettings.missingRoles then
         return -- stop if all features are disabled
     end
 
@@ -126,17 +121,33 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
             frames[i].RoleIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
         if PremadeGroupsFilterSettings.specIcon then
-            frames[i].ClassBorder:Show()
-            frames[i].ClassBorder:SetColorTexture(color.r, color.g, color.b, 1)
-            frames[i].ClassCircle:Show()
-            frames[i].ClassCircle:SetTexture(members[i].specIcon)
-            frames[i].ClassCircle:SetDesaturated(searchResultInfo.isDelisted)
-            frames[i].ClassCircle:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
+            frames[i].SpecIcon:Show()
+            frames[i].SpecIcon:SetTexture(members[i].specIcon)
+            frames[i].SpecIcon:SetDesaturated(searchResultInfo.isDelisted)
+            frames[i].SpecIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
         end
         if PremadeGroupsFilterSettings.leaderCrown and members[i].isLeader then
             frames[i].LeaderCrown:Show()
             frames[i].LeaderCrown:SetDesaturated(searchResultInfo.isDelisted)
             frames[i].LeaderCrown:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
+        end
+    end
+
+    if PremadeGroupsFilterSettings.missingRoles then
+        local roleAtlas = PGF.IsRetail() and C.ROLE_ATLAS_BORDERLESS or C.ROLE_ATLAS
+        local i = #members + 1
+        for role, remainingKey in pairs(C.ROLE_REMAINING_KEYS) do
+            local memberCounts = C_LFGList.GetSearchResultMemberCounts(self.resultID)
+            local remaining = memberCounts[remainingKey]
+            for _ = 1, remaining do
+                if i > numIcons then return end
+                frames[i]:Show()
+                frames[i].RoleIcon:Show()
+                frames[i].RoleIcon:SetAtlas(roleAtlas[role])
+                frames[i].RoleIcon:SetDesaturated(true)
+                frames[i].RoleIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
+                i = i + 1
+            end
         end
     end
 end

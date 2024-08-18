@@ -71,14 +71,21 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.classBar.title"],
         tooltip = L["settings.classBar.tooltip"],
-        visible = not PGF.IsRetail(),
+        visible = true,
     },
     {
         key = "leaderCrown",
         type = "checkbox",
         title = L["settings.leaderCrown.title"],
         tooltip = L["settings.leaderCrown.tooltip"],
-        visible = not PGF.IsRetail(),
+        visible = true,
+    },
+    {
+        key = "missingRoles",
+        type = "checkbox",
+        title = L["settings.missingRoles.title"],
+        tooltip = L["settings.missingRoles.tooltip"],
+        visible = true,
     },
     {
         key = "oneClickSignUp",

@@ -144,6 +144,18 @@ C.ROLE_ATLAS = {
     ["DAMAGER"] = "roleicon-tiny-dps",
 }
 
+C.ROLE_ATLAS_BORDERLESS = {
+    ["TANK"] = "groupfinder-icon-role-micro-tank",
+    ["HEALER"] = "groupfinder-icon-role-micro-heal",
+    ["DAMAGER"] = "groupfinder-icon-role-micro-dps",
+}
+
+C.ROLE_REMAINING_KEYS = {
+    ["TANK"] = "TANK_REMAINING",
+    ["HEALER"] = "HEALER_REMAINING",
+    ["DAMAGER"] = "DAMAGER_REMAINING",
+}
+
 C.LEADER_ATLAS = "groupfinder-icon-leader"
 
 C.DPS_CLASS_TYPE = {
@@ -185,6 +197,7 @@ C.SETTINGS_DEFAULT = {
     classCircle = false,
     classBar = false,
     leaderCrown = false,
+    missingRoles = false,
     oneClickSignUp = true,
     persistSignUpNote = true,
     signupOnEnter = false,
@@ -260,8 +273,6 @@ function PGF.MigrateSettingsV2()
     if not PremadeGroupsFilterSettings.version or PremadeGroupsFilterSettings.version < 2 then
         if PGF.IsRetail() then -- disable features now provided by default
             PremadeGroupsFilterSettings.classCircle = false
-            PremadeGroupsFilterSettings.classBar = false
-            PremadeGroupsFilterSettings.leaderCrown = false -- does not work well because of different icon order
         end
         PremadeGroupsFilterSettings.version = 2
     end

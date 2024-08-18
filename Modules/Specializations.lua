@@ -98,7 +98,7 @@ function PGF.InitSpecializations()
             range = specInfo.range or false,
             melee = specInfo.melee or false,
             classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR,
-            roleAtlas = C.ROLE_ATLAS[role],
+            roleAtlas = C.ROLE_ATLAS_BORDERLESS[role],
             roleMarkup = string.format("|A:%s:0:0:0:0|a", C.ROLE_ATLAS[role]),
         }
     end
