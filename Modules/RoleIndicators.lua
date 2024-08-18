@@ -94,9 +94,9 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         return -- stop if all features are disabled
     end
 
-    local _, appStatus, pendingStatus = C_LFGList.GetApplicationInfo(self.resultID)
-    if appStatus ~= "none" or pendingStatus then
-        return -- stop if already applied/invited/timedout/declined/declined_full/declined_delisted
+    local appStatus, isApplication, isDeclined = PGF.GetAppStatus(self.resultID, searchResultInfo)
+    if isApplication or isDeclined then
+        return -- stop if special status
     end
 
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
