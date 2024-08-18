@@ -61,17 +61,18 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
 
     -- reset
+    local textWidth = 176
     frame:Hide()
-    self.Name:SetWidth(176)
-    self.ActivityName:SetWidth(176)
+    self.Name:SetWidth(textWidth)
+    self.ActivityName:SetWidth(textWidth)
 
     if not PremadeGroupsFilterSettings.ratingInfo then
-        return -- stop if feature disabled
+        return textWidth -- stop if feature disabled
     end
 
     local appStatus, isApplication, isDeclined = PGF.GetAppStatus(self.resultID, searchResultInfo)
     if isApplication or isDeclined then
-        return -- stop if special status
+        return textWidth -- stop if special status
     end
 
     local rightPos = -130
@@ -99,10 +100,10 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     end
 
     if rating == 0 then
-        return -- stop if no rating
+        return textWidth -- stop if no rating
     end
 
-    local textWidth = 312 - 10 - 35 + rightPos
+    textWidth = 312 - 10 - 35 + rightPos
     if searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= "" then
         textWidth = textWidth - 20
     end
@@ -118,4 +119,6 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     frame.Rating:SetTextColor(rColor.r, rColor.g, rColor.b)
     frame.ExtraText:SetText(extraText)
     frame.ExtraText:SetTextColor(eColor.r, eColor.g, eColor.b)
+
+    return textWidth
 end

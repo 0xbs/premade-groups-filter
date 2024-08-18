@@ -194,6 +194,14 @@ function PGF.DoFilterSearchResults(results)
     for idx = #results, 1, -1 do
         local resultID = results[idx]
         local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
+        --if idx == 1 or idx == 2 then
+        --    LFGListFrame.declines = LFGListFrame.declines or {}
+        --    LFGListFrame.declines[searchResultInfo.partyGUID] = "declined"
+        --    if idx == 2 then
+        --        PGF.softDeclinedGroups = PGF.softDeclinedGroups or {}
+        --        PGF.softDeclinedGroups[searchResultInfo.partyGUID] = time()
+        --    end
+        --end
         -- /dump C_LFGList.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
         -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
         local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
@@ -396,7 +404,8 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
-    PGF.AddRatingInfo(self, searchResultInfo)
+    local textWidth = PGF.AddRatingInfo(self, searchResultInfo)
+    PGF.ToggleAlwaysShowMembers(self, searchResultInfo, textWidth)
 end
 
 function PGF.OnLFGListSearchPanelUpdateResultList(self)

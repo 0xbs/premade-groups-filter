@@ -53,6 +53,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "alwaysShowMembers",
+        type = "checkbox",
+        title = L["settings.alwaysShowMembers.title"],
+        tooltip = L["settings.alwaysShowMembers.tooltip"],
+        visible = true,
+    },
+    {
         key = "specIcon",
         type = "checkbox",
         title = L["settings.specIcon.title"],
