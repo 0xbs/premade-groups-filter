@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000过滤语法的语义错误|r\n\n不�
 L["message.noplaystylefix"] = "预创建队伍过滤: 不会修复“接口操作因AddOn而失败”错误，因为您似乎没有完全安全的帐户，否则无法创建预制队伍。请参阅插件常见问题解答以获取更多信息以及如何解决此问题。"
 L["message.settingsupgraded"] = "预创建队伍过滤: 设置迁移到版本 %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "重置"
 L["dialog.reset.confirm"] = "重置所有字段？"
 L["dialog.refresh"] = "搜索"

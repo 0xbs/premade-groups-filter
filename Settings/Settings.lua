@@ -127,7 +127,9 @@ function PGFSettings:OnLoad()
     view:SetElementFactory(function(factory, elementData) self.CreateListItem(factory, elementData) end)
     ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, view)
 
-    Settings.RegisterAddOnCategory(Settings.RegisterCanvasLayoutCategory(self, L["addon.name.long"]))
+    local category, layout = Settings.RegisterCanvasLayoutCategory(self, L["addon.name.long"])
+    Settings.RegisterAddOnCategory(category)
+    PGF.settingsCategory = category
 end
 
 function PGFSettings.CreateListItem(factory, elementData)
@@ -174,6 +176,10 @@ end
 
 function PGFSettings:OnRefresh()
     -- Options dialog opened
+end
+
+function PGF.OpenSettings()
+    Settings.OpenToCategory(PGF.settingsCategory.ID)
 end
 
 PGFSettings:SetScript("OnShow", PGFSettings.OnShow)

@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000Семантическая ошибк
 L["message.noplaystylefix"] = "Premade Groups Filter: Не будет применяться исправление для ошибки 'Interface action failed because of an AddOn', потому что, похоже, у Вас нет полностью защищенной учетной записи, и Вы не можете создавать заранее собранные группы. См. FAQ по аддону для получения дополнительной информации и способов решения этой проблемы."
 L["message.settingsupgraded"] = "Premade Groups Filter: Настройки перенесены в версию %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Сброс"
 L["dialog.reset.confirm"] = "Действительно сбросить все поля?"
 L["dialog.refresh"] = "Поиск"

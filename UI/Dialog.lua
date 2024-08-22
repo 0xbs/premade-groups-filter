@@ -54,8 +54,26 @@ function PGFDialog:OnLoad()
         self.MaximizeMinimizeFrame:SetOnMinimizedCallback(function () self:OnMinimize() end)
     end
 
-    self.ResetButton:SetText(L["dialog.reset"])
     self.ResetButton:SetScript("OnClick", function () self:OnResetButtonClick() end)
+    self.ResetButton:SetScript("OnEnter", function (self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(L["dialog.reset"], nil, nil, nil, nil, true)
+        GameTooltip:Show()
+    end)
+    self.ResetButton:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
+    self.SettingsButton:SetScript("OnClick", function () PGF.OpenSettings() end)
+    self.SettingsButton:SetScript("OnEnter", function (self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(L["dialog.settings"], nil, nil, nil, nil, true)
+        GameTooltip:Show()
+    end)
+    self.SettingsButton:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+
     self.RefreshButton:SetText(L["dialog.refresh"])
     self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
 end
