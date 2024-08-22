@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不�
 L["message.noplaystylefix"] = "預組隊伍過濾: 不會修復“接口操作因AddOn而失敗”錯誤，因為您似乎沒有完全安全的帳戶，否則無法創建預製隊伍。請參閱插件常見問題解答以獲取更多信息以及如何解決此問題。"
 L["message.settingsupgraded"] = "預組隊伍過濾: 設置遷移到版本 %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "重置"
 L["dialog.reset.confirm"] = "重置所有字段？"
 L["dialog.refresh"] = "搜尋"

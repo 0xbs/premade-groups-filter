@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000Errore semantico nell'espressione del
 L["message.noplaystylefix"] = "Premade Groups Filter: Non verrà applicata la correzione per gli errori 'Azione interfaccia non riuscita a causa di un componente aggiuntivo' perché non sembra che tu disponga di un account completamente protetto e altrimenti non puoi creare gruppi predefiniti. Consulta le domande frequenti sui componenti aggiuntivi per ulteriori informazioni e come risolvere questo problema."
 L["message.settingsupgraded"] = "Premade Groups Filter: Impostazioni trasferite alla versione %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Ripristina"
 L["dialog.reset.confirm"] = "Resettare davvero tutti i campi?"
 L["dialog.refresh"] = "Ricerca"

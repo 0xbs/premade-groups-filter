@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000Erreur sémantique dans le filtre d�
 L["message.noplaystylefix"] = "Premade Groups Filter n’appliquera pas de correctif pour les erreurs liées à « L’action d'interface a échoué en raison d'un Adddon » car vous ne semblez pas disposer d'un compte entièrement sécurisé et ne pouvez pas créer de groupes prédéfinis. Consultez la FAQ de l’addon pour plus d’informations et comment résoudre ce problème."
 L["message.settingsupgraded"] = "Premade Groups Filter : paramètres migrés vers la version %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Réinitialiser"
 L["dialog.reset.confirm"] = "Souhaitez-vous vraiment réinitialiser tous les champs ?"
 L["dialog.refresh"] = "Rechercher"

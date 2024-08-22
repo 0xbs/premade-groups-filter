@@ -30,6 +30,7 @@ L["error.semantic.protected"] = "|cffff0000Semantic error in filter expression|r
 L["message.noplaystylefix"] = "Premade Groups Filter: Will not apply fix for 'Interface action failed because of an AddOn' errors because you don't seem to have a fully secured account and otherwise can't create premade groups. See addon FAQ for more information and how to fix this issue."
 L["message.settingsupgraded"] = "Premade Groups Filter: Migrated settings to version %s"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Reset"
 L["dialog.reset.confirm"] = "Really reset all fields?"
 L["dialog.refresh"] = "Search"

@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000필터 표현에 의미 오류|r\n\n'
 L["message.noplaystylefix"] = "Premade Groups Filter: Will not apply fix for 'Interface action failed because of an AddOn' errors because you don't seem to have a fully secured account and otherwise can't create premade groups. See addon FAQ for more information and how to fix this issue."
 L["message.settingsupgraded"] = "Premade Groups Filter: 버전 %s로 마이그레이션된 설정"
 
+L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "초기화"
 L["dialog.reset.confirm"] = "모든 필드를 재설정하시겠습니까?"
 L["dialog.refresh"] = "검색"
