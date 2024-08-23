@@ -10,10 +10,26 @@
         </Anchors>
         <Frames>
             <Button name="$parentCloseButton" parentKey="CloseButton" inherits="UIPanelCloseButtonDefaultAnchors"/>
-            <Button parentKey="ResetButton" inherits="UIPanelButtonTemplate">
-                <Size x="135" y="22"/>
+            <Button parentKey="ResetButton" inherits="IconButtonTemplate">
+                <KeyValues>
+                    <KeyValue key="icon" value="Interface\Icons\inv_gizmo_supersappercharge" type="string"/>
+                    <KeyValue key="iconSize" value="22" type="number"/>
+                    <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+                </KeyValues>
+                <Size x="25" y="25"/>
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" x="9" y="9"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="SettingsButton" inherits="IconButtonTemplate">
+                <KeyValues>
+                    <KeyValue key="icon" value="Interface\Icons\trade_engineering" type="string"/>
+                    <KeyValue key="iconSize" value="22" type="number"/>
+                    <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+                </KeyValues>
+                <Size x="25" y="25"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.ResetButton" relativePoint="TOPRIGHT"/>
                 </Anchors>
             </Button>
             <Button parentKey="RefreshButton" inherits="UIPanelButtonTemplate">
