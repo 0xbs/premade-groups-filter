@@ -23,6 +23,26 @@ local L = PGF.L
 local C = PGF.C
 
 C.ACTIVITY = {
+    [ 134] = { difficulty = 1, category =   2, mapID =  645 }, -- Blackrock Caverns (Normal)
+    [ 135] = { difficulty = 1, category =   2, mapID =  670 }, -- Grim Batol (Normal)
+    [ 136] = { difficulty = 1, category =   2, mapID =  644 }, -- Halls of Origination (Normal)
+    [ 137] = { difficulty = 1, category =   2, mapID =  725 }, -- The Stonecore (Normal)
+    [ 138] = { difficulty = 1, category =   2, mapID =  657 }, -- The Vortex Pinnacle (Normal)
+    [ 139] = { difficulty = 1, category =   2, mapID =  755 }, -- Lost City of the Tol'vir (Normal)
+    [ 140] = { difficulty = 2, category =   2, mapID =  657 }, -- The Vortex Pinnacle (Heroic)
+    [ 141] = { difficulty = 2, category =   2, mapID =  725 }, -- The Stonecore (Heroic)
+    [ 142] = { difficulty = 2, category =   2, mapID =  644 }, -- Halls of Origination (Heroic)
+    [ 143] = { difficulty = 2, category =   2, mapID =  670 }, -- Grim Batol (Heroic)
+    [ 144] = { difficulty = 2, category =   2, mapID =  645 }, -- Blackrock Caverns (Heroic)
+    [ 146] = { difficulty = 2, category =   2, mapID =  643 }, -- Throne of the Tides (Heroic)
+    [ 147] = { difficulty = 2, category =   2, mapID =  755 }, -- Lost City of the Tol'vir (Heroic)
+    [ 148] = { difficulty = 2, category =   2, mapID =   36 }, -- Deadmines (Heroic)
+    [ 149] = { difficulty = 2, category =   2, mapID =   33 }, -- Shadowfang Keep (Heroic)
+    [ 150] = { difficulty = 2, category =   2, mapID =  859 }, -- Zul'Gurub (Heroic)
+    [ 151] = { difficulty = 2, category =   2, mapID =  568 }, -- Zul'Aman (Heroic)
+    [ 152] = { difficulty = 2, category =   2, mapID =  938 }, -- End Time (Heroic)
+    [ 153] = { difficulty = 2, category =   2, mapID =  939 }, -- Well of Eternity (Heroic)
+    [ 154] = { difficulty = 2, category =   2, mapID =  940 }, -- Hour of Twilight (Heroic)
     [ 796] = { difficulty = 1, category =   2, mapID =   43 }, -- Wailing Caverns
     [ 797] = { difficulty = 1, category =   2, mapID =  289 }, -- Scholomance
     [ 798] = { difficulty = 1, category =   2, mapID =  389 }, -- Ragefire Chasm
