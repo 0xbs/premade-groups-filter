@@ -544,7 +544,7 @@ C.ACTIVITY = {
     [1383] = { difficulty = 2, category = 2, mapID = 2669, cmID =   0 }, -- City of Threads (Heroic)
     [1504] = { difficulty = 3, category = 3, mapID = 2657, cmID =   0 }, -- Nerub-ar Palace (Mythic)
     [1505] = { difficulty = 1, category = 3, mapID = 2657, cmID =   0 }, -- Nerub-ar Palace (Normal)
-    [1506] = { difficulty = 1, category = 3, mapID = 2657, cmID =   0 }, -- Nerub-ar Palace (Heroic)
+    [1506] = { difficulty = 2, category = 3, mapID = 2657, cmID =   0 }, -- Nerub-ar Palace (Heroic)
     [1507] = { difficulty = 1, category = 2, mapID = 2661, cmID =   0 }, -- Cinderbrew Meadery (Normal)
     [1508] = { difficulty = 2, category = 2, mapID = 2661, cmID =   0 }, -- Cinderbrew Meadery (Heroic)
     [1509] = { difficulty = 3, category = 2, mapID = 2661, cmID =   0 }, -- Cinderbrew Meadery (Mythic)
