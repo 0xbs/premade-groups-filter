@@ -142,9 +142,19 @@
                 </Frames>
             </Frame>
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
+                <!--
+                We have to set the width manually here instead of the BOTTOMRIGHT anchor because
+                otherwise :GetSize() still returns the small size inside InputScrollFrame_OnLoad.
+                It looks like our manual resize in Dialog.lua is not updating the actual EditBox
+                and InputScrollFrame cannot handle dynamic resizes of itself.
+                Calling InputScrollFrame_OnLoad(self.Advanced.Expression) inside DungeonPanel:OnShow()
+                looks like another solution, but seems to mess up the scroll state of the EditBox
+                like scroll bars are displayed forever instead of disappearing when text is removed.
+                -->
+                <Size x="420"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
-                    <Anchor point="BOTTOMRIGHT"/>
+                    <Anchor point="BOTTOM"/>
                 </Anchors>
             </Frame>
         </Frames>
