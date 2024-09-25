@@ -250,9 +250,9 @@ function PGF.DoFilterSearchResults(results)
         env.groupid = activityInfo.groupFinderActivityGroupID
         env.autoinv = searchResultInfo.autoAccept
         env.questid = searchResultInfo.questID
-        env.declined = PGF.IsHardDeclinedGroup(searchResultInfo)
-        env.harddeclined = env.declined
+        env.harddeclined = PGF.IsHardDeclinedGroup(searchResultInfo)
         env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
+        env.declined = env.harddeclined or env.softdeclined
         env.warmode = searchResultInfo.isWarMode or false
         env.playstyle = searchResultInfo.playstyle
         env.earnconq  = searchResultInfo.playstyle == 1
