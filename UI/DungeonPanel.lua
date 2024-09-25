@@ -110,8 +110,7 @@ function DungeonPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", self.groupWidth)
     PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", self.groupWidth)
-    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", self.groupWidth)
-    PGF.UI_SetupCheckBox(self, self.Group.BRFit, "brfit", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", self.groupWidth)
     PGF.UI_SetupAdvancedExpression(self)
 
     -- Dungeons
@@ -204,8 +203,7 @@ function DungeonPanel:Init(state)
     self.Group.DPS.Max:SetText(self.state.dps.max or "")
 
     self.Group.Partyfit.Act:SetChecked(self.state.partyfit or false)
-    self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
-    self.Group.BRFit.Act:SetChecked(self.state.brfit or false)
+    self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
 
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         self.Dungeons["Dungeon"..i].Act:SetChecked(self.state["dungeon"..i] or false)
@@ -252,8 +250,7 @@ function DungeonPanel:OnReset()
     self.state.dps.min = ""
     self.state.dps.max = ""
     self.state.partyfit = false
-    self.state.blfit = false
-    self.state.brfit = false
+    self.state.notdeclined = false
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         self.state["dungeon"..i] = false
     end
@@ -304,8 +301,7 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
     end
     if self.state.partyfit    then expression = expression .. " and partyfit"     end
-    if self.state.blfit       then expression = expression .. " and blfit"        end
-    if self.state.brfit       then expression = expression .. " and brfit"        end
+    if self.state.notdeclined then expression = expression .. " and not declined" end
 
     if self:GetNumDungeonsSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or

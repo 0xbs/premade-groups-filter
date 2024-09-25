@@ -269,6 +269,17 @@ function PGF.MigrateStateV6()
     end
 end
 
+function PGF.MigrateStateV7()
+    if PremadeGroupsFilterState.version < 7 then
+        if PremadeGroupsFilterState.c2f4 and PremadeGroupsFilterState.c2f4.dungeon then
+            PremadeGroupsFilterState.c2f4.dungeon.blfit = nil
+            PremadeGroupsFilterState.c2f4.dungeon.brfit = nil
+        end
+        PremadeGroupsFilterState.version = 7
+        print(string.format(L["message.settingsupgraded"], "7"))
+    end
+end
+
 function PGF.MigrateSettingsV2()
     if not PremadeGroupsFilterSettings.version or PremadeGroupsFilterSettings.version < 2 then
         if PGF.IsRetail() then -- disable features now provided by default
@@ -309,6 +320,8 @@ function PGF.OnAddonLoaded(name)
         PGF.MigrateStateV4()
         PGF.MigrateStateV5()
         PGF.MigrateStateV6()
+        -- Note: State might contain unused booleans .c2f4.dungeon.blfit and .c2f4.dungeon.brfit
+        -- which I deliberately did not delete if I need to bring back the features
 
         -- request various player information from the server
         RequestRaidInfo()
