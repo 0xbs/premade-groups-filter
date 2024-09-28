@@ -418,3 +418,14 @@ end
 
 hooksecurefunc("LFGListSearchEntry_Update", PGF.OnLFGListSearchEntryUpdate)
 hooksecurefunc("LFGListSearchPanel_UpdateResultList", PGF.OnLFGListSearchPanelUpdateResultList)
+
+-- Allow other addons to overwrite the sorting function
+local originalSortSearchResults = PGF.SortSearchResults
+PremadeGroupsFilter.OverwriteSortSearchResults = function(addonName, func)
+    PGF.SortSearchResults = func
+    print(string.format(L["message.sortingoverwritten"], (addonName or "<?>")))
+end
+PremadeGroupsFilter.RestoreSortSearchResults = function(addonName)
+    PGF.SortSearchResults = originalSortSearchResults
+    print(string.format(L["message.sortingrestored"], (addonName or "<?>")))
+end

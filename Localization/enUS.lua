@@ -29,6 +29,8 @@ L["error.semantic"] = "|cffff0000Semantic error in filter expression|r\n\nThis m
 L["error.semantic.protected"] = "|cffff0000Semantic error in filter expression|r\n\nThe keywords 'name', 'comment' and 'findnumber' are no longer supported. Please remove them from your advanced filter expression or press the reset button.\n\nStarting with the Battle for Azeroth Prepatch, those value are protected by Blizzard and can no longer be evaluated by any addon.\n\nUse the default search bar above the group listing to filter for groups names.\n\nDetailed error message:\n|cffaaaaaa%s|r"
 L["message.noplaystylefix"] = "Premade Groups Filter: Will not apply fix for 'Interface action failed because of an AddOn' errors because you don't seem to have a fully secured account and otherwise can't create premade groups. See addon FAQ for more information and how to fix this issue."
 L["message.settingsupgraded"] = "Premade Groups Filter: Migrated settings to version %s"
+L["message.sortingoverwritten"] = "Premade Groups Filter: Default premade group sorting order has been overwritten by addon %s."
+L["message.sortingrestored"] = "Premade Groups Filter: Default premade group sorting order has been restored by addon %s."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Reset"
