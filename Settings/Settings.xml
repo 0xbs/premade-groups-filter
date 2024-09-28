@@ -44,6 +44,15 @@
     </Frame>
 
     <Frame name="PremadeGroupsFilterSettingsCheckBoxTemplate" inherits="PremadeGroupsFilterSettingsListItemTemplate" virtual="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Image">
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="CENTER" x="-30"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
         <Frames>
             <CheckButton parentKey="CheckBox" motionScriptsWhileDisabled="true" virtual="true">
                 <Size x="30" y="29"/>
