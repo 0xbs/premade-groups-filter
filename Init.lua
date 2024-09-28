@@ -202,7 +202,7 @@ C.SETTINGS_DEFAULT = {
     persistSignUpNote = true,
     signupOnEnter = false,
     skipSignUpDialog = false,
-    applyDeclined = false,
+    signUpDeclined = false,
 }
 
 function PGF.MigrateStateV4()

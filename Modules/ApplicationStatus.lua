@@ -68,7 +68,7 @@ function PGF.IsSoftDeclinedGroup(searchResultInfo)
 end
 
 function PGF.HandleLFGListFrameDeclineStatus(key)
-    if PGF.IsRetail() and PremadeGroupsFilterSettings.applyDeclined and LFGListFrame.declines then
+    if PGF.IsRetail() and PremadeGroupsFilterSettings.signUpDeclined and LFGListFrame.declines then
         LFGListFrame.declines[key] = nil -- remove from Blizzard's list to allow re-applying to groups
         LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel) -- update but don't sort
     end
