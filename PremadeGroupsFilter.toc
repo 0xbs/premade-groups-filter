@@ -27,7 +27,6 @@ Localization\ruRU.lua
 Localization\esES.lua
 Localization\itIT.lua
 Modules\Logger.lua
-Fixes\FixGetPlaystyleString.lua
 Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua

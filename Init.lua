@@ -337,7 +337,6 @@ function PGF.OnAddonLoaded(name)
 end
 
 function PGF.OnPlayerLogin()
-    PGF.FixGetPlaystyleStringIfPlayerAuthenticated()
     PGF.FixReportAdvertisement()
     PGF.PersistSignUpNote()
 end
