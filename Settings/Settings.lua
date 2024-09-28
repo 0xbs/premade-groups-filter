@@ -95,7 +95,7 @@ local PGFSettingsTable = {
         title = L["settings.missingRoles.title"],
         tooltip = L["settings.missingRoles.tooltip"],
         image = "Interface\\AddOns\\PremadeGroupsFilter\\Textures\\SettingsMissingRoles",
-        visible = true,
+        visible = PGF.SupportsDragonflightUI(),
     },
     {
         type = "header",
@@ -170,7 +170,7 @@ function PGFSettings.CreateListItem(factory, elementData)
                     elementData.callback(button:GetChecked())
                 end
             end)
-            if elementData.image then
+            if PGF.SupportsDragonflightUI() and elementData.image then
                 item.Image:SetTexture(elementData.image)
             end
         end)
