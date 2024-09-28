@@ -31,6 +31,8 @@ L["error.semantic"] = "|cffff0000Семантическая ошибка в вы
 L["error.semantic.protected"] = "|cffff0000Семантическая ошибка в выражении фильтра|r\n\nКлючевые слова 'name', 'comment' и 'findnumber' больше не поддерживаются. Удалите их из расширенного выражения фильтра или нажмите кнопку сброса.\n\nНачиная с препатча BFA, эти значения теперь защищены Blizzard и больше не могут быть прочитаны никаким аддоном.\n\nИспользуйте панель поиска по умолчанию над списком групп для фильтрации имен групп.\n\nТехническое сообщение об ошибке:\n|cffaaaaaa%s|r"
 L["message.noplaystylefix"] = "Premade Groups Filter: Не будет применяться исправление для ошибки 'Interface action failed because of an AddOn', потому что, похоже, у Вас нет полностью защищенной учетной записи, и Вы не можете создавать заранее собранные группы. См. FAQ по аддону для получения дополнительной информации и способов решения этой проблемы."
 L["message.settingsupgraded"] = "Premade Groups Filter: Настройки перенесены в версию %s"
+L["message.sortingoverwritten"] = "Premade Groups Filter: Порядок сортировки групп по умолчанию был изменен аддоном %s."
+L["message.sortingrestored"] = "Premade Groups Filter: Порядок сортировки групп по умолчанию был восстановлен аддоном %s."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Сброс"
@@ -133,3 +135,7 @@ L["settings.specIcon.title"] = "Показать специализацию"
 L["settings.specIcon.tooltip"] = "Показать значок с классовой специализацией каждого игрока в готовом списке группы."
 L["settings.missingRoles.title"] = "Отсутствующие роли"
 L["settings.missingRoles.tooltip"] = "Показать значок роли каждого отсутствующего слота в списке готовых групп."
+L["settings.signUpDeclined.title"] = "Применить к отклоненным группам"
+L["settings.signUpDeclined.tooltip"] = "Восстановить старый режим до TWW и разрешить регистрироваться в группы, которые ранее Вам отказали."
+L["settings.section.mythicplus.title"] = "М+"
+L["settings.section.signup.title"] = "Подписаться"
