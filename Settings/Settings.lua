@@ -116,6 +116,14 @@ local PGFSettingsTable = {
         tooltip = L["settings.skipSignUpDialog.tooltip"],
         visible = true,
     },
+    {
+        key = "applyDeclined",
+        type = "checkbox",
+        title = L["settings.applyDeclined.title"],
+        tooltip = L["settings.applyDeclined.tooltip"],
+        visible = PGF.IsRetail(),
+        callback = function (value) if value then LFGListFrame.declines = {} end end
+    },
 }
 
 function PGFSettings:OnLoad()

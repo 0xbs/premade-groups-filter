@@ -67,6 +67,13 @@ function PGF.IsSoftDeclinedGroup(searchResultInfo)
     return PGF.IsDeclinedGroup(PGF.softDeclinedGroups, searchResultInfo)
 end
 
+function PGF.HandleLFGListFrameDeclineStatus(key)
+    if PGF.IsRetail() and PremadeGroupsFilterSettings.applyDeclined and LFGListFrame.declines then
+        LFGListFrame.declines[key] = nil -- remove from Blizzard's list to allow re-applying to groups
+        LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel) -- update but don't sort
+    end
+end
+
 function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     -- possible newStatus: declined, declined_full, declined_delisted, timedout
     local searchResultInfo = C_LFGList.GetSearchResultInfo(id)
@@ -74,7 +81,9 @@ function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     if not key then return end
     if newStatus == "declined" then
         PGF.hardDeclinedGroups[key] = time()
+        PGF.HandleLFGListFrameDeclineStatus(key)
     elseif newStatus == "declined_delisted" or newStatus == "timedout" then
         PGF.softDeclinedGroups[key] = time()
+        PGF.HandleLFGListFrameDeclineStatus(key)
     end
 end
