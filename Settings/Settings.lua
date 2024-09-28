@@ -46,6 +46,11 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        type = "header",
+        title = L["settings.section.mythicplus.title"],
+        visible = true,
+    },
+    {
         key = "ratingInfo",
         type = "checkbox",
         title = L["settings.ratingInfo.title"],
@@ -85,6 +90,11 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.missingRoles.title"],
         tooltip = L["settings.missingRoles.tooltip"],
+        visible = true,
+    },
+    {
+        type = "header",
+        title = L["settings.section.signup.title"],
         visible = true,
     },
     {
@@ -155,6 +165,10 @@ function PGFSettings.CreateListItem(factory, elementData)
                     elementData.callback(button:GetChecked())
                 end
             end)
+        end)
+    elseif elementData.type == "header" then
+        factory("PremadeGroupsFilterSettingsListSectionHeaderTemplate", function(item, elementData)
+            item.Title:SetText(elementData.title)
         end)
     end
 end
