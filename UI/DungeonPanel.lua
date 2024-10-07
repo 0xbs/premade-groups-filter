@@ -110,6 +110,8 @@ function DungeonPanel:OnLoad()
     PGF.UI_SetupMinMaxField(self, self.Group.Heals, "heals", self.groupWidth)
     PGF.UI_SetupMinMaxField(self, self.Group.DPS, "dps", self.groupWidth)
     PGF.UI_SetupCheckBox(self, self.Group.Partyfit, "partyfit", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.BLFit, "blfit", self.groupWidth)
+    PGF.UI_SetupCheckBox(self, self.Group.NeedsBL, "needsbl", self.groupWidth)
     PGF.UI_SetupCheckBox(self, self.Group.NotDeclined, "notdeclined", self.groupWidth)
     PGF.UI_SetupAdvancedExpression(self)
 
@@ -203,6 +205,8 @@ function DungeonPanel:Init(state)
     self.Group.DPS.Max:SetText(self.state.dps.max or "")
 
     self.Group.Partyfit.Act:SetChecked(self.state.partyfit or false)
+    self.Group.BLFit.Act:SetChecked(self.state.blfit or false)
+    self.Group.NeedsBL.Act:SetChecked(self.state.needsbl or false)
     self.Group.NotDeclined.Act:SetChecked(self.state.notdeclined or false)
 
     for i = 1, NUM_DUNGEON_CHECKBOXES do
@@ -215,9 +219,9 @@ function DungeonPanel:OnEvent(event)
     if event == "CHALLENGE_MODE_MAPS_UPDATE" then
         PGF.Logger:Debug("DungeonPanel:OnEvent(CHALLENGE_MODE_MAPS_UPDATE)")
         self:InitChallengeModes()
-    elseif (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE")
-            and self.state and self.state.partyfit then
+    elseif (event == "ACTIVE_PLAYER_SPECIALIZATION_CHANGED" or event == "GROUP_ROSTER_UPDATE") and self.state then
         PGF.Logger:Debug("DungeonPanel:OnEvent(" .. event .. ")")
+        self:UpdateCheckboxVisibility()
         self:UpdateAdvancedFilters()
     end
 end
@@ -225,6 +229,7 @@ end
 function DungeonPanel:OnShow()
     PGF.Logger:Debug("DungeonPanel:OnShow")
     self:TryInitChallengeModes()
+    self:UpdateCheckboxVisibility()
 end
 
 function DungeonPanel:OnHide()
@@ -250,6 +255,8 @@ function DungeonPanel:OnReset()
     self.state.dps.min = ""
     self.state.dps.max = ""
     self.state.partyfit = false
+    self.state.blfit = false
+    self.state.needsbl = false
     self.state.notdeclined = false
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         self.state["dungeon"..i] = false
@@ -270,6 +277,7 @@ function DungeonPanel:TriggerFilterExpressionChange()
     local expression = self:GetFilterExpression()
     local hint = expression == "true" and "" or expression
     self.Advanced.Expression.EditBox.Instructions:SetText(hint)
+    self:UpdateCheckboxVisibility()
     self:UpdateAdvancedFilters()
     PGF.Dialog:OnFilterExpressionChanged()
 end
@@ -300,8 +308,18 @@ function DungeonPanel:GetFilterExpression()
         if PGF.NotEmpty(self.state.dps.min) then expression = expression .. " and dps >= " .. self.state.dps.min end
         if PGF.NotEmpty(self.state.dps.max) then expression = expression .. " and dps <= " .. self.state.dps.max end
     end
-    if self.state.partyfit    then expression = expression .. " and partyfit"     end
-    if self.state.notdeclined then expression = expression .. " and not declined" end
+    if self.state.partyfit then
+        expression = expression .. " and partyfit"
+    end
+    if self.state.blfit and not PGF.PlayerOrGroupHasBloodlust() then -- use blfit only if group does not have BL
+        expression = expression .. " and blfit"
+    end
+    if self.state.needsbl and PGF.PlayerOrGroupHasBloodlust() then -- use needsbl only if group has BL
+        expression = expression .. " and not hasbl"
+    end
+    if self.state.notdeclined then
+        expression = expression .. " and not declined"
+    end
 
     if self:GetNumDungeonsSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or
@@ -336,6 +354,16 @@ function DungeonPanel:GetNumDungeonsSelected()
         end
     end
     return numDungeonsSelected
+end
+
+function DungeonPanel:UpdateCheckboxVisibility()
+    if PGF.PlayerOrGroupHasBloodlust() then
+        self.Group.BLFit:Hide()
+        self.Group.NeedsBL:Show()
+    else
+        self.Group.BLFit:Show()
+        self.Group.NeedsBL:Hide()
+    end
 end
 
 function DungeonPanel:UpdateAdvancedFilters()

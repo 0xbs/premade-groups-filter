@@ -107,6 +107,8 @@ L["dialog.brfit"] = "Battle Res"
 L["dialog.brfit.tooltip"] = "Falls in eurer Gruppe niemand einen Battle Rezz zur Verfügung stellt, zeige nur Gruppen in denen bereits eine Klasse mit Battle Rezz vorhanden ist oder in denen nach Beitritt noch ein Platz frei ist. Funktioniert auch allein."
 L["dialog.matchingid"] = "Passende ID"
 L["dialog.matchingid.tooltip"] = "Zeige nur Gruppen mit exakt der gleichen Instanz-ID wir Ihr selbst, die also die genau gleichen Gegner besiegt haben. Zeigt immer alle Gruppen an, in denen Ihr überhaupt keine ID habt."
+L["dialog.needsbl"] = "Benötigt Kampfrausch"
+L["dialog.needsbl.tooltip"] = "Zeige nur Gruppen, die noch kein Kampfrausch/Heldentum haben."
 
 L["settings.dialogMovable.title"] = "Dialog verschiebbar"
 L["settings.dialogMovable.tooltip"] = "Ermöglicht das Verschieben des Dialogs mit der Maus. Rechtsklick setzt die Position zurück."

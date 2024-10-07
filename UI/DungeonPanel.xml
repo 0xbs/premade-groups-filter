@@ -61,9 +61,19 @@
                             <Anchor point="TOPLEFT" relativeKey="$parent.DPS" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="NotDeclined" inherits="PremadeGroupsFilterBasicTemplate">
+                    <Frame parentKey="BLFit" inherits="PremadeGroupsFilterBasicTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="NeedsBL" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="NotDeclined" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT" y="-23"/>
                         </Anchors>
                     </Frame>
                 </Frames>

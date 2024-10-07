@@ -105,6 +105,8 @@ L["dialog.brfit"] = "Battle Res Fit"
 L["dialog.brfit.tooltip"] = "If nobody in your group has a battle rezz, show only groups that already have a battle rezz, or after joining, there is still an open slot. Also works if you are alone."
 L["dialog.matchingid"] = "Matching ID"
 L["dialog.matchingid.tooltip"] = "Show only groups that have the exact same instance lockout than yourself. Always shows all groups where you not have lockout at all."
+L["dialog.needsbl"] = "Needs Bloodlust"
+L["dialog.needsbl.tooltip"] = "Shows only groups that do not yet have a class providing bloodlust/heroism."
 
 L["settings.dialogMovable.title"] = "Dialog Movable"
 L["settings.dialogMovable.tooltip"] = "Allows you to move the dialog with the mouse. Right-click resets the position."
