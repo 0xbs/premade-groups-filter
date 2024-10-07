@@ -24,6 +24,7 @@ local C = PGF.C
 
 PGF.hardDeclinedGroups = {}
 PGF.softDeclinedGroups = {}
+PGF.canceledGroups = {}
 
 function PGF.GetAppStatus(resultID, optionalSearchResultInfo)
     local searchResultInfo = optionalSearchResultInfo or C_LFGList.GetSearchResultInfo(resultID)
@@ -49,22 +50,26 @@ function PGF.GetGroupKey(searchResultInfo)
     end
 end
 
-function PGF.IsDeclinedGroup(lookupTable, searchResultInfo)
+local function IsGroupInTable(lookupTable, searchResultInfo)
     local key = PGF.GetGroupKey(searchResultInfo)
     if not key then return false end
-    local lastDeclined = lookupTable[key] or 0
-    if lastDeclined > time() - C.DECLINED_GROUPS_RESET then
+    local lastSeen = lookupTable[key] or 0
+    if lastSeen > time() - C.DECLINED_GROUPS_RESET then
         return true
     end
     return false
 end
 
 function PGF.IsHardDeclinedGroup(searchResultInfo)
-    return PGF.IsDeclinedGroup(PGF.hardDeclinedGroups, searchResultInfo)
+    return IsGroupInTable(PGF.hardDeclinedGroups, searchResultInfo)
 end
 
 function PGF.IsSoftDeclinedGroup(searchResultInfo)
-    return PGF.IsDeclinedGroup(PGF.softDeclinedGroups, searchResultInfo)
+    return IsGroupInTable(PGF.softDeclinedGroups, searchResultInfo)
+end
+
+function PGF.IsCanceledGroup(searchResultInfo)
+    return IsGroupInTable(PGF.canceledGroups, searchResultInfo)
 end
 
 function PGF.HandleLFGListFrameDeclineStatus(key)
@@ -85,5 +90,7 @@ function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     elseif newStatus == "declined_delisted" or newStatus == "timedout" then
         PGF.softDeclinedGroups[key] = time()
         PGF.HandleLFGListFrameDeclineStatus(key)
+    elseif newStatus == "cancelled" then
+        PGF.canceledGroups[key] = time()
     end
 end

@@ -253,6 +253,7 @@ function PGF.DoFilterSearchResults(results)
         env.harddeclined = PGF.IsHardDeclinedGroup(searchResultInfo)
         env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
         env.declined = env.harddeclined or env.softdeclined
+        env.canceled = PGF.IsCanceledGroup(searchResultInfo)
         env.warmode = searchResultInfo.isWarMode or false
         env.playstyle = searchResultInfo.playstyle
         env.earnconq  = searchResultInfo.playstyle == 1
@@ -379,6 +380,10 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
             if not PremadeGroupsFilterSettings.signUpDeclined then
                 self.PendingLabel:SetTextColor(color.R, color.G, color.B)
             end
+        end
+        if PGF.IsCanceledGroup(searchResultInfo) then
+            local color = C.COLOR_ENTRY_CANCELED
+            self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color activity if lockout
         local numGroupDefeated, numPlayerDefeated, maxBosses,
