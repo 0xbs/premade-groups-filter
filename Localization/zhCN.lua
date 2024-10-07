@@ -106,6 +106,8 @@ L["dialog.brfit"] = "战复筛选"
 L["dialog.brfit.tooltip"] = "如果您的队伍中没人拥有战复技能，则勾选后将帮您过滤出已有战复能力的队伍；或者您加入后，仍有空位的队伍。当然，您独自申请队伍时，本项仍然适用。"
 L["dialog.matchingid"] = "副本进度匹配"
 L["dialog.matchingid.tooltip"] = "仅显示和您的副本进度完全匹配的团队。当然，如果您本周还没有击杀任何Boss，则会显示出所有的在建团队。"
+L["dialog.needsbl"] = "需要嗜血"
+L["dialog.needsbl.tooltip"] = "仅显示尚未有提供嗜血/英勇技能的职业的队伍。"
 
 L["settings.dialogMovable.title"] = "可移动的对话框"
 L["settings.dialogMovable.tooltip"] = "允许您使用鼠标移动对话框。右键单击重置位置。"
