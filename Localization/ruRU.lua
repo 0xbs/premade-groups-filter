@@ -140,5 +140,5 @@ L["settings.signUpDeclined.title"] = "Применить к отклоненны
 L["settings.signUpDeclined.tooltip"] = "Восстановить старый режим до TWW и разрешить регистрироваться в группы, которые ранее Вам отказали."
 L["settings.section.mythicplus.title"] = "М+"
 L["settings.section.signup.title"] = "Подписаться"
-L["settings.rioRatingColors.title"] = "Рейтинг в цветах Raider.IO"
-L["settings.rioRatingColors.tooltip"] = "Использует цветовую схему Raider.IO для оценок Мифических+, если загружен аддон Raider.IO."
+L["settings.rioRatingColors.title"] = "Рейтинг по цвету Raider.IO"
+L["settings.rioRatingColors.tooltip"] = "Использовать цветовую схему Raider.IO для рейтинга M+, если загружен аддон Raider.IO."
