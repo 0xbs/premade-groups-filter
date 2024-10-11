@@ -82,7 +82,12 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     if activityInfo.isMythicPlusActivity then
         rightPos = -115
         rating = searchResultInfo.leaderOverallDungeonScore or 0
-        ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating) or ratingColor
+        if PremadeGroupsFilterSettings.rioRatingColors and RaiderIO and RaiderIO.GetScoreColor then
+            local r, g, b = RaiderIO.GetScoreColor(rating)
+            ratingColor = { r = r, g = g, b = b }
+        else
+            ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating) or ratingColor
+        end
         if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo.bestRunLevel > 0 then
             extraText = "+" .. searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
             if not searchResultInfo.leaderDungeonScoreInfo.finishedSuccess then

@@ -204,6 +204,7 @@ C.SETTINGS_DEFAULT = {
     signupOnEnter = false,
     skipSignUpDialog = false,
     signUpDeclined = false,
+    rioRatingColors = true,
 }
 
 function PGF.MigrateStateV4()

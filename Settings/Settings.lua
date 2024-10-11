@@ -59,6 +59,14 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "rioRatingColors",
+        type = "checkbox",
+        title = L["settings.rioRatingColors.title"],
+        tooltip = L["settings.rioRatingColors.tooltip"],
+        image = nil,
+        visible = RaiderIO and true or false,
+    },
+    {
         key = "specIcon",
         type = "checkbox",
         title = L["settings.specIcon.title"],

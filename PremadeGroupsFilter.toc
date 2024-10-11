@@ -15,6 +15,7 @@
 ## Author: Bernhard Saumweber
 ## SavedVariables: PremadeGroupsFilterSettings
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
+## OptionalDeps: PremadeRegions, RaiderIO
 
 Init.lua
 Localization\enUS.lua
