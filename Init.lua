@@ -203,6 +203,7 @@ C.SETTINGS_DEFAULT = {
     persistSignUpNote = true,
     signupOnEnter = false,
     skipSignUpDialog = false,
+    cancelOldestApp = false,
     signUpDeclined = false,
     rioRatingColors = true,
 }

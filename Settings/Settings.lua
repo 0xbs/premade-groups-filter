@@ -118,6 +118,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "cancelOldestApp",
+        type = "checkbox",
+        title = L["settings.cancelOldestApp.title"],
+        tooltip = L["settings.cancelOldestApp.tooltip"],
+        visible = true,
+    },
+    {
         key = "persistSignUpNote",
         type = "checkbox",
         title = L["settings.persistSignUpNote.title"],

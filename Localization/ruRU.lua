@@ -109,6 +109,7 @@ L["dialog.matchingid"] = "Соответствующий ID подземелья
 L["dialog.matchingid.tooltip"] = "Показывать только те группы, в которых такая же блокировка подземелья, как и у Вас. Всегда показывать все группы, в которых у Вас вообще нет блокировки."
 L["dialog.needsbl"] = "Требуется Кровожадность / Героизм"
 L["dialog.needsbl.tooltip"] = "Показывает только те группы, в которых нет класса, предоставляющего Кровожадность / Героизм."
+L["dialog.cancelOldestApp"] = "Нажмите, чтобы отменить старую заявку"
 
 L["settings.dialogMovable.title"] = "Перемещаемое окно PGF"
 L["settings.dialogMovable.tooltip"] = "Позволяет перемещать окно PGF с помощью мыши. ПКМ - сбрасывает положение."
@@ -142,3 +143,5 @@ L["settings.section.mythicplus.title"] = "М+"
 L["settings.section.signup.title"] = "Подписаться"
 L["settings.rioRatingColors.title"] = "Рейтинг по цвету Raider.IO"
 L["settings.rioRatingColors.tooltip"] = "Использовать цветовую схему Raider.IO для рейтинга M+, если загружен аддон Raider.IO."
+L["settings.cancelOldestApp.title"] = "Отмена самой старой заявки"
+L["settings.cancelOldestApp.tooltip"] = "Если у вас максимальное количество ожидающих заявок, нажмите на любую группу, чтобы сначала отменить самую старую заявку. Затем нажмите снова, чтобы подать заявку."

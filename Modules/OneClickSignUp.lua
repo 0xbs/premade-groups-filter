@@ -18,10 +18,91 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
-hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
-    if not PremadeGroupsFilterSettings.oneClickSignUp then return end
+local PGF = select(2, ...)
+local L = PGF.L
+local C = PGF.C
 
+--local MAX_LFG_LIST_APPLICATIONS = 1 -- for testing
+
+function PGF.GetOldestApplicationResultID()
+    local oldestResultID = 0
+    local oldestAppDuration = 0
+    local apps = C_LFGList.GetApplications()
+    -- loop backwards through the results list so we can remove elements from the table
+    for i = #apps, 1, -1 do
+        local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(apps[i])
+        -- we want to make sure not to cancel an invite or any pendingStatus
+        if appStatus == "invited" and not pendingStatus then
+            table.remove(apps, i)
+        end
+        if appDuration > oldestAppDuration then
+            oldestResultID = apps[i]
+            oldestAppDuration = appDuration
+        end
+    end
+    return oldestResultID
+end
+
+PGF.clickToCancelFrames = {}
+
+hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
+    if not PremadeGroupsFilterSettings.cancelOldestApp then return end
+
+    local clickToCancelFrame = PGF.clickToCancelFrames[self]
+    if clickToCancelFrame == nil then
+        local frame = CreateFrame("Frame", nil, self, nil)
+        frame:Hide()
+        frame:SetFrameStrata("HIGH")
+        frame:SetFrameLevel(10)
+        frame:SetPoint("TOPLEFT", 3, -3)
+        frame:SetPoint("BOTTOMRIGHT", -3, -1)
+        frame.Background = frame:CreateTexture("$parentBackground", "BACKGROUND")
+        frame.Background:SetAllPoints()
+        frame.Background:SetColorTexture(0.1, 0.1, 0.1, 0.8)
+        frame.Title = frame:CreateFontString("$parentTitle", "ARTWORK", "GameFontHighlight")
+        frame.Title:SetPoint("CENTER")
+        frame.Title:SetText(L["dialog.cancelOldestApp"])
+        PGF.clickToCancelFrames[self] = frame
+        clickToCancelFrame = frame
+    end
+
+    local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
+    if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
+        local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(self.resultID)
+        local isApplication = appStatus ~= "none" or pendingStatus
+        if not isApplication then
+            clickToCancelFrame:Show()
+        end
+    end
+end)
+
+hooksecurefunc("LFGListSearchEntry_OnLeave", function (self)
+    if not PremadeGroupsFilterSettings.cancelOldestApp then return end
+
+    local clickToCancelFrame = PGF.clickToCancelFrames[self]
+    if clickToCancelFrame ~= nil then
+        clickToCancelFrame:Hide()
+    end
+end)
+
+hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
     local panel = LFGListFrame.SearchPanel
+
+    if PremadeGroupsFilterSettings.cancelOldestApp then
+        -- if we already have max applications pending, cancel oldest application before signing up
+        local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
+        if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
+            local oldestResultID = PGF.GetOldestApplicationResultID()
+            if oldestResultID > 0 then
+                PGF.Logger:Debug("Canceling application "..oldestResultID)
+                C_LFGList.CancelApplication(oldestResultID) -- required hardware event
+                LFGListSearchPanel_UpdateButtonStatus(panel)
+                return -- we cannot apply right now because we already used our hardware event for cancelation
+            end
+        end
+    end
+
+    if not PremadeGroupsFilterSettings.oneClickSignUp then return end
     if button ~= "RightButton" and LFGListSearchPanelUtil_CanSelectResult(self.resultID) and panel.SignUpButton:IsEnabled() then
         if panel.selectedResult ~= self.resultID then
             LFGListSearchPanel_SelectResult(panel, self.resultID)
