@@ -22,7 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
---local MAX_LFG_LIST_APPLICATIONS = 1 -- for testing
+local MAX_LFG_LIST_APPLICATIONS = 0 -- for testing
 
 function PGF.GetOldestApplicationResultID()
     local oldestResultID = 0
@@ -49,11 +49,12 @@ hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
         frame:Hide()
         frame:SetFrameStrata("HIGH")
         frame:SetFrameLevel(10)
-        frame:SetPoint("TOPLEFT", 3, -3)
-        frame:SetPoint("BOTTOMRIGHT", -3, -1)
+        frame:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 3, 0)
+        frame:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", -3, 0)
+        frame:SetHeight(18)
         frame.Background = frame:CreateTexture("$parentBackground", "BACKGROUND")
         frame.Background:SetAllPoints()
-        frame.Background:SetColorTexture(0.1, 0.1, 0.1, 0.3)
+        frame.Background:SetColorTexture(0.4, 0.1, 0.1, 0.8)
         frame.Title = frame:CreateFontString("$parentTitle", "ARTWORK", "GameFontHighlight")
         frame.Title:SetPoint("CENTER")
         frame.Title:SetText(L["dialog.cancelOldestApp"])
