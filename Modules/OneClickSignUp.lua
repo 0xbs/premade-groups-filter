@@ -22,7 +22,7 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local MAX_LFG_LIST_APPLICATIONS = 0 -- for testing
+--local MAX_LFG_LIST_APPLICATIONS = 0 -- for testing
 
 function PGF.GetOldestApplicationResultID()
     local oldestResultID = 0
