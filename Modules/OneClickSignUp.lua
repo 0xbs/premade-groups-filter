@@ -26,16 +26,11 @@ local C = PGF.C
 
 function PGF.GetOldestApplicationResultID()
     local oldestResultID = 0
-    local oldestAppDuration = 0
+    local oldestAppDuration = 999 -- duration is max 300 seconds
     local apps = C_LFGList.GetApplications()
-    -- loop backwards through the results list so we can remove elements from the table
-    for i = #apps, 1, -1 do
+    for i = 1, #apps do
         local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(apps[i])
-        -- we want to make sure not to cancel an invite or any pendingStatus
-        if appStatus == "invited" and not pendingStatus then
-            table.remove(apps, i)
-        end
-        if appDuration > oldestAppDuration then
+        if appStatus == "applied" and not pendingStatus and appDuration < oldestAppDuration then
             oldestResultID = apps[i]
             oldestAppDuration = appDuration
         end
@@ -58,7 +53,7 @@ hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
         frame:SetPoint("BOTTOMRIGHT", -3, -1)
         frame.Background = frame:CreateTexture("$parentBackground", "BACKGROUND")
         frame.Background:SetAllPoints()
-        frame.Background:SetColorTexture(0.1, 0.1, 0.1, 0.8)
+        frame.Background:SetColorTexture(0.1, 0.1, 0.1, 0.3)
         frame.Title = frame:CreateFontString("$parentTitle", "ARTWORK", "GameFontHighlight")
         frame.Title:SetPoint("CENTER")
         frame.Title:SetText(L["dialog.cancelOldestApp"])
@@ -88,7 +83,7 @@ end)
 hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
     local panel = LFGListFrame.SearchPanel
 
-    if PremadeGroupsFilterSettings.cancelOldestApp then
+    if PremadeGroupsFilterSettings.cancelOldestApp and button ~= "RightButton" then
         -- if we already have max applications pending, cancel oldest application before signing up
         local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
         if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
@@ -102,8 +97,8 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
         end
     end
 
-    if not PremadeGroupsFilterSettings.oneClickSignUp then return end
-    if button ~= "RightButton" and LFGListSearchPanelUtil_CanSelectResult(self.resultID) and panel.SignUpButton:IsEnabled() then
+    if PremadeGroupsFilterSettings.oneClickSignUp and button ~= "RightButton"
+            and LFGListSearchPanelUtil_CanSelectResult(self.resultID) and panel.SignUpButton:IsEnabled() then
         if panel.selectedResult ~= self.resultID then
             LFGListSearchPanel_SelectResult(panel, self.resultID)
         end
