@@ -37,9 +37,11 @@ Examples of what can easily be found with Premade Groups Filter:
 * **Bar in Class Color** - Shows a small bar in class color below each role in the premade dungeon group list.
 * **Show Group Leader** - Shows a small crown above the group leader's role in the premade dungeon group list.
 * **Group Leader Rating** - Shows the Mythic+ or PvP rating of the group leader in the premade group list.
+* **Rating in Raider.IO Colors** - Use the Raider.IO rating color scheme for Mythic+ ratings if the Raider.IO addon is loaded.
 * **Show Specialization** - Shows an icon with the class specialization of each member in the premade group list.
 * **Show Missing Roles** - Shows the role icon of each empty slot in the premade group list.
 * **One Click Sign Up** - Sign up for a group directly by clicking on it, instead of selecting it first, then clicking sign up.
+* **Cancel Oldest Application** - If you have the maximum number of pending applications, click on any group to cancel your oldest application first, then click again to apply.
 * **Persist Sign Up Note** - Persists the 'note to the group leader' when signing up to different groups. By default, the note is deleted when a new group is selected.
 * **Sign Up On Enter** - Automatically focus the 'note to the group leader' text box when signing up for a new group and confirm your application by pressing enter.
 * **Skip Sign Up Dialog** - Skip the role and note prompt if possible and immediately sign up to the group. Hold shift to always show the dialog.
