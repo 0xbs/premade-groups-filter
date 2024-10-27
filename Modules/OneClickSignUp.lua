@@ -24,7 +24,7 @@ local C = PGF.C
 
 --local MAX_LFG_LIST_APPLICATIONS = 0 -- for testing
 
-function PGF.GetOldestApplicationResultID()
+local function GetOldestApplicationResultID()
     local oldestResultID = 0
     local oldestAppDuration = 999 -- duration is max 300 seconds
     local apps = C_LFGList.GetApplications()
@@ -36,6 +36,19 @@ function PGF.GetOldestApplicationResultID()
         end
     end
     return oldestResultID
+end
+
+--- Determine if we can and should cancel one of the pending application, i.e.
+--- if we are at max application and we are hovering a group that we can apply to.
+local function ShouldCancelApplication(resultID)
+    local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
+    if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
+        local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
+        local isApplication = appStatus ~= "none" or pendingStatus
+        local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
+        return not isApplication and not searchResultInfo.isDelisted
+    end
+    return false
 end
 
 PGF.clickToCancelFrames = {}
@@ -62,13 +75,8 @@ hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
         clickToCancelFrame = frame
     end
 
-    local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
-    if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
-        local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(self.resultID)
-        local isApplication = appStatus ~= "none" or pendingStatus
-        if not isApplication then
-            clickToCancelFrame:Show()
-        end
+    if ShouldCancelApplication(self.resultID) then
+        clickToCancelFrame:Show()
     end
 end)
 
@@ -86,9 +94,8 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
 
     if PremadeGroupsFilterSettings.cancelOldestApp and button ~= "RightButton" then
         -- if we already have max applications pending, cancel oldest application before signing up
-        local numApplications, numActiveApplications = C_LFGList.GetNumApplications()
-        if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
-            local oldestResultID = PGF.GetOldestApplicationResultID()
+        if ShouldCancelApplication(self.resultID) then
+            local oldestResultID = GetOldestApplicationResultID()
             if oldestResultID > 0 then
                 PGF.Logger:Debug("Canceling application "..oldestResultID)
                 C_LFGList.CancelApplication(oldestResultID) -- required hardware event
