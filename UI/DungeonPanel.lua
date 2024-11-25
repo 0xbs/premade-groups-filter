@@ -30,16 +30,6 @@ local DIFFICULTY_TEXT = {
 }
 
 local CMID_MAP = {
-    -- Dragonflight Season 4
-    [402] = { order = 1, activityGroupID = 302, keyword = "aa"   }, -- Algeth'ar Academy
-    [401] = { order = 2, activityGroupID = 307, keyword = "av"   }, -- The Azure Vault
-    [405] = { order = 3, activityGroupID = 303, keyword = "bh"   }, -- Brackenhide Hollow
-    [406] = { order = 4, activityGroupID = 304, keyword = "hoi"  }, -- Halls of Infusion
-    [404] = { order = 5, activityGroupID = 305, keyword = "nelt" }, -- Neltharus
-    [400] = { order = 6, activityGroupID = 308, keyword = "no"   }, -- The Nokhud Offensive
-    [399] = { order = 7, activityGroupID = 306, keyword = "rlp"  }, -- Ruby Life Pools
-    [403] = { order = 8, activityGroupID = 309, keyword = "uld"  }, -- Uldaman: Legacy of Tyr
-
     -- The War Within Season 1
     [503] = { order = 1, activityGroupID = 323, keyword = "arak"  }, -- Ara-Kara, City of Echoes
     [502] = { order = 2, activityGroupID = 329, keyword = "cot"   }, -- City of Threads
@@ -55,6 +45,10 @@ local CMID_MAP = {
     [504] = { order = 2, activityGroupID = 322, keyword = "dfc"  }, -- Darkflame Cleft
     [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
     [500] = { order = 4, activityGroupID = 325, keyword = "rook" }, -- The Rookery
+    [999] = { order = 5, activityGroupID = 999, keyword = "fg"   }, -- Operation: Floodgate
+    [382] = { order = 6, activityGroupID = 266, keyword = "top"  }, -- Theater of Pain
+    [247] = { order = 7, activityGroupID = 140, keyword = "ml"   }, -- The MOTHERLODE!!
+    [370] = { order = 8, activityGroupID = 257, keyword = "work" }, -- Operation: Mechagon - Workshop
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
