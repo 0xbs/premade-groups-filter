@@ -73,6 +73,7 @@ function PGF.GetMemberCountsAfterJoin(memberCounts)
     -- not in group
     if numGroupMembers == 0 then
         local role = GetSpecializationRole(GetSpecialization())
+        if not role then role = "DAMAGER" end
         local roleRemaining = C.ROLE_REMAINING_KEYS[role]
         memberCountsAfterJoin[role] = (memberCountsAfterJoin[role] or 0) + 1
         memberCountsAfterJoin[roleRemaining] = (memberCountsAfterJoin[roleRemaining] or 0) - 1
@@ -82,7 +83,7 @@ function PGF.GetMemberCountsAfterJoin(memberCounts)
     for i = 1, numGroupMembers do
         local unit = (i == 1) and "player" or (groupType .. (i - 1))
         local role = UnitGroupRolesAssigned(unit)
-        if role == "NONE" then role = "DAMAGER" end
+        if not role or role == "NONE" then role = "DAMAGER" end
         local roleRemaining = C.ROLE_REMAINING_KEYS[role]
         memberCountsAfterJoin[role] = (memberCountsAfterJoin[role] or 0) + 1
         memberCountsAfterJoin[roleRemaining] = (memberCountsAfterJoin[roleRemaining] or 0) - 1
