@@ -146,7 +146,8 @@ function PGF.IsMostLikelySameInstance(instanceName, activityName)
 
     -- check word by word if every word of the activityName is contained in the instanceName
     for token in string.gmatch(activityNameWithoutDifficulty, "[^%s]+") do
-        if not string.find(instanceNameLower, token) then return false end
+        -- We want to use "plain" matching here as "Nerub-ar Palace" has a dash in it which is a special char
+        if not string.find(instanceNameLower, token, 1, true) then return false end
     end
 
     return true
