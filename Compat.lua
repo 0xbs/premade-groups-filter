@@ -38,18 +38,31 @@ function PGF.GetSearchResultInfo(resultID)
     return searchResultInfo
 end
 
+function PGF.GetSearchResultPlayerInfo(...)
+    if PGF.IsRetail() then
+        return C_LFGList.GetSearchResultPlayerInfo(...)
+    else
+        local role, class, classLocalized, specLocalized, isLeader = C_LFGList.GetSearchResultMemberInfo(...)
+        return {
+            assignedRole = role, -- e.g. "HEALER"
+            classFilename = class, -- e.g. "SHAMAN"
+            className = classLocalized, -- e.g. "Schamane"
+            specName = specLocalized, -- e.g. "Wiederherstellung"
+            isLeader = isLeader or false,
+            name = nil, -- actual player name
+            level = 0, -- player level
+            lfgRoles = {
+                tank = false,
+                dps = false,
+                healer = false,
+            }
+        }
+    end
+end
+
 function PGF.GetSearchResultMemberInfo(...)
     if PGF.IsRetail() then
         local info = C_LFGList.GetSearchResultPlayerInfo(...)
-        -- DevTools_Dump(info)
-        -- assignedRole="HEALER"
-        -- classFilename="SHAMAN"
-        -- className="Schamane"
-        -- specName="Wiederherstellung"
-        -- isLeader=false
-        -- name="Foo"
-        -- level=80
-        -- lfgRoles = { tank=false, dps=false, healer=false }
         if info then
             return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
         end
