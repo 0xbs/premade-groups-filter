@@ -25,13 +25,13 @@ local C = PGF.C
 function PGF.GetSearchResultInfo(resultID)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
     if PGF.IsRetail() then
-        if searchResultInfo.activityIDs and searchResultInfo.activityIDs[1] then
+        if searchResultInfo.activityIDs then
             searchResultInfo.activityID = searchResultInfo.activityIDs[1]
         end
-        if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo[1] then
+        if searchResultInfo.leaderDungeonScoreInfo then
             searchResultInfo.leaderDungeonScoreInfo = searchResultInfo.leaderDungeonScoreInfo[1]
         end
-        if searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo[1] then
+        if searchResultInfo.leaderPvpRatingInfo then
             searchResultInfo.leaderPvpRatingInfo = searchResultInfo.leaderPvpRatingInfo[1]
         end
     end
@@ -41,6 +41,15 @@ end
 function PGF.GetSearchResultMemberInfo(...)
     if PGF.IsRetail() then
         local info = C_LFGList.GetSearchResultPlayerInfo(...)
+        -- DevTools_Dump(info)
+        -- assignedRole="HEALER"
+        -- classFilename="SHAMAN"
+        -- className="Schamane"
+        -- specName="Wiederherstellung"
+        -- isLeader=false
+        -- name="Foo"
+        -- level=80
+        -- lfgRoles = { tank=false, dps=false, healer=false }
         if info then
             return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
         end
