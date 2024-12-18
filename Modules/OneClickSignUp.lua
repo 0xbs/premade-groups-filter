@@ -45,7 +45,7 @@ local function ShouldCancelApplication(resultID)
     if numActiveApplications >= MAX_LFG_LIST_APPLICATIONS then
         local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
         local isApplication = appStatus ~= "none" or pendingStatus
-        local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
+        local searchResultInfo = PGF.GetSearchResultInfo(resultID)
         return not isApplication and not searchResultInfo.isDelisted
     end
     return false

@@ -193,8 +193,8 @@ function PGF.DoFilterSearchResults(results)
     -- loop backwards through the results list so we can remove elements from the table
     for idx = #results, 1, -1 do
         local resultID = results[idx]
-        local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
-        -- /dump C_LFGList.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
+        local searchResultInfo = PGF.GetSearchResultInfo(resultID)
+        -- /dump PGF.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
         -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
         local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
         -- /dump C_LFGList.GetApplicationInfo(select(2, C_LFGList.GetSearchResults())[1])
@@ -401,7 +401,7 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
-    local searchResultInfo = C_LFGList.GetSearchResultInfo(self.resultID)
+    local searchResultInfo = PGF.GetSearchResultInfo(self.resultID)
     --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)

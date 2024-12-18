@@ -22,29 +22,18 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
-local didApplyPatch = false
-local originalFunc = LFGListApplicationDialog_Show
-local patchedFunc = function(self, resultID)
-    if resultID then
-        local searchResultInfo = PGF.GetSearchResultInfo(resultID);
-        --if ( searchResultInfo.activityID ~= self.activityID ) then
-        --    C_LFGList.ClearApplicationTextFields();
-        --end
-
-        self.resultID = resultID;
-        self.activityID = searchResultInfo.activityID;
+function PGF.GetSearchResultInfo(resultID)
+    local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
+    if PGF.IsRetail() then
+        if searchResultInfo.activityIDs and searchResultInfo.activityIDs[1] then
+            searchResultInfo.activityID = searchResultInfo.activityIDs[1]
+        end
+        if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo[1] then
+            searchResultInfo.leaderDungeonScoreInfo = searchResultInfo.leaderDungeonScoreInfo[1]
+        end
+        if searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo[1] then
+            searchResultInfo.leaderPvpRatingInfo = searchResultInfo.leaderPvpRatingInfo[1]
+        end
     end
-    LFGListApplicationDialog_UpdateRoles(self);
-    StaticPopupSpecial_Show(self);
-end
-
-function PGF.PersistSignUpNote()
-    if PremadeGroupsFilterSettings.persistSignUpNote then
-        -- overwrite function with patched func missing the call to ClearApplicationTextFields
-        LFGListApplicationDialog_Show = patchedFunc
-        didApplyPatch = true
-    elseif didApplyPatch then
-        -- restore previously overwritten function
-        LFGListApplicationDialog_Show = originalFunc
-    end
+    return searchResultInfo
 end
