@@ -18,6 +18,7 @@
 ## OptionalDeps: PremadeRegions, RaiderIO
 
 Init.lua
+Compat.lua
 Localization\enUS.lua
 Localization\frFR.lua
 Localization\deDE.lua
@@ -34,7 +35,6 @@ UI\StaticPopup.lua
 Modules\Util.lua
 Modules\Activity.lua
 Modules\ActivityKeywords.lua
-Modules\SearchResultInfo.lua
 Modules\AdvancedFilter.lua
 Modules\Specializations.lua
 Modules\MemberInfo.lua

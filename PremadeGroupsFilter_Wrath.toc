@@ -17,6 +17,7 @@
 ## OptionalDeps: PremadeRegions, RaiderIO
 
 Init.lua
+Compat.lua
 Localization\enUS.lua
 Localization\frFR.lua
 Localization\deDE.lua
@@ -32,7 +33,6 @@ UI\StaticPopup.lua
 Modules\Util.lua
 Modules\Activity_Wrath.lua
 Modules\ActivityKeywords.lua
-Modules\SearchResultInfo.lua
 Modules\MemberInfo_Wrath.lua
 #   Modules\RemainingSlots.lua
 Modules\ApplicationStatus.lua
