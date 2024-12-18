@@ -209,13 +209,13 @@ function PGF.DoFilterSearchResults(results)
         --   <nil> ◀──▶ applied ──▶ cancelled
         local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
         local numGroupDefeated, numPlayerDefeated, maxBosses,
-              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
-        local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityIDs[1], resultID)
+        local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityIDs[1])
 
-        local difficulty = C.ACTIVITY[searchResultInfo.activityID].difficulty
+        local difficulty = C.ACTIVITY[searchResultInfo.activityIDs[1]].difficulty
 
         local env = {}
-        env.activity = searchResultInfo.activityID
+        env.activity = searchResultInfo.activityIDs[1]
         env.activityname = activityInfo.fullName:lower()
         env.leader = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
         env.age = math.floor(searchResultInfo.age / 60) -- age in minutes
@@ -265,23 +265,23 @@ function PGF.DoFilterSearchResults(results)
         env.mpmapname   = ""
         env.mpmapmaxkey = 0
         env.mpmapintime = false
-        if searchResultInfo.leaderDungeonScoreInfo then
-            env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
-            env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
-            env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
-            env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
+        if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo[1] then
+            env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo[1].mapScore
+            env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo[1].mapName
+            env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo[1].bestRunLevel
+            env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo[1].finishedSuccess
         end
         env.pvpactivityname = ""
         env.pvprating = 0
         env.pvptierx = 0
         env.pvptier = 0
         env.pvptiername = ""
-        if searchResultInfo.leaderPvpRatingInfo then
-            env.pvpactivityname = searchResultInfo.leaderPvpRatingInfo.activityName
-            env.pvprating       = searchResultInfo.leaderPvpRatingInfo.rating
-            env.pvptierx        = searchResultInfo.leaderPvpRatingInfo.tier
-            env.pvptier         = C.PVP_TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier].tier
-            env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo.tier)
+        if searchResultInfo.leaderPvpRatingInfo and searchResultInfo.leaderPvpRatingInfo[1] then
+            env.pvpactivityname = searchResultInfo.leaderPvpRatingInfo[1].activityName
+            env.pvprating       = searchResultInfo.leaderPvpRatingInfo[1].rating
+            env.pvptierx        = searchResultInfo.leaderPvpRatingInfo[1].tier
+            env.pvptier         = C.PVP_TIER_MAP[searchResultInfo.leaderPvpRatingInfo[1].tier].tier
+            env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo[1].tier)
         end
         env.horde = searchResultInfo.leaderFactionGroup == 0
         env.alliance = searchResultInfo.leaderFactionGroup == 1
@@ -317,17 +317,17 @@ function PGF.DoFilterSearchResults(results)
         env.myilvl = playerInfo.avgItemLevelEquipped
         env.myilvlpvp = playerInfo.avgItemLevelPvp
         env.mymprating = playerInfo.mymprating
-        env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityID] or 0
-        env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityID] or 0
+        env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityIDs[1]] or 0
+        env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityIDs[1]] or 0
         env.myavgaffixrating = playerInfo.avgAffixRating
         env.mymedianaffixrating = playerInfo.medianAffixRating
         env.myavgdungeonrating = playerInfo.avgDungeonRating
         env.mymediandungeonrating = playerInfo.medianDungeonRating
 
-        PGF.PutActivityKeywords(env, searchResultInfo.activityID)
+        PGF.PutActivityKeywords(env, searchResultInfo.activityIDs[1])
 
         if PGF.PutRaiderIOMetrics then
-            PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, searchResultInfo.activityID)
+            PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, searchResultInfo.activityIDs[1])
         end
         if PGF.PutPremadeRegionInfo then
             PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
@@ -387,7 +387,7 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
         end
         -- color activity if lockout
         local numGroupDefeated, numPlayerDefeated, maxBosses,
-              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, self.resultID)
+              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityIDs[1], self.resultID)
         local color
         if numPlayerDefeated > 0 and numPlayerDefeated == maxBosses then
             color = C.COLOR_LOCKOUT_FULL

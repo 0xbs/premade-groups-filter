@@ -72,7 +72,7 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
     if not PremadeGroupsFilterSettings.classNamesInTooltip then return end
 
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
-    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityIDs[1])
 
     -- do not show members where Blizzard already does that
     if activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate then return end
