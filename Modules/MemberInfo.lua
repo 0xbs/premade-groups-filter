@@ -38,7 +38,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             if specInfo.role == "DAMAGER" then
@@ -95,7 +95,7 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized, isLeader = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized, isLeader = PGF.GetSearchResultMemberInfo(resultID, i)
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             local memberInfo = PGF.Table_Copy_Shallow(specInfo)

@@ -109,7 +109,7 @@ function PGF.GetAllSpecializations()
 end
 
 --- Attemps to get the correct specialization info based on the class and localized specialization name
---- as returned by C_LFGList.GetSearchResultMemberInfo
+--- as returned by PGF.GetSearchResultMemberInfo
 function PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
     for specID, specInfo in pairs(specs) do
         if specInfo.class == class and specInfo.specLocalized == specLocalized then

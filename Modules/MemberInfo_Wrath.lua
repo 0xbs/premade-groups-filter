@@ -43,7 +43,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
-        local role, class = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class = PGF.GetSearchResultMemberInfo(resultID, i)
         local classKeyword = class:lower() .. "s" -- plural form of the class in english
         env[classKeyword] = env[classKeyword] + 1
         local armor = C.DPS_CLASS_TYPE[class].armor
@@ -74,7 +74,7 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
         local classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
         table.insert(members, {
             -- retail version holds many more fields based on the specialization

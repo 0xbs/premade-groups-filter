@@ -37,3 +37,14 @@ function PGF.GetSearchResultInfo(resultID)
     end
     return searchResultInfo
 end
+
+function PGF.GetSearchResultMemberInfo(...)
+    if PGF.IsRetail() then
+        local info = C_LFGList.GetSearchResultPlayerInfo(...)
+        if info then
+            return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
+        end
+    else
+        return C_LFGList.GetSearchResultMemberInfo(...)
+    end
+end

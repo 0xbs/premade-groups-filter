@@ -45,7 +45,7 @@ function PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
     local roles = {}
     local classInfo = {}
     for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized = C_LFGList.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
         if role and class then -- can be nil, see #297
             classInfo[class] = {
                 name = classLocalized or "?",
