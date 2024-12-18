@@ -27,12 +27,12 @@ local originalFunc = LFGListApplicationDialog_Show
 local patchedFunc = function(self, resultID)
     if resultID then
         local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID);
-        --if ( searchResultInfo.activityIDs[1] ~= self.activityID ) then
+        --if ( searchResultInfo.activityID ~= self.activityID ) then
         --    C_LFGList.ClearApplicationTextFields();
         --end
 
         self.resultID = resultID;
-        self.activityID = searchResultInfo.activityIDs[1];
+        self.activityID = searchResultInfo.activityID;
     end
     LFGListApplicationDialog_UpdateRoles(self);
     StaticPopupSpecial_Show(self);
