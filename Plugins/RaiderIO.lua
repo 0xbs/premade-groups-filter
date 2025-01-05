@@ -54,10 +54,13 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
     env.rioprev           = 0
     env.riomain           = 0
     env.riomainprev       = 0
-    env.riokey5plus       = 0
+    env.riowarband        = 0
+    env.riowarbandprev    = 0
+    env.riokey4plus       = 0
+    env.riokey7plus       = 0
     env.riokey10plus      = 0
+    env.riokey12plus      = 0
     env.riokey15plus      = 0
-    env.riokey20plus      = 0
     env.riokeymax         = 0
     env.rionormalprogress = 0
     env.rioheroicprogress = 0
@@ -66,7 +69,6 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
     env.rionormalkills    = {}
     env.rioheroickills    = {}
     env.riomythickills    = {}
-    env.rioraidbosscount  = 0
     setmetatable(env.rionormalkills, { __index = function() return 0 end })
     setmetatable(env.rioheroickills, { __index = function() return 0 end })
     setmetatable(env.riomythickills, { __index = function() return 0 end })
@@ -81,20 +83,20 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
         env.norio = false
         if result.mythicKeystoneProfile then
             local p = result.mythicKeystoneProfile
-            env.rio          = p.mplusCurrent and p.mplusCurrent.score or 0
-            env.rioprev      = p.mplusPrevious and p.mplusPrevious.score or 0
-            env.riomain      = p.mplusMainCurrent and p.mplusMainCurrent.score or 0
-            env.riomainprev  = p.mplusMainPrevious and p.mplusMainPrevious.score or 0
-            env.riokey5plus  = p.keystoneFivePlus or 0
-            env.riokey10plus = p.keystoneTenPlus or 0
-            env.riokey15plus = p.keystoneFifteenPlus or 0
-            env.riokey20plus = p.keystoneTwentyPlus or 0
-            env.riokeymax    = p.maxDungeonLevel or 0
+            env.rio            = p.mplusCurrent and p.mplusCurrent.score or 0
+            env.rioprev        = p.mplusPrevious and p.mplusPrevious.score or 0
+            env.riomain        = p.mplusMainCurrent and p.mplusMainCurrent.score or 0
+            env.riomainprev    = p.mplusMainPrevious and p.mplusMainPrevious.score or 0
+            env.riowarband     = p.mplusWarbandCurrent and p.mplusWarbandCurrent.score or 0
+            env.riowarbandprev = p.mplusWarbandPrevious and p.mplusWarbandPrevious.score or 0
+            env.riokey4plus    = p.keystoneMilestone4 or 0
+            env.riokey7plus    = p.keystoneMilestone7 or 0
+            env.riokey10plus   = p.keystoneMilestone10 or 0
+            env.riokey12plus   = p.keystoneMilestone12 or 0
+            env.riokey15plus   = p.keystoneMilestone15 or 0
+            env.riokeymax      = p.maxDungeonLevel or 0
         end
         if result.raidProfile then
-            if result.raidProfile.currentRaid then
-                env.rioraidbosscount = result.raidProfile.currentRaid.bossCount
-            end
             if result.raidProfile.mainProgress and type(result.raidProfile.mainProgress) == "table" then
                 for _, mainProgress in pairs(result.raidProfile.mainProgress) do
                     env.riomainprogress = math.max(env.riomainprogress, mainProgress.progressCount)
