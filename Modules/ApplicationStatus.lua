@@ -87,7 +87,7 @@ function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)
     if newStatus == "declined" then
         PGF.hardDeclinedGroups[key] = time()
         PGF.HandleLFGListFrameDeclineStatus(key)
-    elseif newStatus == "declined_delisted" or newStatus == "timedout" then
+    elseif newStatus == "declined_delisted" or newStatus == "declined_full" or newStatus == "timedout" then
         PGF.softDeclinedGroups[key] = time()
         PGF.HandleLFGListFrameDeclineStatus(key)
     elseif newStatus == "cancelled" then
