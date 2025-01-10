@@ -45,7 +45,7 @@ local CMID_MAP = {
     [504] = { order = 2, activityGroupID = 322, keyword = "dfc"  }, -- Darkflame Cleft
     [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
     [500] = { order = 4, activityGroupID = 325, keyword = "rook" }, -- The Rookery
-    [999] = { order = 5, activityGroupID = 999, keyword = "fg"   }, -- Operation: Floodgate
+    [525] = { order = 5, activityGroupID = 371, keyword = "fg"   }, -- Operation: Floodgate
     [382] = { order = 6, activityGroupID = 266, keyword = "top"  }, -- Theater of Pain
     [247] = { order = 7, activityGroupID = 140, keyword = "ml"   }, -- The MOTHERLODE!!
     [370] = { order = 8, activityGroupID = 257, keyword = "work" }, -- Operation: Mechagon - Workshop

@@ -246,6 +246,19 @@ C.ACTIVITY = {
     [1532] = { difficulty = 1, category = 114, mapID =  754 }, -- Throne of the Four Winds (25 Normal)
     [1533] = { difficulty = 2, category = 114, mapID =  754 }, -- Throne of the Four Winds (10 Heroicl)
     [1534] = { difficulty = 2, category = 114, mapID =  754 }, -- Throne of the Four Winds (25 Heroic)
+    [1586] = { difficulty = 1, category = 114, mapID =  720 }, -- Firelands (10 Normal)
+    [1587] = { difficulty = 1, category = 114, mapID =  720 }, -- Firelands (25 Normal)
+    [1588] = { difficulty = 2, category = 114, mapID =  720 }, -- Firelands (10 Heroic)
+    [1589] = { difficulty = 2, category = 114, mapID =  720 }, -- Firelands (25 Heroic)
+    [1590] = { difficulty = 2, category =   2, mapID =  643 }, -- Throne of the Tides (Elemental Rune Inferno)
+    [1591] = { difficulty = 2, category =   2, mapID =  657 }, -- The Vortex Pinnacle (Elemental Rune Inferno)
+    [1592] = { difficulty = 2, category =   2, mapID =  725 }, -- The Stonecore (Elemental Rune Inferno)
+    [1593] = { difficulty = 2, category =   2, mapID =   33 }, -- Shadowfang Keep (Elemental Rune Inferno)
+    [1594] = { difficulty = 2, category =   2, mapID =  755 }, -- Lost City of the Tol'vir (Elemental Rune Inferno)
+    [1595] = { difficulty = 2, category =   2, mapID =  644 }, -- Halls of Origination (Elemental Rune Inferno)
+    [1596] = { difficulty = 2, category =   2, mapID =  670 }, -- Grim Batol (Elemental Rune Inferno)
+    [1597] = { difficulty = 2, category =   2, mapID =   36 }, -- Deadmines (Elemental Rune Inferno)
+    [1598] = { difficulty = 2, category =   2, mapID =  645 }, -- Blackrock Caverns (Elemental Rune Inferno)
 }
 
 -- Return a default set if activity not found

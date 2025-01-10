@@ -555,6 +555,18 @@ C.ACTIVITY = {
     [1519] = { difficulty = 2, category = 2, mapID = 2662, cmID =   0 }, -- The Dawnbreaker (Heroic)
     [1521] = { difficulty = 2, category = 2, mapID = 2652, cmID =   0 }, -- The Stonevault (Heroic)
     [1535] = { difficulty = 1, category = 2, mapID = 2652, cmID =   0 }, -- The Stonevault (Normal)
+    [1543] = { difficulty = 1, category = 2, mapID = 2521, cmID =   0 }, -- The Waterworks (Normal)
+    [1544] = { difficulty = 2, category = 2, mapID = 2521, cmID =   0 }, -- The Waterworks (Heroic)
+    [1547] = { difficulty = 1, category = 2, mapID = 2773, cmID =   0 }, -- Operation: Floodgate (Normal)
+    [1548] = { difficulty = 2, category = 2, mapID = 2773, cmID =   0 }, -- Operation: Floodgate (Heroic)
+    [1549] = { difficulty = 3, category = 2, mapID = 2773, cmID =   0 }, -- Operation: Floodgate (Mythic)
+    [1550] = { difficulty = 4, category = 2, mapID = 2773, cmID = 525 }, -- Operation: Floodgate (Mythic Keystone)
+    [1551] = { difficulty = 1, category = 3, mapID = 2792, cmID =   0 }, -- Blackrock Depths (Normal)
+    [1552] = { difficulty = 2, category = 3, mapID = 2792, cmID =   0 }, -- Blackrock Depths (Heroic)
+    [1600] = { difficulty = 2, category = 3, mapID = 2769, cmID =   0 }, -- Liberation of Undermine (Heroic)
+    [1601] = { difficulty = 1, category = 3, mapID = 2769, cmID =   0 }, -- Liberation of Undermine (Normal)
+    [1602] = { difficulty = 3, category = 3, mapID = 2769, cmID =   0 }, -- Liberation of Undermine (Mythic)
+    [1616] = { difficulty = 3, category = 2, mapID = 2097, cmID =   0 }, -- Mechagon Workshop (Mythic)
 }
 
 -- Return a default set if activity not found
