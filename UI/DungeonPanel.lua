@@ -72,6 +72,14 @@ local stripPrefixes = {
     "^무한의 여명: ",                -- Korean
     "^恆龍黎明：",                   -- Traditional Chinese
     "^永恒黎明：",                   -- Simplified Chinese
+    -- Mechagon/Floodgate
+    "^Operation: ",  -- English/German
+    "^Operación: ",  -- Spanish
+    "^Opération ",   -- French
+    "^Operazione: ", -- Italian
+    "^Operação: ",   -- Portugues
+    "^Операция ",    -- Russian
+    "^작전명: ",      -- Korean
     -- Articles
     "^The ",      -- English
     "^Der ",      -- German
