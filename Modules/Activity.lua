@@ -367,7 +367,7 @@ C.ACTIVITY = {
     [ 543] = { difficulty = 1, category = 2, mapID = 1763, cmID =   0 }, -- Atal'Dazar (Normal)
     [ 644] = { difficulty = 3, category = 2, mapID = 1841, cmID =   0 }, -- The Underrot (Mythic)
     [ 645] = { difficulty = 3, category = 2, mapID = 1877, cmID =   0 }, -- Temple of Sethraliss (Mythic)
-    [ 646] = { difficulty = 4, category = 2, mapID = 1594, cmID = 247 }, -- THE MOTHERLODE (Mythic)
+    [ 646] = { difficulty = 3, category = 2, mapID = 1594, cmID =   0 }, -- THE MOTHERLODE (Mythic)
     [ 658] = { difficulty = 3, category = 2, mapID = 1822, cmID =   0 }, -- Siege of Boralus (Mythic)
     [ 659] = { difficulty = 4, category = 2, mapID = 1822, cmID = 353 }, -- Siege of Boralus (Mythic Keystone)
     [ 660] = { difficulty = 3, category = 2, mapID = 1762, cmID =   0 }, -- Kings' Rest (Mythic)

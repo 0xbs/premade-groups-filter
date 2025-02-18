@@ -259,6 +259,15 @@ C.ACTIVITY = {
     [1596] = { difficulty = 2, category =   2, mapID =  670 }, -- Grim Batol (Elemental Rune Inferno)
     [1597] = { difficulty = 2, category =   2, mapID =   36 }, -- Deadmines (Elemental Rune Inferno)
     [1598] = { difficulty = 2, category =   2, mapID =  645 }, -- Blackrock Caverns (Elemental Rune Inferno)
+    [1684] = { difficulty = 2, category =   2, mapID =  643 }, -- Throne of the Tides (Elemental Rune Twilight)
+    [1685] = { difficulty = 2, category =   2, mapID =  657 }, -- The Vortex Pinnacle (Elemental Rune Twilight)
+    [1686] = { difficulty = 2, category =   2, mapID =  725 }, -- The Stonecore (Elemental Rune Twilight)
+    [1687] = { difficulty = 2, category =   2, mapID =   33 }, -- Shadowfang Keep (Elemental Rune Twilight)
+    [1688] = { difficulty = 2, category =   2, mapID =  755 }, -- Lost City of the Tol'vir (Elemental Rune Twilight)
+    [1689] = { difficulty = 2, category =   2, mapID =  644 }, -- Halls of Origination (Elemental Rune Twilight)
+    [1690] = { difficulty = 2, category =   2, mapID =  670 }, -- Grim Batol (Elemental Rune Twilight)
+    [1691] = { difficulty = 2, category =   2, mapID =   36 }, -- Deadmines (Elemental Rune Twilight)
+    [1692] = { difficulty = 2, category =   2, mapID =  645 }, -- Blackrock Caverns (Elemental Rune Twilight)
 }
 
 -- Return a default set if activity not found
