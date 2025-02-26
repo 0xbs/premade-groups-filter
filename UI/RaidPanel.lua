@@ -169,6 +169,6 @@ end
 RaidPanel:OnLoad()
 PGF.Dialog:RegisterPanel("c3f5", RaidPanel) -- Retail
 PGF.Dialog:RegisterPanel("c3f6", RaidPanel) -- Retail
-PGF.Dialog:RegisterPanel("c114f4", RaidPanel) -- Wrath
-PGF.Dialog:RegisterPanel("c114f5", RaidPanel) -- Wrath
-PGF.Dialog:RegisterPanel("c114f6", RaidPanel) -- Wrath
+PGF.Dialog:RegisterPanel("c114f4", RaidPanel) -- Classic
+PGF.Dialog:RegisterPanel("c114f5", RaidPanel) -- Classic
+PGF.Dialog:RegisterPanel("c114f6", RaidPanel) -- Classic

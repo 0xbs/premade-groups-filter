@@ -73,23 +73,23 @@ setmetatable(C.DIFFICULTY_MAP, { __index = function() return 0 end })
 
 -- corresponds to the third parameter of C_LFGList.GetActivityInfoTable().categoryID
 C.CATEGORY_ID = {
-    QUESTING           = 1,
-    DUNGEON            = 2,
-    RAID               = 3,
-    ARENA              = 4,
-    SCENARIO           = 5,
-    CUSTOM             = 6, -- both PvE and PvP
-    SKIRMISH           = 7,
-    BATTLEGROUND       = 8,
-    RATED_BATTLEGROUND = 9,
-    ASHRAN             = 10,
-    ISLAND             = 111,
-    THORGAST           = 113,
-    WRATH_RAID         = 114,
-    WRATH_QUESTING     = 116,
-    WRATH_BATTLEGROUND = 118,
-    WRATH_CUSTOM       = 120,
-    DELVES             = 121,
+    QUESTING             = 1,
+    DUNGEON              = 2,
+    RAID                 = 3,
+    ARENA                = 4,
+    SCENARIO             = 5,
+    CUSTOM               = 6, -- both PvE and PvP
+    SKIRMISH             = 7,
+    BATTLEGROUND         = 8,
+    RATED_BATTLEGROUND   = 9,
+    ASHRAN               = 10,
+    ISLAND               = 111,
+    THORGAST             = 113,
+    CLASSIC_RAID         = 114,
+    CLASSIC_QUESTING     = 116,
+    CLASSIC_BATTLEGROUND = 118,
+    CLASSIC_CUSTOM       = 120,
+    DELVES               = 121,
 }
 
 C.DIFFICULTY_KEYWORD = {
@@ -182,7 +182,6 @@ end })
 local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local flavor = GetAddOnMetadata(PGFAddonName, "X-Flavor")
 function PGF.IsRetail() return flavor == "Retail" end
-function PGF.IsWrath() return flavor == "Wrath" end
 function PGF.IsCata() return flavor == "Cata" end
 function PGF.SupportsMythicPlus() return PGF.IsRetail() end -- Mythic Plus (as opposed to Challenge Mode with gear scaling) is supported from Legion onwards
 function PGF.SupportsSpecializations() return PGF.IsRetail() end -- Specialization (as opposed to free talent trees) are supported from Mists of Pandaria onwards
@@ -314,9 +313,9 @@ function PGF.OnAddonLoaded(name)
                 c2f4 = { enabled = true, }, -- Dungeons
                 c3f5 = { enabled = true, }, -- Raids
                 c3f6 = { enabled = true, }, -- Raids
-                c114f4 = { enabled = true, }, -- Raids (Wrath)
-                c114f5 = { enabled = true, }, -- Raids (Wrath)
-                c114f6 = { enabled = true, }, -- Raids (Wrath)
+                c114f4 = { enabled = true, }, -- Raids (Classic)
+                c114f5 = { enabled = true, }, -- Raids (Classic)
+                c114f6 = { enabled = true, }, -- Raids (Classic)
                 c4f8 = { enabled = true, }, -- Arena
                 c9f8 = { enabled = true, }, -- RBG
             }

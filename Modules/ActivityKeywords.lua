@@ -26,9 +26,9 @@ C.ACTIVITY_ID_TO_KEYWORDS = {
     -- PvP Arena
     [   6] = { "arena2v2" }, -- Arena 2v2
     [   7] = { "arena3v3" }, -- Arena 3v3
-    [ 936] = { "arena2v2" }, -- Arena 2v2 (Wrath)
-    [ 937] = { "arena3v3" }, -- Arena 3v3 (Wrath)
-    [ 938] = { "arena5v5" }, -- Arena 5v5 (Wrath)
+    [ 936] = { "arena2v2" }, -- Arena 2v2 (Classic Editions)
+    [ 937] = { "arena3v3" }, -- Arena 3v3 (Classic Editions)
+    [ 938] = { "arena5v5" }, -- Arena 5v5 (Classic Editions)
     -- PvP Skirmish
     [  14] = { "arena2v2" }, -- Arena Skirmish (2v2)
     [ 360] = { "arena3v3" }, -- Arena Skirmish (3v3)

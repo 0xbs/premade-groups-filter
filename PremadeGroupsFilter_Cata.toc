@@ -31,9 +31,9 @@ Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
-Modules\Activity_Wrath.lua
+Modules\Activity_Cata.lua
 Modules\ActivityKeywords.lua
-Modules\MemberInfo_Wrath.lua
+Modules\MemberInfo_Cata.lua
 #   Modules\RemainingSlots.lua
 Modules\ApplicationStatus.lua
 Modules\Lockout.lua
@@ -56,10 +56,10 @@ UI\PopupMenu.xml
 UI\PopupMenu.lua
 UI\Help.lua
 UI\Templates.xml
-UI\Dialog_Wrath.xml
+UI\Dialog_Cata.xml
 UI\Dialog.lua
-UI\DungeonPanel_Wrath.xml
-UI\DungeonPanel_Wrath.lua
+UI\DungeonPanel_Cata.xml
+UI\DungeonPanel_Cata.lua
 UI\RaidPanel.xml
 UI\RaidPanel.lua
 UI\RolePanel.xml

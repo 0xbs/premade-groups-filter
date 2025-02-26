@@ -12,7 +12,7 @@ Please check FAQ and existing issue first:
 - All Issues: https://github.com/0xbs/premade-groups-filter/issues?q=
 
 ### Game Version
-Retail / Remix / Cata / Wrath
+Retail / Remix / Mists / Cata
 
 ### Lua error from Bugsack
 ```

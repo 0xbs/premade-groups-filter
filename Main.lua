@@ -68,7 +68,7 @@ function PGF.SortSearchResults(results)
     elseif PGF.IsRetail() then -- use our extended useful sorting
         table.sort(results, PGF.SortByUsefulOrder)
     end
-    -- else keep the existing sorting as Wrath clients have a pretty big
+    -- else keep the existing sorting as classic clients have a pretty big
     -- intelligent sorting algorithm in LFGBrowseUtil_SortSearchResults
 end
 
