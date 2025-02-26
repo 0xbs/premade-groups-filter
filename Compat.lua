@@ -24,49 +24,25 @@ local C = PGF.C
 
 function PGF.GetSearchResultInfo(resultID)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
-    if PGF.IsRetail() then
-        if searchResultInfo.activityIDs then
-            searchResultInfo.activityID = searchResultInfo.activityIDs[1]
-        end
-        if searchResultInfo.leaderDungeonScoreInfo then
-            searchResultInfo.leaderDungeonScoreInfo = searchResultInfo.leaderDungeonScoreInfo[1]
-        end
-        if searchResultInfo.leaderPvpRatingInfo then
-            searchResultInfo.leaderPvpRatingInfo = searchResultInfo.leaderPvpRatingInfo[1]
-        end
+    if searchResultInfo.activityIDs then
+        searchResultInfo.activityID = searchResultInfo.activityIDs[1]
+    end
+    if searchResultInfo.leaderDungeonScoreInfo then
+        searchResultInfo.leaderDungeonScoreInfo = searchResultInfo.leaderDungeonScoreInfo[1]
+    end
+    if searchResultInfo.leaderPvpRatingInfo then
+        searchResultInfo.leaderPvpRatingInfo = searchResultInfo.leaderPvpRatingInfo[1]
     end
     return searchResultInfo
 end
 
 function PGF.GetSearchResultPlayerInfo(...)
-    if PGF.IsRetail() then
-        return C_LFGList.GetSearchResultPlayerInfo(...)
-    else
-        local role, class, classLocalized, specLocalized, isLeader = C_LFGList.GetSearchResultMemberInfo(...)
-        return {
-            assignedRole = role, -- e.g. "HEALER"
-            classFilename = class, -- e.g. "SHAMAN"
-            className = classLocalized, -- e.g. "Schamane"
-            specName = specLocalized, -- e.g. "Wiederherstellung"
-            isLeader = isLeader or false,
-            name = nil, -- actual player name
-            level = 0, -- player level
-            lfgRoles = {
-                tank = false,
-                dps = false,
-                healer = false,
-            }
-        }
-    end
+    return C_LFGList.GetSearchResultPlayerInfo(...)
 end
 
 function PGF.GetSearchResultMemberInfo(...)
-    if PGF.IsRetail() then
-        local info = C_LFGList.GetSearchResultPlayerInfo(...)
-        if info then
-            return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
-        end
-    else
-        return C_LFGList.GetSearchResultMemberInfo(...)
+    local info = C_LFGList.GetSearchResultPlayerInfo(...)
+    if info then
+        return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
     end
 end
