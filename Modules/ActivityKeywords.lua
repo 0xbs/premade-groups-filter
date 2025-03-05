@@ -190,7 +190,7 @@ C.MAP_ID_TO_KEYWORDS = {
     [2661] = { "tww", "brew", "twws2" }, -- Cinderbrew Meadery
     [2662] = { "tww", "dawn", "twws1" }, -- The Dawnbreaker
     [2669] = { "tww", "cot", "twws1" }, -- City of Threads
-    [2773] = { "tww", "fg", "twws2" }, -- Operation: Floodgate
+    [2773] = { "tww", "fg", "flood", "twws2" }, -- Operation: Floodgate
 }
 
 -- Raider.io keywords can be found here:
