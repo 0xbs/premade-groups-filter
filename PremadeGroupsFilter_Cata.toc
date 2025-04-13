@@ -1,4 +1,4 @@
-## Interface: 40401, 40402
+## Interface: 40402
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## IconTexture: 397907
@@ -7,6 +7,7 @@
 ## Notes-deDE: Ermöglicht das Filtern organisierter Gruppen mithilfe der Benutzeroberfläche oder erweiterter Filterausdrücke.
 ## Notes-frFR: Permet de filtrer des groupes prédéfinis à l'aide d'une interface utilisateur ou d'expressions de filtre avancées.
 ## Notes-esES: Permite el filtrado de grupos prefabricados mediante una interfaz de usuario o expresiones de filtro avanzadas.
+## Notes-itIT: Consente di filtrare i gruppi di spedizioni predefinite utilizzando l'interfaccia utente o le espressioni di filtro avanzate.
 ## Notes-ruRU: Позволяет фильтровать заранее собранные группы с помощью пользовательского интерфейса или расширенных выражений фильтра.
 ## Notes-koKR: 사용자 인터페이스 또는 고급 필터 표현식을 사용하여 미리 만들어진 그룹을 필터링할 수 있습니다.
 ## Notes-zhCN: 允许使用用户界面或高级过滤器表达式过滤预制组。
