@@ -23,14 +23,14 @@ local L = PGF.L
 
 if GetLocale() ~= "zhCN" then return end
 
-L["addon.name.short"] = "过滤选项"
-L["addon.name.long"] = "预创建队伍过滤"
+L["addon.name.short"] = "PGF"
+L["addon.name.long"] = "Premade Groups Filter"
 
 L["error.syntax"] = "|cffff0000过滤语法错误|r\n\n表示过滤语法不正确，例如缺少过滤条件、变量或运算符号，或是写成 'tanks=1' 格式而不是 'tanks==1'。\n\n详细错误信息：\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000过滤语法的语义错误|r\n\n表示过滤语法正确，但是很可能变量名错误，例如写成 tansk 而不是 tanks。\n\n详细错误信息：\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000过滤语法的语义错误|r\n\n不再支持关键字 'name'，'comment' 和 'findnumber'。 请从高级过滤器表达方式中删除他们或者点击重置按钮。\n\n从争霸艾泽拉斯开始，这些都受到暴雪的保护，任何插件都无法读取。\n\n使用列表上方的确认搜索栏过滤队伍副本名称。\n\n详细错误信息：\n|cffaaaaaa%s|r"
-L["message.noplaystylefix"] = "预创建队伍过滤: 不会修复“接口操作因AddOn而失败”错误，因为您似乎没有完全安全的帐户，否则无法创建预制队伍。请参阅插件常见问题解答以获取更多信息以及如何解决此问题。"
-L["message.settingsupgraded"] = "预创建队伍过滤: 设置迁移到版本 %s"
+L["message.noplaystylefix"] = "Premade Groups Filter: 不会修复“接口操作因AddOn而失败”错误，因为您似乎没有完全安全的帐户，否则无法创建预制队伍。请参阅插件常见问题解答以获取更多信息以及如何解决此问题。"
+L["message.settingsupgraded"] = "Premade Groups Filter: 设置迁移到版本 %s"
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "重置"
@@ -55,7 +55,7 @@ L["dialog.mprating"]   = "钥石评分 .........................."
 L["dialog.pvprating"]  = "PVP评级评分 ......................."
 L["dialog.defeated"]   = "已击败首领"
 L["dialog.sorting"] = "排序"
-L["dialog.usepgf.tooltip"] = "启用或停用预创建队伍过滤。"
+L["dialog.usepgf.tooltip"] = "启用或停用 Premade Groups Filter。"
 L["dialog.usepgf.usage"] = "为了获得最大数量的相关结果，请将搜索框与PGF一起使用，因为服务器返回的结果数量有限。"
 L["dialog.usepgf.results.server"] = "服务器的队伍: |cffffffff%d|r"
 L["dialog.usepgf.results.removed"] = "PGF隐藏的队伍: |cffffffff%d|r"

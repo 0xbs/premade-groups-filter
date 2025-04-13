@@ -23,13 +23,13 @@ local L = PGF.L
 
 if GetLocale() ~= "zhTW" then return end
 
-L["addon.name.short"] = "過濾選項"
-L["addon.name.long"] = "預組隊伍過濾"
+L["addon.name.short"] = "PGF"
+L["addon.name.long"] = "Premade Groups Filter"
 
 L["error.syntax"] = "|cffff0000過濾語法錯誤|r\n\n表示過濾語法不正確，例如缺少過濾條件、變數或運算符號，或是寫成 'tanks=1' 而不是 'tanks==1'。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000過濾語法的語意錯誤|r\n\n表示過濾語法正確，但是很可能變數寫錯字，例如寫成 tansk 而不是 tanks。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不再支持關鍵字 'name'，'comment' 和 'findnumber'。 請從高級過濾器表達方式中刪除他們或者點擊重置按鈕。 \n\n從爭霸艾澤拉斯開始，這些都受到暴雪的保護，任何插件都無法讀取。 \n\n使用列表上方的確認搜索欄過濾隊伍副本名稱。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
-L["message.settingsupgraded"] = "預組隊伍過濾: 設置遷移到版本 %s"
+L["message.settingsupgraded"] = "Premade Groups Filter: 設置遷移到版本 %s"
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "重置"
@@ -54,7 +54,7 @@ L["dialog.mprating"]   = "鑰石評分 ........................"
 L["dialog.pvprating"]  = "PVP評級評分 ....................."
 L["dialog.defeated"]   = "已擊殺首領(團隊)"
 L["dialog.sorting"] = "排序"
-L["dialog.usepgf.tooltip"] = "啟用或停用預組隊伍過濾。"
+L["dialog.usepgf.tooltip"] = "啟用或停用 Premade Groups Filter。"
 L["dialog.usepgf.usage"] = "為了獲得最大數量的相關結果，請將搜索框與PGF一起使用，因為伺服器返回的結果數量有限。"
 L["dialog.usepgf.results.server"] = "伺服器發送的隊伍: |cffffffff%d|r"
 L["dialog.usepgf.results.removed"] = "被PGF隱藏的隊伍: |cffffffff%d|r"
