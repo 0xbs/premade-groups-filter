@@ -27,6 +27,10 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     -- init to zero
     env.ranged = 0
     env.melees = 0
+    env.hasmyclass = false
+    env.hasmyspec = false
+    env.hasmyarmor = false
+    local mySpecInfo = PGF.GetSpecializationInfoForPlayer()
     local specs = PGF.GetAllSpecializations()
     for specID, specInfo in pairs(specs) do
         env[specInfo.specKeyword] = 0
@@ -50,6 +54,17 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
             env[specInfo.roleClassKeyword] = env[specInfo.roleClassKeyword] + 1
             env[specInfo.classRoleKeyword] = env[specInfo.classRoleKeyword] + 1
             env[specInfo.armor] = env[specInfo.armor] + 1
+            if mySpecInfo then
+                if mySpecInfo.armor == specInfo.armor then
+                    env.hasmyarmor = true
+                end
+                if mySpecInfo.classKeyword == specInfo.classKeyword then
+                    env.hasmyclass = true
+                    if mySpecInfo.specKeyword == specInfo.specKeyword then
+                        env.hasmyspec = true
+                    end
+                end
+            end
         end
     end
 

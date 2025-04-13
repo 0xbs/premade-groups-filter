@@ -119,7 +119,13 @@ function PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
     return nil
 end
 
-function PGF.GetSpecializationInfoForUnit(unit)
-    local specID = GetInspectSpecialization(unit)
-    return specs[specID]
+function PGF.GetSpecializationInfoForPlayer()
+    local playerSpec = GetSpecialization() -- returns a number 0-4
+    if playerSpec then
+        local specID, localizedName, description, icon, role, primaryStat = GetSpecializationInfo(playerSpec)
+        -- role: "DAMAGER", "TANK", "HEALER"
+        -- primaryStat: 1=Strength, 2=Agility, 4=Intellect
+        return specs[specID]
+    end
+    return nil
 end
