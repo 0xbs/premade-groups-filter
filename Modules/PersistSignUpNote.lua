@@ -32,7 +32,7 @@ local patchedFunc = function(self, resultID)
         --end
 
         self.resultID = resultID;
-        self.activityID = searchResultInfo.activityID;
+        self.activityID = searchResultInfo and searchResultInfo.activityID or 0;
     end
     LFGListApplicationDialog_UpdateRoles(self);
     StaticPopupSpecial_Show(self);

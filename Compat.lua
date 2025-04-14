@@ -24,6 +24,11 @@ local C = PGF.C
 
 function PGF.GetSearchResultInfo(resultID)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
+    -- In rare cases such as when an application is full or rejected,
+    -- C_LFGList.GetSearchResultInfo returns nil
+    if not searchResultInfo then
+        return nil
+    end
     if searchResultInfo.activityIDs then
         searchResultInfo.activityID = searchResultInfo.activityIDs[1]
     end
