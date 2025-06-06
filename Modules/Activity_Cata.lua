@@ -268,6 +268,13 @@ C.ACTIVITY = {
     [1690] = { difficulty = 2, category =   2, mapID =  670 }, -- Grim Batol (Elemental Rune Twilight)
     [1691] = { difficulty = 2, category =   2, mapID =   36 }, -- Deadmines (Elemental Rune Twilight)
     [1692] = { difficulty = 2, category =   2, mapID =  645 }, -- Blackrock Caverns (Elemental Rune Twilight)
+    [1696] = { difficulty = 2, category =   2, mapID =  938 }, -- End Time (Elemental Rune Twilight)
+    [1697] = { difficulty = 2, category =   2, mapID =  940 }, -- Hour of Twilight (Elemental Rune Twilight)
+    [1698] = { difficulty = 2, category =   2, mapID =  939 }, -- Well of Eternity (Elemental Rune Twilight)
+    [1703] = { difficulty = 1, category = 114, mapID =  967 }, -- Dragon Soul (10 Normal)
+    [1704] = { difficulty = 1, category = 114, mapID =  967 }, -- Dragon Soul (25 Normal)
+    [1705] = { difficulty = 2, category = 114, mapID =  967 }, -- Dragon Soul (10 Heroic)
+    [1706] = { difficulty = 2, category = 114, mapID =  967 }, -- Dragon Soul (25 Heroic)
 }
 
 -- Return a default set if activity not found
