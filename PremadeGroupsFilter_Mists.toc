@@ -1,4 +1,4 @@
-## Interface: 40402
+## Interface: 50500
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## IconTexture: 397907
@@ -32,9 +32,9 @@ Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
-Modules\Activity_Cata.lua
+Modules\Activity_Mists.lua
 Modules\ActivityKeywords.lua
-Modules\MemberInfo_Cata.lua
+Modules\MemberInfo_Mists.lua
 #   Modules\RemainingSlots.lua
 Modules\ApplicationStatus.lua
 Modules\Lockout.lua
@@ -57,10 +57,10 @@ UI\PopupMenu.xml
 UI\PopupMenu.lua
 UI\Help.lua
 UI\Templates.xml
-UI\Dialog_Cata.xml
+UI\Dialog_Mists.xml
 UI\Dialog.lua
-UI\DungeonPanel_Cata.xml
-UI\DungeonPanel_Cata.lua
+UI\DungeonPanel_Mists.xml
+UI\DungeonPanel_Mists.lua
 UI\RaidPanel.xml
 UI\RaidPanel.lua
 UI\RolePanel.xml
