@@ -567,6 +567,16 @@ C.ACTIVITY = {
     [1601] = { difficulty = 1, category = 3, mapID = 2769, cmID =   0 }, -- Liberation of Undermine (Normal)
     [1602] = { difficulty = 3, category = 3, mapID = 2769, cmID =   0 }, -- Liberation of Undermine (Mythic)
     [1616] = { difficulty = 3, category = 2, mapID = 2097, cmID =   0 }, -- Mechagon Workshop (Mythic)
+    [1617] = { difficulty = 1, category = 3, mapID = 2810, cmID =   0 }, -- Manaforge Omega (Normal)
+    [1618] = { difficulty = 2, category = 3, mapID = 2810, cmID =   0 }, -- Manaforge Omega (Heroic)
+    [1619] = { difficulty = 3, category = 3, mapID = 2810, cmID =   0 }, -- Manaforge Omega (Mythic)
+    [1694] = { difficulty = 4, category = 2, mapID = 2830, cmID = 542 }, -- Eco-Dome Al'dani (Mythic Keystone)
+    [1695] = { difficulty = 4, category = 2, mapID = 1175, cmID = 163 }, -- Bloodmaul Slag Mines (Mythic Keystone)
+    [1702] = { difficulty = 4, category = 2, mapID =  725, cmID = 541 }, -- The Stonecore (Mythic Keystone)
+    [1707] = { difficulty = 1, category = 2, mapID = 2830, cmID =   0 }, -- Eco-Dome Al'dani (Normal)
+    [1708] = { difficulty = 2, category = 2, mapID = 2830, cmID =   0 }, -- Eco-Dome Al'dani (Heroic)
+    [1709] = { difficulty = 3, category = 2, mapID = 2830, cmID =   0 }, -- Eco-Dome Al'dani (Mythic)
+    [1711] = { difficulty = 2, category = 2, mapID = 2441, cmID =   0 }, -- Tazavesh, the Veiled Market (Heroic)
 }
 
 -- Return a default set if activity not found
