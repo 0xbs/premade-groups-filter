@@ -51,6 +51,8 @@ C.DIFFICULTY_MAP = {
     [  7] = 0,            -- RaidLFR
     [  8] = C.MYTHICPLUS, -- DungeonChallenge
     [  9] = C.NORMAL,     -- Raid40
+    [ 11] = C.HEROIC,     -- ScenarioHeroic
+    [ 12] = C.NORMAL,     -- ScenarioNormal
     [ 14] = C.NORMAL,     -- PrimaryRaidNormal
     [ 15] = C.HEROIC,     -- PrimaryRaidHeroic
     [ 16] = C.MYTHIC,     -- PrimaryRaidMythic
@@ -68,6 +70,8 @@ C.DIFFICULTY_MAP = {
     [176] = C.NORMAL,     -- Ulduar25Normal
     [193] = C.HEROIC,     -- Ulduar10Heroic
     [194] = C.HEROIC,     -- Ulduar25Heroic
+    [208] = 0,            -- Delve
+    [237] = 0,            -- DungeonCelestial
 }
 setmetatable(C.DIFFICULTY_MAP, { __index = function() return 0 end })
 
