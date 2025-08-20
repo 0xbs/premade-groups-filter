@@ -76,6 +76,8 @@ UI\Dialog.xml
 UI\Dialog.lua
 UI\DungeonPanel.xml
 UI\DungeonPanel.lua
+UI\DelvePanel.xml
+UI\DelvePanel.lua
 UI\RolePanel.xml
 UI\RolePanel.lua
 UI\ArenaPanel.xml

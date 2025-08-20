@@ -1,0 +1,184 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Frame name="PremadeGroupsFilterDelvePanelTemplate" virtual="true" hidden="true">
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-20"/>
+            <Anchor point="BOTTOMRIGHT" y="30"/>
+        </Anchors>
+        <Frames>
+            <Frame parentKey="Group">
+                <Size x="400" y="250"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                            <Size y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" y="-5"/>
+                                <Anchor point="LEFT" x="10"/>
+                                <Anchor point="RIGHT" x="-10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="DelveTier" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                            <Anchor point="LEFT" x="5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Members" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.DelveTier" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Tanks" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Members" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Heals" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Tanks" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="DPS" inherits="PremadeGroupsFilterMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Heals" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Partyfit" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.DPS" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="NotDeclined" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Partyfit" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Delves">
+                <Size x="160" y="380"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                            <Size y="25"/>
+                            <Anchors>
+                                <Anchor point="TOP" y="-5"/>
+                                <Anchor point="LEFT" x="10"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Alert" hidden="true">
+                        <Size x="16" y="16"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="RIGHT" x="5"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <Texture parentKey="Icon">
+                                    <Size x="16" y="16"/>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="Delve1" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM"/>
+                            <Anchor point="LEFT" x="5"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve2" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve1" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve3" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve2" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve4" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve3" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve5" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve4" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve6" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve5" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve7" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve6" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve8" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve7" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve9" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve8" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve10" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve9" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve11" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve10" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve12" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve11" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve13" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve12" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve14" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve13" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Delve15" inherits="PremadeGroupsFilterBasicTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Delve14" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
+                <Size x="260"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
+                    <Anchor point="BOTTOM"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+
+</Ui>
