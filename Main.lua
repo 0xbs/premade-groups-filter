@@ -325,6 +325,16 @@ function PGF.DoFilterSearchResults(results)
             env.myavgdungeonrating = playerInfo.avgDungeonRating
             env.mymediandungeonrating = playerInfo.medianDungeonRating
 
+            local numbers = PGF.String_ExtractNumbers(env.activityname)
+            env.findnumber = function (min, max)
+                for _, v in ipairs(numbers) do
+                    if (not min or v >= min) and (not max or v <= max) then
+                        return true
+                    end
+                end
+                return false
+            end
+
             PGF.PutActivityKeywords(env, searchResultInfo.activityID)
 
             if PGF.PutRaiderIOMetrics then

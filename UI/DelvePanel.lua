@@ -22,23 +22,25 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+local DELVE_TIER_MIN = 1
+local DELVE_TIER_MAX = 11
 local DELVE_ACTIVITY_MAP = {
-    -- Main Delves from The War Within (Tier 1 activity IDs with their unique ActivityGroupIDs)
-    [331] = { order = 1, keyword = "fungal", activityGroupID = 331 },      -- Fungal Folly
-    [332] = { order = 2, keyword = "kriegval", activityGroupID = 332 },    -- Kriegval's Rest
-    [333] = { order = 3, keyword = "earthcrawl", activityGroupID = 333 },  -- Earthcrawl Mines
-    [334] = { order = 4, keyword = "zekvir", activityGroupID = 334 },      -- Zekvir's Lair
-    [335] = { order = 5, keyword = "waterworks", activityGroupID = 335 },  -- The Waterworks
-    [336] = { order = 6, keyword = "dreadpit", activityGroupID = 336 },    -- The Dread Pit
-    [337] = { order = 7, keyword = "nightfall", activityGroupID = 337 },   -- Nightfall Sanctum
-    [338] = { order = 8, keyword = "mycomancer", activityGroupID = 338 },  -- Mycomancer Cavern
-    [339] = { order = 9, keyword = "sinkhole", activityGroupID = 339 },    -- The Sinkhole
-    [340] = { order = 10, keyword = "skittering", activityGroupID = 340 }, -- Skittering Breach
-    [341] = { order = 11, keyword = "underkeep", activityGroupID = 341 },  -- The Underkeep
-    [342] = { order = 12, keyword = "takrethan", activityGroupID = 342 },  -- Tak-Rethan Abyss
-    [343] = { order = 13, keyword = "spiral", activityGroupID = 343 },     -- The Spiral Weave
-    [373] = { order = 14, keyword = "excavation", activityGroupID = 373 }, -- Excavation Site 9
-    [374] = { order = 15, keyword = "sidestreet", activityGroupID = 374 }, -- Sidestreet Sluice
+    -- Delves from TWW
+    { activityGroupID = 331, tier1ActivityID = 1295, keyword = "fungal" },      -- Fungal Folly
+    { activityGroupID = 332, tier1ActivityID = 1296, keyword = "kriegval" },    -- Kriegval's Rest
+    { activityGroupID = 333, tier1ActivityID = 1297, keyword = "earthcrawl" },  -- Earthcrawl Mines
+    { activityGroupID = 335, tier1ActivityID = 1299, keyword = "waterworks" },  -- The Waterworks
+    { activityGroupID = 336, tier1ActivityID = 1300, keyword = "dreadpit" },    -- The Dread Pit
+    { activityGroupID = 337, tier1ActivityID = 1301, keyword = "nightfall" },   -- Nightfall Sanctum
+    { activityGroupID = 338, tier1ActivityID = 1302, keyword = "mycomancer" },  -- Mycomancer Cavern
+    { activityGroupID = 339, tier1ActivityID = 1303, keyword = "sinkhole" },    -- The Sinkhole
+    { activityGroupID = 340, tier1ActivityID = 1304, keyword = "skittering" },  -- Skittering Breach
+    { activityGroupID = 341, tier1ActivityID = 1305, keyword = "underkeep" },   -- The Underkeep
+    { activityGroupID = 342, tier1ActivityID = 1306, keyword = "takrethan" },   -- Tak-Rethan Abyss
+    { activityGroupID = 343, tier1ActivityID = 1307, keyword = "spiral" },      -- The Spiral Weave
+    { activityGroupID = 373, tier1ActivityID = 1553, keyword = "excavation" },  -- Excavation Site 9
+    { activityGroupID = 374, tier1ActivityID = 1564, keyword = "sidestreet" },  -- Sidestreet Sluice
+    { activityGroupID = 394, tier1ActivityID = 1746, keyword = "archival" },    -- Archival Assault
 }
 setmetatable(DELVE_ACTIVITY_MAP, { __index = function() return { order = 0, keyword = "true" } end })
 
@@ -51,9 +53,8 @@ function DelvePanel:OnLoad()
     self.name = "delve"
     self.dialogWidth = 420
     self.groupWidth = 245
-    self.delveIDs = {}
 
-    self:RegisterEvent("LFG_LIST_SEARCH_RESULTS_RECEIVED")
+    self:RegisterEvent("ACTIVE_PLAYER_SPECIALIZATION_CHANGED")
     self:RegisterEvent("GROUP_ROSTER_UPDATE")
     self:SetScript("OnEvent", self.OnEvent)
 
@@ -73,10 +74,15 @@ function DelvePanel:OnLoad()
 
     for i = 1, NUM_DELVE_CHECKBOXES do
         local delve = self.Delves["Delve"..i]
-        delve.activityID = nil
-        delve.name = "..."
+        local activityGroupID = DELVE_ACTIVITY_MAP[i].activityGroupID
+        local tier1ActivityID = DELVE_ACTIVITY_MAP[i].tier1ActivityID
+        local activityInfo = C_LFGList.GetActivityInfoTable(tier1ActivityID)
+
+        delve.activityGroupID = activityGroupID
+        delve.tier1ActivityID = tier1ActivityID
+        delve.name = activityInfo.fullName
         delve:SetWidth(145)
-        delve.Title:SetText("...")
+        delve.Title:SetText(activityInfo.fullName)
         delve.Title:SetWidth(105)
         delve.Act:SetScript("OnClick", function(element)
             self.state["delve" .. i] = element:GetChecked()
@@ -90,43 +96,6 @@ function DelvePanel:OnLoad()
         delve:SetScript("OnLeave", function(self)
             GameTooltip:Hide()
         end)
-    end
-    self:TryInitDelves()
-end
-
-function DelvePanel:TryInitDelves()
-    if not self.delveIDs or #self.delveIDs == 0 then
-        self:InitDelves()
-    end
-end
-
-function DelvePanel:InitDelves()
-    PGF.Logger:Debug("DelvePanel:InitDelves")
-    
-    -- Get delve activity IDs (we use the base tier 1 IDs as references)
-    self.delveIDs = {}
-    for activityID, delveInfo in pairs(DELVE_ACTIVITY_MAP) do
-        if delveInfo.order > 0 then
-            table.insert(self.delveIDs, activityID)
-        end
-    end
-    
-    -- Sort by order
-    table.sort(self.delveIDs, function(a, b)
-        if DELVE_ACTIVITY_MAP[a].order ~= DELVE_ACTIVITY_MAP[b].order then
-            return DELVE_ACTIVITY_MAP[a].order < DELVE_ACTIVITY_MAP[b].order
-        end
-        return a < b
-    end)
-
-    for i, activityID in ipairs(self.delveIDs) do
-        if i <= NUM_DELVE_CHECKBOXES then
-            local delveName = C_LFGList.GetActivityFullName(activityID) or ("Delve " .. activityID)
-            local delve = self.Delves["Delve"..i]
-            delve.activityID = activityID
-            delve.name = delveName
-            delve.Title:SetText(delveName)
-        end
     end
 end
 
@@ -166,18 +135,14 @@ function DelvePanel:Init(state)
 end
 
 function DelvePanel:OnEvent(event)
-    if (event == "LFG_LIST_SEARCH_RESULTS_RECEIVED" or event == "GROUP_ROSTER_UPDATE") and self.state then
+    if event == "GROUP_ROSTER_UPDATE" then
         PGF.Logger:Debug("DelvePanel:OnEvent(" .. event .. ")")
-        if event == "LFG_LIST_SEARCH_RESULTS_RECEIVED" then
-            self:InitDelves()
-        end
         self:UpdateAdvancedFilters()
     end
 end
 
 function DelvePanel:OnShow()
     PGF.Logger:Debug("DelvePanel:OnShow")
-    self:TryInitDelves()
 end
 
 function DelvePanel:OnHide()
@@ -229,10 +194,15 @@ end
 function DelvePanel:GetFilterExpression()
     PGF.Logger:Debug("DelvePanel:GetFilterExpression")
     local expression = "true" -- start with neutral element of logical and
-    
+
     if self.state.delvetier.act then
-        if PGF.NotEmpty(self.state.delvetier.min) then expression = expression .. " and delvetier >= " .. self.state.delvetier.min end
-        if PGF.NotEmpty(self.state.delvetier.max) then expression = expression .. " and delvetier <= " .. self.state.delvetier.max end
+        if PGF.NotEmpty(self.state.delvetier.min) and PGF.NotEmpty(self.state.delvetier.max) then
+            expression = expression .. " and findnumber(" .. self.state.delvetier.min .. "," .. self.state.delvetier.max .. ")"
+        elseif PGF.NotEmpty(self.state.delvetier.min) then
+            expression = expression .. " and findnumber(" .. self.state.delvetier.min .. "," .. DELVE_TIER_MAX .. ")"
+        elseif PGF.NotEmpty(self.state.delvetier.max) then
+            expression = expression .. " and findnumber(" .. DELVE_TIER_MIN .. "," .. self.state.delvetier.max .. ")"
+        end
     end
     if self.state.members.act then
         if PGF.NotEmpty(self.state.members.min) then expression = expression .. " and members >= " .. self.state.members.min end
@@ -260,11 +230,8 @@ function DelvePanel:GetFilterExpression()
     if self:GetNumDelvesSelected() > 0 then
         expression = expression .. " and ( false" -- start with neutral element of logical or
         for i = 1, NUM_DELVE_CHECKBOXES do
-            if self.delveIDs[i] and self.state["delve"..i] then
-                local keyword = DELVE_ACTIVITY_MAP[self.delveIDs[i]].keyword
-                if keyword then
-                    expression = expression .. " or " .. keyword
-                end
+            if self.state["delve"..i] then
+                expression = expression .. " or groupid == " .. DELVE_ACTIVITY_MAP[i].activityGroupID
             end
         end
         expression = expression .. " )"
@@ -298,7 +265,7 @@ end
 
 function DelvePanel:UpdateAdvancedFilters()
     local enabled = PGF.GetAdvancedFilterDefaults()
-    
+
     if self.state.delvetier.act then
         enabled.minimumDelveLevel = PGF.NotEmpty(self.state.delvetier.min) and tonumber(self.state.delvetier.min) or 1
         enabled.maximumDelveLevel = PGF.NotEmpty(self.state.delvetier.max) and tonumber(self.state.delvetier.max) or 11
@@ -320,20 +287,8 @@ function DelvePanel:UpdateAdvancedFilters()
         enabled.needsHealer = partyRoles["HEALER"] > 0
         enabled.needsDamage = partyRoles["DAMAGER"] > 0
     end
-    if self:GetNumDelvesSelected() > 0 then
-        local selectedDelves = {}
-        for i = 1, NUM_DELVE_CHECKBOXES do
-            if self.delveIDs[i] and self.state["delve"..i] then
-                local activityGroupID = DELVE_ACTIVITY_MAP[self.delveIDs[i]].activityGroupID
-                if activityGroupID then
-                    table.insert(selectedDelves, activityGroupID)
-                end
-            end
-        end
-        enabled.activities = selectedDelves
-    end
     PGF.SetAdvancedFilter(enabled)
 end
 
 DelvePanel:OnLoad()
-PGF.Dialog:RegisterPanel("c121", DelvePanel)
+PGF.Dialog:RegisterPanel("c121f4", DelvePanel)
