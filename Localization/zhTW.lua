@@ -28,7 +28,7 @@ L["addon.name.long"] = "Premade Groups Filter"
 
 L["error.syntax"] = "|cffff0000過濾語法錯誤|r\n\n表示過濾語法不正確，例如缺少過濾條件、變數或運算符號，或是寫成 'tanks=1' 而不是 'tanks==1'。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["error.semantic"] = "|cffff0000過濾語法的語意錯誤|r\n\n表示過濾語法正確，但是很可能變數寫錯字，例如寫成 tansk 而不是 tanks。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
-L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不再支持關鍵字 'name'，'comment' 和 'findnumber'。 請從高級過濾器表達方式中刪除他們或者點擊重置按鈕。 \n\n從爭霸艾澤拉斯開始，這些都受到暴雪的保護，任何插件都無法讀取。 \n\n使用列表上方的確認搜索欄過濾隊伍副本名稱。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
+L["error.semantic.protected"] = "|cffff0000過濾語法的語意錯誤|r\n\n不再支持關鍵字 'name' 和 'comment'。 請從高級過濾器表達方式中刪除他們或者點擊重置按鈕。 \n\n從爭霸艾澤拉斯開始，這些都受到暴雪的保護，任何插件都無法讀取。 \n\n使用列表上方的確認搜索欄過濾隊伍副本名稱。\n\n詳細錯誤訊息：\n|cffaaaaaa%s|r"
 L["message.settingsupgraded"] = "Premade Groups Filter: 設置遷移到版本 %s"
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
