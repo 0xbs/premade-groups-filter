@@ -98,6 +98,29 @@ function PGF.String_ExtractNumbers(str)
     return numbers
 end
 
+--- Removes any text enclosed in common ASCII and CJK/Korean-style brackets
+function PGF.String_RemoveBrackets(str)
+  local patterns = { "%b()", "%b[]", "%b{}", "%b<>","（.-）", "〔.-〕" }
+  local changed = true
+  while changed do
+    changed = false
+    local before = str
+    for _, p in ipairs(patterns) do
+      -- remove the bracketed chunk and any immediate leading whitespace
+      str = str:gsub("%s*" .. p, "")
+    end
+    if str ~= before then changed = true end
+  end
+
+  -- normalize leftover whitespace
+  str = str:gsub("%s%s+", " ")
+       :gsub("^%s+", "")
+       :gsub("%s+$", "")
+
+  return str
+end
+
+
 function PGF.NotEmpty(value) return value and value ~= "" end
 function PGF.Empty(value) return not PGF.NotEmpty(value) end
 
