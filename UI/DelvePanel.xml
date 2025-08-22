@@ -172,7 +172,7 @@
                 </Frames>
             </Frame>
             <Frame parentKey="Advanced" inherits="PremadeGroupsFilterExpressionTemplate">
-                <Size x="420"/>
+                <Size x="260"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.Group" relativePoint="BOTTOMLEFT"/>
                     <Anchor point="BOTTOM"/>

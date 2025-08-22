@@ -77,12 +77,13 @@ function DelvePanel:OnLoad()
         local activityGroupID = DELVE_ACTIVITY_MAP[i].activityGroupID
         local tier1ActivityID = DELVE_ACTIVITY_MAP[i].tier1ActivityID
         local activityInfo = C_LFGList.GetActivityInfoTable(tier1ActivityID)
+        local name = PGF.String_RemoveBrackets(activityInfo.fullName)
 
         delve.activityGroupID = activityGroupID
         delve.tier1ActivityID = tier1ActivityID
-        delve.name = activityInfo.fullName
+        delve.name = name
         delve:SetWidth(145)
-        delve.Title:SetText(activityInfo.fullName)
+        delve.Title:SetText(name)
         delve.Title:SetWidth(105)
         delve.Act:SetScript("OnClick", function(element)
             self.state["delve" .. i] = element:GetChecked()

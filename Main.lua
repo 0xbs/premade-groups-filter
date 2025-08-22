@@ -215,6 +215,13 @@ function PGF.DoFilterSearchResults(results)
 
             local difficulty = C.ACTIVITY[searchResultInfo.activityID].difficulty
 
+            -- Delves do not have a fixed number of roles, but usually a dungeon composition is preferred
+            if activityInfo.categoryID == C.CATEGORY_ID.DELVES then
+                memberCounts["TANK_REMAINING"] = 1 - memberCounts["TANK"]
+                memberCounts["HEALER_REMAINING"] = 1 - memberCounts["HEALER"]
+                memberCounts["DAMAGER_REMAINING"] = 3 - memberCounts["DAMAGER"]
+            end
+
             local env = {}
             env.activity = searchResultInfo.activityID
             env.activityname = activityInfo.fullName:lower()
