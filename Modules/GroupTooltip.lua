@@ -30,7 +30,7 @@ function PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
     for _, m in pairs(members) do
         local roleClassSpec
         if m.specLocalized and m.specLocalized ~= "" then -- no real specs in classic editions
-            roleClassSpec = string.format("%s %s - %s %s", m.roleMarkup, m.classLocalized, m.specLocalized, m.leaderMarkup)
+            roleClassSpec = string.format("%s %s - %s %s %s", m.roleMarkup, m.classLocalized, m.specLocalized, m.leaderMarkup, m.leaverMarkup)
         else
             roleClassSpec = string.format("%s %s %s", m.roleMarkup, m.classLocalized, m.leaderMarkup)
         end

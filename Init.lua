@@ -162,6 +162,7 @@ C.ROLE_REMAINING_KEYS = {
 }
 
 C.LEADER_ATLAS = "groupfinder-icon-leader"
+C.LEAVER_ATLAS = "groupfinder-icon-leaver"
 
 C.DPS_CLASS_TYPE = {
     ["DEATHKNIGHT"] = { range = false, melee = true,  armor = "plate",   br = true,  bl = false },

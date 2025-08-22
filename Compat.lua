@@ -48,6 +48,6 @@ end
 function PGF.GetSearchResultMemberInfo(...)
     local info = C_LFGList.GetSearchResultPlayerInfo(...)
     if info then
-        return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader
+        return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader, info.isLeaver
     end
 end

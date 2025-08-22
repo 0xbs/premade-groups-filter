@@ -30,6 +30,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.hasmyclass = false
     env.hasmyspec = false
     env.hasmyarmor = false
+    env.hasleaver = false
     local mySpecInfo = PGF.GetSpecializationInfoForPlayer()
     local specs = PGF.GetAllSpecializations()
     for specID, specInfo in pairs(specs) do
@@ -42,7 +43,10 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized, specLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized, isLeader, isLeaver = PGF.GetSearchResultMemberInfo(resultID, i)
+        if isLeaver then
+            env.hasleaver = true
+        end
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             if specInfo.role == "DAMAGER" then
@@ -110,12 +114,14 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized, isLeader = PGF.GetSearchResultMemberInfo(resultID, i)
+        local role, class, classLocalized, specLocalized, isLeader, isLeaver = PGF.GetSearchResultMemberInfo(resultID, i)
         local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
         if specInfo then
             local memberInfo = PGF.Table_Copy_Shallow(specInfo)
             memberInfo.isLeader = isLeader
+            memberInfo.isLeaver = isLeaver
             memberInfo.leaderMarkup = isLeader and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
+            memberInfo.leaverMarkup = isLeader and string.format("|A:%s:10:12:0:0|a", C.LEAVER_ATLAS) or ""
             table.insert(members, memberInfo)
         end
     end
