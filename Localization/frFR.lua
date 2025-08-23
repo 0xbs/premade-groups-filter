@@ -30,6 +30,8 @@ L["error.syntax"] = "|cffff0000Erreur de syntaxe dans le filtre d’expression|r
 L["error.semantic"] = "|cffff0000Erreur sémantique dans le filtre d’expression|r\n\nLa syntaxe est juste mais le nom d’une variable est incorrect. Exemple : tansk au lieu de tanks.\n\nMessage d’erreur détaillé :\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Erreur sémantique dans le filtre d’expression|r\n\nLes mots-clés 'name' et 'comment' ne sont plus pris en charge. Veuillez les supprimer de votre expression de filtre avancé ou appuyer sur le bouton de réinitialisation.\n\nÀ partir du pré-patch de Battle for Azeroth, ces valeurs sont protégées par Blizzard et ne peuvent plus être lues par aucun addon.\n\nUtilisez la barre de recherche par défaut au-dessus de la liste des groupes pour filtrer les noms manuellement.\n\nMessage d’erreur détaillé :\n|cffaaaaaa%s|r"
 L["message.settingsupgraded"] = "Premade Groups Filter : paramètres migrés vers la version %s"
+L["message.sortingoverwritten"] = "Premade Groups Filter: l’ordre de tri des groupes prédéfinis par défaut a été remplacé par l’addon %s."
+L["message.sortingrestored"] = "Premade Groups Filter: l’ordre de tri des groupes prédéfinis par défaut a été restauré par l’addon %s."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Réinitialiser"
