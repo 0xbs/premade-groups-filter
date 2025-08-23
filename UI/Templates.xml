@@ -99,6 +99,29 @@
         </Scripts>
     </Button>
 
+    <Button name="PremadeGroupsFilterTextButtonTemplate" mixin="PremadeGroupsFilterTextButtonMixin" virtual="true">
+        <Size x="16" y="16"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentBg" parentKey="Bg" setAllPoints="true">
+                    <Color r="0.08" g="0.08" b="0.08" a="0.65"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentLabel" parentKey="Label" setAllPoints="true" inherits="GameFontNormal"/>
+            </Layer>
+        </Layers>
+        <HighlightTexture setAllPoints="true" alphaMode="ADD">
+            <Color r="1" g="0.82" b="0" a="0.35"/>
+        </HighlightTexture>
+        <Scripts>
+            <OnEnter method="OnEnter"/>
+            <OnLeave method="OnLeave"/>
+            <OnMouseDown method="OnMouseDown"/>
+            <OnMouseUp method="OnMouseUp"/>
+        </Scripts>
+    </Button>
+
     <!-- expression input box with a title and a yellow info button -->
     <Frame name="PremadeGroupsFilterExpressionTemplate" virtual="true">
         <Layers>

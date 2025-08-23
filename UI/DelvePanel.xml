@@ -80,6 +80,21 @@
                     </Layer>
                 </Layers>
                 <Frames>
+                    <Button parentKey="SelectNone" inherits="PremadeGroupsFilterTextButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-10" y="-11"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="SelectAll" inherits="PremadeGroupsFilterTextButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-28" y="-11"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="SelectBountiful" inherits="PremadeGroupsFilterTextButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-46" y="-11"/>
+                        </Anchors>
+                    </Button>
                     <Frame parentKey="Alert" hidden="true">
                         <Size x="16" y="16"/>
                         <Anchors>

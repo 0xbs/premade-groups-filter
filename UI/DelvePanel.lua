@@ -95,6 +95,31 @@ function DelvePanel:OnLoad()
 
     -- Delves
     self.Delves.Title:SetText(L["dialog.filters.delves"])
+    self.Delves.SelectNone:Init("N", "Select none")
+    self.Delves.SelectNone:SetScript("OnClick", function (btn)
+        for i = 1, NUM_DELVE_CHECKBOXES do
+            self.Delves["Delve"..i].Act:SetChecked(false)
+            self.state["delve"..i] = false
+            self:TriggerFilterExpressionChange()
+        end
+    end)
+    self.Delves.SelectAll:Init("A", "Select all")
+    self.Delves.SelectAll:SetScript("OnClick", function (btn)
+        for i = 1, NUM_DELVE_CHECKBOXES do
+            self.Delves["Delve"..i].Act:SetChecked(true)
+            self.state["delve"..i] = true
+            self:TriggerFilterExpressionChange()
+        end
+    end)
+    self.Delves.SelectBountiful:Init("B", "Select bountiful")
+    self.Delves.SelectBountiful:SetScript("OnClick", function (btn)
+        for i = 1, NUM_DELVE_CHECKBOXES do
+            local isBountiful = self.Delves["Delve"..i].isBountiful or false
+            self.Delves["Delve"..i].Act:SetChecked(isBountiful)
+            self.state["delve"..i] = isBountiful
+            self:TriggerFilterExpressionChange()
+        end
+    end)
 
     for i = 1, NUM_DELVE_CHECKBOXES do
         local delve = self.Delves["Delve"..i]
@@ -163,13 +188,16 @@ function DelvePanel:UpdateDelves()
     local bountifulDelves = self:GetBountifulDelves()
     for i = 1, NUM_DELVE_CHECKBOXES do
         local color = WHITE_FONT_COLOR
+        local isBountiful = false
         local delve = self.Delves["Delve"..i]
         for _, bountifulDelveName in ipairs(bountifulDelves) do
             if PGF.IsMostLikelySameInstance(delve.name, bountifulDelveName) then
                 color = NORMAL_FONT_COLOR
+                isBountiful = true
             end
         end
         delve.Title:SetTextColor(color:GetRGB())
+        delve.isBountiful = isBountiful
     end
 end
 
