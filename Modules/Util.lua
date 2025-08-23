@@ -205,12 +205,19 @@ end
 -- "Tazavesh: Wundersame Straßen" vs. "Tazavesh: Straßen (Mythischer Schlüsselstein)"
 -- "Der Smaragdgrüne Alptraum"    vs. "Der Smaragdgrüne Alptraum (Mythisch)"
 function PGF.IsMostLikelySameInstance(name1, name2)
-    if name1 == name2 then return true end -- handle trivial case
+    if name1 == name2 then return true end
+
+    -- try to remove brackets
+    local normalized1 = PGF.String_RemoveBrackets(name1)
+    local normalized2 = PGF.String_RemoveBrackets(name2)
+    if normalized1 == normalized2 then return true end
+
+    -- calculate similarity
     local isNotArticle = function (str)
         return str:match("^(the|die|der|das|il|el|la|le)$") == nil
     end
-    local tokens1 = PGF.String_Tokenize(name1, isNotArticle)
-    local tokens2 = PGF.String_Tokenize(name2, isNotArticle)
+    local tokens1 = PGF.String_Tokenize(normalized1, isNotArticle)
+    local tokens2 = PGF.String_Tokenize(normalized2, isNotArticle)
     local jaccardIndex = PGF.JaccardIndex(tokens1, tokens2)
     return jaccardIndex >= 0.5, jaccardIndex
 end
