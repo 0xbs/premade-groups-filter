@@ -100,16 +100,16 @@ function DelvePanel:OnLoad()
         for i = 1, NUM_DELVE_CHECKBOXES do
             self.Delves["Delve"..i].Act:SetChecked(false)
             self.state["delve"..i] = false
-            self:TriggerFilterExpressionChange()
         end
+        self:TriggerFilterExpressionChange()
     end)
     self.Delves.SelectAll:Init("A", "Select all")
     self.Delves.SelectAll:SetScript("OnClick", function (btn)
         for i = 1, NUM_DELVE_CHECKBOXES do
             self.Delves["Delve"..i].Act:SetChecked(true)
             self.state["delve"..i] = true
-            self:TriggerFilterExpressionChange()
         end
+        self:TriggerFilterExpressionChange()
     end)
     self.Delves.SelectBountiful:Init("B", "Select bountiful")
     self.Delves.SelectBountiful:SetScript("OnClick", function (btn)
@@ -117,8 +117,8 @@ function DelvePanel:OnLoad()
             local isBountiful = self.Delves["Delve"..i].isBountiful or false
             self.Delves["Delve"..i].Act:SetChecked(isBountiful)
             self.state["delve"..i] = isBountiful
-            self:TriggerFilterExpressionChange()
         end
+        self:TriggerFilterExpressionChange()
     end)
 
     for i = 1, NUM_DELVE_CHECKBOXES do
