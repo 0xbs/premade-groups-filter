@@ -86,44 +86,6 @@ function PGF.Table_Count(table)
     return count
 end
 
-function PGF.String_TrimWhitespace(str)
-    return str:match("^%s*(.-)%s*$")
-end
-
-function PGF.String_ExtractNumbers(str)
-    local numbers = {}
-    for number in string.gmatch(str, "%d+") do
-        table.insert(numbers, tonumber(number))
-    end
-    return numbers
-end
-
---- Removes any text enclosed in common ASCII and CJK/Korean-style brackets
-function PGF.String_RemoveBrackets(str)
-  local patterns = { "%b()", "%b[]", "%b{}", "%b<>","（.-）", "〔.-〕" }
-  local changed = true
-  while changed do
-    changed = false
-    local before = str
-    for _, p in ipairs(patterns) do
-      -- remove the bracketed chunk and any immediate leading whitespace
-      str = str:gsub("%s*" .. p, "")
-    end
-    if str ~= before then changed = true end
-  end
-
-  -- normalize leftover whitespace
-  str = str:gsub("%s%s+", " ")
-       :gsub("^%s+", "")
-       :gsub("%s+$", "")
-
-  return str
-end
-
-
-function PGF.NotEmpty(value) return value and value ~= "" end
-function PGF.Empty(value) return not PGF.NotEmpty(value) end
-
 function PGF.Table_Mean(tbl)
     local count = PGF.Table_Count(tbl)
     if count == 0 then return 0 end
@@ -155,23 +117,100 @@ function PGF.Table_Invert(tbl)
     return inverted
 end
 
-function PGF.IsMostLikelySameInstance(instanceName, activityName)
-    -- instanceName is just the dungeon's name used in the lockout and challenge mode APIs, e.g. 'The Emerald Nightmare'
-    local instanceNameLower = instanceName:lower()
-    -- activityName has the difficulty in parens at the end, e.g. 'Emerald Nightmare (Heroic)'
-    local activityNameWithoutDifficulty = string.gsub(activityName, "%s%([^)]+%)", ""):lower()
+function PGF.String_TrimWhitespace(str)
+    return str:match("^%s*(.-)%s*$")
+end
 
-    -- more examples:
-    -- instanceNameLower                  activityName
-    -- "Die Blutigen Tiefen"          vs. "Blutige Tiefen (Mythischer Schlüsselstein)"
-    -- "Tazavesh: Wundersame Straßen" vs. "Tazavesh: Straßen (Mythischer Schlüsselstein)"
-    -- "Der Smaragdgrüne Alptraum"    vs. "Der Smaragdgrüne Alptraum (Mythisch)"
+function PGF.String_ExtractNumbers(str)
+    local numbers = {}
+    for number in string.gmatch(str, "%d+") do
+        table.insert(numbers, tonumber(number))
+    end
+    return numbers
+end
 
-    -- check word by word if every word of the activityName is contained in the instanceName
-    for token in string.gmatch(activityNameWithoutDifficulty, "[^%s]+") do
-        -- We want to use "plain" matching here as "Nerub-ar Palace" has a dash in it which is a special char
-        if not string.find(instanceNameLower, token, 1, true) then return false end
+function PGF.NotEmpty(value) return value and value ~= "" end
+function PGF.Empty(value) return not PGF.NotEmpty(value) end
+
+-- Removes any text enclosed in common ASCII and CJK brackets
+function PGF.String_RemoveBrackets(str)
+    local patterns = {
+        "%b()", "%b[]", "%b{}", "%b<>",
+        "（.-）", "【.-】", "〔.-〕", "〈.-〉", "《.-》",
+        "「.-」", "『.-』", "〖.-〗", "〘.-〙", "〚.-〛", "［.-］"
+    }
+    local changed = true
+    while changed do
+        changed = false
+        local before = str
+        for _, p in ipairs(patterns) do
+            -- remove the bracketed chunk and any immediate leading whitespace
+            str = str:gsub("%s*" .. p, "")
+        end
+        if str ~= before then changed = true end
     end
 
-    return true
+    -- normalize leftover whitespace
+    str = str:gsub("%s%s+", " ")
+        :gsub("^%s+", "")
+        :gsub("%s+$", "")
+
+    return str
+end
+
+function PGF.String_Tokenize(str, filter)
+    -- normalize the string and remove ASCII and CJK punctuation
+    lstr = str:lower():gsub("['＇]", ""):gsub("[:：%-－]", " ")
+    local words = {}
+    for w in lstr:gmatch("%S+") do
+        if filter == nil or filter(w) then
+            words[#words + 1] = w
+        end
+    end
+    return words
+end
+
+function PGF.JaccardIndex(a, b)
+    local setA, setB = {}, {}
+    for _, w in ipairs(a) do setA[w] = true end
+    for _, w in ipairs(b) do setB[w] = true end
+
+    local intersection = 0
+    local union = {}
+
+    for w in pairs(setA) do
+        union[w] = true
+        if setB[w] then
+            intersection = intersection + 1
+        end
+    end
+    for w in pairs(setB) do
+        union[w] = true
+    end
+
+    local unionSize = 0
+    for _ in pairs(union) do unionSize = unionSize + 1 end
+
+    if unionSize == 0 then return 0 end
+    return intersection / unionSize
+end
+
+-- Find out if two slightly different instance names are actually referring to the same instance.
+-- Instances are not names consistently across the game: sometimes an article is prepended or it has a suffix in parens.
+-- This function tokenizes the names and calculates the Jaccard index of the two names.
+--
+-- Examples:
+-- "Wasserwerke"                  vs. "Die Wasserwerke"
+-- "Die Blutigen Tiefen"          vs. "Blutige Tiefen (Mythischer Schlüsselstein)"
+-- "Tazavesh: Wundersame Straßen" vs. "Tazavesh: Straßen (Mythischer Schlüsselstein)"
+-- "Der Smaragdgrüne Alptraum"    vs. "Der Smaragdgrüne Alptraum (Mythisch)"
+function PGF.IsMostLikelySameInstance(name1, name2)
+    if name1 == name2 then return true end -- handle trivial case
+    local isNotArticle = function (str)
+        return str:match("^(the|die|der|das|il|el|la|le)$") == nil
+    end
+    local tokens1 = PGF.String_Tokenize(name1, isNotArticle)
+    local tokens2 = PGF.String_Tokenize(name2, isNotArticle)
+    local jaccardIndex = PGF.JaccardIndex(tokens1, tokens2)
+    return jaccardIndex >= 0.5, jaccardIndex
 end
