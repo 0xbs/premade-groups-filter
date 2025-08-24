@@ -107,6 +107,12 @@ L["dialog.matchingid.tooltip"] = "Show only groups that have the exact same inst
 L["dialog.needsbl"] = "Necesita Ansia de Sangre"
 L["dialog.needsbl.tooltip"] = "Muestra solo los grupos que aún no tienen una clase que proporcione Ansia de Sangre/Heroísmo."
 L["dialog.cancelOldestApp"] = "Haz clic para cancelar la más antigua"
+L["dialog.button.selectall.title"] = "T"
+L["dialog.button.selectall.tooltip"] = "Seleccionar todo"
+L["dialog.button.selectnone.title"] = "N"
+L["dialog.button.selectnone.tooltip"] = "No seleccionar nada"
+L["dialog.button.selectbountiful.title"] = "P"
+L["dialog.button.selectbountiful.tooltip"] = "Seleccionar profundidades pródigas"
 
 L["settings.dialogMovable.title"] = "Diálogo móvil"
 L["settings.dialogMovable.tooltip"] = "Le permite mover el cuadro de diálogo con el mouse. El clic derecho restablece la posición."

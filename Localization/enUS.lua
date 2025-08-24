@@ -111,6 +111,12 @@ L["dialog.matchingid.tooltip"] = "Show only groups that have the exact same inst
 L["dialog.needsbl"] = "Needs Bloodlust"
 L["dialog.needsbl.tooltip"] = "Shows only groups that do not yet have a class providing bloodlust/heroism."
 L["dialog.cancelOldestApp"] = "Click to cancel oldest application first"
+L["dialog.button.selectall.title"] = "A"
+L["dialog.button.selectall.tooltip"] = "Select all"
+L["dialog.button.selectnone.title"] = "N"
+L["dialog.button.selectnone.tooltip"] = "Select none"
+L["dialog.button.selectbountiful.title"] = "B"
+L["dialog.button.selectbountiful.tooltip"] = "Select bountiful delves"
 
 L["settings.dialogMovable.title"] = "Dialog Movable"
 L["settings.dialogMovable.tooltip"] = "Allows you to move the dialog with the mouse. Right-click resets the position."

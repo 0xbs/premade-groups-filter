@@ -112,6 +112,12 @@ L["dialog.matchingid.tooltip"] = "仅显示和您的副本进度完全匹配的�
 L["dialog.needsbl"] = "需要嗜血"
 L["dialog.needsbl.tooltip"] = "仅显示尚未有提供嗜血/英勇技能的职业的队伍。"
 L["dialog.cancelOldestApp"] = "点击优先取消最早的申请"
+L["dialog.button.selectall.title"] = "全"
+L["dialog.button.selectall.tooltip"] = "全选"
+L["dialog.button.selectnone.title"] = "无"
+L["dialog.button.selectnone.tooltip"] = "全不选"
+L["dialog.button.selectbountiful.title"] = "丰"
+L["dialog.button.selectbountiful.tooltip"] = "选择丰裕地下堡"
 
 L["settings.dialogMovable.title"] = "可移动的对话框"
 L["settings.dialogMovable.tooltip"] = "允许您使用鼠标移动对话框。右键单击重置位置。"

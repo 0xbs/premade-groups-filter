@@ -107,6 +107,12 @@ L["dialog.matchingid.tooltip"] = "당신과 동일한 인스턴스 귀속 상태
 L["dialog.needsbl"] = "피의 욕망 필요"
 L["dialog.needsbl.tooltip"] = "피의 욕망/영웅심을 제공하는 클래스가 없는 그룹만 표시합니다."
 L["dialog.cancelOldestApp"] = "가장 오래된 지원서를 취소하려면 클릭"
+L["dialog.button.selectall.title"] = "모"
+L["dialog.button.selectall.tooltip"] = "모두 선택"
+L["dialog.button.selectnone.title"] = "없"
+L["dialog.button.selectnone.tooltip"] = "선택 안 함"
+L["dialog.button.selectbountiful.title"] = "풍"
+L["dialog.button.selectbountiful.tooltip"] = "풍요로운 구렁 선택"
 
 L["settings.dialogMovable.title"] = "대화 상자 이동 가능"
 L["settings.dialogMovable.tooltip"] = "마우스로 대화 상자를 이동할 수 있습니다. 마우스 오른쪽 버튼을 클릭하면 위치가 재설정됩니다."

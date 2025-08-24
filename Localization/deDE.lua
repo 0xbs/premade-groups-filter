@@ -113,6 +113,12 @@ L["dialog.matchingid.tooltip"] = "Zeige nur Gruppen mit exakt der gleichen Insta
 L["dialog.needsbl"] = "Benötigt Kampfrausch"
 L["dialog.needsbl.tooltip"] = "Zeige nur Gruppen, die noch kein Kampfrausch/Heldentum haben."
 L["dialog.cancelOldestApp"] = "Klicken, um älteste Anmeldung abzubrechen"
+L["dialog.button.selectall.title"] = "A"
+L["dialog.button.selectall.tooltip"] = "Alle auswählen"
+L["dialog.button.selectnone.title"] = "N"
+L["dialog.button.selectnone.tooltip"] = "Nichts auswählen"
+L["dialog.button.selectbountiful.title"] = "G"
+L["dialog.button.selectbountiful.tooltip"] = "Großzügige Tiefen auswählen"
 
 L["settings.dialogMovable.title"] = "Dialog verschiebbar"
 L["settings.dialogMovable.tooltip"] = "Ermöglicht das Verschieben des Dialogs mit der Maus. Rechtsklick setzt die Position zurück."

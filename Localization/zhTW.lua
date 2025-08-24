@@ -111,6 +111,12 @@ L["dialog.matchingid.tooltip"] = "僅顯示具有與您自己完全相同的副�
 L["dialog.needsbl"] = "需要嗜血"
 L["dialog.needsbl.tooltip"] = "僅顯示尚未有提供嗜血/英勇技能的職業的隊伍。"
 L["dialog.cancelOldestApp"] = "點擊取消最舊的申請"
+L["dialog.button.selectall.title"] = "全"
+L["dialog.button.selectall.tooltip"] = "全選"
+L["dialog.button.selectnone.title"] = "無"
+L["dialog.button.selectnone.tooltip"] = "全不選"
+L["dialog.button.selectbountiful.title"] = "豐"
+L["dialog.button.selectbountiful.tooltip"] = "選取豐碩探究"
 
 L["settings.dialogMovable.title"] = "可移動的對話框"
 L["settings.dialogMovable.tooltip"] = "允許您使用鼠標移動對話框。 右鍵單擊重置位置。"

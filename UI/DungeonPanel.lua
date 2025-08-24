@@ -129,7 +129,7 @@ function DungeonPanel:OnLoad()
 
     -- Dungeons
     self.Dungeons.Title:SetText(L["dialog.filters.dungeons"])
-    self.Dungeons.SelectNone:Init("N", "Select none")
+    self.Dungeons.SelectNone:Init(L["dialog.button.selectnone.title"], L["dialog.button.selectnone.tooltip"])
     self.Dungeons.SelectNone:SetScript("OnClick", function (btn)
         for i = 1, NUM_DUNGEON_CHECKBOXES do
             self.Dungeons["Dungeon"..i].Act:SetChecked(false)
@@ -137,7 +137,7 @@ function DungeonPanel:OnLoad()
         end
         self:TriggerFilterExpressionChange()
     end)
-    self.Dungeons.SelectAll:Init("A", "Select all")
+    self.Dungeons.SelectAll:Init(L["dialog.button.selectall.title"], L["dialog.button.selectall.tooltip"])
     self.Dungeons.SelectAll:SetScript("OnClick", function (btn)
         for i = 1, NUM_DUNGEON_CHECKBOXES do
             self.Dungeons["Dungeon"..i].Act:SetChecked(true)

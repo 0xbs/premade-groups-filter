@@ -113,6 +113,12 @@ L["dialog.matchingid.tooltip"] = "Показывать только те гру�
 L["dialog.needsbl"] = "Требуется Кровожадность / Героизм"
 L["dialog.needsbl.tooltip"] = "Показывает только те группы, в которых нет класса, предоставляющего Кровожадность / Героизм."
 L["dialog.cancelOldestApp"] = "Нажмите, чтобы отменить старую заявку в группу"
+L["dialog.button.selectall.title"] = "В"
+L["dialog.button.selectall.tooltip"] = "Выбрать все"
+L["dialog.button.selectnone.title"] = "Н"
+L["dialog.button.selectnone.tooltip"] = "Снять выбор"
+L["dialog.button.selectbountiful.title"] = "М"
+L["dialog.button.selectbountiful.tooltip"] = "Выбрать многообещающие вылазки"
 
 L["settings.dialogMovable.title"] = "Перемещаемое окно PGF"
 L["settings.dialogMovable.tooltip"] = "Позволяет перемещать окно PGF с помощью мыши. ПКМ - сбрасывает положение."

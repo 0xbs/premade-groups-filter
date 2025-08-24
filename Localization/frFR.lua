@@ -113,6 +113,12 @@ L["dialog.matchingid.tooltip"] = "Afficher seulement les groupes qui ont exactem
 L["dialog.needsbl"] = "Besoin de furie sanguinaire"
 L["dialog.needsbl.tooltip"] = "Afficher seulement les groupes qui n’ont pas encore de classe ayant Furie sanguinaire (ou sort équivalent)."
 L["dialog.cancelOldestApp"] = "Cliquez pour annuler la plus ancienne"
+L["dialog.button.selectall.title"] = "T"
+L["dialog.button.selectall.tooltip"] = "Tout sélectionner"
+L["dialog.button.selectnone.title"] = "A"
+L["dialog.button.selectnone.tooltip"] = "Aucun"
+L["dialog.button.selectbountiful.title"] = "G"
+L["dialog.button.selectbountiful.tooltip"] = "Sélectionner gouffres abondants"
 
 L["settings.dialogMovable.title"] = "Déverrouiller la fenêtre PGF"
 L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic droit pour réinitialiser la position."
