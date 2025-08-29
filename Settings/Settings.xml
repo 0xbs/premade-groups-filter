@@ -54,7 +54,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton parentKey="CheckBox" motionScriptsWhileDisabled="true" virtual="true">
+            <CheckButton parentKey="CheckBox" motionScriptsWhileDisabled="true">
                 <Size x="30" y="29"/>
                 <Anchors>
                     <Anchor point="LEFT" relativePoint="CENTER" x="-80"/>
