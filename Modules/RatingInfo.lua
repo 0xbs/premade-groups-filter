@@ -23,7 +23,7 @@ local L = PGF.L
 local C = PGF.C
 
 function PGF.GetPvPScoreRarityColorByTier(tier)
-    local r, g, b = GetItemQualityColor(C.PVP_TIER_MAP[tier].quality)
+    local r, g, b = C_Item.GetItemQualityColor(C.PVP_TIER_MAP[tier].quality)
     return { r = r, g = g, b = b }
 end
 
