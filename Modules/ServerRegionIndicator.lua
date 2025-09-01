@@ -24,8 +24,6 @@
 -- The module safely disables itself on non-NA regions to prevent any issues
 
 local PGF = select(2, ...)
-local L = PGF.L
-local C = PGF.C
 
 -- DEBUG: Set to true to always show region indicators for testing
 local DEBUG_ALWAYS_SHOW_INDICATOR = false
@@ -33,13 +31,16 @@ local DEBUG_ALWAYS_SHOW_INDICATOR = false
 -- Store region indicator frames for each search entry
 PGF.regionIndicators = {}
 
--- Check if we're on NA region
--- This feature is ONLY for NA realms (US, LATAM, OCE)
--- We don't support EU/CN/KR/TW as server lists and behavior may differ
+-- Check if we're on NA region (includes US, Brazil, LATAM, Oceanic)
+-- Region IDs from GetCurrentRegion():
+--   1 = US/NA (Americas)
+--   2 = Korea
+--   3 = Europe
+--   4 = Taiwan
+--   5 = China
 local function IsNARegion()
     local region = GetCurrentRegion()
-    -- Region IDs: 1 = US, 2 = KR, 3 = EU, 4 = TW, 5 = CN
-    return region == 1  -- Only enable for US/NA region
+    return region == 1  -- Only enable for Americas region
 end
 
 -- Early exit if not on NA region to prevent any issues
@@ -51,55 +52,69 @@ if not IsNARegion() then
     return  -- Exit the module
 end
 
--- Brazilian servers (BRT timezone)
-local brazilianServers = {
-    ["Azralon"] = true,
-    ["Gallywix"] = true,
-    ["Goldrinn"] = true,
-    ["Nemesis"] = true,
-    ["Tol Barad"] = true,
-}
-
--- Latin American servers (marked as Latin America region, non-Brazil)
-local latinAmericanServers = {
-    ["Drakkari"] = true,
-    ["Quel'Thalas"] = true,
-    ["Ragnaros"] = true,
-}
-
--- Oceanic servers
-local oceanicServers = {
-    ["Aman'Thul"] = true,
-    ["Barthilas"] = true,
-    ["Caelestrasz"] = true,
-    ["Dath'Remar"] = true,
-    ["Dreadmaul"] = true,
-    ["Frostmourne"] = true,
-    ["Gundrak"] = true,
-    ["Jubei'Thos"] = true,
-    ["Khaz'goroth"] = true,
-    ["Nagrand"] = true,
-    ["Saurfang"] = true,
-    ["Thaurissan"] = true,
+-- Region configuration: servers, icons, and tooltips
+-- WARNING: This addon ONLY works on NA (region ID 1) servers!
+-- Adding regions here won't enable the addon for EU/CN/KR/TW players
+-- To support other regions, modify IsNARegion() function above
+local regionConfig = {
+    ["BRAZIL"] = {
+        icon = "animachannel-icon-nightfae-map",  -- Night Fae icon
+        tooltipTitle = "Brazilian Server",
+        tooltipColor = {0, 1, 0},  -- Green
+        servers = {
+            ["Azralon"] = true,
+            ["Gallywix"] = true,
+            ["Goldrinn"] = true,
+            ["Nemesis"] = true,
+            ["Tol Barad"] = true,
+        }
+    },
+    ["LATAM"] = {
+        icon = "EmberCourt-32x32",  -- Fire/ember icon
+        tooltipTitle = "Latin American Server",
+        tooltipColor = {1, 0.55, 0},  -- Orange
+        servers = {
+            ["Drakkari"] = true,
+            ["Quel'Thalas"] = true,
+            ["Ragnaros"] = true,
+        }
+    },
+    ["OCE"] = {
+        icon = "Fishing-Hole",  -- Ocean theme
+        tooltipTitle = "Oceanic Server",
+        tooltipColor = {0, 0.75, 1},  -- Light blue
+        servers = {
+            ["Aman'Thul"] = true,
+            ["Barthilas"] = true,
+            ["Caelestrasz"] = true,
+            ["Dath'Remar"] = true,
+            ["Dreadmaul"] = true,
+            ["Frostmourne"] = true,
+            ["Gundrak"] = true,
+            ["Jubei'Thos"] = true,
+            ["Khaz'goroth"] = true,
+            ["Nagrand"] = true,
+            ["Saurfang"] = true,
+            ["Thaurissan"] = true,
+        }
+    },
+    ["USA"] = {
+        icon = "AzeriteReady",  -- Star/azerite icon
+        tooltipTitle = "North American Server",
+        tooltipColor = {0.2, 0.4, 0.8},  -- Blue
+        servers = {}  -- Default for all other NA servers
+    }
 }
 
 -- Function to detect player's own server region
 local function GetPlayerServerRegion()
     local playerRealm = GetRealmName()
 
-    -- Check if player is on a Brazilian server
-    if brazilianServers[playerRealm] then
-        return "BRAZIL"
-    end
-
-    -- Check if player is on a Latin American server
-    if latinAmericanServers[playerRealm] then
-        return "LATAM"
-    end
-
-    -- Check if player is on an Oceanic server
-    if oceanicServers[playerRealm] then
-        return "OCE"
+    -- Check each region's server list
+    for region, config in pairs(regionConfig) do
+        if config.servers[playerRealm] then
+            return region
+        end
     end
 
     -- Default to USA/NA
@@ -127,27 +142,13 @@ end
 
 -- Function to detect server region
 local function DetectServerRegion(leaderName)
-    -- First try PremadeRegions if available
-    if PremadeRegions and PremadeRegions.GetRegion then
-        local region = PremadeRegions.GetRegion(leaderName)
-        if region == "bzl" then
-            return "BRAZIL"
-        elseif region == "la" or region == "mex" then
-            return "LATAM"
-        elseif region == "oce" then
-            return "OCE"
-        end
-    end
-
-    -- Fallback to our own detection
     local realm = GetRealmFromLeaderName(leaderName)
     if realm then
-        if brazilianServers[realm] then
-            return "BRAZIL"
-        elseif latinAmericanServers[realm] then
-            return "LATAM"
-        elseif oceanicServers[realm] then
-            return "OCE"
+        -- Check each region's server list
+        for region, config in pairs(regionConfig) do
+            if config.servers[realm] then
+                return region
+            end
         end
     end
 
@@ -155,14 +156,14 @@ local function DetectServerRegion(leaderName)
     return "USA"
 end
 
--- Function to get or create region indicator frame (modeled after RatingInfo)
+-- Function to get or create region indicator frame
 function PGF.GetOrCreateRegionIndicator(parent)
     local frame = PGF.regionIndicators[parent]
     if not frame then
         frame = CreateFrame("Frame", nil, parent, nil)
         frame:Hide()
         frame:SetFrameStrata("HIGH")
-        frame:SetSize(20, 20)  -- Smaller size for icon only
+        frame:SetSize(20, 20)
 
         -- Create icon texture
         frame.Icon = frame:CreateTexture(nil, "ARTWORK")
@@ -171,37 +172,18 @@ function PGF.GetOrCreateRegionIndicator(parent)
 
         -- Create tooltip region
         frame:SetScript("OnEnter", function(self)
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            if self.region == "BRAZIL" then
-                GameTooltip:SetText("Brazilian Server", 0, 1, 0)
-                GameTooltip:AddLine("Leader is from a Brazilian realm", 1, 1, 1, true)
+            local config = regionConfig[self.region]
+            if config then
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                local r, g, b = unpack(config.tooltipColor)
+                GameTooltip:SetText(config.tooltipTitle, r, g, b)
+                GameTooltip:AddLine("Leader is from a " .. string.lower(config.tooltipTitle), 1, 1, 1, true)
                 GameTooltip:AddLine("Different ping/latency expected", 1, 0.8, 0.8, true)
                 if self.realm then
                     GameTooltip:AddLine("Realm: " .. self.realm, 0.8, 0.8, 0.8, true)
                 end
-            elseif self.region == "LATAM" then
-                GameTooltip:SetText("Latin American Server", 1, 0.55, 0)
-                GameTooltip:AddLine("Leader is from a Latin American realm", 1, 1, 1, true)
-                GameTooltip:AddLine("Different ping/latency expected", 1, 0.8, 0.8, true)
-                if self.realm then
-                    GameTooltip:AddLine("Realm: " .. self.realm, 0.8, 0.8, 0.8, true)
-                end
-            elseif self.region == "OCE" then
-                GameTooltip:SetText("Oceanic Server", 0, 0.75, 1)
-                GameTooltip:AddLine("Leader is from an Oceanic realm", 1, 1, 1, true)
-                GameTooltip:AddLine("Different ping/latency expected", 1, 0.8, 0.8, true)
-                if self.realm then
-                    GameTooltip:AddLine("Realm: " .. self.realm, 0.8, 0.8, 0.8, true)
-                end
-            elseif self.region == "USA" then
-                GameTooltip:SetText("North American Server", 0.2, 0.4, 0.8)
-                GameTooltip:AddLine("Leader is from a US/NA realm", 1, 1, 1, true)
-                GameTooltip:AddLine("Different ping/latency may apply", 1, 0.8, 0.8, true)
-                if self.realm then
-                    GameTooltip:AddLine("Realm: " .. self.realm, 0.8, 0.8, 0.8, true)
-                end
+                GameTooltip:Show()
             end
-            GameTooltip:Show()
         end)
 
         frame:SetScript("OnLeave", function(self)
@@ -252,50 +234,29 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
 
     -- Store that we're showing a region indicator
     self.hasRegionIndicator = true
-    
-    -- We'll anchor relative to the rating if it exists, or DataDisplay if not
-    -- This will be set up after we know if there's a rating
 
-    -- Set icon based on region
-    local iconAtlas = nil
-
-    if region == "BRAZIL" then
-        -- Night Fae icon for Brazil (nature/forest theme)
-        iconAtlas = "animachannel-icon-nightfae-map"
-        frame.region = "BRAZIL"
-        frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or "Same Realm"
-    elseif region == "LATAM" then
-        -- Fire/ember icon for Latin America (hot climate)
-        iconAtlas = "EmberCourt-32x32"
-        frame.region = "LATAM"
-        frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or "Same Realm"
-    elseif region == "OCE" then
-        -- Fishing hole for Oceanic (ocean/water theme)
-        iconAtlas = "Fishing-Hole"
-        frame.region = "OCE"
-        frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or "Same Realm"
-    elseif region == "USA" then
-        -- Azerite/star icon for USA
-        iconAtlas = "AzeriteReady"
-        frame.region = "USA"
-        frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or "USA Realm"
-    else
-        -- Unknown region, don't show
-        return
+    -- Get icon from config
+    local config = regionConfig[region]
+    if not config or not config.icon then
+        return -- Unknown region or no icon configured
     end
+
+    frame.region = region
+    frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or 
+                  (region == "USA" and "USA Realm" or "Same Realm")
 
     -- Show the frame
     frame:Show()
-    
+
     -- Always get or create the rating frame to ensure consistent anchoring
     local ratingFrame = PGF.GetOrCreateRatingInfoFrame(self)
-    
+
     -- Always anchor to the left of where the rating frame is/will be
     -- This ensures consistent positioning regardless of load order
     frame:ClearAllPoints()
     frame:SetPoint("RIGHT", ratingFrame, "LEFT", -2, 0)
-    
-    frame.Icon:SetAtlas(iconAtlas)
+
+    frame.Icon:SetAtlas(config.icon)
 
     -- Apply delisted styling if needed (no color tinting)
     if searchResultInfo.isDelisted then
@@ -306,5 +267,3 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
         frame.Icon:SetAlpha(1)
     end
 end
-
--- No longer need the hook since we're called from Main.lua
