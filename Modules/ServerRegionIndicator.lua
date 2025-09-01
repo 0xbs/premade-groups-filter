@@ -18,6 +18,11 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
+-- Server Region Indicator Module
+-- NOTE: This feature is ONLY active for NA (US) region servers
+-- It does NOT affect EU, CN, KR, or TW regions
+-- The module safely disables itself on non-NA regions to prevent any issues
+
 local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
@@ -27,6 +32,24 @@ local DEBUG_ALWAYS_SHOW_INDICATOR = false
 
 -- Store region indicator frames for each search entry
 PGF.regionIndicators = {}
+
+-- Check if we're on NA region
+-- This feature is ONLY for NA realms (US, LATAM, OCE)
+-- We don't support EU/CN/KR/TW as server lists and behavior may differ
+local function IsNARegion()
+    local region = GetCurrentRegion()
+    -- Region IDs: 1 = US, 2 = KR, 3 = EU, 4 = TW, 5 = CN
+    return region == 1  -- Only enable for US/NA region
+end
+
+-- Early exit if not on NA region to prevent any issues
+if not IsNARegion() then
+    -- Feature disabled for non-NA regions
+    function PGF.AddRegionIndicator(self, searchResultInfo)
+        -- Do nothing for non-NA regions
+    end
+    return  -- Exit the module
+end
 
 -- Latin American servers (comprehensive list)
 local latinAmericanServers = {
