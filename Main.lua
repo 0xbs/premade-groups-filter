@@ -425,6 +425,7 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
+    PGF.AddRegionIndicator(self, searchResultInfo)
     PGF.AddRatingInfo(self, searchResultInfo)
 end
 

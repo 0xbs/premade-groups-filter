@@ -59,6 +59,7 @@ Modules\Macro.lua
 Modules\GroupTooltip.lua
 Modules\RoleIndicators.lua
 Modules\RatingInfo.lua
+Modules\ServerRegionIndicator.lua
 Modules\OneClickSignUp.lua
 Modules\PersistSignUpNote.lua
 Modules\SignUpOnEnter.lua

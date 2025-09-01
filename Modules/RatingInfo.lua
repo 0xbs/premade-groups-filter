@@ -111,6 +111,10 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     if searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= "" then
         textWidth = textWidth - 20
     end
+    -- Also adjust for region indicator if present
+    if self.hasRegionIndicator then
+        textWidth = textWidth - 35  -- Account for region indicator column
+    end
 
     local rColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or ratingColor
     local eColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or extraTextColor
