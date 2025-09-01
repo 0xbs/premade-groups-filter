@@ -51,19 +51,20 @@ if not IsNARegion() then
     return  -- Exit the module
 end
 
--- Latin American servers (comprehensive list)
-local latinAmericanServers = {
-    -- Brazil servers
+-- Brazilian servers (BRT timezone)
+local brazilianServers = {
     ["Azralon"] = true,
-    ["Nemesis"] = true,
-    ["Goldrinn"] = true,
-    ["Tol Barad"] = true,
     ["Gallywix"] = true,
+    ["Goldrinn"] = true,
+    ["Nemesis"] = true,
+    ["Tol Barad"] = true,
+}
 
-    -- Latin America servers
-    ["Ragnaros"] = true,
-    ["Quel'Thalas"] = true,  -- Note: There's also a US Quel'Thalas
+-- Latin American servers (marked as Latin America region, non-Brazil)
+local latinAmericanServers = {
     ["Drakkari"] = true,
+    ["Quel'Thalas"] = true,
+    ["Ragnaros"] = true,
 }
 
 -- Oceanic servers
@@ -85,6 +86,11 @@ local oceanicServers = {
 -- Function to detect player's own server region
 local function GetPlayerServerRegion()
     local playerRealm = GetRealmName()
+
+    -- Check if player is on a Brazilian server
+    if brazilianServers[playerRealm] then
+        return "BRAZIL"
+    end
 
     -- Check if player is on a Latin American server
     if latinAmericanServers[playerRealm] then
@@ -124,7 +130,9 @@ local function DetectServerRegion(leaderName)
     -- First try PremadeRegions if available
     if PremadeRegions and PremadeRegions.GetRegion then
         local region = PremadeRegions.GetRegion(leaderName)
-        if region == "la" or region == "bzl" or region == "mex" then
+        if region == "bzl" then
+            return "BRAZIL"
+        elseif region == "la" or region == "mex" then
             return "LATAM"
         elseif region == "oce" then
             return "OCE"
@@ -134,7 +142,9 @@ local function DetectServerRegion(leaderName)
     -- Fallback to our own detection
     local realm = GetRealmFromLeaderName(leaderName)
     if realm then
-        if latinAmericanServers[realm] then
+        if brazilianServers[realm] then
+            return "BRAZIL"
+        elseif latinAmericanServers[realm] then
             return "LATAM"
         elseif oceanicServers[realm] then
             return "OCE"
@@ -162,7 +172,14 @@ function PGF.GetOrCreateRegionIndicator(parent)
         -- Create tooltip region
         frame:SetScript("OnEnter", function(self)
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            if self.region == "LATAM" then
+            if self.region == "BRAZIL" then
+                GameTooltip:SetText("Brazilian Server", 0, 1, 0)
+                GameTooltip:AddLine("Leader is from a Brazilian realm", 1, 1, 1, true)
+                GameTooltip:AddLine("Different ping/latency expected", 1, 0.8, 0.8, true)
+                if self.realm then
+                    GameTooltip:AddLine("Realm: " .. self.realm, 0.8, 0.8, 0.8, true)
+                end
+            elseif self.region == "LATAM" then
                 GameTooltip:SetText("Latin American Server", 1, 0.55, 0)
                 GameTooltip:AddLine("Leader is from a Latin American realm", 1, 1, 1, true)
                 GameTooltip:AddLine("Different ping/latency expected", 1, 0.8, 0.8, true)
@@ -242,7 +259,12 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
     -- Set icon based on region
     local iconAtlas = nil
 
-    if region == "LATAM" then
+    if region == "BRAZIL" then
+        -- Night Fae icon for Brazil (nature/forest theme)
+        iconAtlas = "animachannel-icon-nightfae-map"
+        frame.region = "BRAZIL"
+        frame.realm = GetRealmFromLeaderName(searchResultInfo.leaderName) or "Same Realm"
+    elseif region == "LATAM" then
         -- Fire/ember icon for Latin America (hot climate)
         iconAtlas = "EmberCourt-32x32"
         frame.region = "LATAM"
