@@ -22,6 +22,9 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+-- DEBUG: Set to true to always show region indicators for testing
+local DEBUG_ALWAYS_SHOW_INDICATOR = false
+
 -- Store region indicator frames for each search entry
 PGF.regionIndicators = {}
 
@@ -126,8 +129,7 @@ function PGF.GetOrCreateRegionIndicator(parent)
         frame = CreateFrame("Frame", nil, parent, nil)
         frame:Hide()
         frame:SetFrameStrata("HIGH")
-        frame:SetSize(35, 30)  -- Same size as RatingInfo frame
-        frame:SetPoint("TOP", 0, -4)
+        frame:SetSize(20, 20)  -- Smaller size for icon only
 
         -- Create icon texture
         frame.Icon = frame:CreateTexture(nil, "ARTWORK")
@@ -185,6 +187,11 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
     frame:Hide()
     self.hasRegionIndicator = false
 
+    -- Only show region indicators for M+ activities
+    if not activityInfo or not activityInfo.isMythicPlusActivity then
+        return -- only show for M+ dungeons
+    end
+
     -- Check if we should show indicators
     if not searchResultInfo or not searchResultInfo.leaderName then
         return
@@ -198,21 +205,16 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
     local region = DetectServerRegion(searchResultInfo.leaderName)
 
     -- Only show indicator if the group is from a different region than the player
-    if region == playerRegion then
+    -- (unless debug mode is enabled)
+    if not DEBUG_ALWAYS_SHOW_INDICATOR and region == playerRegion then
         return -- Same region as player, don't show indicator
     end
 
-    -- Store that we're showing a region indicator (for RatingInfo to adjust)
+    -- Store that we're showing a region indicator
     self.hasRegionIndicator = true
-
-    -- Calculate position for region indicator
-    local rightPos = -165  -- Default position
-
-    if activityInfo and activityInfo.isMythicPlusActivity then
-        rightPos = -150  -- Position for M+ dungeons
-    elseif activityInfo and activityInfo.isRatedPvpActivity then
-        rightPos = activityInfo.categoryID == C.CATEGORY_ID.ARENA and -115 or -165
-    end
+    
+    -- We'll anchor relative to the rating if it exists, or DataDisplay if not
+    -- This will be set up after we know if there's a rating
 
     -- Set icon based on region
     local iconAtlas = nil
@@ -239,7 +241,15 @@ function PGF.AddRegionIndicator(self, searchResultInfo)
 
     -- Show the frame
     frame:Show()
-    frame:SetPoint("RIGHT", rightPos, 0)
+    
+    -- Always get or create the rating frame to ensure consistent anchoring
+    local ratingFrame = PGF.GetOrCreateRatingInfoFrame(self)
+    
+    -- Always anchor to the left of where the rating frame is/will be
+    -- This ensures consistent positioning regardless of load order
+    frame:ClearAllPoints()
+    frame:SetPoint("RIGHT", ratingFrame, "LEFT", -2, 0)
+    
     frame.Icon:SetAtlas(iconAtlas)
 
     -- Apply delisted styling if needed (no color tinting)

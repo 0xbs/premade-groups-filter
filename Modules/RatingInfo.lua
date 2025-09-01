@@ -103,26 +103,34 @@ function PGF.AddRatingInfo(self, searchResultInfo)
         end
     end
 
+    -- Always create the frame for consistent anchoring, but hide if no rating
     if rating == 0 then
+        frame:Hide()
         return -- stop if no rating
-    end
-
-    local textWidth = 312 - 10 - 35 + rightPos
-    if searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= "" then
-        textWidth = textWidth - 20
-    end
-    -- Also adjust for region indicator if present
-    if self.hasRegionIndicator then
-        textWidth = textWidth - 35  -- Account for region indicator column
     end
 
     local rColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or ratingColor
     local eColor = searchResultInfo.isDelisted and LFG_LIST_DELISTED_FONT_COLOR or extraTextColor
 
+    -- Calculate text width dynamically based on available space
+    -- Base width minus space for DataDisplay and rating
+    local textWidth = 312 - 10 - 35 - 125  -- Approximate space needed for rating and roles
+    if searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= "" then
+        textWidth = textWidth - 20
+    end
+    if activityInfo.isMythicPlusActivity and self.hasRegionIndicator then
+        textWidth = textWidth - 25  -- Account for region indicator
+    end
+
     self.Name:SetWidth(textWidth)
     self.ActivityName:SetWidth(textWidth)
     frame:Show()
-    frame:SetPoint("RIGHT", rightPos, 0)
+    
+    -- Anchor to the left of DataDisplay but account for its 125px width
+    -- The icons actually start at -12 from the right of DataDisplay
+    -- So we need to position ourselves about 115 pixels from the parent's right edge
+    frame:ClearAllPoints()
+    frame:SetPoint("RIGHT", self.DataDisplay, "LEFT", 10, 0)
     frame.Rating:SetText(rating)
     frame.Rating:SetTextColor(rColor.r, rColor.g, rColor.b)
     frame.ExtraText:SetText(extraText)
