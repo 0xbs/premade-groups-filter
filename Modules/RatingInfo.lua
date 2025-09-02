@@ -79,7 +79,7 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     local ratingColor = { r = 1.0, g = 1.0, b = 1.0 }
     local extraText = ""
     local extraTextColor = { r = 1.0, g = 1.0, b = 1.0 }
-    if activityInfo.isMythicPlusActivity then
+    if PGF.SupportsMythicPlus() and activityInfo.isMythicPlusActivity then
         rightPos = -115
         rating = searchResultInfo.leaderOverallDungeonScore or 0
         if PremadeGroupsFilterSettings.rioRatingColors and RaiderIO and RaiderIO.GetScoreColor then
