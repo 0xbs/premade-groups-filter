@@ -187,7 +187,7 @@ end })
 local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
 local flavor = GetAddOnMetadata(PGFAddonName, "X-Flavor")
 function PGF.IsRetail() return flavor == "Retail" end
-function PGF.IsCata() return flavor == "Cata" end
+function PGF.IsMists() return flavor == "Mists" end
 function PGF.SupportsMythicPlus() return PGF.IsRetail() end -- Mythic Plus (as opposed to Challenge Mode with gear scaling) is supported from Legion onwards
 function PGF.SupportsSpecializations() return PGF.IsRetail() end -- Specialization (as opposed to free talent trees) are supported from Mists of Pandaria onwards
 function PGF.SupportsDragonflightUI() return PGF.IsRetail() end -- User Interface has changed drastically in Dragonflight
