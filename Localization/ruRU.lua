@@ -119,6 +119,8 @@ L["dialog.button.selectnone.title"] = "Н"
 L["dialog.button.selectnone.tooltip"] = "Снять выбор"
 L["dialog.button.selectbountiful.title"] = "М"
 L["dialog.button.selectbountiful.tooltip"] = "Выбрать многообещающие вылазки"
+L["dialog.button.selectinvert.title"] = "И"
+L["dialog.button.selectinvert.tooltip"] = "Инвертировать выделение"
 
 L["settings.dialogMovable.title"] = "Перемещаемое окно PGF"
 L["settings.dialogMovable.tooltip"] = "Позволяет перемещать окно PGF с помощью мыши. ПКМ - сбрасывает положение."

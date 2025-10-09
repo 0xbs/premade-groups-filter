@@ -153,6 +153,15 @@ function DungeonPanel:OnLoad()
         end
         self:TriggerFilterExpressionChange()
     end)
+    self.Dungeons.SelectInvert:Init(L["dialog.button.selectinvert.title"], L["dialog.button.selectinvert.tooltip"])
+    self.Dungeons.SelectInvert:SetScript("OnClick", function (btn)
+        for i = 1, NUM_DUNGEON_CHECKBOXES do
+            local invertedState = not self.Dungeons["Dungeon"..i].Act:GetChecked()
+            self.Dungeons["Dungeon"..i].Act:SetChecked(invertedState)
+            self.state["dungeon"..i] = invertedState
+        end
+        self:TriggerFilterExpressionChange()
+    end)
 
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         local dungeon = self.Dungeons["Dungeon"..i]

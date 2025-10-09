@@ -119,6 +119,8 @@ L["dialog.button.selectnone.title"] = "A"
 L["dialog.button.selectnone.tooltip"] = "Aucun"
 L["dialog.button.selectbountiful.title"] = "G"
 L["dialog.button.selectbountiful.tooltip"] = "Sélectionner gouffres abondants"
+L["dialog.button.selectinvert.title"] = "I"
+L["dialog.button.selectinvert.tooltip"] = "Inverser la sélection"
 
 L["settings.dialogMovable.title"] = "Déverrouiller la fenêtre PGF"
 L["settings.dialogMovable.tooltip"] = "Verrouiller / déverrouiller la fenêtre Premade Groups Filter. Clic droit pour réinitialiser la position."

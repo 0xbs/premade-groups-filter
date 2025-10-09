@@ -117,6 +117,8 @@ L["dialog.button.selectnone.title"] = "N"
 L["dialog.button.selectnone.tooltip"] = "Select none"
 L["dialog.button.selectbountiful.title"] = "B"
 L["dialog.button.selectbountiful.tooltip"] = "Select bountiful delves"
+L["dialog.button.selectinvert.title"] = "I"
+L["dialog.button.selectinvert.tooltip"] = "Invert selection"
 
 L["settings.dialogMovable.title"] = "Dialog Movable"
 L["settings.dialogMovable.tooltip"] = "Allows you to move the dialog with the mouse. Right-click resets the position."

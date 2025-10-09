@@ -113,6 +113,8 @@ L["dialog.button.selectnone.title"] = "없"
 L["dialog.button.selectnone.tooltip"] = "선택 안 함"
 L["dialog.button.selectbountiful.title"] = "풍"
 L["dialog.button.selectbountiful.tooltip"] = "풍요로운 구렁 선택"
+L["dialog.button.selectinvert.title"] = "반"
+L["dialog.button.selectinvert.tooltip"] = "선택 반전"
 
 L["settings.dialogMovable.title"] = "대화 상자 이동 가능"
 L["settings.dialogMovable.tooltip"] = "마우스로 대화 상자를 이동할 수 있습니다. 마우스 오른쪽 버튼을 클릭하면 위치가 재설정됩니다."

@@ -105,6 +105,11 @@
                             <Anchor point="TOPRIGHT" x="-28" y="-11"/>
                         </Anchors>
                     </Button>
+                    <Button parentKey="SelectInvert" inherits="PremadeGroupsFilterTextButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-46" y="-11"/>
+                        </Anchors>
+                    </Button>
                     <Frame parentKey="Alert" hidden="true">
                         <Size x="16" y="16"/>
                         <Anchors>

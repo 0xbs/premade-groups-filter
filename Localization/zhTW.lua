@@ -117,6 +117,8 @@ L["dialog.button.selectnone.title"] = "無"
 L["dialog.button.selectnone.tooltip"] = "全不選"
 L["dialog.button.selectbountiful.title"] = "豐"
 L["dialog.button.selectbountiful.tooltip"] = "選取豐碩探究"
+L["dialog.button.selectinvert.title"] = "反"
+L["dialog.button.selectinvert.tooltip"] = "反選"
 
 L["settings.dialogMovable.title"] = "可移動的對話框"
 L["settings.dialogMovable.tooltip"] = "允許您使用鼠標移動對話框。 右鍵單擊重置位置。"

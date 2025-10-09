@@ -117,6 +117,8 @@ L["dialog.button.selectnone.title"] = "N"
 L["dialog.button.selectnone.tooltip"] = "Seleziona niente"
 L["dialog.button.selectbountiful.title"] = "S"
 L["dialog.button.selectbountiful.tooltip"] = "Seleziona scorribande fruttuose"
+L["dialog.button.selectinvert.title"] = "I"
+L["dialog.button.selectinvert.tooltip"] = "Inverti selezione"
 
 L["settings.dialogMovable.title"] = "Finestra di dialogo mobile"
 L["settings.dialogMovable.tooltip"] = "Consente di spostare la finestra di dialogo con il mouse. Il clic con il tasto destro reimposta la posizione."

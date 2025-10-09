@@ -119,6 +119,8 @@ L["dialog.button.selectnone.title"] = "N"
 L["dialog.button.selectnone.tooltip"] = "Nichts auswählen"
 L["dialog.button.selectbountiful.title"] = "G"
 L["dialog.button.selectbountiful.tooltip"] = "Großzügige Tiefen auswählen"
+L["dialog.button.selectinvert.title"] = "U"
+L["dialog.button.selectinvert.tooltip"] = "Auswahl umkehren"
 
 L["settings.dialogMovable.title"] = "Dialog verschiebbar"
 L["settings.dialogMovable.tooltip"] = "Ermöglicht das Verschieben des Dialogs mit der Maus. Rechtsklick setzt die Position zurück."

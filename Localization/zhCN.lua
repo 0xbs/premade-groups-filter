@@ -118,6 +118,8 @@ L["dialog.button.selectnone.title"] = "无"
 L["dialog.button.selectnone.tooltip"] = "全不选"
 L["dialog.button.selectbountiful.title"] = "丰"
 L["dialog.button.selectbountiful.tooltip"] = "选择丰裕地下堡"
+L["dialog.button.selectinvert.title"] = "反"
+L["dialog.button.selectinvert.tooltip"] = "反选"
 
 L["settings.dialogMovable.title"] = "可移动的对话框"
 L["settings.dialogMovable.tooltip"] = "允许您使用鼠标移动对话框。右键单击重置位置。"

@@ -113,6 +113,8 @@ L["dialog.button.selectnone.title"] = "N"
 L["dialog.button.selectnone.tooltip"] = "No seleccionar nada"
 L["dialog.button.selectbountiful.title"] = "P"
 L["dialog.button.selectbountiful.tooltip"] = "Seleccionar profundidades pródigas"
+L["dialog.button.selectinvert.title"] = "I"
+L["dialog.button.selectinvert.tooltip"] = "Invertir selección"
 
 L["settings.dialogMovable.title"] = "Diálogo móvil"
 L["settings.dialogMovable.tooltip"] = "Le permite mover el cuadro de diálogo con el mouse. El clic derecho restablece la posición."
