@@ -358,7 +358,6 @@ function PGF.OnAddonLoaded(name)
 end
 
 function PGF.OnPlayerLogin()
-    PGF.FixReportAdvertisement()
     PGF.PersistSignUpNote()
 end
 

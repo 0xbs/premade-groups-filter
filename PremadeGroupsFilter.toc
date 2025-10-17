@@ -41,7 +41,6 @@ Localization\ruRU.lua
 Localization\esES.lua
 Localization\itIT.lua
 Modules\Logger.lua
-Fixes\FixReportAdvertisement.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
