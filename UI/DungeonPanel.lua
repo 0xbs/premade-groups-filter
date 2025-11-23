@@ -30,35 +30,25 @@ local DIFFICULTY_TEXT = {
 }
 
 local CMID_MAP = {
-    -- The War Within Season 1
-    --[503] = { order = 1, activityGroupID = 323, keyword = "arak"  }, -- Ara-Kara, City of Echoes
-    --[502] = { order = 2, activityGroupID = 329, keyword = "cot"   }, -- City of Threads
-    --[505] = { order = 3, activityGroupID = 326, keyword = "dawn"  }, -- The Dawnbreaker
-    --[507] = { order = 4, activityGroupID =  56, keyword = "gb"    }, -- Grim Batol
-    --[375] = { order = 5, activityGroupID = 262, keyword = "mists" }, -- Mists of Tirna Scithe
-    --[376] = { order = 6, activityGroupID = 265, keyword = "nw"    }, -- The Necrotic Wake
-    --[353] = { order = 7, activityGroupID = 146, keyword = "siege" }, -- Siege of Boralus
-    --[501] = { order = 8, activityGroupID = 328, keyword = "sv"    }, -- The Stonevault
-
-    -- The War Within Season 2
-    [506] = { order = 1, activityGroupID = 327, keyword = "brew" }, -- Cinderbrew Meadery
-    [504] = { order = 2, activityGroupID = 322, keyword = "dfc"  }, -- Darkflame Cleft
-    [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
-    [500] = { order = 4, activityGroupID = 325, keyword = "rook" }, -- The Rookery
-    [525] = { order = 5, activityGroupID = 371, keyword = "fg"   }, -- Operation: Floodgate
-    [382] = { order = 6, activityGroupID = 266, keyword = "top"  }, -- Theater of Pain
-    [247] = { order = 7, activityGroupID = 140, keyword = "ml"   }, -- The MOTHERLODE!!
-    [370] = { order = 8, activityGroupID = 257, keyword = "work" }, -- Operation: Mechagon - Workshop
-
     -- The War Within Season 3
     [542] = { order = 1, activityGroupID = 381, keyword = "eda"  }, -- Eco-Dome Al'dani
     [503] = { order = 2, activityGroupID = 323, keyword = "arak" }, -- Ara-Kara, City of Echoes
-    --[499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
+    [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
     [505] = { order = 4, activityGroupID = 326, keyword = "dawn" }, -- The Dawnbreaker
-    --[525] = { order = 5, activityGroupID = 371, keyword = "fg"   }, -- Operation: Floodgate
+    [525] = { order = 5, activityGroupID = 371, keyword = "fg"   }, -- Operation: Floodgate
     [378] = { order = 6, activityGroupID = 261, keyword = "hoa"  }, -- Halls of Atonement
     [391] = { order = 7, activityGroupID = 280, keyword = "strt" }, -- Tazavesh Streets
     [392] = { order = 8, activityGroupID = 281, keyword = "gmbt" }, -- Tazavesh Gambit
+
+    -- Midnight Season 1
+    [560] = { order = 1, activityGroupID = 400, keyword = "mai" }, -- Maisara Caverns
+    [559] = { order = 2, activityGroupID = 401, keyword = "npx" }, -- Nexus-Point Xenas
+    [558] = { order = 3, activityGroupID = 399, keyword = "mt"  }, -- Magisters' Terrace
+    [557] = { order = 4, activityGroupID = 370, keyword = "ws"  }, -- Windrunner Spire
+    [402] = { order = 5, activityGroupID = 302, keyword = "aa"  }, -- Algeth'ar Academy (Dragonflight)
+    [239] = { order = 6, activityGroupID = 133, keyword = "sot" }, -- Seat of the Triumvirate (Legion)
+    [161] = { order = 7, activityGroupID =   9, keyword = "sr"  }, -- Skyreach (Warlords of Draenor)
+    [556] = { order = 8, activityGroupID =  52, keyword = "pit" }, -- Pit of Saron (Wrath of the Lich King)
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
