@@ -1,4 +1,4 @@
-## Interface: 110205
+## Interface: 110207, 120000
 ## Title: Premade Groups Filter
 ## Version: @project-version@
 ## IconTexture: 397907
