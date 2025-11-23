@@ -167,6 +167,7 @@ function RaidPanel:GetSortingExpression()
 end
 
 RaidPanel:OnLoad()
+PGF.Dialog:RegisterPanel("c3f1", RaidPanel) -- Legion Remix
 PGF.Dialog:RegisterPanel("c3f5", RaidPanel) -- Retail
 PGF.Dialog:RegisterPanel("c3f6", RaidPanel) -- Retail
 PGF.Dialog:RegisterPanel("c114f4", RaidPanel) -- Classic
