@@ -24,11 +24,20 @@ local C = PGF.C
 
 function PGF.PutPremadeRegionInfo(env, leaderName)
     env.region = nil
+    -- US data center regions
     env.oce = false
     env.la = false
     env.chi = false
     env.mex = false
     env.bzl = false
+    -- EU language regions
+    env.eng = false
+    env.ger = false
+    env.fra = false
+    env.ita = false
+    env.spa = false
+    env.por = false
+    env.rus = false
     if leaderName and PremadeRegions then
         local region = PremadeRegions.GetRegion(leaderName)
         if region then
