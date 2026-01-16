@@ -41,14 +41,14 @@ local CMID_MAP = {
     [392] = { order = 8, activityGroupID = 281, keyword = "gmbt" }, -- Tazavesh Gambit
 
     -- Midnight Season 1
-    [560] = { order = 1, activityGroupID = 400, keyword = "mai" }, -- Maisara Caverns
-    [559] = { order = 2, activityGroupID = 401, keyword = "npx" }, -- Nexus-Point Xenas
-    [558] = { order = 3, activityGroupID = 399, keyword = "mt"  }, -- Magisters' Terrace
-    [557] = { order = 4, activityGroupID = 370, keyword = "ws"  }, -- Windrunner Spire
-    [402] = { order = 5, activityGroupID = 302, keyword = "aa"  }, -- Algeth'ar Academy (Dragonflight)
-    [239] = { order = 6, activityGroupID = 133, keyword = "sot" }, -- Seat of the Triumvirate (Legion)
-    [161] = { order = 7, activityGroupID =   9, keyword = "sr"  }, -- Skyreach (Warlords of Draenor)
-    [556] = { order = 8, activityGroupID =  52, keyword = "pit" }, -- Pit of Saron (Wrath of the Lich King)
+    [560] = { order = 1, activityGroupID = 400, keyword = "mai"  }, -- Maisara Caverns
+    [559] = { order = 2, activityGroupID = 401, keyword = "npx"  }, -- Nexus-Point Xenas
+    [558] = { order = 3, activityGroupID = 399, keyword = "mt"   }, -- Magisters' Terrace
+    [557] = { order = 4, activityGroupID = 370, keyword = "ws"   }, -- Windrunner Spire
+    [402] = { order = 5, activityGroupID = 302, keyword = "aa"   }, -- Algeth'ar Academy (Dragonflight)
+    [239] = { order = 6, activityGroupID = 133, keyword = "seat" }, -- Seat of the Triumvirate (Legion)
+    [161] = { order = 7, activityGroupID =   9, keyword = "sr"   }, -- Skyreach (Warlords of Draenor)
+    [556] = { order = 8, activityGroupID =  52, keyword = "pos"  }, -- Pit of Saron (Wrath of the Lich King)
 
     -- cmID can be found here as column ID: https://wago.tools/db2/MapChallengeMode?page=1&sort[ID]=desc
 }
