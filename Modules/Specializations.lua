@@ -29,6 +29,7 @@ C.SPECIALIZATIONS = {
 
     [ 577] = { class = "DEMONHUNTER", spec = "HAVOC",         range = false, melee = true  },
     [ 581] = { class = "DEMONHUNTER", spec = "VENGEANCE",     range = false, melee = true  },
+    [1480] = { class = "DEMONHUNTER", spec = "DEVOURER",      range = true,  melee = true  },
 
     [ 102] = { class = "DRUID",       spec = "BALANCE",       range = true,  melee = false },
     [ 103] = { class = "DRUID",       spec = "FERAL",         range = false, melee = true  },
