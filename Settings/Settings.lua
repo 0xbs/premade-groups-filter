@@ -46,6 +46,14 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "compactListEntries",
+        type = "checkbox",
+        title = L["settings.compactListEntries.title"],
+        tooltip = L["settings.compactListEntries.tooltip"],
+        visible = PGF.IsRetail(),
+        callback = function(value) PGF.CompactListEntries_UpdateListScrollBox() end,
+    },
+    {
         type = "header",
         title = L["settings.section.mythicplus.title"],
         visible = true,

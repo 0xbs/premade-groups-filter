@@ -197,6 +197,7 @@ C.SETTINGS_DEFAULT = {
     dialogMovable = false,
     classNamesInTooltip = true,
     coloredGroupTexts = true,
+    compactListEntries = false,
     ratingInfo = true,
     specIcon = false,
     classCircle = false,
