@@ -29,54 +29,54 @@ local DELVE_ZONE_MAPS = {
     -- Usually the map with artwork in the corners and working "Show Explored" toggle is the right one
 
     -- The War Within
-    2214, -- The Ringing Deeps
-    2215, -- Hallowfall
-    2248, -- Isle of Dorn
-    2255, -- Azj-Kahet
-    2256, -- Azj-Kahet - Lower
-    2346, -- Undermine
-    2371, -- K'aresh
+    --2214, -- The Ringing Deeps
+    --2215, -- Hallowfall
+    --2248, -- Isle of Dorn
+    --2255, -- Azj-Kahet
+    --2256, -- Azj-Kahet - Lower
+    --2346, -- Undermine
+    --2371, -- K'aresh
 
     -- Midnight
-    --2393, -- Silvermoon City
-    --2395, -- Eversong Woods
-    --2405, -- Voidstorm
-    --2413, -- Harandar
-    --2437, -- Zul'Aman
-    --2443, -- Silvermoon City
+    2393, -- Silvermoon City
+    2395, -- Eversong Woods
+    2405, -- Voidstorm
+    2413, -- Harandar
+    2437, -- Zul'Aman
+    2443, -- Silvermoon City
 }
 local DELVE_ACTIVITY_MAP = {
     -- Source: https://wago.tools/db2/GroupFinderActivity?filter%5BGroupFinderCategoryID%5D=121&filter%5BFullName_lang%5D=%28Tier%201%29&page=1&sort%5BGroupFinderActivityGrpID%5D=asc
 
     -- Delves from TWW
-    { activityGroupID = 331, tier1ActivityID = 1295 }, -- Fungal Folly
-    { activityGroupID = 332, tier1ActivityID = 1296 }, -- Kriegval's Rest
-    { activityGroupID = 333, tier1ActivityID = 1297 }, -- Earthcrawl Mines
-    { activityGroupID = 335, tier1ActivityID = 1299 }, -- The Waterworks
-    { activityGroupID = 336, tier1ActivityID = 1300 }, -- The Dread Pit
-    { activityGroupID = 337, tier1ActivityID = 1301 }, -- Nightfall Sanctum
-    { activityGroupID = 338, tier1ActivityID = 1302 }, -- Mycomancer Cavern
-    { activityGroupID = 339, tier1ActivityID = 1303 }, -- The Sinkhole
-    { activityGroupID = 340, tier1ActivityID = 1304 }, -- Skittering Breach
-    { activityGroupID = 341, tier1ActivityID = 1305 }, -- The Underkeep
-    { activityGroupID = 342, tier1ActivityID = 1306 }, -- Tak-Rethan Abyss
-    { activityGroupID = 343, tier1ActivityID = 1307 }, -- The Spiral Weave
-    { activityGroupID = 373, tier1ActivityID = 1553 }, -- Excavation Site 9
-    { activityGroupID = 374, tier1ActivityID = 1564 }, -- Sidestreet Sluice
-    { activityGroupID = 394, tier1ActivityID = 1746 }, -- Archival Assault
+    -- { activityGroupID = 331, tier1ActivityID = 1295 }, -- Fungal Folly
+    -- { activityGroupID = 332, tier1ActivityID = 1296 }, -- Kriegval's Rest
+    -- { activityGroupID = 333, tier1ActivityID = 1297 }, -- Earthcrawl Mines
+    -- { activityGroupID = 335, tier1ActivityID = 1299 }, -- The Waterworks
+    -- { activityGroupID = 336, tier1ActivityID = 1300 }, -- The Dread Pit
+    -- { activityGroupID = 337, tier1ActivityID = 1301 }, -- Nightfall Sanctum
+    -- { activityGroupID = 338, tier1ActivityID = 1302 }, -- Mycomancer Cavern
+    -- { activityGroupID = 339, tier1ActivityID = 1303 }, -- The Sinkhole
+    -- { activityGroupID = 340, tier1ActivityID = 1304 }, -- Skittering Breach
+    -- { activityGroupID = 341, tier1ActivityID = 1305 }, -- The Underkeep
+    -- { activityGroupID = 342, tier1ActivityID = 1306 }, -- Tak-Rethan Abyss
+    -- { activityGroupID = 343, tier1ActivityID = 1307 }, -- The Spiral Weave
+    -- { activityGroupID = 373, tier1ActivityID = 1553 }, -- Excavation Site 9
+    -- { activityGroupID = 374, tier1ActivityID = 1564 }, -- Sidestreet Sluice
+    -- { activityGroupID = 394, tier1ActivityID = 1746 }, -- Archival Assault
 
     -- Midnight
     -- Not listed: Torment's Rise (seasonal Nemesis) and Den of Echoes (announced, but missing in tables)
-    --{ activityGroupID = 405, tier1ActivityID = 1823 }, -- Collegiate Calamity
-    --{ activityGroupID = 406, tier1ActivityID = 1826 }, -- Parhelion Plaza
-    --{ activityGroupID = 407, tier1ActivityID = 1837 }, -- Sunkiller Sanctum
-    --{ activityGroupID = 409, tier1ActivityID = 1848 }, -- Shadowguard Point
-    --{ activityGroupID = 410, tier1ActivityID = 1859 }, -- The Grudge Pit
-    --{ activityGroupID = 411, tier1ActivityID = 1870 }, -- Atal'Aman
-    --{ activityGroupID = 412, tier1ActivityID = 1881 }, -- The Gulf of Memory
-    --{ activityGroupID = 413, tier1ActivityID = 1892 }, -- The Shadow Enclave
-    --{ activityGroupID = 414, tier1ActivityID = 1903 }, -- Twilight Crypts
-    --{ activityGroupID = 415, tier1ActivityID = 1914 }, -- The Darkway
+    { activityGroupID = 405, tier1ActivityID = 1823 }, -- Collegiate Calamity
+    { activityGroupID = 406, tier1ActivityID = 1826 }, -- Parhelion Plaza
+    { activityGroupID = 407, tier1ActivityID = 1837 }, -- Sunkiller Sanctum
+    { activityGroupID = 409, tier1ActivityID = 1848 }, -- Shadowguard Point
+    { activityGroupID = 410, tier1ActivityID = 1859 }, -- The Grudge Pit
+    { activityGroupID = 411, tier1ActivityID = 1870 }, -- Atal'Aman
+    { activityGroupID = 412, tier1ActivityID = 1881 }, -- The Gulf of Memory
+    { activityGroupID = 413, tier1ActivityID = 1892 }, -- The Shadow Enclave
+    { activityGroupID = 414, tier1ActivityID = 1903 }, -- Twilight Crypts
+    { activityGroupID = 415, tier1ActivityID = 1914 }, -- The Darkway
 }
 setmetatable(DELVE_ACTIVITY_MAP, { __index = function() return { activityGroupID = 0, tier1ActivityID = 0 } end })
 
