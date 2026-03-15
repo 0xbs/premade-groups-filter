@@ -30,6 +30,16 @@ local DIFFICULTY_TEXT = {
 }
 
 local CMID_MAP = {
+    -- The War Within Season 3
+    [542] = { order = 1, activityGroupID = 381, keyword = "eda"  }, -- Eco-Dome Al'dani
+    [503] = { order = 2, activityGroupID = 323, keyword = "arak" }, -- Ara-Kara, City of Echoes
+    [499] = { order = 3, activityGroupID = 324, keyword = "psf"  }, -- Priory of the Sacred Flame
+    [505] = { order = 4, activityGroupID = 326, keyword = "dawn" }, -- The Dawnbreaker
+    [525] = { order = 5, activityGroupID = 371, keyword = "fg"   }, -- Operation: Floodgate
+    [378] = { order = 6, activityGroupID = 261, keyword = "hoa"  }, -- Halls of Atonement
+    [391] = { order = 7, activityGroupID = 280, keyword = "strt" }, -- Tazavesh Streets
+    [392] = { order = 8, activityGroupID = 281, keyword = "gmbt" }, -- Tazavesh Gambit
+
     -- Midnight Season 1
     [560] = { order = 1, activityGroupID = 400, keyword = "mai"  }, -- Maisara Caverns
     [559] = { order = 2, activityGroupID = 401, keyword = "npx"  }, -- Nexus-Point Xenas
