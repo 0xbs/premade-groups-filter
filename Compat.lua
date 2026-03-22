@@ -29,16 +29,18 @@ function PGF.GetSearchResultInfo(resultID)
     if not searchResultInfo then
         return nil
     end
-    if searchResultInfo.activityIDs then
-        searchResultInfo.activityID = searchResultInfo.activityIDs[1]
+    -- Copy the table to avoid tainting the original Blizzard data
+    local info = PGF.Table_Copy_Rec(searchResultInfo)
+    if info.activityIDs then
+        info.activityID = info.activityIDs[1]
     end
-    if searchResultInfo.leaderDungeonScoreInfo then
-        searchResultInfo.leaderDungeonScoreInfo = searchResultInfo.leaderDungeonScoreInfo[1]
+    if info.leaderDungeonScoreInfo then
+        info.leaderDungeonScoreInfo = info.leaderDungeonScoreInfo[1]
     end
-    if searchResultInfo.leaderPvpRatingInfo then
-        searchResultInfo.leaderPvpRatingInfo = searchResultInfo.leaderPvpRatingInfo[1]
+    if info.leaderPvpRatingInfo then
+        info.leaderPvpRatingInfo = info.leaderPvpRatingInfo[1]
     end
-    return searchResultInfo
+    return info
 end
 
 function PGF.GetSearchResultPlayerInfo(...)

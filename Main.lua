@@ -208,7 +208,8 @@ function PGF.DoFilterSearchResults(results)
             --                      └─▶ timedout
             -- pendingStatus flow (used for role check if in a group before transition of appStatus to applied):
             --   <nil> ◀──▶ applied ──▶ cancelled
-            local memberCounts = C_LFGList.GetSearchResultMemberCounts(resultID)
+            -- Copy to avoid tainting the original Blizzard data
+            local memberCounts = PGF.Table_Copy_Shallow(C_LFGList.GetSearchResultMemberCounts(resultID))
             local numGroupDefeated, numPlayerDefeated, maxBosses,
             matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
             local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
