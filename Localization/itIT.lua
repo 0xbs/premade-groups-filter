@@ -158,5 +158,5 @@ L["settings.cancelOldestApp.tooltip"] = "Se hai il numero massimo di candidature
 L["settings.compactListEntries.title"] = "Voci elenco compatte"
 L["settings.compactListEntries.tooltip"] = "Nasconde lo stile di gioco così le voci nell’elenco dei gruppi occupano meno spazio in verticale (come prima dell’aggiornamento ai contenuti della pre-espansione di Midnight)."
 
-L["dialog.restriction.text"] = "Ti trovi in un ambiente con restrizioni. Il filtraggio può causare errori Lua."
+L["dialog.restriction.text"] = "Le restrizioni dell'addon sono attive. Il filtraggio può causare errori Lua."
 L["dialog.restriction.ok"] = "Filtra comunque"

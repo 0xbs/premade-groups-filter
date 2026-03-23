@@ -159,5 +159,5 @@ L["settings.cancelOldestApp.tooltip"] = "如果你的待处理申请达到上限
 L["settings.compactListEntries.title"] = "紧凑列表条目"
 L["settings.compactListEntries.tooltip"] = "隐藏游戏风格，使队伍列表条目占用更少的垂直空间（如同“至暗之夜”前夕内容更新之前）。"
 
-L["dialog.restriction.text"] = "你当前处于受限环境中。过滤可能导致Lua错误。"
+L["dialog.restriction.text"] = "插件限制已激活。过滤可能导致Lua错误。"
 L["dialog.restriction.ok"] = "仍然过滤"

@@ -160,5 +160,5 @@ L["settings.cancelOldestApp.tooltip"] = "Si vous avez atteint le nombre maximal 
 L["settings.compactListEntries.title"] = "Entrées de liste compactes"
 L["settings.compactListEntries.tooltip"] = "Masque le style de jeu afin que les entrées de la liste des groupes prennent moins d’espace vertical (comme avant la mise à jour de prélancement de Midnight)."
 
-L["dialog.restriction.text"] = "Vous êtes actuellement dans un environnement restreint. Le filtrage peut provoquer des erreurs Lua."
+L["dialog.restriction.text"] = "Les restrictions de l'addon sont actives. Le filtrage peut provoquer des erreurs Lua."
 L["dialog.restriction.ok"] = "Filtrer quand même"

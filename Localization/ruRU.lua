@@ -160,5 +160,5 @@ L["settings.cancelOldestApp.tooltip"] = "Если у Вас максимальн
 L["settings.compactListEntries.title"] = "Компактные элементы списка"
 L["settings.compactListEntries.tooltip"] = "Скрывает строку стиля игры, чтобы элементы в списке групп занимали меньше места по высоте (как в версиях до предварительного обновления 'Полночи')."
 
-L["dialog.restriction.text"] = "Вы находитесь в ограниченной среде. Фильтрация может вызвать ошибки Lua."
+L["dialog.restriction.text"] = "Ограничения аддона активны. Фильтрация может вызвать ошибки Lua."
 L["dialog.restriction.ok"] = "Всё равно фильтровать"

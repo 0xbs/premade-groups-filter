@@ -158,5 +158,5 @@ L["settings.cancelOldestApp.tooltip"] = "If you have the maximum number of pendi
 L["settings.compactListEntries.title"] = "Compact List Entries"
 L["settings.compactListEntries.tooltip"] = "Hides the playstyle line so items in the group list use less vertical space (as in versions before the Midnight prepatch)."
 
-L["dialog.restriction.text"] = "You are currently in a restricted environment. Filtering may cause Lua errors."
+L["dialog.restriction.text"] = "Addon restrictions are active. Filtering may cause Lua errors."
 L["dialog.restriction.ok"] = "Filter anyway"
