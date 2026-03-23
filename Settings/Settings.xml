@@ -48,7 +48,7 @@
             <Layer level="BACKGROUND">
                 <Texture parentKey="Image">
                     <Anchors>
-                        <Anchor point="LEFT" relativePoint="CENTER" x="-30"/>
+                        <Anchor point="LEFT" relativePoint="CENTER" x="-20"/>
                     </Anchors>
                 </Texture>
             </Layer>
@@ -64,6 +64,25 @@
                 <CheckedTexture atlas="checkmark-minimal" useAtlasSize="true"/>
                 <DisabledCheckedTexture atlas="checkmark-minimal-disabled" useAtlasSize="true"/>
             </CheckButton>
+            <Frame parentKey="Warning" mixin="DefaultTooltipMixin">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER" x="-45"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="Icon" file="Interface\DialogFrame\UI-Dialog-Icon-AlertNew">
+                            <Size x="24" y="24"/>
+                            <Anchors>
+                                <Anchor point="CENTER" relativePoint="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad method="OnLoad"/>
+                </Scripts>
+            </Frame>
         </Frames>
     </Frame>
 

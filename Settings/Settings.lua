@@ -198,20 +198,12 @@ function PGFSettings.CreateListItem(factory, elementData)
                 item.Image:SetTexture(elementData.image)
             end
             if elementData.warning then
-                local warning = item:CreateTexture(nil, "ARTWORK")
-                warning:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
-                warning:SetSize(24, 24)
-                warning:SetPoint("LEFT", item.Text, "RIGHT", 4, 0)
-                local warningTooltip = CreateFrame("Frame", nil, item)
-                warningTooltip:SetAllPoints(warning)
-                warningTooltip:SetScript("OnEnter", function(self)
-                    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                    GameTooltip:SetText(elementData.warning, nil, nil, nil, nil, true)
-                    GameTooltip:Show()
+                item.Warning:SetTooltipFunc(function()
+                    GameTooltip_AddNormalLine(SettingsTooltip, elementData.warning)
                 end)
-                warningTooltip:SetScript("OnLeave", function()
-                    GameTooltip:Hide()
-                end)
+                item.Warning:Show()
+            else
+                item.Warning:Hide()
             end
         end)
     elseif elementData.type == "header" then
