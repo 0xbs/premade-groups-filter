@@ -148,6 +148,15 @@ function PGFDialog:OnLoad()
     self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
 
     self:InitRestrictionOverlay()
+
+    self:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
+    self:SetScript("OnEvent", self.OnEvent)
+end
+
+function PGFDialog:OnEvent(event)
+    if event == "ADDON_RESTRICTION_STATE_CHANGED" then
+        self:UpdateRestrictionOverlay()
+    end
 end
 
 function PGFDialog:OnShow()
