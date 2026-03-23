@@ -181,6 +181,7 @@ function PGF.DoFilterSearchResults(results)
     --print("filtering, size is "..#results)
 
     if not PGF.Dialog:GetEnabled() then return results end
+    if PGF.Dialog:IsRestricted() then return end
     if not results or #results == 0 then return results end
 
     local exp = PGF.Dialog:GetFilterExpression()

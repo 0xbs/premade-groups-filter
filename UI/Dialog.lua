@@ -32,6 +32,72 @@ local C = PGF.C
 
 local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "PremadeGroupsFilterDialogTemplate")
 
+local restrictionAcknowledged = false
+
+local function IsInRestrictedEnvironment()
+    if C_RestrictedActions and C_RestrictedActions.IsAddOnRestrictionActive then
+        for _, restrictionType in pairs(Enum.AddOnRestrictionType) do
+            if C_RestrictedActions.IsAddOnRestrictionActive(restrictionType) then
+                return true
+            end
+        end
+        return false
+    end
+    return InCombatLockdown()
+end
+
+function PGFDialog:InitRestrictionOverlay()
+    local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
+    overlay:SetAllPoints()
+    overlay:SetFrameLevel(self:GetFrameLevel() + 10)
+    overlay:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 16,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 },
+    })
+    overlay:SetBackdropColor(0, 0, 0, 0.85)
+    overlay:EnableMouse(true) -- block clicks to controls behind
+
+    local icon = overlay:CreateTexture(nil, "ARTWORK")
+    icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
+    icon:SetSize(36, 36)
+    icon:SetPoint("TOP", 0, -40)
+
+    local text = overlay:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    text:SetPoint("TOP", icon, "BOTTOM", 0, -10)
+    text:SetPoint("LEFT", 20, 0)
+    text:SetPoint("RIGHT", -20, 0)
+    text:SetJustifyH("CENTER")
+    text:SetText(L["dialog.restriction.text"])
+
+    local button = CreateFrame("Button", nil, overlay, "MagicButtonTemplate")
+    button:SetSize(160, 22)
+    button:SetPoint("TOP", text, "BOTTOM", 0, -14)
+    button:SetText(L["dialog.restriction.ok"])
+    button:SetScript("OnClick", function()
+        restrictionAcknowledged = true
+        overlay:Hide()
+        PGF.FilterSearchResults()
+    end)
+
+    overlay:Hide()
+    self.RestrictionOverlay = overlay
+end
+
+function PGFDialog:UpdateRestrictionOverlay()
+    if not self.RestrictionOverlay then return end
+    if IsInRestrictedEnvironment() and not restrictionAcknowledged then
+        self.RestrictionOverlay:Show()
+    else
+        self.RestrictionOverlay:Hide()
+    end
+end
+
+function PGFDialog:IsRestricted()
+    return IsInRestrictedEnvironment() and not restrictionAcknowledged
+end
+
 function PGFDialog:OnLoad()
     PGF.Logger:Debug("PGFDialog:OnLoad")
     self.minimizedHeight = 220
@@ -76,6 +142,8 @@ function PGFDialog:OnLoad()
 
     self.RefreshButton:SetText(L["dialog.refresh"])
     self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
+
+    self:InitRestrictionOverlay()
 end
 
 function PGFDialog:OnShow()
@@ -86,6 +154,7 @@ function PGFDialog:OnShow()
     if self.activePanel and self.activePanel.OnShow then
         self.activePanel:OnShow()
     end
+    self:UpdateRestrictionOverlay()
 end
 
 function PGFDialog:OnHide()

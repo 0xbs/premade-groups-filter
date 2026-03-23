@@ -159,3 +159,6 @@ L["settings.cancelOldestApp.title"] = "Älteste Anmeldung abbrechen"
 L["settings.cancelOldestApp.tooltip"] = "Wenn Ihr die maximale Anzahl an Gruppenanmeldungen laufen habt, klickt auf eine Gruppe, um Eure älteste Anfrage abzubrechen. Klickt dann erneut, um Euch zu bewerben."
 L["settings.compactListEntries.title"] = "Kompakte Listeneinträge"
 L["settings.compactListEntries.tooltip"] = "Blendet die Spielstil-Zeile aus, damit Einträge in der Gruppensuche weniger vertikalen Platz benötigen (wie vor dem Midnight-Prepatch)."
+
+L["dialog.restriction.text"] = "Ihr befindet euch gerade in einer eingeschränkten Umgebung. Das Filtern kann zu Lua-Fehlern führen."
+L["dialog.restriction.ok"] = "Trotzdem filtern"
