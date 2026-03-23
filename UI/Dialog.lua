@@ -36,6 +36,7 @@ local restrictionAcknowledged = false
 
 local function IsInRestrictedEnvironment()
     if C_RestrictedActions and C_RestrictedActions.IsAddOnRestrictionActive then
+        -- Enum.AddOnRestrictionType: Combat, Encounter, ChallengeMode, PvPMatch, Map
         for _, restrictionType in pairs(Enum.AddOnRestrictionType) do
             if C_RestrictedActions.IsAddOnRestrictionActive(restrictionType) then
                 return true
@@ -153,9 +154,12 @@ function PGFDialog:OnLoad()
     self:SetScript("OnEvent", self.OnEvent)
 end
 
-function PGFDialog:OnEvent(event)
+function PGFDialog:OnEvent(event, ...)
     if event == "ADDON_RESTRICTION_STATE_CHANGED" then
-        self:UpdateRestrictionOverlay()
+        -- The event only fires with state "Activating", so defer execution to next frame
+        C_Timer.After(0, function()
+            self:UpdateRestrictionOverlay()
+        end)
     end
 end
 
