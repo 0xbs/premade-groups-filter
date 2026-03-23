@@ -180,10 +180,6 @@ function PGF.DoFilterSearchResults(results)
     --print(debugstack())
     --print("filtering, size is "..#results)
 
-    if not PGF.Dialog:GetEnabled() then return results end
-    if PGF.Dialog:IsRestricted() then return end
-    if not results or #results == 0 then return results end
-
     local exp = PGF.Dialog:GetFilterExpression()
     PGF.Logger:Debug("Main: exp = "..exp)
     PGF.currentSearchExpression = exp
@@ -439,6 +435,11 @@ end
 
 function PGF.FilterSearchResults()
     PGF.Logger:Debug("PGF.FilterSearchResults")
+    -- exit early before tainting any variables if disabled or restricted
+    if not PGF.Dialog:GetEnabled() then return end
+    if PGF.Dialog:IsRestricted() then return end
+    if not PGF.currentSearchResults or #PGF.currentSearchResults == 0 then return end
+
     local copy = PGF.Table_Copy_Shallow(PGF.currentSearchResults)
     local results = PGF.DoFilterSearchResults(copy)
     -- publish
