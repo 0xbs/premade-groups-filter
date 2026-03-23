@@ -160,7 +160,7 @@ end
 
 function PGF.String_Tokenize(str, filter)
     -- normalize the string and remove ASCII and CJK punctuation
-    lstr = str:lower():gsub("['＇]", ""):gsub("[:：%-－]", " ")
+    local lstr = str:lower():gsub("['＇]", ""):gsub("[:：%-－]", " ")
     local words = {}
     for w in lstr:gmatch("%S+") do
         if filter == nil or filter(w) then
