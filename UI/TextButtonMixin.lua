@@ -20,16 +20,6 @@
 
 PremadeGroupsFilterTextButtonMixin = {}
 
-function PremadeGroupsFilterTextButtonMixin:OnLoad()
-    print("mixin OnLoad")
-    self.Label:SetText(self.title or "")
-end
-
-function PremadeGroupsFilterTextButtonMixin:OnShow()
-    print("mixin OnShow")
-    self.Label:SetText(self.title or "")
-end
-
 function PremadeGroupsFilterTextButtonMixin:Init(title, tooltip)
     self.title = title
     self.tooltip = tooltip
