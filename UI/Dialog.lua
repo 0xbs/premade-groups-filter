@@ -49,28 +49,31 @@ end
 function PGFDialog:InitRestrictionOverlay()
     if not PGF.IsRetail() then return end
     local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
-    overlay:SetAllPoints()
+    overlay:SetPoint("LEFT")
+    overlay:SetPoint("TOP", 0, -20)
+    overlay:SetPoint("RIGHT")
+    overlay:SetPoint("BOTTOM", 0, 25)
     overlay:SetFrameLevel(self:GetFrameLevel() + 10)
     overlay:SetBackdrop({
         bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        --edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
         tile = true, tileSize = 16, edgeSize = 16,
         insets = { left = 4, right = 4, top = 4, bottom = 4 },
     })
-    overlay:SetBackdropColor(0, 0, 0, 0.85)
+    overlay:SetBackdropColor(0, 0, 0, 1)
     overlay:EnableMouse(true) -- block clicks to controls behind
 
-    local icon = overlay:CreateTexture(nil, "ARTWORK")
-    icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
-    icon:SetSize(36, 36)
-    icon:SetPoint("TOP", 0, -40)
-
     local text = overlay:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    text:SetPoint("TOP", icon, "BOTTOM", 0, -10)
+    text:SetPoint("CENTER", 0, 0)
     text:SetPoint("LEFT", 20, 0)
     text:SetPoint("RIGHT", -20, 0)
     text:SetJustifyH("CENTER")
     text:SetText(L["dialog.restriction.text"])
+
+    local icon = overlay:CreateTexture(nil, "ARTWORK")
+    icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
+    icon:SetSize(36, 36)
+    icon:SetPoint("BOTTOM", text, "TOP", 0, 14)
 
     local button = CreateFrame("Button", nil, overlay, "MagicButtonTemplate")
     button:SetSize(160, 22)
