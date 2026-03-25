@@ -150,7 +150,9 @@ function PGFDialog:OnLoad()
 
     self:InitRestrictionOverlay()
 
-    self:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
+    if C_EventUtils and C_EventUtils.IsEventValid and C_EventUtils.IsEventValid("ADDON_RESTRICTION_STATE_CHANGED") then
+        self:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
+    end
     self:SetScript("OnEvent", self.OnEvent)
 end
 
