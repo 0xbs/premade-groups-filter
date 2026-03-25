@@ -29,9 +29,9 @@ function PGF.IsMatchingInstance(lockoutName, activityName, lockoutDifficulty, ac
 end
 
 function PGF.GetLockoutInfo(activity, resultID)
-    local activityInfo = C_LFGList.GetActivityInfoTable(activity)
+    local activityInfo = PGF.GetActivityInfoTable(activity)
     local difficulty = C.ACTIVITY[activity].difficulty
-    local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID)
+    local encounterInfo = PGF.GetSearchResultEncounterInfo(resultID)
     local groupDefeatedBossNames = PGF.Table_ValuesAsKeys(encounterInfo)
     local numGroupDefeated = PGF.Table_Count(encounterInfo)
 

@@ -73,7 +73,7 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
 
     local searchResultInfo = PGF.GetSearchResultInfo(resultID)
     if not searchResultInfo then return end
-    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+    local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
     if not activityInfo then return end
 
     -- do not show members where Blizzard already does that

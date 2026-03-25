@@ -126,7 +126,7 @@ function DelvePanel:OnLoad()
         local delve = self.Delves["Delve"..i]
         local activityGroupID = DELVE_ACTIVITY_MAP[i].activityGroupID
         local tier1ActivityID = DELVE_ACTIVITY_MAP[i].tier1ActivityID
-        local activityInfo = C_LFGList.GetActivityInfoTable(tier1ActivityID)
+        local activityInfo = PGF.GetActivityInfoTable(tier1ActivityID)
         local name = PGF.String_RemoveBrackets(activityInfo.fullName)
 
         delve.activityGroupID = activityGroupID

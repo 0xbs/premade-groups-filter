@@ -99,7 +99,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         return -- stop if special status
     end
 
-    local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+    local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
     if activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
         return -- only show rings on role enumerations like dungeon groups
     end
@@ -137,7 +137,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
         local roleAtlas = PGF.IsRetail() and C.ROLE_ATLAS_BORDERLESS or C.ROLE_ATLAS
         local i = #members + 1
         for role, remainingKey in pairs(C.ROLE_REMAINING_KEYS) do
-            local memberCounts = C_LFGList.GetSearchResultMemberCounts(self.resultID)
+            local memberCounts = PGF.GetSearchResultMemberCounts(self.resultID)
             local remaining = memberCounts[remainingKey]
             for _ = 1, remaining do
                 if i > numIcons then return end

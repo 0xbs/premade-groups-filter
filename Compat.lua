@@ -43,8 +43,14 @@ function PGF.GetSearchResultInfo(resultID)
     return info
 end
 
+function PGF.GetActivityInfoTable(resultID)
+    -- Copy the table to avoid tainting the original Blizzard data
+    return PGF.Table_Copy_Rec(C_LFGList.GetActivityInfoTable(resultID))
+end
+
 function PGF.GetSearchResultPlayerInfo(...)
-    return C_LFGList.GetSearchResultPlayerInfo(...)
+    -- Copy the table to avoid tainting the original Blizzard data
+    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultPlayerInfo(...))
 end
 
 function PGF.GetSearchResultMemberInfo(...)
@@ -52,4 +58,12 @@ function PGF.GetSearchResultMemberInfo(...)
     if info then
         return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader, info.isLeaver
     end
+end
+
+function PGF.GetSearchResultMemberCounts(resultID)
+    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultMemberCounts(resultID))
+end
+
+function PGF.GetSearchResultEncounterInfo(resultID)
+    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultEncounterInfo(resultID))
 end

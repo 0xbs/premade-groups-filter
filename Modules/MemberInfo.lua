@@ -80,7 +80,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 end
 
 local function GetRoleClassOrder(resultID)
-    local displayData = C_LFGList.GetSearchResultMemberCounts(resultID)
+    local displayData = PGF.GetSearchResultMemberCounts(resultID)
     local result = {}
     local roleOrder = LFG_LIST_GROUP_DATA_ROLE_ORDER -- { "TANK", "HEALER", "DAMAGER" }
     for i = 1, #roleOrder do

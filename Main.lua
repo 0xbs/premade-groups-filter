@@ -165,7 +165,7 @@ function PGF.PutEncounterNames(resultID, env)
     encounterToBoolMeta.__index = function (table, key) return false end
     setmetatable(encounterToBool, encounterToBoolMeta)
 
-    local encounterInfo = C_LFGList.GetSearchResultEncounterInfo(resultID); -- list of localized boss names
+    local encounterInfo = PGF.GetSearchResultEncounterInfo(resultID); -- list of localized boss names
     if encounterInfo then
         for _, val in pairs(encounterInfo) do
             encounterToBool[val] = true
@@ -206,10 +206,10 @@ function PGF.DoFilterSearchResults(results)
             -- pendingStatus flow (used for role check if in a group before transition of appStatus to applied):
             --   <nil> ◀──▶ applied ──▶ cancelled
             -- Copy to avoid tainting the original Blizzard data
-            local memberCounts = PGF.Table_Copy_Shallow(C_LFGList.GetSearchResultMemberCounts(resultID))
+            local memberCounts = PGF.GetSearchResultMemberCounts(resultID)
             local numGroupDefeated, numPlayerDefeated, maxBosses,
             matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
-            local activityInfo = C_LFGList.GetActivityInfoTable(searchResultInfo.activityID)
+            local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
 
             local difficulty = C.ACTIVITY[searchResultInfo.activityID].difficulty
 
