@@ -48,7 +48,7 @@ local function IsInRestrictedEnvironment()
 end
 
 function PGFDialog:InitRestrictionOverlay()
-    if not PGF.IsRetail() then return end
+    if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
     local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
     overlay:SetPoint("LEFT")
     overlay:SetPoint("TOP", 0, -20)
