@@ -155,7 +155,6 @@ function DungeonPanel:OnLoad()
 
     for i = 1, NUM_DUNGEON_CHECKBOXES do
         local dungeon = self.Dungeons["Dungeon"..i]
-        dungeon.cmId = cmID
         dungeon.name = "..."
         dungeon:SetWidth(145)
         dungeon.Title:SetText("...")
