@@ -103,13 +103,20 @@ end
 
 local function HasPGFTaint()
     if not LFGListFrame then return false end
-    -- check known taint sources from filtering
-    local isSecure1 = issecurevariable(LFGListFrame.SearchPanel, "results")
-    local isSecure2 = issecurevariable(LFGListFrame.SearchPanel, "totalResults")
-    -- check taint propagation to ApplicationViewer
-    local isSecure3 = issecurevariable(LFGListFrame, "ApplicationViewer")
-    local isSecure4 = issecurevariable(LFGListFrame.ApplicationViewer, "EntryName")
-    return not (isSecure1 and isSecure2 and isSecure3 and isSecure4)
+    if not issecurevariable("LFGListFrame") then return true end
+    local checks = {
+        { LFGListFrame.SearchPanel, "results" },
+        { LFGListFrame.SearchPanel, "totalResults" },
+        { LFGListFrame, "ApplicationViewer" },
+        { LFGListFrame.ApplicationViewer, "EntryName" },
+        { LFGListFrame, "declines" },
+    }
+    for _, check in ipairs(checks) do
+        if not issecurevariable(check[1], check[2]) then
+            return true
+        end
+    end
+    return false
 end
 
 local taintNotification
