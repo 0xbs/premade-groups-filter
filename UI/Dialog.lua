@@ -37,14 +37,12 @@ local restrictionAcknowledged = false
 local function IsInRestrictedEnvironment()
     if C_RestrictedActions and C_RestrictedActions.IsAddOnRestrictionActive then
         -- Enum.AddOnRestrictionType: Combat, Encounter, ChallengeMode, PvPMatch, Map
-        for _, restrictionType in pairs(Enum.AddOnRestrictionType) do
-            if C_RestrictedActions.IsAddOnRestrictionActive(restrictionType) then
-                return true
-            end
-        end
-        return false
+        return C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Encounter)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.ChallengeMode)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.PvPMatch)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map)
     end
-    return InCombatLockdown()
+    return false
 end
 
 function PGFDialog:InitRestrictionOverlay()
