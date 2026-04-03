@@ -162,3 +162,6 @@ L["settings.compactListEntries.tooltip"] = "Скрывает строку сти
 
 L["dialog.restriction.text"] = "Ограничения аддона активны. Фильтрация может вызвать ошибки Lua."
 L["dialog.restriction.ok"] = "Всё равно фильтровать"
+
+L["dialog.taint.text"] = "Premade Groups Filter изменил поиск групп, что может вызвать ошибки Lua во время рейда. Рекомендуется выполнить /reload для устранения проблемы."
+L["dialog.taint.reload"] = "Перезагрузить интерфейс"

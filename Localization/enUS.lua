@@ -160,3 +160,6 @@ L["settings.compactListEntries.tooltip"] = "Hides the playstyle line so items in
 
 L["dialog.restriction.text"] = "Addon restrictions are active. Filtering may cause Lua errors."
 L["dialog.restriction.ok"] = "Filter anyway"
+
+L["dialog.taint.text"] = "Premade Groups Filter has modified the group finder, which may cause Lua errors during the raid. A /reload is recommended to fix this."
+L["dialog.taint.reload"] = "Reload UI"

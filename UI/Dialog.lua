@@ -103,6 +103,80 @@ function PGFDialog:IsRestricted()
     return IsInRestrictedEnvironment() and not restrictionAcknowledged
 end
 
+local function HasPGFTaint()
+    if not LFGListFrame then return false end
+    -- check known taint sources from filtering
+    local isSecure1 = issecurevariable(LFGListFrame.SearchPanel, "results")
+    local isSecure2 = issecurevariable(LFGListFrame.SearchPanel, "totalResults")
+    -- check taint propagation to ApplicationViewer
+    local isSecure3 = issecurevariable(LFGListFrame, "ApplicationViewer")
+    local isSecure4 = issecurevariable(LFGListFrame.ApplicationViewer, "EntryName")
+    return not (isSecure1 and isSecure2 and isSecure3 and isSecure4)
+end
+
+local taintNotification
+local taintNotificationDismissed = false
+
+local function CreateTaintNotification()
+    local frame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+    frame:SetSize(320, 100)
+    frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -16)
+    frame:SetFrameStrata("DIALOG")
+    frame:SetBackdrop({
+        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+        edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+        tile = true, tileSize = 16, edgeSize = 16,
+        insets = { left = 4, right = 4, top = 4, bottom = 4 },
+    })
+    frame:SetBackdropColor(0, 0, 0, 0.9)
+    frame:SetBackdropBorderColor(1, 0.82, 0, 1)
+
+    local closeButton = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+    closeButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 2, 2)
+    closeButton:SetScript("OnClick", function()
+        taintNotificationDismissed = true
+        frame:Hide()
+    end)
+
+    local icon = frame:CreateTexture(nil, "ARTWORK")
+    icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
+    icon:SetSize(28, 28)
+    icon:SetPoint("TOPLEFT", 10, -10)
+
+    local text = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    text:SetPoint("TOPLEFT", icon, "TOPRIGHT", 8, 0)
+    text:SetPoint("RIGHT", closeButton, "LEFT", -4, 0)
+    text:SetJustifyH("LEFT")
+    text:SetText(L["dialog.taint.text"])
+
+    local reloadButton = CreateFrame("Button", nil, frame, "MagicButtonTemplate")
+    reloadButton:SetSize(120, 22)
+    reloadButton:SetPoint("BOTTOM", frame, "BOTTOM", 0, 10)
+    reloadButton:SetText(L["dialog.taint.reload"])
+    reloadButton:SetScript("OnClick", function() ReloadUI() end)
+
+    -- adjust height based on text
+    frame:SetScript("OnShow", function(self)
+        local height = 10 + math.max(icon:GetHeight(), text:GetStringHeight()) + 10 + reloadButton:GetHeight() + 16
+        self:SetHeight(height)
+    end)
+
+    frame:Hide()
+    return frame
+end
+
+function PGFDialog:CheckTaintAndNotify()
+    if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
+    if not C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map) then return end
+    if not HasPGFTaint() then return end
+    if taintNotificationDismissed then return end
+
+    if not taintNotification then
+        taintNotification = CreateTaintNotification()
+    end
+    taintNotification:Show()
+end
+
 function PGFDialog:OnLoad()
     PGF.Logger:Debug("PGFDialog:OnLoad")
     self.minimizedHeight = 220
@@ -161,6 +235,7 @@ function PGFDialog:OnEvent(event, ...)
         -- The event only fires with state "Activating", so defer execution to next frame
         C_Timer.After(0, function()
             self:UpdateRestrictionOverlay()
+            self:CheckTaintAndNotify()
         end)
     end
 end

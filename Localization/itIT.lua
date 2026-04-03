@@ -160,3 +160,6 @@ L["settings.compactListEntries.tooltip"] = "Nasconde lo stile di gioco così le 
 
 L["dialog.restriction.text"] = "Le restrizioni dell'addon sono attive. Il filtraggio può causare errori Lua."
 L["dialog.restriction.ok"] = "Filtra comunque"
+
+L["dialog.taint.text"] = "Premade Groups Filter ha modificato il cercatore di gruppi, il che potrebbe causare errori Lua durante il raid. Si consiglia un /reload per risolvere il problema."
+L["dialog.taint.reload"] = "Ricarica IU"
