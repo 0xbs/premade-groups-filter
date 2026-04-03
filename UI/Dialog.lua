@@ -178,14 +178,16 @@ end
 
 function PGFDialog:CheckTaintAndNotify()
     if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
-    if not C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map) then return end
-    if not HasPGFTaint() then return end
-    if taintNotificationDismissed then return end
-
-    if not taintNotification then
-        taintNotification = CreateTaintNotification()
+    local restricted = C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map)
+    local shouldShow = restricted and HasPGFTaint() and not taintNotificationDismissed
+    if shouldShow then
+        if not taintNotification then
+            taintNotification = CreateTaintNotification()
+        end
+        taintNotification:Show()
+    elseif taintNotification and taintNotification:IsShown() then
+        taintNotification:Hide()
     end
-    taintNotification:Show()
 end
 
 function PGFDialog:OnLoad()
