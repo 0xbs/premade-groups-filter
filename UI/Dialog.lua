@@ -18,7 +18,7 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 -------------------------------------------------------------------------------
 
-local PGF = select(2, ...)
+local PGFAddonName, PGF = ...
 local L = PGF.L
 local C = PGF.C
 
@@ -103,7 +103,8 @@ end
 
 local function HasPGFTaint()
     if not LFGListFrame then return false end
-    if not issecurevariable("LFGListFrame") then return true end
+    local tainted, source = issecurevariable("LFGListFrame")
+    if tainted and source == PGFAddonName then return true end
     local checks = {
         { LFGListFrame.SearchPanel, "results" },
         { LFGListFrame.SearchPanel, "totalResults" },
@@ -112,9 +113,8 @@ local function HasPGFTaint()
         { LFGListFrame, "declines" },
     }
     for _, check in ipairs(checks) do
-        if not issecurevariable(check[1], check[2]) then
-            return true
-        end
+        local tainted, src = issecurevariable(check[1], check[2])
+        if tainted and src == PGFAddonName then return true end
     end
     return false
 end
