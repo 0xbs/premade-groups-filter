@@ -163,5 +163,5 @@ L["settings.compactListEntries.tooltip"] = "Blendet die Spielstil-Zeile aus, dam
 L["dialog.restriction.text"] = "Addon-Einschränkungen sind aktiv. Das Filtern kann zu Lua-Fehlern führen."
 L["dialog.restriction.ok"] = "Trotzdem filtern"
 
-L["dialog.taint.text"] = "Premade Groups Filter hat die Gruppensuche verändert, was zu Lua-Fehlern während des Schlachtzugs führen kann. Ein /reload wird empfohlen, um dies zu beheben."
+L["dialog.taint.text"] = "Addon-Einschränkungen sind jetzt aktiv. Premade Groups Filter hat die Gruppensuche verändert, was zu Lua-Fehlern führen kann, solange Einschränkungen aktiv sind. Ein /reload wird empfohlen, um dies zu beheben."
 L["dialog.taint.reload"] = "UI neu laden"
