@@ -103,8 +103,8 @@ end
 
 local function HasPGFTaint()
     if not LFGListFrame then return false end
-    local tainted, source = issecurevariable("LFGListFrame")
-    if tainted and source == PGFAddonName then return true end
+    local secure, source = issecurevariable("LFGListFrame")
+    if not secure and source == PGFAddonName then return true end
     local checks = {
         { LFGListFrame.SearchPanel, "results" },
         { LFGListFrame.SearchPanel, "totalResults" },
@@ -113,8 +113,8 @@ local function HasPGFTaint()
         { LFGListFrame, "declines" },
     }
     for _, check in ipairs(checks) do
-        local tainted, src = issecurevariable(check[1], check[2])
-        if tainted and src == PGFAddonName then return true end
+        local secure, source = issecurevariable(check[1], check[2])
+        if not secure and source == PGFAddonName then return true end
     end
     return false
 end
