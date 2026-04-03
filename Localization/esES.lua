@@ -157,5 +157,5 @@ L["settings.compactListEntries.tooltip"] = "Oculta el estilo de juego para que l
 L["dialog.restriction.text"] = "Las restricciones del addon están activas. El filtrado puede causar errores Lua."
 L["dialog.restriction.ok"] = "Filtrar de todos modos"
 
-L["dialog.taint.text"] = "Las restricciones de addons están activas. Premade Groups Filter ha modificado el buscador de grupos, lo que puede causar errores Lua mientras las restricciones estén activas. Se recomienda hacer /reload para solucionarlo."
+L["dialog.taint.text"] = "Las restricciones de addons están activas. Premade Groups Filter ha modificado el buscador de grupos, lo que puede causar errores Lua. Se recomienda hacer /reload para solucionarlo."
 L["dialog.taint.reload"] = "Recargar IU"

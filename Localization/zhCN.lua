@@ -162,5 +162,5 @@ L["settings.compactListEntries.tooltip"] = "隐藏游戏风格，使队伍列表
 L["dialog.restriction.text"] = "插件限制已激活。过滤可能导致Lua错误。"
 L["dialog.restriction.ok"] = "仍然过滤"
 
-L["dialog.taint.text"] = "插件限制现已生效。Premade Groups Filter已修改了队伍查找器，在限制生效期间可能会导致Lua错误。建议执行/reload来修复此问题。"
+L["dialog.taint.text"] = "插件限制现已生效。Premade Groups Filter已修改了队伍查找器，可能会导致Lua错误。建议执行/reload来修复此问题。"
 L["dialog.taint.reload"] = "重新加载界面"
