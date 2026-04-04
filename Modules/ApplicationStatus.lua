@@ -76,11 +76,13 @@ function PGF.IsCanceledGroup(searchResultInfo)
 end
 
 function PGF.HandleLFGListFrameDeclineStatus(key)
-    if PGF.IsRetail() and PremadeGroupsFilterSettings.signUpDeclined and LFGListFrame.declines then
-        if PGF.Dialog and PGF.Dialog:IsRestricted() then return end
-        LFGListFrame.declines[key] = nil -- remove from Blizzard's list to allow re-applying to groups
-        LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel) -- update but don't sort
-    end
+    if not PGF.IsRetail() then return end
+    if not PremadeGroupsFilterSettings.signUpDeclined then return end
+    if PGF.IsRestricted() then return end
+    if not LFGListFrame.declines then return end
+
+    LFGListFrame.declines[key] = nil -- remove from Blizzard's list to allow re-applying to groups
+    LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel) -- update but don't sort
 end
 
 function PGF.OnLFGListApplicationStatusUpdated(id, newStatus)

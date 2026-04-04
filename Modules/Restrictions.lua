@@ -31,3 +31,14 @@ function PGF.IsInRestrictedEnvironment()
     end
     return false
 end
+
+-- If true, player explicitly wants to use all features despite potential taints
+local restrictionAcknowledged = false
+
+function PGF.IsRestricted()
+    return PGF.IsInRestrictedEnvironment() and not restrictionAcknowledged
+end
+
+function PGF.AcknowledgeRestriction()
+    restrictionAcknowledged = true
+end

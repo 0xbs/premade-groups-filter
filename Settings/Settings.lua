@@ -163,8 +163,7 @@ local PGFSettingsTable = {
         visible = PGF.IsRetail(),
         callback = function (enabled)
             -- clear existing declines when the setting is checked
-            local restricted = PGF.Dialog and PGF.Dialog:IsRestricted()
-            if enabled and not restricted then
+            if enabled and not PGF.IsRestricted() then
                 LFGListFrame.declines = {}
             end
         end

@@ -32,8 +32,6 @@ local C = PGF.C
 
 local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "PremadeGroupsFilterDialogTemplate")
 
-local restrictionAcknowledged = false
-
 function PGFDialog:InitRestrictionOverlay()
     if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
     local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
@@ -68,7 +66,7 @@ function PGFDialog:InitRestrictionOverlay()
     button:SetPoint("TOP", text, "BOTTOM", 0, -14)
     button:SetText(L["dialog.restriction.ok"])
     button:SetScript("OnClick", function()
-        restrictionAcknowledged = true
+        PGF.AcknowledgeRestriction()
         overlay:Hide()
         PGF.FilterSearchResults()
     end)
@@ -79,15 +77,11 @@ end
 
 function PGFDialog:UpdateRestrictionOverlay()
     if not self.RestrictionOverlay then return end
-    if PGF.IsInRestrictedEnvironment() and not restrictionAcknowledged then
+    if PGF.IsRestricted() then
         self.RestrictionOverlay:Show()
     else
         self.RestrictionOverlay:Hide()
     end
-end
-
-function PGFDialog:IsRestricted()
-    return PGF.IsInRestrictedEnvironment() and not restrictionAcknowledged
 end
 
 local function HasPGFTaint()
