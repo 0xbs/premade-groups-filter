@@ -50,6 +50,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.compactListEntries.title"],
         tooltip = L["settings.compactListEntries.tooltip"],
+        warning = L["settings.signUpDeclined.warning"],
         visible = PGF.IsRetail(),
         callback = function(enabled) PGF.CompactListEntries_UpdateListScrollBox() end,
     },
@@ -123,6 +124,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.oneClickSignUp.title"],
         tooltip = L["settings.oneClickSignUp.tooltip"],
+        warning = L["settings.signUpDeclined.warning"],
         visible = true,
     },
     {
