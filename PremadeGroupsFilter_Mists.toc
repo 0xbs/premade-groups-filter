@@ -31,6 +31,7 @@ Modules\Logger.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
+Modules\Restrictions.lua
 Modules\Activity_Mists.lua
 Modules\ActivityKeywords.lua
 Modules\MemberInfo_Mists.lua

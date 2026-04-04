@@ -44,6 +44,7 @@ Modules\Logger.lua
 UI\StaticPopup.xml
 UI\StaticPopup.lua
 Modules\Util.lua
+Modules\Restrictions.lua
 Modules\Activity.lua
 Modules\ActivityKeywords.lua
 Modules\AdvancedFilter.lua

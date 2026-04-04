@@ -22,17 +22,12 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
--- Before the SignUp dialog opens, set activityID to match the selected result's
--- activity so that LFGListApplicationDialog_Show skips ClearApplicationTextFields.
--- Using PreClick + hooksecurefunc avoids overwriting the global function.
-LFGListFrame.SearchPanel.SignUpButton:HookScript("PreClick", function()
-    if not PremadeGroupsFilterSettings.persistSignUpNote then return end
-    if PGF.Dialog and PGF.Dialog:IsRestricted() then return end
-    local selectedResult = LFGListFrame.SearchPanel.selectedResult
-    if selectedResult then
-        local searchResultInfo = C_LFGList.GetSearchResultInfo(selectedResult)
-        if searchResultInfo then
-            LFGListApplicationDialog.activityID = searchResultInfo.activityIDs[1]
-        end
+function PGF.IsInRestrictedEnvironment()
+    if C_RestrictedActions and C_RestrictedActions.IsAddOnRestrictionActive then
+        return C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Encounter)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.ChallengeMode)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.PvPMatch)
+            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map)
     end
-end)
+    return false
+end

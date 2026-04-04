@@ -34,17 +34,6 @@ local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "P
 
 local restrictionAcknowledged = false
 
-local function IsInRestrictedEnvironment()
-    if C_RestrictedActions and C_RestrictedActions.IsAddOnRestrictionActive then
-        -- Enum.AddOnRestrictionType: Combat, Encounter, ChallengeMode, PvPMatch, Map
-        return C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Encounter)
-            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.ChallengeMode)
-            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.PvPMatch)
-            or C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map)
-    end
-    return false
-end
-
 function PGFDialog:InitRestrictionOverlay()
     if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
     local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
@@ -90,7 +79,7 @@ end
 
 function PGFDialog:UpdateRestrictionOverlay()
     if not self.RestrictionOverlay then return end
-    if IsInRestrictedEnvironment() and not restrictionAcknowledged then
+    if PGF.IsInRestrictedEnvironment() and not restrictionAcknowledged then
         self.RestrictionOverlay:Show()
     else
         self.RestrictionOverlay:Hide()
@@ -98,7 +87,7 @@ function PGFDialog:UpdateRestrictionOverlay()
 end
 
 function PGFDialog:IsRestricted()
-    return IsInRestrictedEnvironment() and not restrictionAcknowledged
+    return PGF.IsInRestrictedEnvironment() and not restrictionAcknowledged
 end
 
 local function HasPGFTaint()
@@ -111,6 +100,7 @@ local function HasPGFTaint()
         { LFGListFrame, "ApplicationViewer" },
         { LFGListFrame.ApplicationViewer, "EntryName" },
         { LFGListFrame, "declines" },
+        { LFGListApplicationDialog, "activityID" },
     }
     for _, check in ipairs(checks) do
         local secure, source = issecurevariable(check[1], check[2])

@@ -51,7 +51,7 @@ local PGFSettingsTable = {
         title = L["settings.compactListEntries.title"],
         tooltip = L["settings.compactListEntries.tooltip"],
         visible = PGF.IsRetail(),
-        callback = function(value) PGF.CompactListEntries_UpdateListScrollBox() end,
+        callback = function(enabled) PGF.CompactListEntries_UpdateListScrollBox() end,
     },
     {
         type = "header",
@@ -139,7 +139,6 @@ local PGFSettingsTable = {
         tooltip = L["settings.persistSignUpNote.tooltip"],
         warning = L["settings.signUpDeclined.warning"],
         visible = true,
-        callback = function(value) PGF.PersistSignUpNote() end,
     },
     {
         key = "signupOnEnter",
@@ -162,7 +161,13 @@ local PGFSettingsTable = {
         tooltip = L["settings.signUpDeclined.tooltip"],
         warning = L["settings.signUpDeclined.warning"],
         visible = PGF.IsRetail(),
-        callback = function (value) if value then LFGListFrame.declines = {} end end
+        callback = function (enabled)
+            -- clear existing declines when the setting is checked
+            local restricted = PGF.Dialog and PGF.Dialog:IsRestricted()
+            if enabled and not restricted then
+                LFGListFrame.declines = {}
+            end
+        end
     },
 }
 
