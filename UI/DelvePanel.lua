@@ -35,6 +35,7 @@ local DELVE_ZONE_MAPS = {
     2413, -- Harandar
     2437, -- Zul'Aman
     2443, -- Silvermoon City
+    2424, -- Isle of Quel'Danas
 }
 local DELVE_ACTIVITY_MAP = {
     -- Source: https://wago.tools/db2/GroupFinderActivity?filter%5BGroupFinderCategoryID%5D=121&filter%5BFullName_lang%5D=%28Tier%201%29&page=1&sort%5BGroupFinderActivityGrpID%5D=asc
