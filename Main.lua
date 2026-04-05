@@ -191,7 +191,8 @@ function PGF.DoFilterSearchResults(results)
     for idx = #results, 1, -1 do
         local resultID = results[idx]
         local searchResultInfo = PGF.GetSearchResultInfo(resultID)
-        if searchResultInfo then
+        local activityInfo = searchResultInfo and PGF.GetActivityInfoTable(searchResultInfo.activityID)
+        if searchResultInfo and activityInfo then
             -- /dump PGF.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
             -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
             local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
@@ -209,7 +210,6 @@ function PGF.DoFilterSearchResults(results)
             local memberCounts = PGF.GetSearchResultMemberCounts(resultID)
             local numGroupDefeated, numPlayerDefeated, maxBosses,
             matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
-            local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
 
             local difficulty = C.ACTIVITY[searchResultInfo.activityID].difficulty
 
