@@ -160,6 +160,7 @@ L["settings.cancelOldestApp.title"] = "Annuler la plus ancienne candidature"
 L["settings.cancelOldestApp.tooltip"] = "Si vous avez atteint le nombre maximal de candidatures en attente, cliquez sur un groupe pour annuler la candidature la plus ancienne, puis cliquez à nouveau pour postuler."
 L["settings.compactListEntries.title"] = "Entrées de liste compactes"
 L["settings.compactListEntries.tooltip"] = "Masque le style de jeu afin que les entrées de la liste des groupes prennent moins d’espace vertical (comme avant la mise à jour de prélancement de Midnight)."
+L["settings.reload.info"] = "* Les modifications de ces options déclencheront un rechargement automatique de l’interface après la fermeture des paramètres."
 
 L["dialog.restriction.text"] = "Les restrictions de l'addon sont actives. Le filtrage peut provoquer des erreurs Lua."
 L["dialog.restriction.ok"] = "Filtrer quand même"

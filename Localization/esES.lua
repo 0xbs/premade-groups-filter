@@ -156,6 +156,7 @@ L["settings.cancelOldestApp.title"] = "Cancelar la aplicación más antigua"
 L["settings.cancelOldestApp.tooltip"] = "Si tienes el máximo de aplicaciones pendientes, haz clic en cualquier grupo para cancelar tu aplicación más antigua primero. Luego haz clic de nuevo para postularte."
 L["settings.compactListEntries.title"] = "Entradas de lista compactas"
 L["settings.compactListEntries.tooltip"] = "Oculta el estilo de juego para que los elementos de la lista de grupos ocupen menos espacio vertical (como antes de la actualización de contenido previa a la expansión de Midnight)."
+L["settings.reload.info"] = "* Los cambios en estas opciones activarán una recarga automática de la interfaz al cerrar los ajustes."
 
 L["dialog.restriction.text"] = "Las restricciones del addon están activas. El filtrado puede causar errores Lua."
 L["dialog.restriction.ok"] = "Filtrar de todos modos"

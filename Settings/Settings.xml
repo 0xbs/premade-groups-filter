@@ -86,6 +86,20 @@
         </Frames>
     </Frame>
 
+    <Frame name="PremadeGroupsFilterSettingsNoteTemplate" virtual="true">
+        <Size y="40"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="Text" inherits="GameFontDisableSmall" justifyH="LEFT" justifyV="TOP" wordwrap="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="7" y="-10"/>
+                        <Anchor point="RIGHT" x="-7"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
     <Frame name="PremadeGroupsFilterSettingsTemplate" virtual="true">
         <Frames>
             <Frame parentKey="Header">

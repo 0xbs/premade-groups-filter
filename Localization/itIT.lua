@@ -160,6 +160,7 @@ L["settings.cancelOldestApp.title"] = "Annulla la candidatura più vecchia"
 L["settings.cancelOldestApp.tooltip"] = "Se hai il numero massimo di candidature in attesa, clicca su un gruppo per annullare prima la tua candidatura più vecchia. Poi clicca di nuovo per candidarti."
 L["settings.compactListEntries.title"] = "Voci elenco compatte"
 L["settings.compactListEntries.tooltip"] = "Nasconde lo stile di gioco così le voci nell’elenco dei gruppi occupano meno spazio in verticale (come prima dell’aggiornamento ai contenuti della pre-espansione di Midnight)."
+L["settings.reload.info"] = "* Le modifiche a queste opzioni attiveranno un ricaricamento automatico dell’interfaccia alla chiusura delle impostazioni."
 
 L["dialog.restriction.text"] = "Le restrizioni dell'addon sono attive. Il filtraggio può causare errori Lua."
 L["dialog.restriction.ok"] = "Filtra comunque"

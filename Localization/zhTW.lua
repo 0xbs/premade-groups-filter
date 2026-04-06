@@ -160,6 +160,7 @@ L["settings.cancelOldestApp.title"] = "取消最舊的申請"
 L["settings.cancelOldestApp.tooltip"] = "如果你的待處理申請達到上限，點擊任意小組以先取消最舊的申請。然後再點擊一次以申請。"
 L["settings.compactListEntries.title"] = "精簡列表項目"
 L["settings.compactListEntries.tooltip"] = "隱藏遊戲風格，讓隊伍列表的項目佔用更少的垂直空間（如同《至暗之夜》版本前夕內容更新之前）。"
+L["settings.reload.info"] = "* 變更這些選項將在關閉設定後自動重新載入介面。"
 
 L["dialog.restriction.text"] = "插件限制已啟用。過濾可能導致Lua錯誤。"
 L["dialog.restriction.ok"] = "仍然過濾"

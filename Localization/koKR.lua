@@ -156,6 +156,7 @@ L["settings.cancelOldestApp.title"] = "가장 오래된 지원서 취소"
 L["settings.cancelOldestApp.tooltip"] = "대기 중인 지원서가 최대인 경우, 그룹을 클릭하여 가장 오래된 지원서를 먼저 취소하세요. 그런 다음 다시 클릭하여 지원하세요."
 L["settings.compactListEntries.title"] = "목록 항목 간소화"
 L["settings.compactListEntries.tooltip"] = "플레이 방식을 숨겨 그룹 목록의 항목이 세로 공간을 덜 차지하게 합니다(한밤 확장팩 사전 콘텐츠 업데이트 이전과 동일)."
+L["settings.reload.info"] = "* 이 옵션을 변경하면 설정을 닫을 때 자동으로 UI가 다시 로드됩니다."
 
 L["dialog.restriction.text"] = "애드온 제한이 활성화되어 있습니다. 필터링 시 Lua 오류가 발생할 수 있습니다."
 L["dialog.restriction.ok"] = "그래도 필터링"

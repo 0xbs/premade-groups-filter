@@ -161,6 +161,7 @@ L["settings.cancelOldestApp.title"] = "取消最早的申请"
 L["settings.cancelOldestApp.tooltip"] = "如果你的待处理申请达到上限，点击任意小组可以优先取消最早的申请。然后再点击一次进行新的申请。"
 L["settings.compactListEntries.title"] = "紧凑列表条目"
 L["settings.compactListEntries.tooltip"] = "隐藏游戏风格，使队伍列表条目占用更少的垂直空间（如同“至暗之夜”前夕内容更新之前）。"
+L["settings.reload.info"] = "* 更改这些选项将在关闭设置后自动重新加载界面。"
 
 L["dialog.restriction.text"] = "插件限制已激活。过滤可能导致Lua错误。"
 L["dialog.restriction.ok"] = "仍然过滤"

@@ -23,6 +23,8 @@ local L = PGF.L
 local C = PGF.C
 
 local PGFSettings = CreateFrame("Frame", "PremadeGroupsFilterSettingsFrame", nil, "PremadeGroupsFilterSettingsTemplate")
+local reloadSettingsOnOpen = {}
+
 local PGFSettingsTable = {
     {
         key = "dialogMovable",
@@ -52,7 +54,7 @@ local PGFSettingsTable = {
         tooltip = L["settings.compactListEntries.tooltip"],
         warning = L["settings.signUpDeclined.warning"],
         visible = PGF.IsRetail(),
-        callback = function(enabled) PGF.CompactListEntries_UpdateListScrollBox() end,
+        reload = true,
     },
     {
         type = "header",
@@ -170,6 +172,11 @@ local PGFSettingsTable = {
             end
         end
     },
+    {
+        type = "note",
+        text = L["settings.reload.info"],
+        visible = PGF.IsRetail(),
+    },
 }
 
 function PGFSettings:OnLoad()
@@ -189,7 +196,11 @@ end
 function PGFSettings.CreateListItem(factory, elementData)
     if elementData.type == "checkbox" then
         factory("PremadeGroupsFilterSettingsCheckBoxTemplate", function(item, elementData)
-            item.Text:SetText(elementData.title)
+            local title = elementData.title
+            if elementData.reload then
+                title = title .. " *"
+            end
+            item.Text:SetText(title)
             item.Tooltip:SetTooltipFunc(function()
                 GameTooltip_AddHighlightLine(SettingsTooltip, elementData.title)
                 GameTooltip_AddNormalLine(SettingsTooltip, elementData.tooltip)
@@ -217,6 +228,10 @@ function PGFSettings.CreateListItem(factory, elementData)
         factory("PremadeGroupsFilterSettingsListSectionHeaderTemplate", function(item, elementData)
             item.Title:SetText(elementData.title)
         end)
+    elseif elementData.type == "note" then
+        factory("PremadeGroupsFilterSettingsNoteTemplate", function(item, elementData)
+            item.Text:SetText(elementData.text)
+        end)
     end
 end
 
@@ -232,11 +247,22 @@ end
 
 function PGFSettings:OnShow()
     -- PGF panel is shown
+    for i = 1, #PGFSettingsTable do
+        if PGFSettingsTable[i].reload then
+            reloadSettingsOnOpen[PGFSettingsTable[i].key] = PremadeGroupsFilterSettings[PGFSettingsTable[i].key]
+        end
+    end
     self:RefreshDataProvider()
 end
 
 function PGFSettings:OnCommit()
     -- Options dialog close button pressed
+    for key, initialValue in pairs(reloadSettingsOnOpen) do
+        if PremadeGroupsFilterSettings[key] ~= initialValue then
+            C_UI.Reload()
+            return
+        end
+    end
 end
 
 function PGFSettings:OnDefault()
