@@ -141,7 +141,6 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.persistSignUpNote.title"],
         tooltip = L["settings.persistSignUpNote.tooltip"],
-        warning = L["settings.warning.taint"],
         visible = true,
     },
     {
@@ -156,6 +155,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.skipSignUpDialog.title"],
         tooltip = L["settings.skipSignUpDialog.tooltip"],
+        warning = L["settings.warning.taint"],
         visible = true,
     },
     {
