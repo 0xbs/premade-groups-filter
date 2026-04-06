@@ -60,12 +60,6 @@ function PGF.Dialog_InfoButton_OnEnter(self, motion)
     AddDoubleWhiteUsingKey("myrealm")
     AddDoubleWhiteUsingKey("noid")
     AddDoubleWhiteUsingKey("matchingid")
-    if PGF.IsRetail() then
-        PGF.GameTooltip_AddDoubleWhite("learning", "group playstyle is Learning")
-        PGF.GameTooltip_AddDoubleWhite("relaxed", "group playstyle is Relaxed")
-        PGF.GameTooltip_AddDoubleWhite("competitive", "group playstyle is Competitive")
-        PGF.GameTooltip_AddDoubleWhite("carry", "group playstyle is Carry")
-    end
     PGF.GameTooltip_AddWhite("boss/bossesmatching/... — " .. L["dialog.tooltip.seewebsite"])
     PGF.GameTooltip_AddDoubleWhite("priests/warriors/...", L["dialog.tooltip.classes"])
     if PGF.IsRetail() then
