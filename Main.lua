@@ -261,11 +261,13 @@ function PGF.DoFilterSearchResults(results)
             env.declined = env.harddeclined or env.softdeclined
             env.canceled = PGF.IsCanceledGroup(searchResultInfo)
             env.warmode = searchResultInfo.isWarMode or false
-            env.playstyle   = searchResultInfo.generalPlaystyle
-            env.learning    = env.playstyle == Enum.LFGEntryGeneralPlaystyle.Learning   -- 1
-            env.relaxed     = env.playstyle == Enum.LFGEntryGeneralPlaystyle.FunRelaxed -- 2
-            env.competitive = env.playstyle == Enum.LFGEntryGeneralPlaystyle.FunSerious -- 3
-            env.carry       = env.playstyle == Enum.LFGEntryGeneralPlaystyle.Expert     -- 4
+            if Enum and Enum.LFGEntryGeneralPlaystyle then
+                env.playstyle   = searchResultInfo.generalPlaystyle
+                env.learning    = env.playstyle == Enum.LFGEntryGeneralPlaystyle.Learning   -- 1
+                env.relaxed     = env.playstyle == Enum.LFGEntryGeneralPlaystyle.FunRelaxed -- 2
+                env.competitive = env.playstyle == Enum.LFGEntryGeneralPlaystyle.FunSerious -- 3
+                env.carry       = env.playstyle == Enum.LFGEntryGeneralPlaystyle.Expert     -- 4
+            end
             env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
             env.mpmaprating = 0
             env.mpmapname   = ""

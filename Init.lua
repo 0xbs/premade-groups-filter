@@ -359,7 +359,9 @@ function PGF.OnAddonLoaded(name)
 end
 
 function PGF.OnPlayerLogin()
-    PGF.InitCompactListEntries()
+    if PGF.IsRetail() then
+        PGF.InitCompactListEntries()
+    end
 end
 
 function PGF.OnEvent(self, event, ...)
