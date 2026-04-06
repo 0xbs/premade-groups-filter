@@ -439,7 +439,6 @@ function PGF.FilterSearchResults()
     PGF.Logger:Debug("PGF.FilterSearchResults")
     -- exit early before tainting any variables if disabled or restricted
     if not PGF.Dialog:GetEnabled() then return end
-    if PGF.IsRestricted() then return end
     if not PGF.currentSearchResults or #PGF.currentSearchResults == 0 then return end
 
     local copy = PGF.Table_Copy_Shallow(PGF.currentSearchResults)

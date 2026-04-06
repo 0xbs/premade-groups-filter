@@ -78,7 +78,6 @@ end
 function PGF.HandleLFGListFrameDeclineStatus(key)
     if not PGF.IsRetail() then return end
     if not PremadeGroupsFilterSettings.signUpDeclined then return end
-    if PGF.IsRestricted() then return end
     if not LFGListFrame.declines then return end
 
     LFGListFrame.declines[key] = nil -- remove from Blizzard's list to allow re-applying to groups

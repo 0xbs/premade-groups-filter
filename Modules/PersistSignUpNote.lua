@@ -27,7 +27,6 @@ local C = PGF.C
 -- Using PreClick + hooksecurefunc avoids overwriting the global function.
 LFGListFrame.SearchPanel.SignUpButton:HookScript("PreClick", function()
     if not PremadeGroupsFilterSettings.persistSignUpNote then return end
-    if PGF.IsRestricted() then return end
     local selectedResult = LFGListFrame.SearchPanel.selectedResult
     if selectedResult then
         local searchResultInfo = C_LFGList.GetSearchResultInfo(selectedResult)

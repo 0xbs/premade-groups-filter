@@ -32,89 +32,6 @@ local C = PGF.C
 
 local PGFDialog = CreateFrame("Frame", "PremadeGroupsFilterDialog", PVEFrame, "PremadeGroupsFilterDialogTemplate")
 
-function PGFDialog:InitRestrictionOverlay()
-    if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
-    local overlay = CreateFrame("Frame", nil, self, "BackdropTemplate")
-    overlay:SetPoint("LEFT")
-    overlay:SetPoint("TOP", 0, -20)
-    overlay:SetPoint("RIGHT")
-    overlay:SetPoint("BOTTOM", 0, 25)
-    overlay:SetFrameLevel(self:GetFrameLevel() + 10)
-    overlay:SetBackdrop({
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        --edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-        tile = true, tileSize = 16, edgeSize = 16,
-        insets = { left = 4, right = 4, top = 4, bottom = 4 },
-    })
-    overlay:SetBackdropColor(0, 0, 0, 1)
-    overlay:EnableMouse(true) -- block clicks to controls behind
-
-    local text = overlay:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-    text:SetPoint("CENTER", 0, 0)
-    text:SetPoint("LEFT", 20, 0)
-    text:SetPoint("RIGHT", -20, 0)
-    text:SetJustifyH("CENTER")
-    text:SetText(L["dialog.restriction.text"])
-
-    local icon = overlay:CreateTexture(nil, "ARTWORK")
-    icon:SetTexture("Interface\\DialogFrame\\UI-Dialog-Icon-AlertNew")
-    icon:SetSize(36, 36)
-    icon:SetPoint("BOTTOM", text, "TOP", 0, 14)
-
-    local button = CreateFrame("Button", nil, overlay, "MagicButtonTemplate")
-    button:SetSize(160, 22)
-    button:SetPoint("TOP", text, "BOTTOM", 0, -14)
-    button:SetText(L["dialog.restriction.ok"])
-    button:SetScript("OnClick", function()
-        PGF.AcknowledgeRestriction()
-        overlay:Hide()
-        PGF.FilterSearchResults()
-    end)
-
-    overlay:Hide()
-    self.RestrictionOverlay = overlay
-end
-
-function PGFDialog:UpdateRestrictionOverlay()
-    if not self.RestrictionOverlay then return end
-    if PGF.IsRestricted() then
-        self.RestrictionOverlay:Show()
-    else
-        self.RestrictionOverlay:Hide()
-    end
-end
-
-local function HasPGFTaint()
-    if not LFGListFrame then return false end
-    local secure, source = issecurevariable("LFGListFrame")
-    if not secure and source == PGFAddonName then return true end
-    local checks = {
-        { LFGListFrame.SearchPanel, "results" },
-        { LFGListFrame.SearchPanel, "totalResults" },
-        { LFGListFrame, "ApplicationViewer" },
-        { LFGListFrame.ApplicationViewer, "EntryName" },
-        { LFGListFrame, "declines" },
-        { LFGListApplicationDialog, "activityID" },
-    }
-    for _, check in ipairs(checks) do
-        local secure, source = issecurevariable(check[1], check[2])
-        if not secure and source == PGFAddonName then return true end
-    end
-    return false
-end
-
-local taintMessagePrinted = false
-
-function PGFDialog:CheckTaintAndNotify()
-    if taintMessagePrinted then return end
-    if not C_RestrictedActions or not C_RestrictedActions.IsAddOnRestrictionActive then return end
-    local restricted = C_RestrictedActions.IsAddOnRestrictionActive(Enum.AddOnRestrictionType.Map)
-    if restricted and HasPGFTaint() then
-        taintMessagePrinted = true
-        print(L["message.taint"])
-    end
-end
-
 function PGFDialog:OnLoad()
     PGF.Logger:Debug("PGFDialog:OnLoad")
     self.minimizedHeight = 220
@@ -160,22 +77,10 @@ function PGFDialog:OnLoad()
     self.RefreshButton:SetText(L["dialog.refresh"])
     self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
 
-    self:InitRestrictionOverlay()
-
     if C_EventUtils and C_EventUtils.IsEventValid and C_EventUtils.IsEventValid("ADDON_RESTRICTION_STATE_CHANGED") then
         self:RegisterEvent("ADDON_RESTRICTION_STATE_CHANGED")
     end
     self:SetScript("OnEvent", self.OnEvent)
-end
-
-function PGFDialog:OnEvent(event, ...)
-    if event == "ADDON_RESTRICTION_STATE_CHANGED" then
-        -- The event only fires with state "Activating", so defer execution to next frame
-        C_Timer.After(0, function()
-            self:UpdateRestrictionOverlay()
-            self:CheckTaintAndNotify()
-        end)
-    end
 end
 
 function PGFDialog:OnShow()
@@ -186,7 +91,6 @@ function PGFDialog:OnShow()
     if self.activePanel and self.activePanel.OnShow then
         self.activePanel:OnShow()
     end
-    self:UpdateRestrictionOverlay()
 end
 
 function PGFDialog:OnHide()
