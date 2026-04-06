@@ -52,7 +52,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.compactListEntries.title"],
         tooltip = L["settings.compactListEntries.tooltip"],
-        warning = L["settings.signUpDeclined.warning"],
+        warning = L["settings.warning.taint"],
         visible = PGF.IsRetail(),
         reload = true,
     },
@@ -126,7 +126,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.oneClickSignUp.title"],
         tooltip = L["settings.oneClickSignUp.tooltip"],
-        warning = L["settings.signUpDeclined.warning"],
+        warning = L["settings.warning.taint"],
         visible = true,
     },
     {
@@ -141,7 +141,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.persistSignUpNote.title"],
         tooltip = L["settings.persistSignUpNote.tooltip"],
-        warning = L["settings.signUpDeclined.warning"],
+        warning = L["settings.warning.taint"],
         visible = true,
     },
     {
@@ -163,7 +163,7 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.signUpDeclined.title"],
         tooltip = L["settings.signUpDeclined.tooltip"],
-        warning = L["settings.signUpDeclined.warning"],
+        warning = L["settings.warning.taint"],
         visible = PGF.IsRetail(),
         callback = function (enabled)
             -- clear existing declines when the setting is checked
@@ -174,7 +174,7 @@ local PGFSettingsTable = {
     },
     {
         type = "note",
-        text = L["settings.reload.info"],
+        text = L["settings.info.reload"],
         visible = PGF.IsRetail(),
     },
 }
