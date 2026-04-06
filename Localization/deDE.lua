@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000Semantischer Fehler im Filterausdruck
 L["message.settingsupgraded"] = "Premade Groups Filter: Einstellungen auf Version %s migriert"
 L["message.sortingoverwritten"] = "Premade Groups Filter: Die standardmäßige Sortierreihenfolge organisierter Gruppen wurde durch das Addon %s überschrieben."
 L["message.sortingrestored"] = "Premade Groups Filter: Die standardmäßige Sortierreihenfolge organisierter Gruppen wurde durch das Addon %s wiederhergestellt."
+L["message.taint"] = "Premade Groups Filter: Addon-Einschränkungen sind jetzt aktiv. Die Gruppensuche wurde verändert, was zu Lua-Fehlern führen kann. Ein /reload wird empfohlen, um dies zu beheben."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Zurücksetzen"
@@ -162,6 +163,3 @@ L["settings.compactListEntries.tooltip"] = "Blendet die Spielstil-Zeile aus, dam
 
 L["dialog.restriction.text"] = "Addon-Einschränkungen sind aktiv. Das Filtern kann zu Lua-Fehlern führen."
 L["dialog.restriction.ok"] = "Trotzdem filtern"
-
-L["dialog.taint.text"] = "Addon-Einschränkungen sind jetzt aktiv. Premade Groups Filter hat die Gruppensuche verändert, was zu Lua-Fehlern führen kann. Ein /reload wird empfohlen, um dies zu beheben."
-L["dialog.taint.reload"] = "UI neu laden"

@@ -30,6 +30,9 @@ L["error.syntax"] = "|cffff0000Errore di sintassi nell'espressione del filtro|r\
 L["error.semantic"] = "|cffff0000Errore semantico nell'espressione del filtro|r\n\nCiò significa che l'espressione del filtro ha la sintassi corretta, ma molto probabilmente hai scritto male il nome di una variabile, ad es. serbatoio invece dei serbatoi.\n\nMessaggio di errore dettagliato:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Errore semantico nell'espressione del filtro|r\n\nLe parole chiave 'nome' e 'commento' non sono più supportate. Rimuovili dall'espressione del filtro avanzato o premi il pulsante di ripristino.\n\nA partire dalla prepatch di Battle for Azeroth, questi valori sono protetti da Blizzard e non possono più essere valutati da alcun componente aggiuntivo \n\nUtilizza la barra di ricerca predefinita in alto  l'elenco dei gruppi per filtrare i nomi dei gruppi.\n\nMessaggio di errore dettagliato:\n|cffaaaaaa%s|r"
 L["message.settingsupgraded"] = "Premade Groups Filter: Impostazioni trasferite alla versione %s"
+L["message.sortingoverwritten"] = "Premade Groups Filter: L'ordine di ordinamento predefinito dei gruppi premade è stato sovrascritto dall'addon %s."
+L["message.sortingrestored"] = "Premade Groups Filter: L'ordine di ordinamento predefinito dei gruppi premade è stato ripristinato dall'addon %s."
+L["message.taint"] = "Premade Groups Filter: Le restrizioni degli addon sono ora attive. Il cercatore di gruppi è stato modificato, il che potrebbe causare errori Lua. Si consiglia un /reload per risolvere il problema."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Ripristina"
@@ -160,6 +163,3 @@ L["settings.compactListEntries.tooltip"] = "Nasconde lo stile di gioco così le 
 
 L["dialog.restriction.text"] = "Le restrizioni dell'addon sono attive. Il filtraggio può causare errori Lua."
 L["dialog.restriction.ok"] = "Filtra comunque"
-
-L["dialog.taint.text"] = "Le restrizioni degli addon sono ora attive. Premade Groups Filter ha modificato il cercatore di gruppi, il che potrebbe causare errori Lua. Si consiglia un /reload per risolvere il problema."
-L["dialog.taint.reload"] = "Ricarica IU"

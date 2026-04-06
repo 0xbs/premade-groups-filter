@@ -30,6 +30,9 @@ L["error.syntax"] = "|cffff0000Error en la sintaxis de la expresión avanzada|r\
 L["error.semantic"] = "|cffff0000Error Semántico en la expresión|r\n\nEsto signuifica que la sintaxis es correcta, pero lo mas seguro es que hayas escrito las variables mal, por ejemplo, tansk en vez de tanks.\n\nError detallado:\n|cffaaaaaa%s|r"
 L["error.semantic.protected"] = "|cffff0000Error Semántico en la expresión|r\n\nLas palabras clave 'name', 'comment' ya no están soportadas. Por favor, elimínalos de tu expresión de filtro avanzada o presiona el botón de reinicio.\n\nComenzando con el Battle for Azeroth Prepatch, esos valores ahora están protegidos por Blizzard y ya no pueden ser leídos por ningún addon.\n\nUtilice la barra de búsqueda predeterminada situada encima de la lista de grupos para filtrar los nombres de los grupos.\n\nError detallado:\n|cffaaaaaa%s|r"
 L["message.settingsupgraded"] = "Premade Groups Filter: Configuración migrada a la versión %s"
+L["message.sortingoverwritten"] = "Premade Groups Filter: El orden de clasificación predeterminado de grupos premade ha sido sobrescrito por el addon %s."
+L["message.sortingrestored"] = "Premade Groups Filter: El orden de clasificación predeterminado de grupos premade ha sido restaurado por el addon %s."
+L["message.taint"] = "Premade Groups Filter: Las restricciones de addons están activas. El buscador de grupos ha sido modificado, lo que puede causar errores Lua. Se recomienda hacer /reload para solucionarlo."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Restablecer"
@@ -156,6 +159,3 @@ L["settings.compactListEntries.tooltip"] = "Oculta el estilo de juego para que l
 
 L["dialog.restriction.text"] = "Las restricciones del addon están activas. El filtrado puede causar errores Lua."
 L["dialog.restriction.ok"] = "Filtrar de todos modos"
-
-L["dialog.taint.text"] = "Las restricciones de addons están activas. Premade Groups Filter ha modificado el buscador de grupos, lo que puede causar errores Lua. Se recomienda hacer /reload para solucionarlo."
-L["dialog.taint.reload"] = "Recargar IU"

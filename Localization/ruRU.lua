@@ -32,6 +32,7 @@ L["error.semantic.protected"] = "|cffff0000Семантическая ошибк
 L["message.settingsupgraded"] = "Premade Groups Filter: Настройки перенесены в версию %s"
 L["message.sortingoverwritten"] = "Premade Groups Filter: Порядок сортировки групп по умолчанию был изменен аддоном %s."
 L["message.sortingrestored"] = "Premade Groups Filter: Порядок сортировки групп по умолчанию был восстановлен аддоном %s."
+L["message.taint"] = "Premade Groups Filter: Ограничения аддонов сейчас активны. Поиск групп был изменён, что может вызвать ошибки Lua. Рекомендуется выполнить /reload для устранения проблемы."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Сброс"
@@ -162,6 +163,3 @@ L["settings.compactListEntries.tooltip"] = "Скрывает строку сти
 
 L["dialog.restriction.text"] = "Ограничения аддона активны. Фильтрация может вызвать ошибки Lua."
 L["dialog.restriction.ok"] = "Всё равно фильтровать"
-
-L["dialog.taint.text"] = "Ограничения аддонов сейчас активны. Premade Groups Filter изменил поиск групп, что может вызвать ошибки Lua. Рекомендуется выполнить /reload для устранения проблемы."
-L["dialog.taint.reload"] = "Перезагрузить интерфейс"

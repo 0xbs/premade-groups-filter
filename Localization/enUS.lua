@@ -30,6 +30,7 @@ L["error.semantic.protected"] = "|cffff0000Semantic error in filter expression|r
 L["message.settingsupgraded"] = "Premade Groups Filter: Migrated settings to version %s"
 L["message.sortingoverwritten"] = "Premade Groups Filter: Default premade group sorting order has been overwritten by addon %s."
 L["message.sortingrestored"] = "Premade Groups Filter: Default premade group sorting order has been restored by addon %s."
+L["message.taint"] = "Premade Groups Filter: Addon restrictions are now active. The group finder has been modified, which may cause Lua errors. A /reload is recommended to fix this."
 
 L["dialog.settings"] = GAMEMENU_OPTIONS
 L["dialog.reset"] = "Reset"
@@ -160,6 +161,3 @@ L["settings.compactListEntries.tooltip"] = "Hides the playstyle line so items in
 
 L["dialog.restriction.text"] = "Addon restrictions are active. Filtering may cause Lua errors."
 L["dialog.restriction.ok"] = "Filter anyway"
-
-L["dialog.taint.text"] = "Addon restrictions are now active. Premade Groups Filter has modified the group finder, which may cause Lua errors. A /reload is recommended to fix this."
-L["dialog.taint.reload"] = "Reload UI"
