@@ -110,6 +110,7 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
         if panel.selectedResult ~= self.resultID then
             LFGListSearchPanel_SelectResult(panel, self.resultID)
         end
+        PGF.PersistSignUpNote()
         LFGListSearchPanel_SignUp(panel)
     end
 end)
