@@ -8,6 +8,21 @@ UI-based filtering and powerful Lua expression-based filtering.
 
 ## Development Notes
 
+### Architecture and Code Style
+* Try to keep the architecture free of cycles (files should reference each other)
+* Avoid tainting Blizzard functions whenever possible
+* Indent with 4 spaces
+
+### Localization
+When creating new translations, always translate them into all locales in ./Localization.
+
+Make sure to use WoW-specific language and spell names,
+e.g. in German, players are usually addressed with the polite form "Ihr".
+
+If you need to check for a specific wording, you can download and search GlobalStrings.lua
+from https://www.townlong-yak.com/framexml/live/Helix/GlobalStrings.lua/{locale}/get
+where {locale} is one of BR, CN, DE, ES, FR, IT, KR, MX, RU, TW (or empty for EN).
+
 ### WoW UI FrameXML
 The WoW FrameXML source code should be available in `../WoWUI`, i.e. `LFGList.lua`
 can be found in `../WoWUI/AddOns/Blizzard_GroupFinder/Mainline/LFGList.lua`.
@@ -25,19 +40,9 @@ from https://wago.tools/db2/{name}/csv where {name} is the table name. Notable t
 GroupFinderActivity, GroupFinderActivityGrp, GroupFinderCategory, Map, MapChallengeMode,
 MythicPlusSeason, MythicPlusSeasonRewardLevels, MythicPlusSeasonTrackedAffix
 
-### Localization
-When creating new translations, always translate them into all locales in ./Localization.
-
-Make sure to use WoW-specific language and spell names,
-e.g. in German, players are usually addressed with the polite form "Ihr".
-
-If you need to check for a specific wording, you can download and search GlobalStrings.lua
-from https://www.townlong-yak.com/framexml/live/Helix/GlobalStrings.lua/{locale}/get
-where {locale} is one of BR, CN, DE, ES, FR, IT, KR, MX, RU, TW (or empty for EN).
-
 ### Loading Order
 The file loading order is defined in `PremadeGroupsFilter.toc`
 and in `PremadeGroupsFilter_Mists.toc` for the Classic version.
 
-### Architecture
-Try to keep the architecture free of cycles (files should reference each other).
+### Lua Interpreter
+A Lua interpreter should be available on the PATH as `lua5.1`.
