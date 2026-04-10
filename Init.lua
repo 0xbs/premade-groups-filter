@@ -359,6 +359,7 @@ function PGF.OnAddonLoaded(name)
 end
 
 function PGF.OnPlayerLogin()
+    PGF.InitPersistSignUpNote()
     if PGF.IsRetail() then
         PGF.InitCompactListEntries()
     end

@@ -19,23 +19,23 @@
 -------------------------------------------------------------------------------
 
 local PGF = select(2, ...)
-local L = PGF.L
-local C = PGF.C
 
--- Before the SignUp dialog opens, set activityID to match the selected result's
--- activity so that LFGListApplicationDialog_Show skips ClearApplicationTextFields.
-function PGF.PersistSignUpNote()
-    if not PremadeGroupsFilterSettings.persistSignUpNote then return end
-    local selectedResult = LFGListFrame.SearchPanel.selectedResult
-    if selectedResult then
-        local searchResultInfo = C_LFGList.GetSearchResultInfo(selectedResult)
-        if searchResultInfo then
-            LFGListApplicationDialog.activityID = searchResultInfo.activityIDs[1]
-        end
-    end
+-- The patched function equals the original `LFGListApplicationDialog_Show` except commented code.
+-- Working with a PreClick-Handler and manipulating self.activityID did not work reliably.
+local patchedFunc = function(self, resultID)
+    local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID);
+    --if ( searchResultInfo.activityIDs[1] ~= self.activityID ) then
+    --	C_LFGList.ClearApplicationTextFields();
+    --end
+
+    self.resultID = resultID;
+    self.activityID = searchResultInfo.activityIDs[1];
+    LFGListApplicationDialog_UpdateRoles(self);
+    StaticPopupSpecial_Show(self);
 end
 
--- Using PreClick + hooksecurefunc avoids overwriting the global function.
-LFGListFrame.SearchPanel.SignUpButton:HookScript("PreClick", function()
-    PGF.PersistSignUpNote()
-end)
+function PGF.InitPersistSignUpNote()
+    if not PremadeGroupsFilterSettings.persistSignUpNote then return end
+
+    LFGListApplicationDialog_Show = patchedFunc
+end

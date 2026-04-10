@@ -141,6 +141,8 @@ local PGFSettingsTable = {
         type = "checkbox",
         title = L["settings.persistSignUpNote.title"],
         tooltip = L["settings.persistSignUpNote.tooltip"],
+        warning = L["settings.warning.taint"],
+        reload = true,
         visible = true,
     },
     {
