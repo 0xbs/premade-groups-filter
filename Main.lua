@@ -423,6 +423,14 @@ function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = PGF.GetSearchResultInfo(self.resultID)
     if not searchResultInfo then return end
     --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
+    
+    local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
+    if activityInfo and activityInfo.isMythicPlusActivity then
+        local currentName = self.ActivityName:GetText() or ""
+        -- Strip " (Mythic Keystone)" natively regardless of localization language
+        self.ActivityName:SetText(string.gsub(currentName, "%s*%(.*%)", ""))
+    end
+
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
     PGF.AddRatingInfo(self, searchResultInfo)
