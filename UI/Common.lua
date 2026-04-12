@@ -66,15 +66,19 @@ function PGF.UI_SetupMinMaxField(panel, field, keyword, size)
         field.Act:SetChecked(shouldCheck)
         panel.state[keyword].act = shouldCheck
     end
-    field.Min:SetScript("OnTextChanged", function(element)
-        autoCheckbox()
-        panel.state[keyword].min = element:GetText()
-        panel:TriggerFilterExpressionChange()
+    field.Min:SetScript("OnTextChanged", function(element, isUserInput)
+        if isUserInput then
+            autoCheckbox()
+            panel.state[keyword].min = element:GetText()
+            panel:TriggerFilterExpressionChange()
+        end
     end)
-    field.Max:SetScript("OnTextChanged", function(element)
-        autoCheckbox()
-        panel.state[keyword].max = element:GetText()
-        panel:TriggerFilterExpressionChange()
+    field.Max:SetScript("OnTextChanged", function(element, isUserInput)
+        if isUserInput then
+            autoCheckbox()
+            panel.state[keyword].max = element:GetText()
+            panel:TriggerFilterExpressionChange()
+        end
     end)
 
     -- tabbing
@@ -148,11 +152,20 @@ function PGF.UI_SetupAdvancedExpression(panel)
     local fontFile, _, fontFlags = panel.Advanced.Title:GetFont()
     panel.Advanced.Expression.EditBox:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
     panel.Advanced.Expression.EditBox.Instructions:SetFont(fontFile, C.FONTSIZE_TEXTBOX, fontFlags)
-    panel.Advanced.Expression.EditBox:SetScript("OnTextChanged", InputScrollFrame_OnTextChanged)
+    panel.Advanced.Expression.EditBox:SetScript("OnTextChanged", function(self)
+        InputScrollFrame_OnTextChanged(self)
+        if panel.state then
+            panel.state.expression = self:GetText() or ""
+            -- Evaluate immediately so the underlying UI searches while typing
+            panel:TriggerFilterExpressionChange()
+        end
+    end)
     panel.Advanced.Expression.EditBox:SetScript("OnEscapePressed", InputScrollFrame_OnEscapePressed)
-    panel.Advanced.Expression.EditBox:SetScript("OnEditFocusLost", function (self)
-        panel.state.expression = self:GetText() or ""
-        panel:TriggerFilterExpressionChange()
+    panel.Advanced.Expression.EditBox:SetScript("OnEditFocusLost", function(self)
+        if panel.state then
+            panel.state.expression = self:GetText() or ""
+            panel:TriggerFilterExpressionChange()
+        end
     end)
     panel.Advanced.Info:SetScript("OnEnter", PGF.Dialog_InfoButton_OnEnter)
     panel.Advanced.Info:SetScript("OnLeave", PGF.Dialog_InfoButton_OnLeave)

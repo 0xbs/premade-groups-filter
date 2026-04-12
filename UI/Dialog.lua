@@ -176,8 +176,10 @@ function PGFDialog:Toggle()
 end
 
 function PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
-    PGF.Logger:Debug("PGFDialog:UpdateCategory(".. categoryID ..", "..filters..", "..baseFilters..")")
-    local allFilters = bit.bor(baseFilters, filters);
+    PGF.Logger:Debug("PGFDialog:UpdateCategory(".. tostring(categoryID) ..", "..tostring(filters)..", "..tostring(baseFilters)..")")
+    local allFilters = bit.bor(baseFilters or 0, filters or 0);
+    -- Mask out volatile bits like Cross-Faction (128) to prevent profile wiping (only retain 1, 2, 4, 8)
+    allFilters = bit.band(allFilters, 15);
     local id = "c"..categoryID.."f"..allFilters
     self.activeId = id
     self.activeState = self:GetState(id)
