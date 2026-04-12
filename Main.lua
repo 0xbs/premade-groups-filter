@@ -422,10 +422,35 @@ end
 function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = PGF.GetSearchResultInfo(self.resultID)
     if not searchResultInfo then return end
-    --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
+
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
     PGF.AddRatingInfo(self, searchResultInfo)
+
+    if PremadeGroupsFilterSettings.groupAgeTimer and searchResultInfo.age and searchResultInfo.age > 0 then
+        local ageMins = math.floor(searchResultInfo.age / 60)
+        local ageStr = ""
+        local colorCode = "|cff00ccff" -- Crisp Cyan (contrasts perfectly with Yellow and Green)
+
+        if ageMins >= 60 then
+            local hours = math.floor(ageMins / 60)
+            local mins = ageMins % 60
+            ageStr = hours .. "h " .. mins .. "m"
+        elseif ageMins > 0 then
+            ageStr = ageMins .. "m"
+        else
+            ageStr = "<1m"
+        end
+        local currentText = self.Playstyle:GetText() or ""
+        -- Strip any previously injected age tags (handles matching multiple colors)
+        currentText = string.gsub(currentText, "^|cff%x%x%x%x%x%x%[.-%]|r ", "")
+        -- Prepend the age onto the Playstyle text (e.g., "Learning", "Beat Timer")
+        if currentText ~= "" then
+            self.Playstyle:SetText(colorCode .. "[" .. ageStr .. "]|r " .. currentText)
+        else
+            self.Playstyle:SetText(colorCode .. "[" .. ageStr .. "]|r")
+        end
+    end
 end
 
 function PGF.OnLFGListSearchPanelUpdateResultList(self)
