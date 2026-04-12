@@ -162,3 +162,6 @@ L["settings.warning.taint"] = "This option can cause Lua errors in restricted si
 
 L["dialog.restriction.text"] = "Addon restrictions are active. Filtering may cause Lua errors."
 L["dialog.restriction.ok"] = "Filter anyway"
+
+L["settings.groupAgeTimer.title"] = "Group Age Timer"
+L["settings.groupAgeTimer.tooltip"] = "Shows a timer in the group's playstyle area indicating how long the group has been listed."

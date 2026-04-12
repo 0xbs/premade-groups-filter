@@ -70,6 +70,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "groupAgeTimer",
+        type = "checkbox",
+        title = L["settings.groupAgeTimer.title"],
+        tooltip = L["settings.groupAgeTimer.tooltip"],
+        visible = true,
+    },
+    {
         key = "rioRatingColors",
         type = "checkbox",
         title = L["settings.rioRatingColors.title"],
