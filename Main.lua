@@ -120,24 +120,30 @@ function PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
         end
     end
 
+    local searchResultInfo1 = info1.searchResultInfo
+    local searchResultInfo2 = info2.searchResultInfo
+
     if PremadeGroupsFilterSettings.sortNewToTop then
         if info1.env.isnew ~= info2.env.isnew then
             return info1.env.isnew
+        elseif info1.env.isnew and searchResultInfo1.age ~= searchResultInfo2.age then
+            return searchResultInfo1.age < searchResultInfo2.age
         end
     end
-
-    local searchResultInfo1 = info1.searchResultInfo
-    local searchResultInfo2 = info2.searchResultInfo
 
     if PremadeGroupsFilterSettings.sortDeclinedToBottom then
         if info1.env.declined ~= info2.env.declined then
             return info2.env.declined
+        elseif info1.env.declined and info1.env.declinedtime ~= info2.env.declinedtime then
+            return info1.env.declinedtime < info2.env.declinedtime
         end
     end
 
     if PremadeGroupsFilterSettings.sortCanceledAtBottom then
         if info1.env.canceled ~= info2.env.canceled then
             return info2.env.canceled
+        elseif info1.env.canceled and info1.env.canceledtime ~= info2.env.canceledtime then
+            return info1.env.canceledtime < info2.env.canceledtime
         end
     end
 
@@ -289,6 +295,8 @@ function PGF.DoFilterSearchResults(results)
             env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
             env.declined = env.harddeclined or env.softdeclined
             env.canceled = PGF.IsCanceledGroup(searchResultInfo)
+            env.declinedtime = PGF.GetDeclinedGroupTime(searchResultInfo)
+            env.canceledtime = PGF.GetCanceledGroupTime(searchResultInfo)
             env.isnew = PGF.IsNewGroup(searchResultInfo)
             env.warmode = searchResultInfo.isWarMode or false
             if Enum and Enum.LFGEntryGeneralPlaystyle then

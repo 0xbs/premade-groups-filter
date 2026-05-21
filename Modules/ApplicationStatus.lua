@@ -75,6 +75,18 @@ function PGF.IsCanceledGroup(searchResultInfo)
     return IsGroupInTable(PGF.canceledGroups, searchResultInfo)
 end
 
+function PGF.GetDeclinedGroupTime(searchResultInfo)
+    local key = PGF.GetGroupKey(searchResultInfo)
+    if not key then return 0 end
+    return math.max(PGF.hardDeclinedGroups[key] or 0, PGF.softDeclinedGroups[key] or 0)
+end
+
+function PGF.GetCanceledGroupTime(searchResultInfo)
+    local key = PGF.GetGroupKey(searchResultInfo)
+    if not key then return 0 end
+    return PGF.canceledGroups[key] or 0
+end
+
 function PGF.HandleLFGListFrameDeclineStatus(key)
     if not PGF.IsRetail() then return end
     if not PremadeGroupsFilterSettings.signUpDeclined then return end
