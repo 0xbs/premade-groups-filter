@@ -92,6 +92,11 @@ end)
 hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
     local panel = LFGListFrame.SearchPanel
 
+    if PGF.autoAcceptInviteClickConsumed then
+        PGF.autoAcceptInviteClickConsumed = false
+        return
+    end
+
     if PremadeGroupsFilterSettings.cancelOldestApp and button ~= "RightButton" then
         -- if we already have max applications pending, cancel oldest application before signing up
         if ShouldCancelApplication(self.resultID) then

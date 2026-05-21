@@ -210,6 +210,9 @@ C.SETTINGS_DEFAULT = {
     skipSignUpDialog = false,
     cancelOldestApp = false,
     signUpDeclined = false,
+    sortSignedUpToBottom = false,
+    refreshBeforeSelect = false,
+    autoAcceptInvite = false,
     rioRatingColors = true,
 }
 
@@ -368,7 +371,13 @@ end
 function PGF.OnEvent(self, event, ...)
     if event == "ADDON_LOADED" then PGF.OnAddonLoaded(...) end
     if event == "PLAYER_LOGIN" then PGF.OnPlayerLogin() end
-    if event == "LFG_LIST_APPLICATION_STATUS_UPDATED" then PGF.OnLFGListApplicationStatusUpdated(...) end
+    if event == "LFG_LIST_APPLICATION_STATUS_UPDATED" then
+        local resultID, newStatus, oldStatus, kstringGroupName = ...
+        PGF.OnLFGListApplicationStatusUpdated(resultID, newStatus, oldStatus, kstringGroupName)
+        if PGF.OnAutoAcceptApplicationStatusUpdated then
+            PGF.OnAutoAcceptApplicationStatusUpdated(resultID, newStatus, oldStatus, kstringGroupName)
+        end
+    end
 end
 
 local frame = CreateFrame("Frame", "PremadeGroupsFilterEventFrame")

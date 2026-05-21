@@ -175,6 +175,14 @@ local PGFSettingsTable = {
         end
     },
     {
+        key = "autoAcceptInvite",
+        type = "checkbox",
+        title = L["settings.autoAcceptInvite.title"],
+        tooltip = L["settings.autoAcceptInvite.tooltip"],
+        warning = L["settings.warning.taint"],
+        visible = PGF.IsRetail(),
+    },
+    {
         type = "note",
         text = L["settings.info.reload"],
         visible = PGF.IsRetail(),
