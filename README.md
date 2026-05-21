@@ -46,6 +46,7 @@ Examples of what can easily be found with Premade Groups Filter:
 * **Sign Up On Enter** - Automatically focus the 'note to the group leader' text box when signing up for a new group and confirm your application by pressing enter.
 * **Skip Sign Up Dialog** - Skip the role and note prompt if possible and immediately sign up to the group. Hold shift to always show the dialog.
 * **Sign up to Declined Groups** - Restore the old behavior before TWW and allow to sign up to groups that previously declined you.
+* **Sort Signed Up Keys to Bottom** - Sort groups you have already signed up for to the bottom of the list instead of the top.
 
 
 ### Resources

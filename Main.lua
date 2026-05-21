@@ -104,9 +104,12 @@ function PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
     local info2 = PGF.searchResultIDInfo[searchResultID2]
     if not info1 or not info2 then return false end -- race condition
 
-    -- sort applications to the top
     if info1.env.apporder ~= info2.env.apporder then
-        return info1.env.apporder > info2.env.apporder
+        if PremadeGroupsFilterSettings.sortSignedUpToBottom then
+            return info1.env.apporder < info2.env.apporder
+        else
+            return info1.env.apporder > info2.env.apporder
+        end
     end
 
     local searchResultInfo1 = info1.searchResultInfo

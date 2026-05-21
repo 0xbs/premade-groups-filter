@@ -175,6 +175,13 @@ local PGFSettingsTable = {
         end
     },
     {
+        key = "sortSignedUpToBottom",
+        type = "checkbox",
+        title = L["settings.sortSignedUpToBottom.title"],
+        tooltip = L["settings.sortSignedUpToBottom.tooltip"],
+        visible = PGF.IsRetail(),
+    },
+    {
         type = "note",
         text = L["settings.info.reload"],
         visible = PGF.IsRetail(),
