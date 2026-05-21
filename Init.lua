@@ -210,6 +210,8 @@ C.SETTINGS_DEFAULT = {
     skipSignUpDialog = false,
     cancelOldestApp = false,
     signUpDeclined = false,
+    sortSignedUpToBottom = false,
+    refreshBeforeSelect = false,
     rioRatingColors = true,
 }
 

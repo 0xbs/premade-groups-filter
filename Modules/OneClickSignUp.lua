@@ -52,6 +52,7 @@ local function ShouldCancelApplication(resultID)
 end
 
 PGF.clickToCancelFrames = {}
+PGF.refreshBeforeSelectDue = true
 
 hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
     if not PremadeGroupsFilterSettings.cancelOldestApp then return end
@@ -105,8 +106,19 @@ hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
         end
     end
 
+    if PremadeGroupsFilterSettings.refreshBeforeSelect and PremadeGroupsFilter.Debug.Dialog then
+        if PGF.refreshBeforeSelectDue then
+            PremadeGroupsFilter.Debug.Dialog:Refresh()
+            PGF.refreshBeforeSelectDue = false
+            return
+        else
+            PGF.refreshBeforeSelectDue = true
+        end
+    end
+
     if PremadeGroupsFilterSettings.oneClickSignUp and button ~= "RightButton"
             and LFGListSearchPanelUtil_CanSelectResult(self.resultID) and panel.SignUpButton:IsEnabled() then
+
         if panel.selectedResult ~= self.resultID then
             LFGListSearchPanel_SelectResult(panel, self.resultID)
         end

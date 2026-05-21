@@ -130,6 +130,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "refreshBeforeSelect",
+        type = "checkbox",
+        title = L["settings.refreshBeforeSelect.title"],
+        tooltip = L["settings.refreshBeforeSelect.tooltip"],
+        visible = true,
+    },
+    {
         key = "cancelOldestApp",
         type = "checkbox",
         title = L["settings.cancelOldestApp.title"],

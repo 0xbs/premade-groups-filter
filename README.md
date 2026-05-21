@@ -41,6 +41,7 @@ Examples of what can easily be found with Premade Groups Filter:
 * **Show Specialization** - Shows an icon with the class specialization of each member in the premade group list.
 * **Show Missing Roles** - Shows the role icon of each empty slot in the premade group list.
 * **One Click Sign Up** - Sign up for a group directly by clicking on it, instead of selecting it first, then clicking sign up.
+* **Refresh Before Select** - Automatically refreshes the group list before selecting a group when using One Click Sign Up.
 * **Cancel Oldest Application** - If you have the maximum number of pending applications, click on any group to cancel your oldest application first, then click again to apply.
 * **Persist Sign Up Note** - Persists the 'note to the group leader' when signing up to different groups. By default, the note is deleted when a new group is selected.
 * **Sign Up On Enter** - Automatically focus the 'note to the group leader' text box when signing up for a new group and confirm your application by pressing enter.
