@@ -47,6 +47,10 @@ Examples of what can easily be found with Premade Groups Filter:
 * **Skip Sign Up Dialog** - Skip the role and note prompt if possible and immediately sign up to the group. Hold shift to always show the dialog.
 * **Sign up to Declined Groups** - Restore the old behavior before TWW and allow to sign up to groups that previously declined you.
 * **Sort Signed Up Keys to Bottom** - Sort groups you have already signed up for to the bottom of the list instead of the top.
+* **Sort New Groups to Top** - Sort groups that are new since the last search (green name) to the very top of the list.
+* **Sort Declined Groups to Bottom** - Sort groups that previously declined you (red name) toward the bottom, but still above groups without a role for you.
+* **Sort Canceled Groups to Bottom** - Sort groups you previously canceled your application for (pink name) toward the bottom, but still above groups without a role for you.
+* **Auto Accept Group Invites** - Automatically accepts premade group invites on your next click on the group list.
 
 
 ### Resources
