@@ -32,6 +32,14 @@ PGF.searchResultIDInfo = {}
 PGF.numResultsBeforeFilter = 0
 PGF.numResultsAfterFilter = 0
 
+function PGF.IsNewGroup(searchResultInfo)
+    local groupKey = PGF.GetGroupKey(searchResultInfo)
+    return PGF.currentSearchExpression ~= "true"
+            and PGF.currentSearchExpression == PGF.previousSearchExpression
+            and groupKey ~= nil
+            and not PGF.previousSearchGroupKeys[groupKey]
+end
+
 function PGF.ResetSearchEntries()
     -- make sure to wait at least some time between two resets
     if time() - PGF.lastSearchEntryReset > C.SEARCH_ENTRY_RESET_WAIT then
@@ -104,13 +112,40 @@ function PGF.SortByUsefulOrder(searchResultID1, searchResultID2)
     local info2 = PGF.searchResultIDInfo[searchResultID2]
     if not info1 or not info2 then return false end -- race condition
 
-    -- sort applications to the top
     if info1.env.apporder ~= info2.env.apporder then
-        return info1.env.apporder > info2.env.apporder
+        if PremadeGroupsFilterSettings.sortSignedUpToBottom then
+            return info1.env.apporder < info2.env.apporder
+        else
+            return info1.env.apporder > info2.env.apporder
+        end
     end
 
     local searchResultInfo1 = info1.searchResultInfo
     local searchResultInfo2 = info2.searchResultInfo
+
+    if PremadeGroupsFilterSettings.sortNewToTop then
+        if info1.env.isnew ~= info2.env.isnew then
+            return info1.env.isnew
+        elseif info1.env.isnew and searchResultInfo1.age ~= searchResultInfo2.age then
+            return searchResultInfo1.age < searchResultInfo2.age
+        end
+    end
+
+    if PremadeGroupsFilterSettings.sortDeclinedToBottom then
+        if info1.env.declined ~= info2.env.declined then
+            return info2.env.declined
+        elseif info1.env.declined and info1.env.declinedtime ~= info2.env.declinedtime then
+            return info1.env.declinedtime < info2.env.declinedtime
+        end
+    end
+
+    if PremadeGroupsFilterSettings.sortCanceledAtBottom then
+        if info1.env.canceled ~= info2.env.canceled then
+            return info2.env.canceled
+        elseif info1.env.canceled and info1.env.canceledtime ~= info2.env.canceledtime then
+            return info1.env.canceledtime < info2.env.canceledtime
+        end
+    end
 
     if PGF.SupportsSpecializations() then
         -- sort by partyfit
@@ -260,6 +295,9 @@ function PGF.DoFilterSearchResults(results)
             env.softdeclined = PGF.IsSoftDeclinedGroup(searchResultInfo)
             env.declined = env.harddeclined or env.softdeclined
             env.canceled = PGF.IsCanceledGroup(searchResultInfo)
+            env.declinedtime = PGF.GetDeclinedGroupTime(searchResultInfo)
+            env.canceledtime = PGF.GetCanceledGroupTime(searchResultInfo)
+            env.isnew = PGF.IsNewGroup(searchResultInfo)
             env.warmode = searchResultInfo.isWarMode or false
             if Enum and Enum.LFGEntryGeneralPlaystyle then
                 env.playstyle   = searchResultInfo.generalPlaystyle
@@ -379,9 +417,7 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
     if groupKey then PGF.currentSearchGroupKeys[groupKey] = true end
     if not searchResultInfo.isDelisted then
         -- color name if new
-        if PGF.currentSearchExpression ~= "true"                          -- not trivial search
-        and PGF.currentSearchExpression == PGF.previousSearchExpression   -- and the same search
-        and (groupKey and not PGF.previousSearchGroupKeys[groupKey]) then -- and group is new
+        if PGF.IsNewGroup(searchResultInfo) then
             local color = C.COLOR_ENTRY_NEW
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
