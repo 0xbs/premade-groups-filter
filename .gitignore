@@ -1,5 +1,6 @@
 .idea
 *.iml
 .emmyrc.json
+mise.toml
 wiki
 FrameXML
