@@ -45,4 +45,4 @@ The file loading order is defined in `PremadeGroupsFilter.toc`
 and in `PremadeGroupsFilter_Mists.toc` for the Classic version.
 
 ### Lua Interpreter
-A Lua interpreter should be available on the PATH as `lua5.1`.
+A Lua interpreter should be available as `.bin/lua` or as `lua5.1`, same for `luac`.
