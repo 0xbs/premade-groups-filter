@@ -43,6 +43,24 @@ function PGF.GetNameRealmFaction(leaderName)
     return name, realm, faction
 end
 
+-- RIO sometimes collapses multiple raids into one single raid.
+-- In this case .mapId is only one of the possible mapIDs, the others
+-- are in the table .dungeon.instance_map_ids
+-- This function checks all known fields.
+local function MatchingMapID(raid, mapID)
+    if raid.mapId and mapID == raid.mapId then
+        return true
+    end
+    if raid.dungeon and raid.dungeon.instance_map_ids then
+        for _, instanceMapId in pairs(raid.dungeon.instance_map_ids) do
+            if mapID == instanceMapId then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 --- Fetches Raider.IO metrics if installed and provides them in the filter environment
 --- @generic V
 --- @param env table<string, V> environment to be prepared
@@ -105,8 +123,8 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
 
             --DevTools_Dump(result.raidProfile.progress)
             -- result.raidProfile.progress[i].difficulty     -- int
-            -- result.raidProfile.progress[i].progressCount  -- itable<int, int>
-            -- result.raidProfile.progress[i].killsPerBoss   -- int
+            -- result.raidProfile.progress[i].progressCount  -- int
+            -- result.raidProfile.progress[i].killsPerBoss   -- itable<int, int>
             -- result.raidProfile.progress[i].raid           -- table<string, ?>
             -- result.raidProfile.progress[i].raid.mapId     -- int                 -- 2522 2569
             -- result.raidProfile.progress[i].raid.shortName -- string              -- VOTI ATSC
@@ -115,10 +133,13 @@ function PGF.PutRaiderIOMetrics(env, leaderName, activityID)
             -- result.raidProfile.progress[i].raid.id        -- int
             -- result.raidProfile.progress[i].raid.ordinal   -- int
 
+            -- result.raidProfile.progress[i].raid.dungeon   -- table
+            -- result.raidProfile.progress[i].raid.dungeon.instance_map_ids -- table<int, int>
+
             local mapID = C.ACTIVITY[activityID].mapID
             if result.raidProfile.progress and type(result.raidProfile.progress) == "table" then
                 for _, progress in pairs(result.raidProfile.progress) do
-                    if mapID and progress.raid and mapID == progress.raid.mapId then
+                    if mapID and progress.raid and MatchingMapID(progress.raid, mapID) then
                         if progress.difficulty == 1 then
                             env.rionormalprogress = progress.progressCount
                             for i, k in ipairs(progress.killsPerBoss) do
