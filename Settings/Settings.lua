@@ -70,10 +70,10 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
-        key = "groupAgeTimer",
+        key = "groupAge",
         type = "checkbox",
-        title = L["settings.groupAgeTimer.title"],
-        tooltip = L["settings.groupAgeTimer.tooltip"],
+        title = L["settings.groupAge.title"],
+        tooltip = L["settings.groupAge.tooltip"],
         visible = true,
     },
     {
