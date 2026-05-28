@@ -58,6 +58,7 @@ Modules\Macro.lua
 Modules\GroupTooltip.lua
 Modules\RoleIndicators.lua
 Modules\RatingInfo.lua
+Modules\GroupAge.lua
 Modules\PersistSignUpNote.lua
 Modules\OneClickSignUp.lua
 Modules\SignUpOnEnter.lua

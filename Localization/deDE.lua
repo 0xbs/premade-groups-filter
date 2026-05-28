@@ -159,6 +159,8 @@ L["settings.cancelOldestApp.title"] = "Älteste Anmeldung abbrechen"
 L["settings.cancelOldestApp.tooltip"] = "Wenn Ihr die maximale Anzahl an Gruppenanmeldungen laufen habt, klickt auf eine Gruppe, um Eure älteste Anfrage abzubrechen. Klickt dann erneut, um Euch zu bewerben."
 L["settings.compactListEntries.title"] = "Kompakte Listeneinträge"
 L["settings.compactListEntries.tooltip"] = "Blendet die Spielstil-Zeile aus, damit Einträge in der Gruppensuche weniger vertikalen Platz benötigen (wie vor dem Midnight-Prepatch)."
+L["settings.groupAge.title"] = "Gruppenalter"
+L["settings.groupAge.tooltip"] = "Zeigt das Alter einer Gruppe links neben dem Spielstil an. Kann nicht zusammen mit kompakten Listeneinträgen verwendet werden."
 L["settings.info.reload"] = "* Änderungen an diesen Optionen führen beim Schließen der Einstellungen automatisch zu einem UI-Reload."
 L["settings.warning.taint"] = "Diese Option kann in eingeschränkten Situationen wie Raids oder im Kampf zu Lua-Fehlermeldungen führen."
 

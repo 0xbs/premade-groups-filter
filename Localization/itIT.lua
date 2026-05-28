@@ -159,6 +159,8 @@ L["settings.cancelOldestApp.title"] = "Annulla la candidatura più vecchia"
 L["settings.cancelOldestApp.tooltip"] = "Se hai il numero massimo di candidature in attesa, clicca su un gruppo per annullare prima la tua candidatura più vecchia. Poi clicca di nuovo per candidarti."
 L["settings.compactListEntries.title"] = "Voci elenco compatte"
 L["settings.compactListEntries.tooltip"] = "Nasconde lo stile di gioco così le voci nell’elenco dei gruppi occupano meno spazio in verticale (come prima dell’aggiornamento ai contenuti della pre-espansione di Midnight)."
+L["settings.groupAge.title"] = "Età del gruppo"
+L["settings.groupAge.tooltip"] = "Mostra l'età di un gruppo a sinistra dello stile di gioco. Non può essere usato insieme alle voci elenco compatte."
 L["settings.info.reload"] = "* Le modifiche a queste opzioni attiveranno un ricaricamento automatico dell’interfaccia alla chiusura delle impostazioni."
 L["settings.warning.taint"] = "Questa opzione può causare errori Lua in situazioni limitate come i raid o in combattimento."
 

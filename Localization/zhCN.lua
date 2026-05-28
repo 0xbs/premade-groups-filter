@@ -159,6 +159,8 @@ L["settings.cancelOldestApp.title"] = "取消最早的申请"
 L["settings.cancelOldestApp.tooltip"] = "若你的待处理申请数达到上限，点击任何队伍都会先取消最早的申请，再次点击才会申请。"
 L["settings.compactListEntries.title"] = "紧凑列表条目"
 L["settings.compactListEntries.tooltip"] = "隐藏游戏风格文本行，让队伍列表中的项目占用更少的垂直空间（如同至暗之夜前夕补丁之前的版本）。"
+L["settings.groupAge.title"] = "队伍创建时间"
+L["settings.groupAge.tooltip"] = "在游戏风格左侧显示队伍创建时间。不能与紧凑列表条目同时使用。"
 L["settings.info.reload"] = "注意：更改带有星号（*）标记的选项后，关闭设置界面时将自动重载界面。"
 L["settings.warning.taint"] = "此选项在受限情况下（如团队副本或战斗中）可能导致Lua错误。"
 

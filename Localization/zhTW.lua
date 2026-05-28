@@ -159,6 +159,8 @@ L["settings.cancelOldestApp.title"] = "取消最舊的申請"
 L["settings.cancelOldestApp.tooltip"] = "如果你的待處理申請達到上限，點擊任意小組以先取消最舊的申請。然後再點擊一次以申請。"
 L["settings.compactListEntries.title"] = "精簡列表項目"
 L["settings.compactListEntries.tooltip"] = "隱藏遊戲風格，讓隊伍列表的項目佔用更少的垂直空間（如同《至暗之夜》版本前夕內容更新之前）。"
+L["settings.groupAge.title"] = "隊伍建立時間"
+L["settings.groupAge.tooltip"] = "在遊戲風格左側顯示隊伍建立時間。無法與精簡列表項目一起使用。"
 L["settings.info.reload"] = "* 變更這些選項將在關閉設定後自動重新載入介面。"
 L["settings.warning.taint"] = "此選項在受限情況下（如團隊副本或戰鬥中）可能導致Lua錯誤。"
 

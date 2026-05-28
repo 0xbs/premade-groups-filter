@@ -422,10 +422,11 @@ end
 function PGF.OnLFGListSearchEntryUpdate(self)
     local searchResultInfo = PGF.GetSearchResultInfo(self.resultID)
     if not searchResultInfo then return end
-    --self.Name:SetText("r:"..self.resultID .. " a:"..select(2, C_LFGList.GetApplicationInfo(self.resultID)).." "..self.Name:GetText())
+
     PGF.ColorGroupTexts(self, searchResultInfo)
     PGF.AddRoleIndicators(self, searchResultInfo)
     PGF.AddRatingInfo(self, searchResultInfo)
+    PGF.AddGroupAge(self, searchResultInfo)
 end
 
 function PGF.OnLFGListSearchPanelUpdateResultList(self)

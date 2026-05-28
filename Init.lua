@@ -199,6 +199,7 @@ C.SETTINGS_DEFAULT = {
     coloredGroupTexts = true,
     compactListEntries = false,
     ratingInfo = true,
+    groupAge = false,
     specIcon = false,
     classCircle = false,
     classBar = false,

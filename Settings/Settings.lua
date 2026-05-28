@@ -48,6 +48,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "groupAge",
+        type = "checkbox",
+        title = L["settings.groupAge.title"],
+        tooltip = L["settings.groupAge.tooltip"],
+        visible = true,
+    },
+    {
         key = "compactListEntries",
         type = "checkbox",
         title = L["settings.compactListEntries.title"],
