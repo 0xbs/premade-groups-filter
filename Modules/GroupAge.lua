@@ -40,6 +40,7 @@ end
 
 function PGF.AddGroupAge(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.groupAge then return end
+    if not searchResultInfo or not searchResultInfo.age or searchResultInfo.age == 0 then return end
 
     local ageSecs = searchResultInfo.age
     local ageMins = math.floor(ageSecs / 60)
