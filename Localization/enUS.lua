@@ -157,11 +157,10 @@ L["settings.cancelOldestApp.title"] = "Cancel Oldest Application"
 L["settings.cancelOldestApp.tooltip"] = "If you have the maximum number of pending applications, click on any group to cancel your oldest application first, then click again to apply."
 L["settings.compactListEntries.title"] = "Compact List Entries"
 L["settings.compactListEntries.tooltip"] = "Hides the playstyle line so items in the group list use less vertical space (as in versions before the Midnight prepatch)."
+L["settings.groupAge.title"] = "Group Age"
+L["settings.groupAge.tooltip"] = "Shows the age of a group to the left of the playstyle. Conflicts with compact list entries."
 L["settings.info.reload"] = "* Changes to these options will trigger an automatic UI reload after closing settings."
 L["settings.warning.taint"] = "This option can cause Lua errors in restricted situations like raids or in combat."
 
 L["dialog.restriction.text"] = "Addon restrictions are active. Filtering may cause Lua errors."
 L["dialog.restriction.ok"] = "Filter anyway"
-
-L["settings.groupAge.title"] = "Group Age Timer"
-L["settings.groupAge.tooltip"] = "Shows a timer in the group's playstyle area indicating how long the group has been listed."

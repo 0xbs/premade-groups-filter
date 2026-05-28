@@ -48,6 +48,13 @@ local PGFSettingsTable = {
         visible = true,
     },
     {
+        key = "groupAge",
+        type = "checkbox",
+        title = L["settings.groupAge.title"],
+        tooltip = L["settings.groupAge.tooltip"],
+        visible = true,
+    },
+    {
         key = "compactListEntries",
         type = "checkbox",
         title = L["settings.compactListEntries.title"],
@@ -67,13 +74,6 @@ local PGFSettingsTable = {
         title = L["settings.ratingInfo.title"],
         tooltip = L["settings.ratingInfo.tooltip"],
         image = "Interface\\AddOns\\PremadeGroupsFilter\\Textures\\SettingsRatingInfo",
-        visible = true,
-    },
-    {
-        key = "groupAge",
-        type = "checkbox",
-        title = L["settings.groupAge.title"],
-        tooltip = L["settings.groupAge.tooltip"],
         visible = true,
     },
     {
