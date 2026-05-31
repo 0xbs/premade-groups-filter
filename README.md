@@ -1,5 +1,8 @@
 # Premade Groups Filter
 
+> [!TIP]
+> Need help? Create a [PGF AI Assistant](https://github.com/0xbs/premade-groups-filter/wiki/AI-Assistant) in any AI chat interface which answers your questions and writes expressions for you!
+
 Premade Groups Filter helps you limit the search results of the LFG Premade Groups tool. You can filter by difficulty or for groups with a specific composition of members, e.g. one tank, no heals and 3 dps. Filtering is done using a separate window next to the list of groups. Advanced users are able to enter powerful filter expressions to find exactly what they are looking for.
 
 ![Premade Groups Filter next to the LFG Premade Groups window filtering for all mythic dungeons that still need a tank and already have a healer](Screenshots/Screenshot_01_Dungeons.png)
