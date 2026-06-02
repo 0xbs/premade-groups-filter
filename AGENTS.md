@@ -9,7 +9,7 @@ UI-based filtering and powerful Lua expression-based filtering.
 ## Development Notes
 
 ### Architecture and Code Style
-* Try to keep the architecture free of cycles (files should reference each other)
+* Try to keep the architecture free of cycles (files must not reference each other)
 * Avoid tainting Blizzard functions whenever possible
 * Indent with 4 spaces
 
