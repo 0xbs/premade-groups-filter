@@ -28,6 +28,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.ranged = 0
     env.melees = 0
     env.hasmyclass = false
+    env.hasmyclassrole = false
     env.hasmyspec = false
     env.hasmyarmor = false
     env.hasleaver = false
@@ -64,6 +65,9 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
                 end
                 if mySpecInfo.classKeyword == specInfo.classKeyword then
                     env.hasmyclass = true
+                    if mySpecInfo.role == specInfo.role then
+                        env.hasmyclassrole = true
+                    end
                     if mySpecInfo.specKeyword == specInfo.specKeyword then
                         env.hasmyspec = true
                     end
