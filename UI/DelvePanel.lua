@@ -64,6 +64,32 @@ local NUM_DELVE_CHECKBOXES = math.min(MAX_DELVE_CHECKBOXES, #DELVE_ACTIVITY_MAP)
 
 local DelvePanel = CreateFrame("Frame", "PremadeGroupsFilterDelvePanel", PGF.Dialog, "PremadeGroupsFilterDelvePanelTemplate")
 
+local function IsDelveActivityAvailable(activityGroupID, activityID, checkLfgAvailability)
+    if activityGroupID == 0 or activityID == 0 then
+        return false
+    end
+
+    if not checkLfgAvailability then
+        return true
+    end
+
+    if not C_LFGList.GetAvailableActivities then
+        return false
+    end
+
+    local availableActivities = C_LFGList.GetAvailableActivities(C.CATEGORY_ID.DELVES, activityGroupID, Enum.LFGListFilter.PvE)
+    if not availableActivities then
+        return false
+    end
+
+    for _, availableActivityID in ipairs(availableActivities) do
+        if availableActivityID == activityID then
+            return true
+        end
+    end
+    return false
+end
+
 function DelvePanel:GetBountifulDelves()
     local bountifulDelves = {}
     for _, mapID in ipairs(DELVE_ZONE_MAPS) do
@@ -80,6 +106,56 @@ function DelvePanel:GetBountifulDelves()
     return bountifulDelves
 end
 
+function DelvePanel:UpdateDelveAvailability()
+    for i = 1, MAX_DELVE_CHECKBOXES do
+        local delve = self.Delves["Delve"..i]
+        delve.isAvailable = false
+        delve.isBountiful = false
+        delve.Act:SetChecked(false)
+        delve:Hide()
+    end
+
+    for i = 1, NUM_DELVE_CHECKBOXES do
+        local delve = self.Delves["Delve"..i]
+        local activityGroupID = DELVE_ACTIVITY_MAP[i].activityGroupID
+        local tier1ActivityID = DELVE_ACTIVITY_MAP[i].tier1ActivityID
+        local activityInfo = tier1ActivityID > 0 and PGF.GetActivityInfoTable(tier1ActivityID) or nil
+        if activityInfo and activityInfo.fullName and IsDelveActivityAvailable(activityGroupID, tier1ActivityID, self.checkLfgAvailability) then
+            local name = PGF.String_RemoveBrackets(activityInfo.fullName)
+
+            delve.isAvailable = true
+            delve.activityGroupID = activityGroupID
+            delve.tier1ActivityID = tier1ActivityID
+            delve.name = name
+            delve:SetWidth(145)
+            delve.Title:SetText(name)
+            delve.Title:SetWidth(105)
+            delve.Act:SetChecked(self.state and self.state["delve"..i] or false)
+            delve.Act:SetScript("OnClick", function(element)
+                self.state["delve" .. i] = element:GetChecked()
+                self:TriggerFilterExpressionChange()
+            end)
+            delve:SetScript("OnEnter", function (self)
+                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                GameTooltip:SetText(self.name, nil, nil, nil, nil, true)
+                GameTooltip:Show()
+            end)
+            delve:SetScript("OnLeave", function(self)
+                GameTooltip:Hide()
+            end)
+            delve:Show()
+        elseif self.state then
+            self.state["delve"..i] = false
+        end
+    end
+
+    for i = NUM_DELVE_CHECKBOXES + 1, MAX_DELVE_CHECKBOXES do
+        if self.state then
+            self.state["delve"..i] = false
+        end
+    end
+end
+
 function DelvePanel:OnLoad()
     PGF.Logger:Debug("DelvePanel:OnLoad")
     self.name = "delve"
@@ -87,6 +163,7 @@ function DelvePanel:OnLoad()
     self.groupWidth = 245
 
     self:RegisterEvent("AREA_POIS_UPDATED")
+    self:RegisterEvent("LFG_LIST_AVAILABILITY_UPDATE")
     self:SetScript("OnEvent", self.OnEvent)
 
     -- Group
@@ -132,51 +209,7 @@ function DelvePanel:OnLoad()
         self:TriggerFilterExpressionChange()
     end)
 
-    for i = 1, MAX_DELVE_CHECKBOXES do
-        local delve = self.Delves["Delve"..i]
-        delve.isAvailable = false
-        delve.isBountiful = false
-    end
-
-    for i = 1, NUM_DELVE_CHECKBOXES do
-        local delve = self.Delves["Delve"..i]
-        local activityGroupID = DELVE_ACTIVITY_MAP[i].activityGroupID
-        local tier1ActivityID = DELVE_ACTIVITY_MAP[i].tier1ActivityID
-        local activityInfo = tier1ActivityID > 0 and PGF.GetActivityInfoTable(tier1ActivityID) or nil
-        if activityGroupID > 0 and activityInfo and activityInfo.fullName then
-            local name = PGF.String_RemoveBrackets(activityInfo.fullName)
-
-            delve.isAvailable = true
-            delve.activityGroupID = activityGroupID
-            delve.tier1ActivityID = tier1ActivityID
-            delve.name = name
-            delve:SetWidth(145)
-            delve.Title:SetText(name)
-            delve.Title:SetWidth(105)
-            delve.Act:SetScript("OnClick", function(element)
-                self.state["delve" .. i] = element:GetChecked()
-                self:TriggerFilterExpressionChange()
-            end)
-            delve:SetScript("OnEnter", function (self)
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-                GameTooltip:SetText(self.name, nil, nil, nil, nil, true)
-                GameTooltip:Show()
-            end)
-            delve:SetScript("OnLeave", function(self)
-                GameTooltip:Hide()
-            end)
-        else
-            -- delve not yet in the game files (patch not yet released)
-            delve.Act:SetChecked(false)
-            delve:Hide()
-        end
-    end
-
-    -- Hide unused checkboxes
-    for i = NUM_DELVE_CHECKBOXES + 1, MAX_DELVE_CHECKBOXES do
-        self.Delves["Delve"..i].Act:SetChecked(false)
-        self.Delves["Delve"..i]:Hide()
-    end
+    self:UpdateDelveAvailability()
 end
 
 function DelvePanel:Init(state)
@@ -238,8 +271,16 @@ end
 
 function DelvePanel:OnEvent(event)
     if event == "AREA_POIS_UPDATED" then
-        PGF.Logger:Debug("DungeonPanel:OnEvent(AREA_POIS_UPDATED)")
+        PGF.Logger:Debug("DelvePanel:OnEvent(AREA_POIS_UPDATED)")
         self:UpdateDelves()
+    elseif event == "LFG_LIST_AVAILABILITY_UPDATE" then
+        PGF.Logger:Debug("DelvePanel:OnEvent(LFG_LIST_AVAILABILITY_UPDATE)")
+        self.checkLfgAvailability = true
+        self:UpdateDelveAvailability()
+        self:UpdateDelves()
+        if self.state then
+            self:TriggerFilterExpressionChange()
+        end
     end
 end
 
