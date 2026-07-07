@@ -42,10 +42,10 @@ local DELVE_ACTIVITY_MAP = {
     -- Source: https://wago.tools/db2/GroupFinderActivity?filter%5BGroupFinderCategoryID%5D=121&filter%5BFullName_lang%5D=%28Tier%201%29&page=1&sort%5BGroupFinderActivityGrpID%5D=asc
 
     -- Midnight
-    -- Not listed: Torment's Rise (seasonal Nemesis) and Den of Echoes (announced, but missing in tables)
     { activityGroupID = 405, tier1ActivityID = 1823 }, -- Collegiate Calamity
     { activityGroupID = 406, tier1ActivityID = 1826 }, -- Parhelion Plaza
     { activityGroupID = 407, tier1ActivityID = 1837 }, -- Sunkiller Sanctum
+    --{ activityGroupID = 408, tier1ActivityID = 1824 }, -- Torment's Rise (seasonal nemesis)
     { activityGroupID = 409, tier1ActivityID = 1848 }, -- Shadowguard Point
     { activityGroupID = 410, tier1ActivityID = 1859 }, -- The Grudge Pit
     { activityGroupID = 411, tier1ActivityID = 1870 }, -- Atal'Aman
@@ -53,9 +53,9 @@ local DELVE_ACTIVITY_MAP = {
     { activityGroupID = 413, tier1ActivityID = 1892 }, -- The Shadow Enclave
     { activityGroupID = 414, tier1ActivityID = 1903 }, -- Twilight Crypts
     { activityGroupID = 415, tier1ActivityID = 1914 }, -- The Darkway
-    { activityGroupID =   0, tier1ActivityID =    0 }, -- The Ring of Glory
-    { activityGroupID =   0, tier1ActivityID =    0 }, -- Gnarldor Isle
-    { activityGroupID =   0, tier1ActivityID =    0 }, -- Venomfall Deeps
+    --{ activityGroupID = 430, tier1ActivityID = 2006 }, -- Venomfall Deeps (seasonal nemesis)
+    { activityGroupID = 431, tier1ActivityID = 2008 }, -- Gnarldor Isle
+    { activityGroupID = 432, tier1ActivityID = 2019 }, -- The Ring of Glory
 }
 setmetatable(DELVE_ACTIVITY_MAP, { __index = function() return { activityGroupID = 0, tier1ActivityID = 0 } end })
 
