@@ -120,6 +120,7 @@ C.MAP_ID_TO_KEYWORDS = {
     [2913] = { "mn", "moq" }, -- March on Quel'Danas
     [2939] = { "mn", "dr" }, -- The Dreamrift
     [3004] = { "mn", "va" }, -- The Venomous Abyss
+    [2987] = { "mn", "tg" }, -- The Tidebound Grotto
 
     -- Dungeons
     [ 658] = { "wotlk", "pos", "mns1" }, -- Pit of Saron

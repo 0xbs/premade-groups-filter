@@ -696,6 +696,9 @@ C.ACTIVITY = {
     [1955] = { difficulty = 1, category =   3, mapID = 3004, cmID =   0 }, -- The Venomous Abyss (Normal)
     [1956] = { difficulty = 1, category =   3, mapID = 3004, cmID =   0 }, -- The Venomous Abyss (Heroic)
     [1957] = { difficulty = 1, category =   3, mapID = 3004, cmID =   0 }, -- The Venomous Abyss (Mythic)
+    [2003] = { difficulty = 1, category =   3, mapID = 2987, cmID =   0 }, -- The Tidebound Grotto (Normal)
+    [2004] = { difficulty = 2, category =   3, mapID = 2987, cmID =   0 }, -- The Tidebound Grotto (Heroic)
+    [2005] = { difficulty = 3, category =   3, mapID = 2987, cmID =   0 }, -- The Tidebound Grotto (Mythic)
 }
 
 -- Return a default set if activity not found
