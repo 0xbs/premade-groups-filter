@@ -43,7 +43,7 @@ local CMID_MAP = {
     -- Midnight Season 2
     [588] = { order = 1, activityGroupID = 420, keyword = "aof" }, -- Altar of Fangs
     [584] = { order = 2, activityGroupID = 382, keyword = "bv"  }, -- The Blinding Vale
-    [586] = { order = 3, activityGroupID = 392, keyword = "den" }, -- Den of Nalorakk
+    [586] = { order = 3, activityGroupID = 392, keyword = "don" }, -- Den of Nalorakk
     [587] = { order = 4, activityGroupID = 396, keyword = "mr"  }, -- Murder Row
     [585] = { order = 5, activityGroupID = 398, keyword = "vsa" }, -- Voidscar Arena
     [399] = { order = 6, activityGroupID = 306, keyword = "rlp" }, -- Ruby Life Pools (Dragonflight)
