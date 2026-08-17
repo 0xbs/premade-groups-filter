@@ -131,3 +131,8 @@ end
 function PGF.Popup_GetSelectedEntry()
     return popupEntrySelected
 end
+
+--- Returns the shared popup menu frame, or nil if no menu has been opened yet.
+function PGF.PopupMenu_GetFrame()
+    return popupFrame
+end

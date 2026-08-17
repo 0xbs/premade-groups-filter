@@ -15,7 +15,7 @@
 ## Author: Bernhard Saumweber
 ## SavedVariables: PremadeGroupsFilterSettings
 ## SavedVariablesPerCharacter: PremadeGroupsFilterState
-## OptionalDeps: PremadeRegions, RaiderIO
+## OptionalDeps: EllesmereUI, PremadeRegions, RaiderIO
 
 ## Category-enUS: Dungeons & Raids
 ## Category-deDE: Dungeons & Schlachtzüge
@@ -91,3 +91,4 @@ UI\RaidPanel.lua
 UI\MiniPanel.xml
 UI\MiniPanel.lua
 UI\UsePGFButton.lua
+Plugins\EllesmereUI.lua
