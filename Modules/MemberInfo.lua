@@ -24,7 +24,7 @@ local C = PGF.C
 
 --- Sets member info keyword values based on the search result info
 function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
-    -- init to zero
+    -- initialize keyword values
     env.ranged = 0
     env.melees = 0
     env.hasmyclass = false
@@ -32,6 +32,11 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.hasmyspec = false
     env.hasmyarmor = false
     env.hasleaver = false
+    env.memberminlvl = math.huge
+    env.membermaxlvl = 0
+    env.memberavglvl = 0
+    local memberLevelTotal = 0
+    local memberLevelCount = 0
     local mySpecInfo = PGF.GetSpecializationInfoForPlayer()
     local specs = PGF.GetAllSpecializations()
     for specID, specInfo in pairs(specs) do
@@ -45,6 +50,12 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
         local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        if playerInfo.level and playerInfo.level > 0 then
+            env.memberminlvl = math.min(env.memberminlvl, playerInfo.level)
+            env.membermaxlvl = math.max(env.membermaxlvl, playerInfo.level)
+            memberLevelTotal = memberLevelTotal + playerInfo.level
+            memberLevelCount = memberLevelCount + 1
+        end
         if playerInfo.isLeaver then
             env.hasleaver = true
         end
@@ -74,6 +85,11 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
                 end
             end
         end
+    end
+    if memberLevelCount > 0 then
+        env.memberavglvl = memberLevelTotal / memberLevelCount
+    else
+        env.memberminlvl = 0
     end
 
     -- set aliases
