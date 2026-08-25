@@ -37,6 +37,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.memberavglvl = 0
     local memberLevelTotal = 0
     local memberLevelCount = 0
+    local memberLevels = {}
     local mySpecInfo = PGF.GetSpecializationInfoForPlayer()
     local specs = PGF.GetAllSpecializations()
     for specID, specInfo in pairs(specs) do
@@ -55,6 +56,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
             env.membermaxlvl = math.max(env.membermaxlvl, playerInfo.level)
             memberLevelTotal = memberLevelTotal + playerInfo.level
             memberLevelCount = memberLevelCount + 1
+            table.insert(memberLevels, playerInfo.level)
         end
         if playerInfo.isLeaver then
             env.hasleaver = true
@@ -90,6 +92,23 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
         env.memberavglvl = memberLevelTotal / memberLevelCount
     else
         env.memberminlvl = 0
+    end
+    env.hasmemberlvl = function(min, max)
+        for _, level in ipairs(memberLevels) do
+            if (not min or level >= min) and (not max or level <= max) then
+                return true
+            end
+        end
+        return false
+    end
+    env.memberlvlcount = function(min, max)
+        local count = 0
+        for _, level in ipairs(memberLevels) do
+            if (not min or level >= min) and (not max or level <= max) then
+                count = count + 1
+            end
+        end
+        return count
     end
 
     -- set aliases
