@@ -38,6 +38,7 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     local memberLevelTotal = 0
     local memberLevelCount = 0
     local memberLevels = {}
+    local memberNames = {}
     local mySpecInfo = PGF.GetSpecializationInfoForPlayer()
     local specs = PGF.GetAllSpecializations()
     for specID, specInfo in pairs(specs) do
@@ -51,6 +52,9 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
         local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        if playerInfo.name then
+            memberNames[playerInfo.name:lower()] = true
+        end
         if playerInfo.level and playerInfo.level > 0 then
             env.memberminlvl = math.min(env.memberminlvl, playerInfo.level)
             env.membermaxlvl = math.max(env.membermaxlvl, playerInfo.level)
@@ -109,6 +113,9 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
             end
         end
         return count
+    end
+    env.hasmember = function(name)
+        return type(name) == "string" and memberNames[name:lower()] or false
     end
 
     -- set aliases
