@@ -45,10 +45,12 @@ function PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
     local roles = {}
     local classInfo = {}
     for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
+        local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        local role = playerInfo.assignedRole
+        local class = playerInfo.classFilename
         if role and class then -- can be nil, see #297
             classInfo[class] = {
-                name = classLocalized or "?",
+                name = playerInfo.className or "?",
                 color = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
             }
             if not roles[role] then roles[role] = {} end

@@ -44,11 +44,11 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
-        local role, class, classLocalized, specLocalized, isLeader, isLeaver = PGF.GetSearchResultMemberInfo(resultID, i)
-        if isLeaver then
+        local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        if playerInfo.isLeaver then
             env.hasleaver = true
         end
-        local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
+        local specInfo = PGF.GetSpecializationInfoByLocalizedName(playerInfo.classFilename, playerInfo.specName)
         if specInfo then
             if specInfo.role == "DAMAGER" then
                 env.ranged = env.ranged + (specInfo.range and 1 or 0)
@@ -122,14 +122,14 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized, isLeader, isLeaver = PGF.GetSearchResultMemberInfo(resultID, i)
-        local specInfo = PGF.GetSpecializationInfoByLocalizedName(class, specLocalized)
+        local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        local specInfo = PGF.GetSpecializationInfoByLocalizedName(playerInfo.classFilename, playerInfo.specName)
         if specInfo then
             local memberInfo = PGF.Table_Copy_Shallow(specInfo)
-            memberInfo.isLeader = isLeader
-            memberInfo.isLeaver = isLeaver
-            memberInfo.leaderMarkup = isLeader and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
-            memberInfo.leaverMarkup = isLeader and string.format("|A:%s:10:12:0:0|a", C.LEAVER_ATLAS) or ""
+            memberInfo.isLeader = playerInfo.isLeader
+            memberInfo.isLeaver = playerInfo.isLeaver
+            memberInfo.leaderMarkup = playerInfo.isLeader and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
+            memberInfo.leaverMarkup = playerInfo.isLeader and string.format("|A:%s:10:12:0:0|a", C.LEAVER_ATLAS) or ""
             table.insert(members, memberInfo)
         end
     end

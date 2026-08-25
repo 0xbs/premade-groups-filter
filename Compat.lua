@@ -53,13 +53,6 @@ function PGF.GetSearchResultPlayerInfo(...)
     return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultPlayerInfo(...))
 end
 
-function PGF.GetSearchResultMemberInfo(...)
-    local info = C_LFGList.GetSearchResultPlayerInfo(...)
-    if info then
-        return info.assignedRole, info.classFilename, info.className, info.specName, info.isLeader, info.isLeaver
-    end
-end
-
 function PGF.GetSearchResultMemberCounts(resultID)
     return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultMemberCounts(resultID))
 end

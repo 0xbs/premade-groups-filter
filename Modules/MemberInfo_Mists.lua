@@ -43,7 +43,9 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 
     -- increment keywords
     for i = 1, searchResultInfo.numMembers do
-        local role, class = PGF.GetSearchResultMemberInfo(resultID, i)
+        local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        local role = playerInfo.assignedRole
+        local class = playerInfo.classFilename
         local classKeyword = class:lower() .. "s" -- plural form of the class in english
         env[classKeyword] = env[classKeyword] + 1
         local armor = C.DPS_CLASS_TYPE[class].armor
@@ -74,17 +76,17 @@ end
 function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
     local members = {}
     for i = 1, numMembers do
-        local role, class, classLocalized, specLocalized = PGF.GetSearchResultMemberInfo(resultID, i)
-        local classColor = RAID_CLASS_COLORS[class] or NORMAL_FONT_COLOR
+        local playerInfo = PGF.GetSearchResultPlayerInfo(resultID, i)
+        local classColor = RAID_CLASS_COLORS[playerInfo.classFilename] or NORMAL_FONT_COLOR
         table.insert(members, {
             -- retail version holds many more fields based on the specialization
-            role = role,
-            class = class,
-            classLocalized = classLocalized,
-            specLocalized = specLocalized,
+            role = playerInfo.assignedRole,
+            class = playerInfo.classFilename,
+            classLocalized = playerInfo.className,
+            specLocalized = playerInfo.specName,
             classColor = classColor,
-            roleAtlas = C.ROLE_ATLAS[role],
-            roleMarkup = string.format("|A:%s:0:0:0:0|a", C.ROLE_ATLAS[role]),
+            roleAtlas = C.ROLE_ATLAS[playerInfo.assignedRole],
+            roleMarkup = string.format("|A:%s:0:0:0:0|a", C.ROLE_ATLAS[playerInfo.assignedRole]),
             isLeader = i == 1,
             leaderMarkup = i == 1 and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or "",
         })
