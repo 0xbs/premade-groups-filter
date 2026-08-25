@@ -111,8 +111,6 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
     local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
     if not activityInfo then return end
 
-    -- do not show members where Blizzard already does that
-    if activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate then return end
     -- RoleCount       Raids, BGs, Custom Groups
     -- RoleEnumerate   Dungeons
     -- ClassEnumerate  Arena
@@ -122,9 +120,13 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
 
     if searchResultInfo.isDelisted or not tooltip:IsShown() then return end
 
-    if activityInfo.displayType == Enum.LFGListDisplayType.RoleEnumerate then
+    if activityInfo.displayType == Enum.LFGListDisplayType.RoleEnumerate or
+            activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate then
         AddMemberNames(tooltip, resultID, searchResultInfo)
     end
+
+    -- do not add a second member listing where Blizzard already shows it
+    if activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate then return end
 
     -- restore age dropped in 10.2.7
     if searchResultInfo.age > 0 then
