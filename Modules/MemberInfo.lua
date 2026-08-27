@@ -117,6 +117,15 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
     env.hasmember = function(name)
         return type(name) == "string" and memberNames[name:lower()] or false
     end
+    env.findmember = function(query)
+        if type(query) ~= "string" then return false end
+        query = query:lower()
+        if query == "" then return false end
+        for memberName in pairs(memberNames) do
+            if memberName:find(query, 1, true) then return true end
+        end
+        return false
+    end
 
     -- set aliases
     env.augs = env.augmentation_evokers
