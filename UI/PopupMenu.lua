@@ -24,8 +24,22 @@ local C = PGF.C
 
 local popupMenus = {}
 local popupMenuActive
-local popupFrame
 local popupEntrySelected = {}
+
+-- The menu is shared by all dropdowns and created up front, so that it is available
+-- to addons styling the frames exported at the bottom of this file.
+local popupFrame = CreateFrame("Frame", nil, nil, "PremadeGroupsFilterPopupMenuFrameTemplate")
+popupFrame:Hide()
+popupFrame:EnableKeyboard(true)
+popupFrame:SetScript("OnKeyDown", function (self, key)
+    if key == GetBindingKey("TOGGLEGAMEMENU") then
+        PGF.PopupMenu_Hide()
+        self:SetPropagateKeyboardInput(false)
+    else
+        self:SetPropagateKeyboardInput(true)
+    end
+end)
+popupFrame.Buttons = {}
 
 -- entry = { title = "", value = 0, func = function (entry) end }
 
@@ -47,25 +61,10 @@ end
 function PGF.PopupMenu_Initialize(name)
     local menu = popupMenus[name]
 
-    -- create frame if it does not yet exist
-    if not popupFrame then
-        popupFrame = CreateFrame("Frame", nil, nil, "PremadeGroupsFilterPopupMenuFrameTemplate")
-        popupFrame:EnableKeyboard(true)
-        popupFrame:SetScript("OnKeyDown", function (self, key)
-            if key == GetBindingKey("TOGGLEGAMEMENU") then
-                PGF.PopupMenu_Hide()
-                self:SetPropagateKeyboardInput(false)
-            else
-                self:SetPropagateKeyboardInput(true)
-            end
-        end)
-    end
-
     -- set up buttons
     local buttonWidth = menu.minWidth
     local buttonHeight = 20
     local buttonOffsetY = -4
-    if not popupFrame.Buttons then popupFrame.Buttons = {} end
     for i, entry in ipairs(menu.entries) do
         -- create new buttons if necessary
         local button = popupFrame.Buttons[i]
@@ -121,7 +120,7 @@ end
 
 function PGF.PopupMenu_Hide()
     popupMenuActive = nil
-    if popupFrame then popupFrame:Hide() end
+    popupFrame:Hide()
 end
 
 function PGF.PopupMenu_Toggle(name)
