@@ -223,7 +223,11 @@ function PGF.DoFilterSearchResults(results)
             local env = {}
             env.activity = searchResultInfo.activityID
             env.activityname = activityInfo.fullName:lower()
-            env.leader = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
+            local leaderName = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
+            env.leader = leaderName
+            env.findleader = function(query)
+                return type(query) == "string" and query ~= "" and leaderName:find(query:lower(), 1, true) ~= nil
+            end
             env.age = math.floor(searchResultInfo.age / 60) -- age in minutes
             env.agesecs = searchResultInfo.age -- age in seconds
             env.voice = searchResultInfo.voiceChat and searchResultInfo.voiceChat ~= ""
