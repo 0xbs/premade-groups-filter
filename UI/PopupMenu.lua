@@ -131,3 +131,5 @@ end
 function PGF.Popup_GetSelectedEntry()
     return popupEntrySelected
 end
+
+PremadeGroupsFilter.PopupMenuFrame = popupFrame

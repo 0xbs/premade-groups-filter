@@ -286,3 +286,4 @@ PVEFrame:HookScript("OnHide", function () PGFDialog:Toggle() end)
 
 PGFDialog:OnLoad()
 PGF.Dialog = PGFDialog
+PremadeGroupsFilter.DialogFrame = PGFDialog
