@@ -47,7 +47,8 @@ function PGF.GetGroupKey(searchResultInfo)
     if searchResultInfo.partyGUID then -- retail now provides a partyGUID
         return searchResultInfo.partyGUID
     elseif searchResultInfo.leaderName then -- leaderName is not available for very new groups
-        return searchResultInfo.activityID .. searchResultInfo.leaderName
+        local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
+        return activityID and activityID .. searchResultInfo.leaderName or nil
     else
         return nil
     end

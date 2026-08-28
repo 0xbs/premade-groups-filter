@@ -108,7 +108,9 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
 
     local searchResultInfo = PGF.GetSearchResultInfo(resultID)
     if not searchResultInfo then return end
-    local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
+    local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
+    if not activityID then return end
+    local activityInfo = PGF.GetActivityInfoTable(activityID)
     if not activityInfo then return end
 
     -- RoleCount       Raids, BGs, Custom Groups

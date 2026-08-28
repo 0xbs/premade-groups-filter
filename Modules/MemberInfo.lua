@@ -135,11 +135,8 @@ function PGF.PutSearchResultMemberInfos(resultID, searchResultInfo, env)
 end
 
 local function GetRoleClassOrder(resultID)
-    -- Use Blizzard's original table here so pairs(classesByRole) follows the
-    -- same table iteration order as LFGListGroupDataDisplayEnumerate_Update.
-    -- Using our own copy PGF.GetSearchResultMemberCounts does not work in this case,
-    -- because PGF.Table_Copy_Rec messes up the internal table structure.
-    local displayData = C_LFGList.GetSearchResultMemberCounts(resultID)
+    -- Follow the same table iteration order as LFGListGroupDataDisplayEnumerate_Update.
+    local displayData = PGF.GetSearchResultMemberCounts(resultID)
     local result = {}
     local roleOrder = LFG_LIST_GROUP_DATA_ROLE_ORDER -- { "TANK", "HEALER", "DAMAGER" }
     for i = 1, #roleOrder do

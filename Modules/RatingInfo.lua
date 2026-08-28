@@ -58,7 +58,9 @@ end
 
 function PGF.AddRatingInfo(self, searchResultInfo)
     local frame = PGF.GetOrCreateRatingInfoFrame(self)
-    local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
+    local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
+    if not activityID then return end
+    local activityInfo = PGF.GetActivityInfoTable(activityID)
 
     -- reset
     frame:Hide()
@@ -88,18 +90,20 @@ function PGF.AddRatingInfo(self, searchResultInfo)
         else
             ratingColor = C_ChallengeMode.GetDungeonScoreRarityColor(rating) or ratingColor
         end
-        if searchResultInfo.leaderDungeonScoreInfo and searchResultInfo.leaderDungeonScoreInfo.bestRunLevel > 0 then
-            extraText = "+" .. searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
-            if not searchResultInfo.leaderDungeonScoreInfo.finishedSuccess then
+        local leaderDungeonScoreInfo = PGF.GetSearchResultLeaderDungeonScoreInfo(searchResultInfo)
+        if leaderDungeonScoreInfo and leaderDungeonScoreInfo.bestRunLevel > 0 then
+            extraText = "+" .. leaderDungeonScoreInfo.bestRunLevel
+            if not leaderDungeonScoreInfo.finishedSuccess then
                 extraTextColor = { r = 0.6, g = 0.6, b = 0.6 }
             end
         end
     end
     if activityInfo.isRatedPvpActivity then
         rightPos = activityInfo.categoryID == C.CATEGORY_ID.ARENA and -80 or -130
-        if searchResultInfo.leaderPvpRatingInfo then
-            rating = searchResultInfo.leaderPvpRatingInfo.rating or 0
-            ratingColor = PGF.GetPvPScoreRarityColorByTier(searchResultInfo.leaderPvpRatingInfo.tier or 0) or ratingColor
+        local leaderPvpRatingInfo = PGF.GetSearchResultLeaderPvpRatingInfo(searchResultInfo)
+        if leaderPvpRatingInfo then
+            rating = leaderPvpRatingInfo.rating or 0
+            ratingColor = PGF.GetPvPScoreRarityColorByTier(leaderPvpRatingInfo.tier or 0) or ratingColor
         end
     end
 

@@ -24,43 +24,63 @@ local C = PGF.C
 
 -- Assumption: if there is no issecretvalue function, the value is never secret
 local issecretvalue = issecretvalue or function () return false end
+-- Assumption: clients without canaccesstable do not restrict table access
+local canaccesstable = canaccesstable or function () return true end
+
+local function IsAccessibleTable(value)
+    return not issecretvalue(value) and canaccesstable(value)
+end
 
 function PGF.GetSearchResultInfo(resultID)
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
     -- In rare cases such as when an application is full or rejected,
     -- C_LFGList.GetSearchResultInfo returns nil.
     -- In restricted envs, the searchResultInfo table itself can be secret.
-    if not searchResultInfo or issecretvalue(searchResultInfo) then
+    if not searchResultInfo or not IsAccessibleTable(searchResultInfo) then
         return nil
     end
-    -- Copy the table to avoid tainting the original Blizzard data
-    local info = PGF.Table_Copy_Rec(searchResultInfo)
-    if info.activityIDs then
-        info.activityID = info.activityIDs[1]
+    return searchResultInfo
+end
+
+function PGF.GetSearchResultActivityID(searchResultInfo)
+    local activityIDs = searchResultInfo.activityIDs
+    if issecretvalue(activityIDs) then return nil end
+    if activityIDs then
+        if not IsAccessibleTable(activityIDs) then return nil end
+        local activityID = activityIDs[1]
+        return not issecretvalue(activityID) and activityID or nil
     end
-    if info.leaderDungeonScoreInfo then
-        info.leaderDungeonScoreInfo = info.leaderDungeonScoreInfo[1]
-    end
-    if info.leaderPvpRatingInfo then
-        info.leaderPvpRatingInfo = info.leaderPvpRatingInfo[1]
-    end
-    return info
+
+    local activityID = searchResultInfo.activityID
+    return not issecretvalue(activityID) and activityID or nil
+end
+
+function PGF.GetSearchResultLeaderDungeonScoreInfo(searchResultInfo)
+    local scoreInfos = searchResultInfo.leaderDungeonScoreInfo
+    if not scoreInfos or issecretvalue(scoreInfos) then return nil end
+    if not IsAccessibleTable(scoreInfos) then return nil end
+    return scoreInfos[1]
+end
+
+function PGF.GetSearchResultLeaderPvpRatingInfo(searchResultInfo)
+    local ratingInfos = searchResultInfo.leaderPvpRatingInfo
+    if not ratingInfos or issecretvalue(ratingInfos) then return nil end
+    if not IsAccessibleTable(ratingInfos) then return nil end
+    return ratingInfos[1]
 end
 
 function PGF.GetActivityInfoTable(resultID)
-    -- Copy the table to avoid tainting the original Blizzard data
-    return PGF.Table_Copy_Rec(C_LFGList.GetActivityInfoTable(resultID))
+    return C_LFGList.GetActivityInfoTable(resultID)
 end
 
 function PGF.GetSearchResultPlayerInfo(...)
-    -- Copy the table to avoid tainting the original Blizzard data
-    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultPlayerInfo(...))
+    return C_LFGList.GetSearchResultPlayerInfo(...)
 end
 
 function PGF.GetSearchResultMemberCounts(resultID)
-    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultMemberCounts(resultID))
+    return C_LFGList.GetSearchResultMemberCounts(resultID)
 end
 
 function PGF.GetSearchResultEncounterInfo(resultID)
-    return PGF.Table_Copy_Rec(C_LFGList.GetSearchResultEncounterInfo(resultID))
+    return C_LFGList.GetSearchResultEncounterInfo(resultID)
 end

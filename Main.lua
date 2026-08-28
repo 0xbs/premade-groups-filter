@@ -191,7 +191,8 @@ function PGF.DoFilterSearchResults(results)
     for idx = #results, 1, -1 do
         local resultID = results[idx]
         local searchResultInfo = PGF.GetSearchResultInfo(resultID)
-        if searchResultInfo then
+        local activityID = searchResultInfo and PGF.GetSearchResultActivityID(searchResultInfo)
+        if searchResultInfo and activityID then
             -- /dump PGF.GetSearchResultInfo(select(2, C_LFGList.GetSearchResults())[1])
             -- name and comment are now protected strings like "|Ks1969|k0000000000000000|k" which can only be printed
             local _, appStatus, pendingStatus, appDuration = C_LFGList.GetApplicationInfo(resultID)
@@ -205,23 +206,29 @@ function PGF.DoFilterSearchResults(results)
             --                      └─▶ timedout
             -- pendingStatus flow (used for role check if in a group before transition of appStatus to applied):
             --   <nil> ◀──▶ applied ──▶ cancelled
-            -- Copy to avoid tainting the original Blizzard data
             local memberCounts = PGF.GetSearchResultMemberCounts(resultID)
             local numGroupDefeated, numPlayerDefeated, maxBosses,
-            matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, resultID)
-            local activityInfo = PGF.GetActivityInfoTable(searchResultInfo.activityID)
+            matching, groupAhead, groupBehind = PGF.GetLockoutInfo(activityID, resultID)
+            local activityInfo = PGF.GetActivityInfoTable(activityID)
 
-            local difficulty = C.ACTIVITY[searchResultInfo.activityID].difficulty
+            local difficulty = C.ACTIVITY[activityID].difficulty
 
             -- Delves do not have a fixed number of roles, but usually a dungeon composition is preferred
             if activityInfo.categoryID == C.CATEGORY_ID.DELVES then
-                memberCounts["TANK_REMAINING"] = 1 - memberCounts["TANK"]
-                memberCounts["HEALER_REMAINING"] = 1 - memberCounts["HEALER"]
-                memberCounts["DAMAGER_REMAINING"] = 3 - memberCounts["DAMAGER"]
+                -- Do not add the derived values to Blizzard's original table.
+                memberCounts = {
+                    TANK = memberCounts.TANK,
+                    HEALER = memberCounts.HEALER,
+                    DAMAGER = memberCounts.DAMAGER,
+                    NOROLE = memberCounts.NOROLE,
+                    TANK_REMAINING = 1 - memberCounts.TANK,
+                    HEALER_REMAINING = 1 - memberCounts.HEALER,
+                    DAMAGER_REMAINING = 3 - memberCounts.DAMAGER,
+                }
             end
 
             local env = {}
-            env.activity = searchResultInfo.activityID
+            env.activity = activityID
             env.activityname = activityInfo.fullName:lower()
             local leaderName = searchResultInfo.leaderName and searchResultInfo.leaderName:lower() or ""
             env.leader = leaderName
@@ -277,23 +284,25 @@ function PGF.DoFilterSearchResults(results)
             env.mpmapname   = ""
             env.mpmapmaxkey = 0
             env.mpmapintime = false
-            if searchResultInfo.leaderDungeonScoreInfo then
-                env.mpmaprating = searchResultInfo.leaderDungeonScoreInfo.mapScore
-                env.mpmapname   = searchResultInfo.leaderDungeonScoreInfo.mapName
-                env.mpmapmaxkey = searchResultInfo.leaderDungeonScoreInfo.bestRunLevel
-                env.mpmapintime = searchResultInfo.leaderDungeonScoreInfo.finishedSuccess
+            local leaderDungeonScoreInfo = PGF.GetSearchResultLeaderDungeonScoreInfo(searchResultInfo)
+            if leaderDungeonScoreInfo then
+                env.mpmaprating = leaderDungeonScoreInfo.mapScore
+                env.mpmapname   = leaderDungeonScoreInfo.mapName
+                env.mpmapmaxkey = leaderDungeonScoreInfo.bestRunLevel
+                env.mpmapintime = leaderDungeonScoreInfo.finishedSuccess
             end
             env.pvpactivityname = ""
             env.pvprating = 0
             env.pvptierx = 0
             env.pvptier = 0
             env.pvptiername = ""
-            if searchResultInfo.leaderPvpRatingInfo then
-                env.pvpactivityname = searchResultInfo.leaderPvpRatingInfo.activityName
-                env.pvprating       = searchResultInfo.leaderPvpRatingInfo.rating
-                env.pvptierx        = searchResultInfo.leaderPvpRatingInfo.tier
-                env.pvptier         = C.PVP_TIER_MAP[searchResultInfo.leaderPvpRatingInfo.tier].tier
-                env.pvptiername     = PVPUtil.GetTierName(searchResultInfo.leaderPvpRatingInfo.tier)
+            local leaderPvpRatingInfo = PGF.GetSearchResultLeaderPvpRatingInfo(searchResultInfo)
+            if leaderPvpRatingInfo then
+                env.pvpactivityname = leaderPvpRatingInfo.activityName
+                env.pvprating       = leaderPvpRatingInfo.rating
+                env.pvptierx        = leaderPvpRatingInfo.tier
+                env.pvptier         = C.PVP_TIER_MAP[leaderPvpRatingInfo.tier].tier
+                env.pvptiername     = PVPUtil.GetTierName(leaderPvpRatingInfo.tier)
             end
             env.horde = searchResultInfo.leaderFactionGroup == 0
             env.alliance = searchResultInfo.leaderFactionGroup == 1
@@ -329,8 +338,8 @@ function PGF.DoFilterSearchResults(results)
             env.myilvl = playerInfo.avgItemLevelEquipped
             env.myilvlpvp = playerInfo.avgItemLevelPvp
             env.mymprating = playerInfo.mymprating
-            env.myaffixrating = playerInfo.affixRating[searchResultInfo.activityID] or 0
-            env.mydungeonrating = playerInfo.dungeonRating[searchResultInfo.activityID] or 0
+            env.myaffixrating = playerInfo.affixRating[activityID] or 0
+            env.mydungeonrating = playerInfo.dungeonRating[activityID] or 0
             env.myavgaffixrating = playerInfo.avgAffixRating
             env.mymedianaffixrating = playerInfo.medianAffixRating
             env.myavgdungeonrating = playerInfo.avgDungeonRating
@@ -346,10 +355,10 @@ function PGF.DoFilterSearchResults(results)
                 return false
             end
 
-            PGF.PutActivityKeywords(env, searchResultInfo.activityID)
+            PGF.PutActivityKeywords(env, activityID)
 
             if PGF.PutRaiderIOMetrics then
-                PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, searchResultInfo.activityID)
+                PGF.PutRaiderIOMetrics(env, searchResultInfo.leaderName, activityID)
             end
             if PGF.PutPremadeRegionInfo then
                 PGF.PutPremadeRegionInfo(env, searchResultInfo.leaderName)
@@ -425,8 +434,10 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
             self.Name:SetTextColor(color.R, color.G, color.B)
         end
         -- color activity if lockout
+        local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
+        if not activityID then return end
         local numGroupDefeated, numPlayerDefeated, maxBosses,
-              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(searchResultInfo.activityID, self.resultID)
+              matching, groupAhead, groupBehind = PGF.GetLockoutInfo(activityID, self.resultID)
         local color
         if numPlayerDefeated > 0 and numPlayerDefeated == maxBosses then
             color = C.COLOR_LOCKOUT_FULL
