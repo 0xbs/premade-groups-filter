@@ -97,6 +97,11 @@ local stripPrefixes = {
     "^[Ll][ae] ", -- Romance languages
 }
 
+-- Special name replacements
+local shortNames = {
+    ["Das blendende Tal"] = "Blendendes Tal",
+}
+
 local DungeonPanel = CreateFrame("Frame", "PremadeGroupsFilterDungeonPanel", PGF.Dialog, "PremadeGroupsFilterDungeonPanelTemplate")
 
 function DungeonPanel:OnLoad()
@@ -198,7 +203,7 @@ function DungeonPanel:InitChallengeModes()
 
     for i, cmID in ipairs(self.cmIDs) do
         local dungeonName = C_ChallengeMode.GetMapUIInfo(cmID) or "?"
-        local shortName = dungeonName
+        local shortName = shortNames[dungeonName] or dungeonName
         for _, prefix in ipairs(stripPrefixes) do
             shortName = shortName:gsub(prefix, "", 1)
         end
