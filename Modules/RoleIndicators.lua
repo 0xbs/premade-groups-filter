@@ -102,6 +102,7 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
     local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
     if not activityID then return end
     local activityInfo = PGF.GetActivityInfoTable(activityID)
+    if not activityInfo then return end
     if activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
         return -- only show rings on role enumerations like dungeon groups
     end

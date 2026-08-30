@@ -48,11 +48,13 @@ function PGF.GetSearchResultActivityID(searchResultInfo)
     if activityIDs then
         if not IsAccessibleTable(activityIDs) then return nil end
         local activityID = activityIDs[1]
-        return not issecretvalue(activityID) and activityID or nil
+        if type(activityID) ~= "number" or issecretvalue(activityID) then return nil end
+        return activityID
     end
 
     local activityID = searchResultInfo.activityID
-    return not issecretvalue(activityID) and activityID or nil
+    if type(activityID) ~= "number" or issecretvalue(activityID) then return nil end
+    return activityID
 end
 
 function PGF.GetSearchResultLeaderDungeonScoreInfo(searchResultInfo)
@@ -69,8 +71,8 @@ function PGF.GetSearchResultLeaderPvpRatingInfo(searchResultInfo)
     return ratingInfos[1]
 end
 
-function PGF.GetActivityInfoTable(resultID)
-    return C_LFGList.GetActivityInfoTable(resultID)
+function PGF.GetActivityInfoTable(activityID)
+    return C_LFGList.GetActivityInfoTable(activityID)
 end
 
 function PGF.GetSearchResultPlayerInfo(...)

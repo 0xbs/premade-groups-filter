@@ -58,9 +58,6 @@ end
 
 function PGF.AddRatingInfo(self, searchResultInfo)
     local frame = PGF.GetOrCreateRatingInfoFrame(self)
-    local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
-    if not activityID then return end
-    local activityInfo = PGF.GetActivityInfoTable(activityID)
 
     -- reset
     frame:Hide()
@@ -70,6 +67,11 @@ function PGF.AddRatingInfo(self, searchResultInfo)
     if not PremadeGroupsFilterSettings.ratingInfo then
         return -- stop if feature disabled
     end
+
+    local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
+    if not activityID then return end
+    local activityInfo = PGF.GetActivityInfoTable(activityID)
+    if not activityInfo then return end
 
     local appStatus, isApplication, isDeclined = PGF.GetAppStatus(self.resultID, searchResultInfo)
     if isApplication or isDeclined then
