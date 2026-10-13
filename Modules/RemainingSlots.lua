@@ -22,6 +22,13 @@ local PGF = select(2, ...)
 local L = PGF.L
 local C = PGF.C
 
+local function GetGroupUnit(i, groupType)
+    if groupType == "raid" then
+        return "raid" .. i
+    end
+    return (i == 1) and "player" or ("party" .. (i - 1))
+end
+
 function PGF.HasRemainingSlotsForLocalPlayerRole(memberCounts)
     local playerRole = GetSpecializationRole(GetSpecialization())
     if not playerRole then return false end
@@ -37,7 +44,7 @@ function PGF.GetPartyRoles()
         partyRoles[playerRole] = 1
     else
         for i = 1, numGroupMembers do
-            local unit = (i == 1) and "player" or (groupType .. (i - 1))
+            local unit = GetGroupUnit(i, groupType)
 
             local groupMemberRole = UnitGroupRolesAssigned(unit)
             if groupMemberRole == "NONE" then groupMemberRole = "DAMAGER" end
@@ -81,7 +88,7 @@ function PGF.GetMemberCountsAfterJoin(memberCounts)
     end
     -- in group
     for i = 1, numGroupMembers do
-        local unit = (i == 1) and "player" or (groupType .. (i - 1))
+        local unit = GetGroupUnit(i, groupType)
         local role = UnitGroupRolesAssigned(unit)
         if not role or role == "NONE" then role = "DAMAGER" end
         local roleRemaining = C.ROLE_REMAINING_KEYS[role]
@@ -116,7 +123,7 @@ function PGF.PlayerOrGroupHasProperty(prop)
     end
     local groupType = IsInRaid() and "raid" or "party"
     for i = 1, numGroupMembers do
-        local unit = (i == 1) and "player" or (groupType .. (i - 1))
+        local unit = GetGroupUnit(i, groupType)
         if PGF.UnitHasProperty(unit, prop) then
             return true
         end

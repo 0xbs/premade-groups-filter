@@ -177,7 +177,7 @@ function PGF.GetSearchResultMemberInfoTable(resultID, numMembers)
             memberInfo.isLeader = playerInfo.isLeader
             memberInfo.isLeaver = playerInfo.isLeaver
             memberInfo.leaderMarkup = playerInfo.isLeader and string.format("|A:%s:10:12:0:0|a", C.LEADER_ATLAS) or ""
-            memberInfo.leaverMarkup = playerInfo.isLeader and string.format("|A:%s:10:12:0:0|a", C.LEAVER_ATLAS) or ""
+            memberInfo.leaverMarkup = playerInfo.isLeaver and string.format("|A:%s:10:12:0:0|a", C.LEAVER_ATLAS) or ""
             table.insert(members, memberInfo)
         end
     end
