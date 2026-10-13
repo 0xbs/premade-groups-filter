@@ -451,6 +451,13 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
+    -- Clear our own overlays even when restricted data cannot be processed.
+    local ratingFrame = PGF.ratingInfoFrames[self]
+    if ratingFrame then ratingFrame:Hide() end
+    local roleFrames = PGF.roleIndicators[self]
+    if roleFrames then
+        for _, frame in ipairs(roleFrames) do frame:Hide() end
+    end
     local searchResultInfo = PGF.GetSearchResultInfo(self.resultID)
     if not searchResultInfo then return end
 
@@ -470,6 +477,7 @@ end
 function PGF.FilterSearchResults()
     PGF.Logger:Debug("PGF.FilterSearchResults")
     -- exit early before tainting any variables if disabled or restricted
+    if PGF.IsLFGRestricted() then return end
     if not PGF.Dialog:GetEnabled() then return end
     if not PGF.currentSearchResults or #PGF.currentSearchResults == 0 then return end
 

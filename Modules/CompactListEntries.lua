@@ -45,6 +45,8 @@ function PGF.CompactListEntries_UpdateListScrollBox()
     -- ScrollBoxListView usually automatically fetches the height from the XML template using C_XMLUtil.GetTemplateInfo.
     -- Since we do not want to and probably also cannot change the template, we manually set the correct value here.
     view:SetElementExtent(desiredHeight())
+    -- Keep row spacing consistent, but do not reprocess restricted search results.
+    if PGF.IsLFGRestricted() then return end
     scrollBox:FullUpdate()
 end
 

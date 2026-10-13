@@ -54,6 +54,11 @@ end
 PGF.clickToCancelFrames = {}
 
 hooksecurefunc("LFGListSearchEntry_OnEnter", function (self)
+    if PGF.IsLFGRestricted() then
+        local frame = PGF.clickToCancelFrames[self]
+        if frame then frame:Hide() end
+        return
+    end
     if not PremadeGroupsFilterSettings.cancelOldestApp then return end
 
     local clickToCancelFrame = PGF.clickToCancelFrames[self]
@@ -90,6 +95,7 @@ hooksecurefunc("LFGListSearchEntry_OnLeave", function (self)
 end)
 
 hooksecurefunc("LFGListSearchEntry_OnClick", function (self, button)
+    if PGF.IsLFGRestricted() then return end
     local panel = LFGListFrame.SearchPanel
 
     if PremadeGroupsFilterSettings.cancelOldestApp and button ~= "RightButton" then
@@ -116,6 +122,7 @@ end)
 
 -- need to hook the show event directly as we might have overwritten LFGListApplicationDialog_Show
 LFGListApplicationDialog:HookScript("OnShow", function(self)
+    if PGF.IsLFGRestricted() then return end
     if not PremadeGroupsFilterSettings.skipSignUpDialog then return end
 
     if self.SignUpButton:IsEnabled() and not IsShiftKeyDown() then

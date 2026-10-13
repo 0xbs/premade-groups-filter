@@ -28,15 +28,34 @@ local issecretvalue = issecretvalue or function () return false end
 local canaccesstable = canaccesstable or function () return true end
 
 local function IsAccessibleTable(value)
-    return not issecretvalue(value) and canaccesstable(value)
+    return not issecretvalue(value) and type(value) == "table" and canaccesstable(value)
+end
+
+function PGF.IsLFGRestricted()
+    if not C_RestrictedActions or not C_RestrictedActions.GetAddOnRestrictionState then return false end
+    local rt = Enum.AddOnRestrictionType
+    local rs = Enum.AddOnRestrictionState
+
+    local function IsRestricted(restriction)
+        -- Include Activating: IsAddOnRestrictionActive returns false during
+        -- ADDON_RESTRICTION_STATE_CHANGED, before restrictions are enforced.
+        return C_RestrictedActions.GetAddOnRestrictionState(restriction) ~= rs.Inactive
+    end
+
+    -- Keep filtering available inside instances before and between pulls.
+    return IsRestricted(rt.Map) and (
+        IsRestricted(rt.Combat) or
+        IsRestricted(rt.Encounter) or
+        IsRestricted(rt.ChallengeMode))
 end
 
 function PGF.GetSearchResultInfo(resultID)
+    if PGF.IsLFGRestricted() then return nil end
     local searchResultInfo = C_LFGList.GetSearchResultInfo(resultID)
     -- In rare cases such as when an application is full or rejected,
     -- C_LFGList.GetSearchResultInfo returns nil.
     -- In restricted envs, the searchResultInfo table itself can be secret.
-    if not searchResultInfo or not IsAccessibleTable(searchResultInfo) then
+    if not IsAccessibleTable(searchResultInfo) or not searchResultInfo then
         return nil
     end
     return searchResultInfo
@@ -59,15 +78,13 @@ end
 
 function PGF.GetSearchResultLeaderDungeonScoreInfo(searchResultInfo)
     local scoreInfos = searchResultInfo.leaderDungeonScoreInfo
-    if not scoreInfos or issecretvalue(scoreInfos) then return nil end
-    if not IsAccessibleTable(scoreInfos) then return nil end
+    if not IsAccessibleTable(scoreInfos) or not scoreInfos then return nil end
     return scoreInfos[1]
 end
 
 function PGF.GetSearchResultLeaderPvpRatingInfo(searchResultInfo)
     local ratingInfos = searchResultInfo.leaderPvpRatingInfo
-    if not ratingInfos or issecretvalue(ratingInfos) then return nil end
-    if not IsAccessibleTable(ratingInfos) then return nil end
+    if not IsAccessibleTable(ratingInfos) or not ratingInfos then return nil end
     return ratingInfos[1]
 end
 
