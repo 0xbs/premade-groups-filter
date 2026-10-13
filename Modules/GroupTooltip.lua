@@ -104,8 +104,6 @@ function PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
 end
 
 function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOption)
-    if not PremadeGroupsFilterSettings.classNamesInTooltip then return end
-
     local searchResultInfo = PGF.GetSearchResultInfo(resultID)
     if not searchResultInfo then return end
     local activityID = PGF.GetSearchResultActivityID(searchResultInfo)
@@ -122,8 +120,9 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
 
     if searchResultInfo.isDelisted or not tooltip:IsShown() then return end
 
-    if activityInfo.displayType == Enum.LFGListDisplayType.RoleEnumerate or
-            activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate then
+    if PremadeGroupsFilterSettings.classNamesInTooltip and
+            (activityInfo.displayType == Enum.LFGListDisplayType.RoleEnumerate or
+            activityInfo.displayType == Enum.LFGListDisplayType.ClassEnumerate) then
         AddMemberNames(tooltip, resultID, searchResultInfo)
     end
 
@@ -136,11 +135,13 @@ function PGF.OnLFGListUtilSetSearchEntryTooltip(tooltip, resultID, autoAcceptOpt
         tooltip:AddLine(string.format(LFG_LIST_TOOLTIP_AGE, SecondsToTime(searchResultInfo.age, false, false, 1, false)));
     end
 
-    if activityInfo.displayType ~= Enum.LFGListDisplayType.ClassEnumerate and
-            activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
-        PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
-    elseif not PGF.IsRetail() then -- retail has spec enumeration since 10.2.7
-        PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
+    if PremadeGroupsFilterSettings.classNamesInTooltip then
+        if activityInfo.displayType ~= Enum.LFGListDisplayType.ClassEnumerate and
+                activityInfo.displayType ~= Enum.LFGListDisplayType.RoleEnumerate then
+            PGF.AddClassCountListing(tooltip, resultID, searchResultInfo)
+        elseif not PGF.IsRetail() then -- retail has spec enumeration since 10.2.7
+            PGF.AddClassSpecListing(tooltip, resultID, searchResultInfo)
+        end
     end
     tooltip:Show()
 end
