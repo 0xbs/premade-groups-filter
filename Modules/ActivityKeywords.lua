@@ -119,9 +119,10 @@ C.MAP_ID_TO_KEYWORDS = {
     [2912] = { "mn", "vs" }, -- The Voidspire
     [2913] = { "mn", "moq" }, -- March on Quel'Danas
     [2939] = { "mn", "dr" }, -- The Dreamrift
-    [3004] = { "mn", "va" }, -- The Venomous Abyss
     [2987] = { "mn", "tg" }, -- The Tidebound Grotto
-
+    [3004] = { "mn", "va" }, -- The Venomous Abyss
+    [3095] = { "mn", "kith" }, -- The Unbinding of Kith'ix
+    
     -- Dungeons
     [ 658] = { "wotlk", "pos", "mns1" }, -- Pit of Saron
     [  33] = { "cata", "sfk" }, -- Shadowfang Keep
