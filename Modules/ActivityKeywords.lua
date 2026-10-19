@@ -121,6 +121,7 @@ C.MAP_ID_TO_KEYWORDS = {
     [2939] = { "mn", "dr" }, -- The Dreamrift
     [3004] = { "mn", "va" }, -- The Venomous Abyss
     [2987] = { "mn", "tg" }, -- The Tidebound Grotto
+    [3095] = { "mn", "uok", "kith" }, -- The Unbinding of Kith'ix
 
     -- Dungeons
     [ 658] = { "wotlk", "pos", "mns1" }, -- Pit of Saron
@@ -218,6 +219,7 @@ C.MAP_ID_TO_KEYWORDS = {
 
 -- Raider.io keywords can be found here:
 -- https://raider.io/api/v1/mythic-plus/static-data?expansion_id=11
+-- https://raider.io/api/v1/raiding/static-data?expansion_id=11
 
 local function PutActivityKeywordsDefaults(env)
     for activityID, keywords in pairs(C.ACTIVITY_ID_TO_KEYWORDS) do
