@@ -23,6 +23,36 @@ local L = PGF.L
 local C = PGF.C
 
 PGF.roleIndicators = {}
+local hiddenBlizzardTextures = {}
+
+function PGF.RestoreBlizzardRoleIcons(self)
+    local textures = hiddenBlizzardTextures[self]
+    if not textures then return end
+    for texture, alpha in pairs(textures) do
+        -- Blizzard may already have refreshed the texture, including its delisted alpha.
+        if texture:GetAlpha() == 0 then
+            texture:SetAlpha(alpha)
+        end
+    end
+    hiddenBlizzardTextures[self] = nil
+end
+
+local function HideBlizzardRoleIcon(self, icon)
+    local textures = hiddenBlizzardTextures[self]
+    if not textures then
+        textures = {}
+        hiddenBlizzardTextures[self] = textures
+    end
+    -- Leave the frame and its leaver indicator intact. Do not add fields to Blizzard frames.
+    for _, key in ipairs({ "ClassCircle", "RoleIcon", "RoleIconWithBackground" }) do
+        local texture = icon[key]
+        if texture then
+            textures[texture] = texture:GetAlpha()
+            texture:SetAlpha(0)
+        end
+    end
+end
+
 function PGF.GetOrCreateRoleIndicatorFrames(self, numIcons)
     -- creating frames each time will soon flood the UI with frames, so we create them once for each search result frame
     -- we store our frame in our own table to avoid any taint of the search result frame
@@ -108,6 +138,8 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
     end
 
     local members = PGF.GetSearchResultMemberInfoTable(self.resultID, searchResultInfo.numMembers)
+    -- Missing member data can shift PGF's ordering; keep Blizzard's icons in that case.
+    local hideBlizzardIcons = PGF.IsRetail() and #members == searchResultInfo.numMembers
     for i = 1, #members do
         local color = searchResultInfo.isDelisted and { r = 0.2, g = 0.2, b = 0.2 } or members[i].classColor
         frames[i]:Show()
@@ -128,6 +160,11 @@ function PGF.AddRoleIndicators(self, searchResultInfo)
             frames[i].SpecIcon:SetTexture(members[i].specIcon)
             frames[i].SpecIcon:SetDesaturated(searchResultInfo.isDelisted)
             frames[i].SpecIcon:SetAlpha(searchResultInfo.isDelisted and 0.5 or 1.0)
+            if hideBlizzardIcons and members[i].specIcon then
+                -- Blizzard numbers slots right to left; PGF orders members left to right.
+                local icon = self.DataDisplay.Enumerate.Icons[numIcons - i + 1]
+                if icon then HideBlizzardRoleIcon(self, icon) end
+            end
         end
         if PremadeGroupsFilterSettings.leaderCrown and members[i].isLeader then
             frames[i].LeaderCrown:Show()

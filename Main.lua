@@ -451,6 +451,7 @@ function PGF.ColorGroupTexts(self, searchResultInfo)
 end
 
 function PGF.OnLFGListSearchEntryUpdate(self)
+    PGF.RestoreBlizzardRoleIcons(self)
     -- Clear our own overlays even when restricted data cannot be processed.
     local ratingFrame = PGF.ratingInfoFrames[self]
     if ratingFrame then ratingFrame:Hide() end

@@ -91,6 +91,11 @@ local PGFSettingsTable = {
         tooltip = L["settings.specIcon.tooltip"],
         image = "Interface\\AddOns\\PremadeGroupsFilter\\Textures\\SettingsSpecIcon",
         visible = PGF.SupportsSpecializations(),
+        callback = function()
+            if LFGListFrame and LFGListFrame.SearchPanel then
+                LFGListSearchPanel_UpdateResults(LFGListFrame.SearchPanel)
+            end
+        end,
     },
     {
         key = "classCircle",
